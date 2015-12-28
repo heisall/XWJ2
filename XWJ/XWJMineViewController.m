@@ -301,7 +301,7 @@ NSArray *myImgs;
     if (indexPath.row == 5) {
         
         UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-        [UIApplication sharedApplication].keyWindow.rootViewController = [loginStoryboard instantiateInitialViewController];
+        self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
     }
     
 }

@@ -75,7 +75,12 @@
     
 }
 
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+//    self.navigationController.navigationBar.hidden=YES;
+}
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     NSString *username = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
     NSString *pwd = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
     
@@ -99,6 +104,10 @@
     return YES;//隐藏为YES，显示为NO
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -198,7 +207,7 @@
                     
                     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
                     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                    window.rootViewController = tab;
+                    self.view.window.rootViewController = tab;
                 }
             }else{
                 NSString *errCode = [dic objectForKey:@"errorCode"];

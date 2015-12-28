@@ -11,6 +11,7 @@
 #import "XWJUrl.h"
 #import "XWJAccount.h"
 #import "XWJUtil.h"
+#import "ProgressHUD.h"
 @interface XWJResetPasswordViewController ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *txtFieldPwd;
 
@@ -72,14 +73,17 @@
                 UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 alertview.delegate = self;
                 [alertview show];
+                
+//                [ProgressHUD showSuccess:@"注册成功"];
+                
+                
             }else{
-             
-    //        [_txtFieldPwd resignFirstResponder];
                 NSString *errCode = [dic objectForKey:@"errorCode"];
-            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            alertview.delegate = self;
-                alertview.tag = 100;
-            [alertview show];
+                [ProgressHUD showError:errCode];
+//            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//            alertview.delegate = self;
+//                alertview.tag = 100;
+//            [alertview show];
             }
         }
 //        id jsonObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&error];
@@ -121,7 +125,7 @@
 //    UIViewController *view =[self.storyboard instantiateViewControllerWithIdentifier:@"xuanzefangshi"];
     
 //    [self.navigationController showViewController:view sender:nil];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -132,7 +136,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    self.navigationController.navigationBar.hidden = YES;
+}
 /*
 #pragma mark - Navigation
 

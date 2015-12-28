@@ -58,9 +58,7 @@
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertview show];
         
-//        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//        window.rootViewController = tab;            //        });
+
     }];
 }
 

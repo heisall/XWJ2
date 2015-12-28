@@ -41,7 +41,8 @@
 //    self.adView.backgroundColor =[UIColor blackColor];
     [self.view addSubview:self.adView];
     
-    
+        self.automaticallyAdjustsScrollViewInsets = NO;
+
     [self addView];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJShanghuCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 

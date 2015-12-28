@@ -99,9 +99,9 @@
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, SCREEN_SIZE.width, 20)];
     adView  = [[UIView alloc] initWithFrame:CGRectMake(0, titleLabel.frame.origin.y+titleLabel.bounds.size.height, SCREEN_SIZE.width, 150)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, adView.frame.origin.y+adView.bounds.size.height, 80, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, adView.frame.origin.y+adView.bounds.size.height, 120, 30)];
 
-    youhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, adView.frame.origin.y+adView.bounds.size.height, SCREEN_SIZE.width, 30)];
+    youhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.size.width, adView.frame.origin.y+adView.bounds.size.height, SCREEN_SIZE.width, 30)];
     shichangjiaLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, label.frame.origin.y+label.bounds.size.height, 100, 30)];
     xiaoliangLabel = [[UILabel alloc] initWithFrame:CGRectMake(150,label.frame.origin.y+label.bounds.size.height, 150, 30)];
     
@@ -128,7 +128,7 @@
     shichangjiaLabel.text = @"市场价 100";
     xiaoliangLabel.text = @"销量： 100";
     titleLabel.text = @"农夫山泉 天然饮用水";
-    label.text = @"优惠价：";
+    label.text = @"业主专属价：";
 
     [scrollView addSubview:view];
 }
@@ -377,9 +377,11 @@
         NSMutableArray * typeArr2 = [NSMutableArray array];
 //        [typeArr2 addObject:typeArr];
         for (NSString *s in typeArr) {
-            if ([s isEqualToString:@"在线订购"]) {
+            if ([s isEqualToString:@"立即购买"]||[s isEqualToString:@"在线订购"]) {
+                [typeArr2 addObject:@""];
                 [typeArr2 addObject:@"加入购物车"];
-            }
+                [typeArr2 addObject:@"立即购买"];
+            }else
             [typeArr2 addObject:s];
         }
         
@@ -398,6 +400,7 @@
                 [button setTitle:[title objectAtIndex:i] forState:UIControlStateNormal];
 //                [button setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
 //                [button setBackgroundImage:[UIImage imageNamed:@"shuonormal"] forState:UIControlStateNormal];
+                button.titleLabel.font = [UIFont systemFontOfSize:15];
                 [button setBackgroundColor:XWJGREENCOLOR];
 //                [button setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];
                 [button setTitleColor:XWJGREENCOLOR forState:UIControlStateSelected];
@@ -426,7 +429,7 @@
         XWJYueLineViewController *view = [car instantiateViewControllerWithIdentifier:@"yuyueline"];
         view.goodid = [self.goodsDic objectForKey:@"goods_id"];
         view.stordid = [self.goodsDic objectForKey:@"store_id"];
-
+        view.goodname = [self.goodsDic objectForKey:@"goods_name"];
         [self.navigationController showViewController:view sender:nil];
         
     }else if([butn.titleLabel.text isEqualToString:@"优惠政策"]){
@@ -434,7 +437,7 @@
         con.zhengce = [self.goodsDic objectForKey:@"policy"];
         [self.navigationController showViewController:con sender:nil];
 
-    }else if([butn.titleLabel.text isEqualToString:@"在线订购"]){
+    }else if([butn.titleLabel.text isEqualToString:@"立即购买"]){
 //        UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
 //        XWJYueLineViewController *view = [car instantiateViewControllerWithIdentifier:@"yuyueline"];
 //        [self.navigationController showViewController:view sender:nil];

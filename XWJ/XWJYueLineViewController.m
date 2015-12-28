@@ -60,7 +60,9 @@
             NSNumber *nu = [dic objectForKey:@"result"];
             
             if ([nu integerValue]== 1) {
+                
                 [ProgressHUD showSuccess:@"预约成功"];
+                [self sendSMS];
             }else{
                 [ProgressHUD showError:@"预约失败"];
             }
@@ -69,6 +71,25 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
+    }];
+}
+-(void)sendSMS{
+    NSString *uid = @"2735";
+    NSString *phone = self.phoneTextF.text;
+    NSString *content = [NSString stringWithFormat:YUYUEMESSAGE_CONTENT,self.goodname,self.lianxirenTextF.text,self.phoneTextF.text];
+    NSString *urlStr = [NSString stringWithFormat:IDCODE_URL,uid,phone,content];
+    
+    NSLog(@"url %@",urlStr);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer new];
+    
+    [manager GET:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"success");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"failure");
     }];
 }
 - (void)didReceiveMemoryWarning {

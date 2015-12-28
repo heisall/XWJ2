@@ -11,6 +11,8 @@
 #import "XWJCity.h"
 #import "XWJLoginViewController.h"
 #import "XWJTabViewController.h"
+#import "XWJHomeViewController.h"
+#import "ProgressHUD.h"
 //#define 1000000000
 @interface XWJBingHouseViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property NSInteger typeindex;
@@ -239,32 +241,33 @@
             }
         }];
     }else{
-        
-        UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"验证失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        alertview.delegate = self;
-        [alertview show];
+        [ProgressHUD showError:@"验证失败"];
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     NSArray *views = self.navigationController.viewControllers;
-    BOOL fromLogin = NO;
+    BOOL isHome = NO;
     for (UIViewController *con  in views) {
-        if ([con isKindOfClass:[XWJLoginViewController class]]) {
-            fromLogin = YES;
+        if ([con isKindOfClass:[XWJHomeViewController class]]) {
+            isHome = YES;
             break;
         }
     }
-    if (fromLogin) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }else{
+    if (isHome) {
         
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    }else{
+    
+//        [self.navigationController popToRootViewControllerAnimated:YES];
         XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        window.rootViewController = tab;
+        
+//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        self.view.window.rootViewController = tab;
     }
 }
+
 //- (IBAction)bind:(UIButton *)sender {
 //}
 

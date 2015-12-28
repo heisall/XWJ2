@@ -31,6 +31,8 @@
     self.thumbArr = [NSMutableArray array];
     self.adArr = [NSMutableArray array];
     tabledata = [NSMutableArray array];
+        self.automaticallyAdjustsScrollViewInsets = NO;
+
     [self getShuoMore];
 
 //    [self addView];

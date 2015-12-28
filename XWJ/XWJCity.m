@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "XWJdef.h"
 #import "XWJAccount.h"
+#import "ProgressHUD.h"
 @implementation XWJCity
 
 
@@ -157,6 +158,10 @@
             NSDictionary *data  = [dic objectForKey:@"data"];
                 NSLog(@"dic %@",data);
 
+            if ([data objectForKey:@"info"]==[NSNull null]) {
+                [ProgressHUD showError:@"没有业主信息" ];
+                success(nil) ;
+            }
             
             _yezhu = [NSMutableDictionary dictionaryWithDictionary:[data objectForKey:@"info"]];
             NSLog(@"dic %@",dic);

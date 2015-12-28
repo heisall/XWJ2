@@ -106,12 +106,10 @@
         
 }
 - (IBAction)xuanze:(UIButton *)sender {
-    
-    
     [XWJAccount instance].aid = @"1";
     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    window.rootViewController = tab;
+    self.view.window.rootViewController = tab;
 //    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

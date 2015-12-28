@@ -13,5 +13,5 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextF;
 @property NSString *goodid;
 @property NSString *stordid;
-
+@property NSString *goodname;
 @end

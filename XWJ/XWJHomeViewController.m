@@ -184,7 +184,8 @@ NSArray *footer;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 //    [dict setValue:[XWJCity instance].aid  forKey:@"a_id"];
-        [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
+//        [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
+            [dict setValue:@"1" forKey:@"a_id"];
 
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];

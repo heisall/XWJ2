@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="3Nr-LV-8Dz">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DNV-TY-hZF">
+                        <rect key="frame" x="0.0" y="0.0" width="128" height="150"/>
+                    </button>
+                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wI9-xo-tSC">
+                        <rect key="frame" x="129" y="1" width="95" height="73.5"/>
+                    </button>
+                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2r-kV-cfa">
+                        <rect key="frame" x="225" y="1" width="95" height="73.5"/>
+                    </button>
+                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qjl-vx-PBB">
+                        <rect key="frame" x="129" y="75" width="95" height="73.5"/>
+                    </button>
+                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIk-Gq-Go1">
+                        <rect key="frame" x="225" y="74.5" width="95" height="73.5"/>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="DNV-TY-hZF" firstAttribute="top" secondItem="3Nr-LV-8Dz" secondAttribute="top" id="01s-1K-cYS"/>
+                <constraint firstAttribute="trailing" secondItem="A2r-kV-cfa" secondAttribute="trailing" id="1Q9-JX-rYF"/>
+                <constraint firstItem="DNV-TY-hZF" firstAttribute="width" secondItem="3Nr-LV-8Dz" secondAttribute="width" multiplier="2:5" id="7vs-qx-jgO"/>
+                <constraint firstItem="DNV-TY-hZF" firstAttribute="leading" secondItem="3Nr-LV-8Dz" secondAttribute="leading" id="GeV-Gl-y51"/>
+                <constraint firstItem="Qjl-vx-PBB" firstAttribute="width" secondItem="wI9-xo-tSC" secondAttribute="width" id="Jnp-2f-BBE"/>
+                <constraint firstAttribute="bottom" secondItem="Qjl-vx-PBB" secondAttribute="bottom" constant="1" id="KSo-YD-oOF"/>
+                <constraint firstItem="A2r-kV-cfa" firstAttribute="width" secondItem="wI9-xo-tSC" secondAttribute="width" id="L0Y-Bg-gHY"/>
+                <constraint firstItem="A2r-kV-cfa" firstAttribute="height" secondItem="wI9-xo-tSC" secondAttribute="height" id="M1j-bm-IMy"/>
+                <constraint firstItem="Qjl-vx-PBB" firstAttribute="top" secondItem="wI9-xo-tSC" secondAttribute="bottom" constant="1" id="Mdd-q0-neB"/>
+                <constraint firstItem="KIk-Gq-Go1" firstAttribute="width" secondItem="Qjl-vx-PBB" secondAttribute="width" id="MnP-cB-6OJ"/>
+                <constraint firstAttribute="bottom" secondItem="DNV-TY-hZF" secondAttribute="bottom" id="PQ8-kg-kuc"/>
+                <constraint firstItem="Qjl-vx-PBB" firstAttribute="leading" secondItem="wI9-xo-tSC" secondAttribute="leading" id="RNK-dY-lQr"/>
+                <constraint firstItem="A2r-kV-cfa" firstAttribute="centerY" secondItem="wI9-xo-tSC" secondAttribute="centerY" id="XsK-pF-Pjd"/>
+                <constraint firstItem="wI9-xo-tSC" firstAttribute="top" secondItem="3Nr-LV-8Dz" secondAttribute="top" constant="1" id="ew6-Ck-AR0"/>
+                <constraint firstItem="KIk-Gq-Go1" firstAttribute="leading" secondItem="Qjl-vx-PBB" secondAttribute="leading" id="gjf-CB-Ald"/>
+                <constraint firstItem="KIk-Gq-Go1" firstAttribute="leading" secondItem="Qjl-vx-PBB" secondAttribute="trailing" constant="1" id="hnM-hK-gZ9"/>
+                <constraint firstItem="A2r-kV-cfa" firstAttribute="leading" secondItem="wI9-xo-tSC" secondAttribute="trailing" constant="1" id="nOY-TG-axT"/>
+                <constraint firstItem="Qjl-vx-PBB" firstAttribute="height" secondItem="wI9-xo-tSC" secondAttribute="height" id="p5d-JU-4Eg"/>
+                <constraint firstItem="KIk-Gq-Go1" firstAttribute="centerY" secondItem="Qjl-vx-PBB" secondAttribute="centerY" id="pdW-Gk-XB0"/>
+                <constraint firstItem="KIk-Gq-Go1" firstAttribute="height" secondItem="Qjl-vx-PBB" secondAttribute="height" id="sSk-t2-PIP"/>
+                <constraint firstItem="wI9-xo-tSC" firstAttribute="leading" secondItem="DNV-TY-hZF" secondAttribute="trailing" constant="1" id="zdC-XD-cXf"/>
+            </constraints>
+            <size key="customSize" width="435" height="140"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="gjf-CB-Ald"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="206" y="62"/>
+        </collectionViewCell>
+    </objects>
+</document>

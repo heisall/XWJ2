@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="0dV-xR-ptB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="513-dc-gag">
+                        <rect key="frame" x="0.0" y="0.0" width="140.5" height="150"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFU-sN-tGS">
+                        <rect key="frame" x="141.5" y="0.0" width="178.5" height="75"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="kFU-sN-tGS" secondAttribute="height" multiplier="3:2" constant="66" id="nhV-fA-4nq"/>
+                        </constraints>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8z-m1-QMQ">
+                        <rect key="frame" x="141.5" y="75" width="178.5" height="75"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="kFU-sN-tGS" firstAttribute="width" secondItem="e8z-m1-QMQ" secondAttribute="width" id="0Dx-uk-C0W"/>
+                <constraint firstAttribute="trailing" secondItem="kFU-sN-tGS" secondAttribute="trailing" id="HWI-Lb-VZb"/>
+                <constraint firstItem="513-dc-gag" firstAttribute="height" secondItem="0dV-xR-ptB" secondAttribute="height" id="NkW-cw-L1D"/>
+                <constraint firstItem="kFU-sN-tGS" firstAttribute="height" secondItem="e8z-m1-QMQ" secondAttribute="height" id="QD4-s8-OFO"/>
+                <constraint firstAttribute="bottom" secondItem="e8z-m1-QMQ" secondAttribute="bottom" id="Tym-Df-IsV"/>
+                <constraint firstItem="e8z-m1-QMQ" firstAttribute="top" secondItem="kFU-sN-tGS" secondAttribute="bottom" id="fP5-PH-XA3"/>
+                <constraint firstItem="513-dc-gag" firstAttribute="leading" secondItem="0dV-xR-ptB" secondAttribute="leading" id="gl5-ge-ZCk"/>
+                <constraint firstAttribute="trailing" secondItem="e8z-m1-QMQ" secondAttribute="trailing" id="lTf-Oc-aUw"/>
+                <constraint firstItem="513-dc-gag" firstAttribute="centerY" secondItem="0dV-xR-ptB" secondAttribute="centerY" id="oNc-Ws-5Zd"/>
+                <constraint firstItem="kFU-sN-tGS" firstAttribute="leading" secondItem="513-dc-gag" secondAttribute="trailing" constant="1" id="p5N-6v-YPj"/>
+                <constraint firstItem="kFU-sN-tGS" firstAttribute="top" secondItem="0dV-xR-ptB" secondAttribute="top" id="ppS-KV-6QB"/>
+            </constraints>
+            <size key="customSize" width="374" height="202"/>
+            <point key="canvasLocation" x="245" y="276"/>
+        </collectionViewCell>
+    </objects>
+</document>

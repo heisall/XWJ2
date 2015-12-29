@@ -17,6 +17,9 @@
 
 //#define XWJBASEURL @"http://115.28.48.166:8100/appPhone/"
 #define XWJBASEURL @"http://www.hisenseplus.com:8100/appPhone/rest/"
+//admin.hisenseplus.com
+
+//#define XWJBASEURL @"http://www.hisenseplus.com:8100/appPhone/rest/"
 #define IDCODE_URL @"http://dx.qxtsms.cn/sms.aspx?action=send&userid=%@&account=hisenseplus&password=hisenseplus&mobile=%@&content=%@&sendTime=&checkcontent=1"
 
 #define LOGIN_URL  XWJBASEURL"user/userLogin"

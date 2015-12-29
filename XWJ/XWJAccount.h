@@ -23,7 +23,6 @@
 @property NSString *intrest;
 @property NSString *qianming;
 @property NSString *aid;
-
 /*
  "A_id" = 4;
  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";
@@ -38,6 +37,8 @@
  */
 - (void)loginSuccess:(void (^)(NSData *))success
              failure:(void (^)(NSError *error))failure;
+
+-(void)login:(NSString *)username :(NSString *)pwd;
 
 -(void)logout;
 @end

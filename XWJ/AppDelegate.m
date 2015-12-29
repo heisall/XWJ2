@@ -175,6 +175,7 @@
                     for (NSDictionary *di in [XWJAccount instance].array ) {
                         if ([[di valueForKey:@"isDefault" ] integerValue]== 1) {
                             [XWJAccount instance].aid = [NSString stringWithFormat:@"%@",[di valueForKey:@"A_id"]];
+
                         }
                     }
                 }

@@ -13,7 +13,8 @@
 -(instancetype)init{
     self = [super init];
     UIColor *tabarTitleNormalColor = [UIColor colorWithRed:144.0/255.0 green:145.0/255.0 blue:146/255.0 alpha:1.0];
-    ;
+//    UIColor *tabarTitleNormalColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+    
 
     UIColor *tabarTitleHighlightColor = [UIColor colorWithRed:20.0/255.0 green:157.0/255.0 blue:150/255.0 alpha:1.0];
     ;

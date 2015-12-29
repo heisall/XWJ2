@@ -82,6 +82,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             
             UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setTitle:[array objectAtIndex:i] forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:15.0];
             [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
             btn.frame = CGRectMake(i*width, 0, width, 40);
             [btn setImage:[UIImage imageNamed:@"xinfangarrow"] forState:UIControlStateNormal];

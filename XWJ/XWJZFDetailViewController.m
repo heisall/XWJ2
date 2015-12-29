@@ -92,9 +92,17 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+        self.miaoshuLabel.frame = CGRectMake(self.miaoshuLabel.frame.origin.x, self.miaoshuLabel.frame.origin.y, SCREEN_SIZE.width,150 );
+
+    self.backScroll.contentSize = CGSizeMake(0
+                                             , SCREEN_SIZE.height +100);
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.backScroll.contentSize = CGSizeMake(SCREEN_SIZE.width
+//    self.miaoshuLabel.frame = CGRectMake(self.miaoshuLabel.frame.origin.x, self.miaoshuLabel.frame.origin.y, SCREEN_SIZE.width, );
+    self.backScroll.contentSize = CGSizeMake(0
                                              , SCREEN_SIZE.height +100);
 }
 
@@ -389,7 +397,12 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:[self.datailDic valueForKey:@"id"]  forKey:@"lpId"];
     [dict setValue:type  forKey:@"type"];
     [dict setValue: account.uid  forKey:@"userid"];
-    
+    NSString *collect = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"isCollected"]];
+    if ([collect isEqualToString:@"0"]) {
+        [dict setValue:@"1" forKey:@"isCollect"];
+    }else{
+        [dict setValue:@"0" forKey:@"isCollect"];
+    }
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -406,7 +419,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
                 alertview.delegate = self;
                 [alertview show];
                 
-                [self.navigationController popViewControllerAnimated:YES];
+//                [self.navigationController popViewControllerAnimated:YES];
                 
                 
             }

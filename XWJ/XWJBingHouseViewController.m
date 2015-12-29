@@ -267,10 +267,10 @@
                 [alertview show];
                 
 //                if ([XWJAccount instance].array.count<0) {
-                
-                    NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
-                    NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
-                    [[XWJAccount instance] login:uname :pass];
+//                
+//                    NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
+//                    NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
+//                    [[XWJAccount instance] login:uname :pass];
 //                }
                 
                 alertview.delegate = self;
@@ -297,11 +297,11 @@
     }else{
     
 //        [self.navigationController popToRootViewControllerAnimated:YES];
-        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+//        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         
-//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        self.view.window.rootViewController = tab;
-    }
+
+        UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+        self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];    }
 }
 
 //- (IBAction)bind:(UIButton *)sender {

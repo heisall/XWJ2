@@ -45,7 +45,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationItem.title = @"生活信息";
+    self.navigationItem.title = @"便民信息";
     self.navigationItem.leftBarButtonItem = nil;
 }
 

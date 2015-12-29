@@ -73,12 +73,15 @@
     
     
     UIView *bgView = [[UIView alloc] initWithFrame:self.tabBar.bounds];
-    bgView.backgroundColor = [UIColor colorWithRed:48.0/255.0 green:49.0/255.0 blue:50.0/255.0 alpha:1.0];
+//    bgView.backgroundColor = [UIColor colorWithRed:48.0/255.0 green:49.0/255.0 blue:50.0/255.0 alpha:1.0];
+    bgView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self.tabBar insertSubview:bgView atIndex:0];
     self.tabBar.opaque = YES;
     
-    self.tabBar.backgroundColor = [UIColor colorWithRed:48.0/255.0 green:49.0/255.0 blue:50.0/255.0 alpha:1.0];
-    
+//    self.tabBar.backgroundColor = [UIColor colorWithRed:48.0/255.0 green:49.0/255.0 blue:50.0/255.0 alpha:1.0];
+
+    self.tabBar.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+
 //    if (IOS_VERSION<IOS7) {
 //        
 //        NSString *tabbarString = [UIImage imageBundlePath:@"tabbar_bg.png"];

@@ -46,6 +46,7 @@
 #define GETFINDLIST_URL XWJBASEURL"find/findIndex"
 #define GETFIND_URL XWJBASEURL"find/findDetail"
 #define GETFINDPUBCOM_URL XWJBASEURL"user/publishComments"
+#define GETFINDPUB_URL XWJBASEURL"user/saveFind"
 
 #define GETWUYE_URL XWJBASEURL"sup/supIndex"
 #define GETWUYEDETAIL_URL XWJBASEURL"sup/supDetail"

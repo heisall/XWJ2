@@ -56,10 +56,10 @@
 
     UIImage *image = [UIImage imageNamed:@"gouwuche"];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 100, 30);
+    btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     [btn addTarget:self action:@selector(gouwuche) forControlEvents:UIControlEventTouchUpInside];
-    [btn setTitle:@"购物车" forState:UIControlStateNormal];
-    [btn setBackgroundImage:image forState:UIControlStateNormal];
+//    [btn setTitle:@"购物车" forState:UIControlStateNormal];
+    [btn setImage:image forState:UIControlStateNormal];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem = barButtonItem;
     self.navigationItem.title = @"生活";

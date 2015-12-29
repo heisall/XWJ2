@@ -225,9 +225,11 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     [self.dialBtn setTitle:[NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"contactPerson"],[self.datailDic objectForKey:@"contactPhone"]] forState:UIControlStateNormal];
     
-    
-    self.collectionData = [NSArray arrayWithArray:[self.datailDic objectForKey:@"supporting"]];
-    [self.collectionIView reloadData];
+    if([self.datailDic objectForKey:@"supporting"]!=[NSNull null]){
+        
+        self.collectionData = [NSArray arrayWithArray:[self.datailDic objectForKey:@"supporting"]];
+        [self.collectionIView reloadData];
+    }
     //    @property (weak, nonatomic) IBOutlet UIImageView *yaoshiView;
     //    @property (weak, nonatomic) IBOutlet UIImageView *xuequView;
     self.miaoshuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"des"]];
@@ -400,6 +402,13 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:type  forKey:@"type"];
     [dict setValue: account.uid  forKey:@"userid"];
     
+    NSString *collect = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"isCollected"]];
+    if ([collect isEqualToString:@"0"]) {
+        [dict setValue:@"1" forKey:@"isCollect"];
+    }else{
+        [dict setValue:@"0" forKey:@"isCollect"];
+    }
+
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -416,7 +425,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
                 alertview.delegate = self;
                 [alertview show];
                 
-                [self.navigationController popViewControllerAnimated:YES];
+//                [self.navigationController popViewControllerAnimated:YES];
                 
                 
             }

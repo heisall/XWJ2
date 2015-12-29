@@ -23,7 +23,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"物业通知";
+    if ([self.type isEqualToString:@"0"]) {
+        self.navigationItem.title = @"物业通知";
+    }else{
+        self.navigationItem.title = @"社区活动";
+    }
     
     /*
      ClickCount = 34;

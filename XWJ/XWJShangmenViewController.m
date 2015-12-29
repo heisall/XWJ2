@@ -28,6 +28,7 @@
     
     scroll =  [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.adView.frame.origin.y+self.adView.bounds.size.height+10, SCREEN_SIZE.width, SCREEN_SIZE.height-PADDINGBOTTOM-PADDINGTOP-self.adView.bounds.size.height)];
     
+    self.navigationItem.title = @"便民信息";
     
     [self.view addSubview:self.adView];
     [self.view addSubview:scroll];

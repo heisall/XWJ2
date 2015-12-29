@@ -45,6 +45,8 @@ CGFloat collectionCellHeight;
 CGFloat collectionCellWidth;
 static NSString *kcellIdentifier = @"homecollectionCellID2";
 static NSString *kcellIdentifier1 = @"homecollectionCellID3";
+static NSString *kcellIdentifier4 = @"homecollectionCellID4";
+
 static NSString *kheaderIdentifier = @"headerIdentifier";
 NSArray *footer;
 -(void)viewDidLoad{
@@ -57,11 +59,13 @@ NSArray *footer;
 //     [XWJCity instance].aid = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_id"];
     [XWJAccount instance].aid = [XWJAccount instance].aid;
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJSupplementaryView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kheaderIdentifier];
-    footer = [NSArray arrayWithObjects:@"生活信息",@"商城信息",@"房屋信息", nil];
+    footer = [NSArray arrayWithObjects:@"便民信息",@"商城信息",@"房屋信息", nil];
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJHomeCollectionCell2" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJHomeCollectionCell3" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier1];
     
+    [self.collectionView registerNib:[UINib nibWithNibName:@"XWJHomeCollectionCell4" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier4];
+
     self.shows = [NSMutableArray array];
     self.notices = [NSMutableArray array];
     [self getAd];
@@ -184,8 +188,8 @@ NSArray *footer;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 //    [dict setValue:[XWJCity instance].aid  forKey:@"a_id"];
-        [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
-//            [dict setValue:@"1" forKey:@"a_id"];
+//        [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
+            [dict setValue:@"1" forKey:@"a_id"];
 
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -531,7 +535,7 @@ NSArray *footer;
             
         }
         
-    }else{
+    }else if (indexPath.section==0){
         //重用cell
         cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:kcellIdentifier forIndexPath:indexPath];
       
@@ -552,11 +556,59 @@ NSArray *footer;
 
         }
 
+    }else{
+        cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:kcellIdentifier4 forIndexPath:indexPath];
+        
+//        NSArray *array1 = [NSArray arrayWithObjects:@"homess",@"homejz", @"homexy",@"homexh",@"homedg",nil];
+//        NSArray *array2 = [NSArray arrayWithObjects:@"shangjia0",@"shangjia1",@"shangjia2", @"shangjia3",@"shangjia4",nil];
+        for (int i= 0; i<5; i++) {
+            UIView *view = (UIView *)[cell viewWithTag:i+1];
+            view.userInteractionEnabled = YES;
+            UITapGestureRecognizer* singleRecognizer;
+            singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shangchengclick:)];
+            //点击的次数
+            singleRecognizer.numberOfTapsRequired = 1;
+            [view addGestureRecognizer:singleRecognizer];
+        }
     }
     return cell;
     
 }
 
+-(void)shangchengclick:(UITapGestureRecognizer *)ges{
+    [self.tabBarController setSelectedIndex:2];
+
+//    switch (view.tag) {
+//        case 1:
+//        {
+//            
+//        }
+//            break;
+//        case 2:
+//        {
+//            
+//        }
+//            break;
+//        case 3:
+//        {
+//            
+//        }
+//            break;
+//        case 4:
+//        {
+//            
+//        }
+//            break;
+//        case 5:
+//        {
+//            
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+    
+}
 -(void)colleciotnCellclick:(UIButton *)btn{
 //    NSLog(@"%p %@",__FUNCTION__,btn);
     NSLog(@"title %@ tag %lu",btn.titleLabel.text,btn.tag);

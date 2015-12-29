@@ -9,6 +9,10 @@
 #import "XWJFindPubViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "LGPhoto.h"
+#import "ProgressHUD.h"
+#import "XWJAccount.h"
+#import "AFNetworking.h"
+#import "XWJUtil.h"
 #define IMAGECOUNT 6
 
 #define IMAGE_WIDTH 80
@@ -19,7 +23,9 @@
 @property (nonatomic, assign) LGShowImageType showType;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScroll;
 @property (nonatomic)UIBarButtonItem *rightBarItem;
-@property (nonatomic)NSArray *imageArray;
+@property (nonatomic)NSMutableArray *imageArray;
+
+@property NSInteger select;
 @end
 
 @implementation XWJFindPubViewController
@@ -37,6 +43,8 @@
 //    self.dataSource = [NSArray arrayWithObjects:@"二手市场",@"帮帮忙",@"个人商店", nil];
     [self.dataSource removeObjectAtIndex:0];
     self.contentTextView.delegate = self;
+    self.select = 0;
+    self.imageArray = [NSMutableArray array];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -53,7 +61,67 @@
     
 }
 -(void)submit{
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [ProgressHUD show:@"正在发布" Interaction:YES];
+    NSString *url = GETFINDPUB_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setValue:@"" forKey:@"rentHouse"];
+    /*
+     a_id	小区a_id
+     appId	登录用户id
+     types	类型
+     content	内容
+     pic1	Base64格式的字符串
+     pic2	Base64格式的字符串
+     pic3	Base64格式的字符串
+     pic4	Base64格式的字符串
+     pic5	Base64格式的字符串
+     pic6	Base64格式的字符串
+     */
+    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
+    [dict setValue:[XWJAccount instance].uid forKey:@"appId"];
+    [dict setValue:self.contentTextView.text forKey:@"content"];
+    [dict setValue:[[self.dataSource objectAtIndex:self.select] objectForKey:@"dictValue"] forKey:@"types"];
+//    [dict s];
+    NSInteger count = self.imageArray.count;
+    for (int i=0; i<count; i++) {
+        [dict setObject:[self.imageArray objectAtIndex:i] forKey:[NSString stringWithFormat:@"pic%d",i+1]] ;
+    }
+
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            
+            
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *nu = [dic objectForKey:@"result"];
+            [ProgressHUD dismiss];
+            if ([nu integerValue]== 1) {
+                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"发布成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                alertview.delegate = self;
+                [alertview show];
+            }else{
+                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                alertview.delegate = self;
+                [alertview show];
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+            NSLog(@"dic %@",dic);
+        }
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+    
     NSLog(@"submit");
 }
 
@@ -101,6 +169,11 @@
             LGPhotoAssets *asset = [assets objectAtIndex:i];
             UIImageView *imageView = [self.imageScroll viewWithTag:TAG+i];
             imageView.image = asset.compressionImage;
+            
+            NSData *data = UIImageJPEGRepresentation(imageView.image,1.0);
+          
+            NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+            [self.imageArray addObject:encodeResult];
         }
         self.imageScroll.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * count, IMAGE_WIDTH);
 
@@ -136,6 +209,8 @@
 }
 
 
+
+
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
@@ -146,7 +221,10 @@
     self.navigationItem.rightBarButtonItem = done;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    self.select = indexPath.row;
+}
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     self.navigationItem.rightBarButtonItem = self.rightBarItem;

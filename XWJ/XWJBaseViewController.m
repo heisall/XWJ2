@@ -67,7 +67,9 @@
 //    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
 //    self.navigationItem.leftBarButtonItem = barItem;
     //set navigation bar background color
-    self.navigationController.navigationBar.barTintColor  = [UIColor colorWithRed:20.0/255.0 green:157.0/255.0 blue:150.0/255.0 alpha:1.0];
+//    self.navigationController.navigationBar.barTintColor  = [UIColor colorWithRed:20.0/255.0 green:157.0/255.0 blue:150.0/255.0 alpha:1.0];
+        self.navigationController.navigationBar.barTintColor  = [UIColor colorWithRed:49/255.0 green:203/255.0 blue:201/255.0 alpha:1.0];
+
 }
 
 -(void)back{

@@ -68,8 +68,12 @@
         [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"lpId"];
         [dict setValue:@"1"  forKey:@"type"];
         [dict setValue: account.uid  forKey:@"userid"];
+    NSString *collect = [NSString stringWithFormat:@"%@",[self.dic objectForKey:@"isCollected"]];
+    if ([collect isEqualToString:@"0"]) {
         [dict setValue:@"1" forKey:@"isCollect"];
-    
+    }else{
+        [dict setValue:@"0" forKey:@"isCollect"];
+    }
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%s success ",__FUNCTION__);

@@ -206,7 +206,7 @@
                 }else{
                     
                     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     self.view.window.rootViewController = tab;
                 }
             }else{
@@ -224,7 +224,7 @@
             //            UIWindow *window = [UIApplication sharedApplication].keyWindow;
             //            window.rootViewController = tab;            //        });
             
-            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"登陆失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"服务端返回异常" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             alertview.delegate = self;
             [alertview show];
         }];

@@ -184,6 +184,7 @@
 		A43C98501C15CBEB006A61EE /* XWJForgetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43C984F1C15CBEB006A61EE /* XWJForgetPwdViewController.m */; };
 		A43C98531C15CC15006A61EE /* XWJForgetPwd2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43C98521C15CC15006A61EE /* XWJForgetPwd2ViewController.m */; };
 		A43C98591C15E07D006A61EE /* XWJAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = A43C98581C15E07D006A61EE /* XWJAccount.m */; };
+		A44290D91C32D6B6008816B3 /* XWJHomeCollectionCell4.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44290D81C32D6B6008816B3 /* XWJHomeCollectionCell4.xib */; };
 		A4462E641C2EE365004361BB /* XWJSPDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4462E631C2EE365004361BB /* XWJSPDetailTableViewCell.m */; };
 		A4462E661C2EE37F004361BB /* XWJSPDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4462E651C2EE37F004361BB /* XWJSPDetail.xib */; };
 		A459474C1C2CB34D00DD8A2E /* XWJShangmenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459474B1C2CB34D00DD8A2E /* XWJShangmenViewController.m */; };
@@ -596,6 +597,7 @@
 		A43C98541C15CF0E006A61EE /* XWJUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWJUrl.h; sourceTree = "<group>"; };
 		A43C98571C15E07D006A61EE /* XWJAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJAccount.h; sourceTree = "<group>"; };
 		A43C98581C15E07D006A61EE /* XWJAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJAccount.m; sourceTree = "<group>"; };
+		A44290D81C32D6B6008816B3 /* XWJHomeCollectionCell4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJHomeCollectionCell4.xib; sourceTree = "<group>"; };
 		A4462E621C2EE365004361BB /* XWJSPDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSPDetailTableViewCell.h; sourceTree = "<group>"; };
 		A4462E631C2EE365004361BB /* XWJSPDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSPDetailTableViewCell.m; sourceTree = "<group>"; };
 		A4462E651C2EE37F004361BB /* XWJSPDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJSPDetail.xib; sourceTree = "<group>"; };
@@ -1348,6 +1350,7 @@
 				A4DC3CB31C1DFC8A003D4D18 /* XWJADViewController.m */,
 				A43810BE1C1EF491001D2F29 /* XWJBMViewController.h */,
 				A43810BF1C1EF491001D2F29 /* XWJBMViewController.m */,
+				A44290D81C32D6B6008816B3 /* XWJHomeCollectionCell4.xib */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1758,6 +1761,7 @@
 				A43C97F11C129C68006A61EE /* broswerPic3.jpg in Resources */,
 				A4093EEF1C10AEF100F2F324 /* agreeButtonBg@2x.png in Resources */,
 				A48801AA1C0AB22A00714F5B /* baritemSelectedIndicator@2x.png in Resources */,
+				A44290D91C32D6B6008816B3 /* XWJHomeCollectionCell4.xib in Resources */,
 				A48801AC1C0AB2DE00714F5B /* backIcon@2x.png in Resources */,
 				A43C97F31C129C68006A61EE /* btn_back_imagePicker@2x.png in Resources */,
 				A412558C1C0F59120042D8CC /* WuyeStoryboard.storyboard in Resources */,

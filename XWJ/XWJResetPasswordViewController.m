@@ -109,7 +109,8 @@
 //        [self.navigationController popToRootViewControllerAnimated:YES];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"res fail ");
+        [ProgressHUD showError:@"服务器异常"];
+        NSLog(@"res fail %@",error);
         ret = 0;
 //        [self.navigationController popToRootViewControllerAnimated:YES];
     }];

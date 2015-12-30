@@ -1568,6 +1568,7 @@
 				A4F40BD41C098862006E2F19 /* BindHouse */,
 				DAC4AF191BF0619700D66E76 /* Supporting Files */,
 				DAC4AF1D1BF0619700D66E76 /* AppDelegate.h */,
+				DAC4AF261BF0619700D66E76 /* Images.xcassets */,
 				DAC4AF1E1BF0619700D66E76 /* AppDelegate.m */,
 				DAC4AF201BF0619700D66E76 /* ViewController.h */,
 				DAC4AF211BF0619700D66E76 /* ViewController.m */,
@@ -1609,7 +1610,6 @@
 		DAC4AF191BF0619700D66E76 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DAC4AF261BF0619700D66E76 /* Images.xcassets */,
 				DAC4AF1A1BF0619700D66E76 /* Info.plist */,
 				DAC4AF1B1BF0619700D66E76 /* main.m */,
 			);

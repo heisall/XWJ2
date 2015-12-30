@@ -25,6 +25,7 @@
     
     self.automaticallyAdjustsScrollViewInsets = YES;
 
+    self.navigationItem.title = @"购物车";
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerNib:[UINib nibWithNibName:@"XWJGouwucheCell" bundle:nil] forCellReuseIdentifier:@"cell"];

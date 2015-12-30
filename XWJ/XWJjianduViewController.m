@@ -40,6 +40,7 @@
     self.work = [NSMutableArray array];
     self.yuangong = [NSMutableArray array];
 
+    self.scrollview.frame = CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, SCREEN_SIZE.height/6);
     [self getWuye];
 }
 
@@ -78,9 +79,9 @@
 //    })];
     
     NSInteger count = self.work.count;
-    CGFloat width = self.view.bounds.size.width/2;
+    CGFloat width = 2*self.view.bounds.size.width/3;
     CGFloat height = self.adScrollView.bounds.size.height;
-    self.adScrollView.contentSize = CGSizeMake(width*count, height);
+    self.adScrollView.contentSize = CGSizeMake(width*(count)+60, height);
     for (int i=0; i<count; i++) {
         
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(i*(width+10), 0, width, height-10)];

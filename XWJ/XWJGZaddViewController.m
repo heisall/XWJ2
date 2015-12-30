@@ -40,13 +40,77 @@
         [self.scrollView addSubview:imgView];
     }
     self.lp = [NSMutableArray arrayWithObjects:@"随时上门",@"上午",@"下午",@"晚上", nil];
+    self.imageDatas = [NSMutableArray array];
+
 }
 - (IBAction)addImage:(UIButton *)sender {
-    [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+    
+    
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"请选择" message:nil preferredStyle:0];
+    [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [self LoadImageWith:UIImagePickerControllerSourceTypeCamera];
+        }
+        else
+        {
+            UIAlertView * a = [[UIAlertView alloc]initWithTitle:@"本机不支持" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [a show];
+        }
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+
+//        [self LoadImageWith:UIImagePickerControllerSourceTypePhotoLibrary];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+    
 
 
 }
 
+-(void)LoadImageWith:(UIImagePickerControllerSourceType)type
+{
+    UIImagePickerController * pick = [[UIImagePickerController alloc]init];
+    pick.sourceType=type;
+    pick.delegate=self;
+    pick.allowsEditing=self;
+    [self presentViewController:pick animated:NO completion:nil];
+    
+}
+//代理方法
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    //获取图片并编码；
+    UIImage * image = [info objectForKey:UIImagePickerControllerEditedImage];
+
+    NSInteger count = self.imageDatas.count;
+    
+    if (count>6) {
+        return;
+    }
+    UIImageView *imageView = [self.scrollView viewWithTag:imgtag+count];
+
+    imageView.image = image;
+    
+    NSData *data = UIImageJPEGRepresentation(imageView.image,0.4);
+    
+    
+    NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    if (encodeResult) {
+        
+        [self.imageDatas addObject:encodeResult];
+    }
+    self.scrollView.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageDatas.count, IMAGE_WIDTH);
+
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    NSLog(@"已取消选择");
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
     // 创建控制器
     LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
@@ -62,24 +126,20 @@
 - (void)pickerViewControllerDoneAsstes:(NSArray *)assets isOriginal:(BOOL)original{
     
     if (assets&&assets.count>0) {
-        self.imageDatas = [NSMutableArray array];
         NSUInteger count = assets.count;
-        for (int i=0; i<count; i++) {
+        
+        NSInteger imgCount = self.imageDatas.count;
+        if (imgCount+count>6) {
+            [ProgressHUD showError:@"最多上传六张图片"];
+            return;
+        }
+        for (NSInteger i=0; i<count; i++) {
             LGPhotoAssets *asset = [assets objectAtIndex:i];
-            UIImageView *imageView = [self.scrollView viewWithTag:imgtag+i];
+            UIImageView *imageView = [self.scrollView viewWithTag:imgtag+i+imgCount];
             imageView.image = asset.compressionImage;
             
-            NSData *data = UIImageJPEGRepresentation(imageView.image,1.0);
-            //            NSString *aString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            
-            
-            
-//            NSString *aString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            
-            
-//            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
-//            NSString *rawString=[[NSString alloc]initWithData:data encoding:enc];
-//            NSString *rawString=[[NSString alloc]initWithData:data encoding:NSASCIIStringEncoding];
+            NSData *data = UIImageJPEGRepresentation(imageView.image,0.4);
+
 
             NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
             if (encodeResult) {
@@ -91,7 +151,7 @@
             }
         }
         
-        self.scrollView.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * count, IMAGE_WIDTH);
+        self.scrollView.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageDatas.count, IMAGE_WIDTH);
         
     }
     
@@ -193,6 +253,8 @@
  */
 - (IBAction)submit:(id)sender {
     
+    [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
+
     [ProgressHUD show:@"正在发布" Interaction:YES];
 
     [self.guzhangTV resignFirstResponder];

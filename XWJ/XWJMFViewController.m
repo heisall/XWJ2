@@ -20,7 +20,7 @@
     CGFloat collectionCellHeight;
     CGFloat collectionCellWidth;
     UIView *backview;
-    UIView *helperView;
+    UIScrollView *helperView;
 }
 #define IMAGECOUNT 6
 
@@ -155,7 +155,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:kcellIdentifier forIndexPath:indexPath];
     //赋值
     UIButton *btn = (UIButton *)[cell viewWithTag:1];
-
+    btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     NSString * key = [NSString stringWithFormat:@"%@",[self.collectionData[indexPath.section*COLLECTION_NUMITEMS+indexPath.row] objectForKey:@"dicValue"]];
     [btn setTitle: key forState:UIControlStateNormal];
 //    if (indexPath.row%2==0) {
@@ -293,7 +293,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     //    //添加helper视图
     float kHelperOrign_X=30;
     float kHelperOrign_Y=(self.view.frame.size.height-300)/2+64;
-    helperView=[[UIView alloc]initWithFrame:CGRectMake(kHelperOrign_X, kHelperOrign_Y,self.view.frame.size.width-2*kHelperOrign_X, 300)];
+    helperView=[[UIScrollView alloc]initWithFrame:CGRectMake(kHelperOrign_X, kHelperOrign_Y,self.view.frame.size.width-2*kHelperOrign_X, 300)];
     helperView.backgroundColor=[UIColor whiteColor];
     helperView.layer.cornerRadius=5;
     helperView.tag=1002;
@@ -353,10 +353,19 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         
         [helperView addSubview:button];
     }
+    helperView.contentSize = CGSizeMake(0, 40*(count+1));
 
 }
 
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden =YES;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
 
 -(void)get2hangFubFilter{
     NSString *url = GET2HANDFBFILTER_URL;
@@ -465,6 +474,8 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
 - (IBAction)sure:(UIButton *)sender {
     
+    [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
+
     [ProgressHUD show:@"正在发布" Interaction:YES];
     NSString *url = GET2HANDFB_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

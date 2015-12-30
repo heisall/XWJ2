@@ -32,8 +32,8 @@
     self.payTableView.tag = TAG;
     
     self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户", nil];
-    self.payarray = [NSArray arrayWithObjects:@"微信支付",@"支付宝", nil];
-    self.zhifuIconArr = [NSArray arrayWithObjects:@"zhifuweixin",@"zhifubao", nil];
+    self.payarray = [NSArray arrayWithObjects:@"微信支付", nil];
+    self.zhifuIconArr = [NSArray arrayWithObjects:@"zhifuweixin", nil];
     self.height = 80;
 }
 

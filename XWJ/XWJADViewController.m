@@ -21,6 +21,7 @@
     
     [self.view addSubview:self.webView];
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:[_dic valueForKey:@"url"]]];
+    self.webView.scalesPageToFit = TRUE;
     [self.webView loadRequest:request];
     self.navigationItem.title =@"详情";
 }

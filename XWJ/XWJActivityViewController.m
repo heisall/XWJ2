@@ -56,7 +56,7 @@
     }else{
         self.webView.frame = CGRectMake(0, 180, SCREEN_SIZE.width, SCREEN_SIZE.height);
     }
-    
+    self.webView.scalesPageToFit = TRUE;
     NSString *url = [self.dic valueForKey:KEY_AD_URL];
     if (url&&(NSNull *)url != [NSNull null]) {
 

@@ -59,9 +59,18 @@
     self.rightBarItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     
+    self.tabBarController.tabBar.hidden =YES;
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
 }
 -(void)submit{
     
+    [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
     [ProgressHUD show:@"正在发布" Interaction:YES];
     NSString *url = GETFINDPUB_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

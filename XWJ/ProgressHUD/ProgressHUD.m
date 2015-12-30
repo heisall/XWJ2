@@ -160,7 +160,8 @@
 	{
 		image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
 	}
-	if (image.superview == nil) [hud addSubview:image];
+
+    if (image.superview == nil) [hud addSubview:image];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (label == nil)
 	{

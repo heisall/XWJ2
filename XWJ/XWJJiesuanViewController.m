@@ -24,8 +24,8 @@
     
     self.scrollView.contentSize = CGSizeMake(0, 1000);
 //    self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户", nil];
-    self.payarray = [NSArray arrayWithObjects:@"货到付款",@"微信支付",@"支付宝", nil];
-    self.zhifuIconArr = [NSArray arrayWithObjects:@"",@"zhifuweixin",@"zhifubao", nil];
+    self.payarray = [NSArray arrayWithObjects:@"货到付款",@"微信支付", nil];
+    self.zhifuIconArr = [NSArray arrayWithObjects:@"",@"zhifuweixin", nil];
     
     [self.shangpinTableView registerNib:[UINib nibWithNibName:@"XWJJiesuanCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 

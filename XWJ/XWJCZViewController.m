@@ -20,7 +20,7 @@
     CGFloat collectionCellWidth;
     
     UIView *backview;
-    UIView *helperView;
+    UIScrollView *helperView;
 }
 @property (weak, nonatomic) IBOutlet UITextField *shiTF;
 @property (weak, nonatomic) IBOutlet UITextField *tingTF;
@@ -79,8 +79,18 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.zujinTF.delegate = self;
     [self getZFFubFilter];
     self.navigationItem.title = @"我要出租";
+    
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden =YES;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
 -(void)showSortView:(UIButton *)btn{
     //添加半透明背景图
     backview=[[UIView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.window.frame.size.height)];
@@ -94,7 +104,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     //    //添加helper视图
     float kHelperOrign_X=30;
     float kHelperOrign_Y=(self.view.frame.size.height-300)/2+64;
-    helperView=[[UIView alloc]initWithFrame:CGRectMake(kHelperOrign_X, kHelperOrign_Y,self.view.frame.size.width-2*kHelperOrign_X, 300)];
+    helperView=[[UIScrollView alloc]initWithFrame:CGRectMake(kHelperOrign_X, kHelperOrign_Y,self.view.frame.size.width-2*kHelperOrign_X, 300)];
     helperView.backgroundColor=[UIColor whiteColor];
     helperView.layer.cornerRadius=5;
     helperView.tag=1002;
@@ -134,7 +144,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         
         [helperView addSubview:button];
     }
-    
+    helperView.contentSize = CGSizeMake(0, 40*(count+1));
 }
 -(void)closeButtonClicked{
     //    UIView *backview=[self.view.window viewWithTag:3333];
@@ -146,6 +156,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self closeButtonClicked];
     NSInteger index = button.tag - 60001;
     NSLog(@"selcet id %ld",index);
+    self.lpIndex = index;
     self.xiaoquLabel.text = [NSString stringWithFormat:@"%@",[[self.lp objectAtIndex:index] objectForKey:@"dicValue"]];
 
 }
@@ -432,6 +443,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self showSortView:sender];
 }
 - (IBAction)sure:(UIButton *)sender {
+    [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
     [ProgressHUD show:@"正在发布" Interaction:YES];
     NSString *url = GETCHUZUFB_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -487,7 +499,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 //
 //    [dict setValue:[[self.cx objectAtIndex:self.cxIndex] objectForKey:@"dicKey"] forKey:@"orientation"];
 //    [dict setValue:[[self.zx objectAtIndex:self.zxIndex] objectForKey:@"dicKey"] forKey:@"renovationInfo"];
-//    [dict setValue:((UITextField *)[self.tableView viewWithTag:102]).text forKey:@"mobilePhone"];
+    [dict setValue:((UITextField *)[self.tableView viewWithTag:102]).text forKey:@"mobilePhone"];
     if (self.imageDatas) {
         [dict setObject:self.imageDatas forKey:@"photo"];
     }

@@ -106,7 +106,7 @@
     self.btn = [NSMutableArray array];
     NSInteger count = 4;
     CGFloat width = self.view.bounds.size.width/4;
-    CGFloat height = 60;
+    CGFloat height = 50;
     CGFloat btny = self.adView.frame.origin.y+self.adView.bounds.size.height+10;
     NSArray * title = [NSArray arrayWithObjects:@"上门",@"商户",@"商品",@"家装", nil];
     for (int i=0; i<count; i++) {
@@ -141,11 +141,12 @@
 
 -(void)addTypeOneView:(NSArray*)arr{
     NSInteger hang = 4;
-    CGFloat paddingLeft =20;
-    CGFloat paddingTop = 110;
+    CGFloat paddingLeft =25;
+    CGFloat paddingTop = 100;
     NSInteger count = arr.count;
-    CGFloat width = self.view.bounds.size.width/hang;
+    CGFloat width = self.view.bounds.size.width/hang-10;
     CGFloat height = width;
+    CGFloat labelWidth = 50;
 //    NSArray * title = [NSArray arrayWithObjects:@"上门",@"商户",@"商品",@"家装", nil];
     for (int i=0; i<count; i++) {
         
@@ -154,8 +155,8 @@
         }
 
             UIImageView *button = [[UIImageView alloc] init];
-            
-            button.frame = CGRectMake(width*(i%hang)+paddingLeft/2, paddingLeft+i/hang*paddingTop, width-paddingLeft, height-paddingLeft);
+        
+            button.frame = CGRectMake((width+10)*(i%hang)+paddingLeft/2, paddingLeft+i/hang*paddingTop, width-paddingLeft, height-paddingLeft);
             button.tag = 1000+i;
             button.userInteractionEnabled = YES;
             
@@ -165,29 +166,31 @@
             }else{
                 url = @"";
             }
-            
+            button.contentMode =  UIViewContentModeScaleAspectFill;
             [button sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
             UITapGestureRecognizer* singleRecognizer;
             singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
             //点击的次数
             singleRecognizer.numberOfTapsRequired = 1;
             [button addGestureRecognizer:singleRecognizer];
-            UILabel *label  = [[UILabel alloc] initWithFrame:CGRectMake(width*(i%hang)+width/3.5, paddingLeft+i/hang*paddingTop+height-20, 50, 30)];
+        
+            UILabel *label  = [[UILabel alloc] initWithFrame:CGRectMake((width+10)*(i%hang)+paddingLeft/2+(width-labelWidth)/2-3, paddingLeft+i/hang*paddingTop+height-20, labelWidth, 30)];
 
             label.text = [[arr objectAtIndex:i] valueForKey:@"cateName"];
+        label.font = [UIFont systemFontOfSize:14.0];
             [self.typeContainView addSubview:label];
             [self.typeContainView addSubview:button];
 
     }
     
     CGFloat img_width = self.view.bounds.size.width/2;
-    CGFloat img_height = width;
+    CGFloat img_height = 90;
     
     for (int i=0; i<2; i++) {
         
         UIImageView *button = [[UIImageView alloc] init];
         
-        button.frame = CGRectMake((img_width+5)*(i), 2*height+60+self.typeContainView.frame.origin.y+paddingLeft+i/hang*paddingTop, img_width, img_height-paddingLeft);
+        button.frame = CGRectMake((img_width+1)*(i), 2*height+40+self.typeContainView.frame.origin.y+paddingLeft+i/hang*paddingTop, img_width, img_height);
         button.tag = 1000+i;
         button.userInteractionEnabled = YES;
         

@@ -21,6 +21,9 @@
 @property NSMutableArray *array4;
 @property NSInteger selecttype;
 @property NSMutableArray *adArr;
+@property NSMutableArray *adleftArr;
+@property NSMutableArray *adrightArr;
+
 @property NSMutableArray *thumbArr;
 
 @property NSMutableArray *btn;
@@ -176,8 +179,36 @@
             [self.typeContainView addSubview:button];
 
     }
+    
+    CGFloat img_width = self.view.bounds.size.width/2;
+    CGFloat img_height = width;
+    
+    for (int i=0; i<2; i++) {
+        
+        UIImageView *button = [[UIImageView alloc] init];
+        
+        button.frame = CGRectMake((img_width+5)*(i), 2*height+60+self.typeContainView.frame.origin.y+paddingLeft+i/hang*paddingTop, img_width, img_height-paddingLeft);
+        button.tag = 1000+i;
+        button.userInteractionEnabled = YES;
+        
+        NSString *url ;
+        if (i==0) {
+            url = [NSString stringWithFormat:@"%@",[[self.adleftArr objectAtIndex:0]objectForKey:@"Photo"]];
+        }else
+            url = [NSString stringWithFormat:@"%@",[[self.adrightArr objectAtIndex:0]objectForKey:@"Photo"]];
+
+        [button sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
+        UITapGestureRecognizer* singleRecognizer;
+        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgesingleTap:)];
+        //点击的次数
+        singleRecognizer.numberOfTapsRequired = 1;
+        [button addGestureRecognizer:singleRecognizer];
+        [self.scroll addSubview:button];
+    }
 }
 
+-(void)imgesingleTap:(UITapGestureRecognizer *)image{
+}
 -(void)singleTap:(UITapGestureRecognizer *)image{
     NSInteger index = image.view.tag;
     NSLog(@"single tap %lu",index);
@@ -223,6 +254,9 @@
             
             _selecttype = 1;
             self.adArr = [dic objectForKey:@"ad"];
+            self.adleftArr = [dic objectForKey:@"ad_left"];
+            self.adrightArr = [dic objectForKey:@"ad_right"];
+
 //            self.thumbArr = [dic objectForKey:@"jz"];
             self.array1 =  [dic objectForKey:@"sm"];
             self.array2 =  [dic objectForKey:@"sh"];

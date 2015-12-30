@@ -10,6 +10,7 @@
 #import "XWJShangHuTableViewCell.h"
 #import "LCBannerView.h"
 #import "XWJSPDetailViewController.h"
+#import "XWJAccount.h"
 #define PADDINGTOP 64.0
 #define BTN_WIDTH 100.0
 #define BTN_HEIGHT 50.0
@@ -134,7 +135,7 @@
     }
     [dict setValue:@"0" forKey:@"pageindex"];
     [dict setValue:@"100" forKey:@"countperpage"];
-
+//    [dict setValue:[XWJAccount instance].account forKey:@"account"];
     /*
      
      store_id	商户id	String

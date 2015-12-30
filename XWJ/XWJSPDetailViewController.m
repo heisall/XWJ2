@@ -376,6 +376,7 @@
     
         NSMutableArray * typeArr2 = [NSMutableArray array];
 //        [typeArr2 addObject:typeArr];
+
         for (NSString *s in typeArr) {
             if ([s isEqualToString:@"立即购买"]||[s isEqualToString:@"在线订购"]) {
                 [typeArr2 addObject:@""];
@@ -400,6 +401,11 @@
                 [button setTitle:[title objectAtIndex:i] forState:UIControlStateNormal];
 //                [button setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
 //                [button setBackgroundImage:[UIImage imageNamed:@"shuonormal"] forState:UIControlStateNormal];
+                
+                if ([[title objectAtIndex:i] isEqualToString:@""]) {
+                    
+                    [button setBackgroundImage:[UIImage imageNamed:@"gouwuche_small"] forState:UIControlStateNormal];
+                }
                 button.titleLabel.font = [UIFont systemFontOfSize:15];
                 [button setBackgroundColor:XWJGREENCOLOR];
 //                [button setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];

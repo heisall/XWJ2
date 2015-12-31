@@ -91,9 +91,9 @@
             NSURL *photo2 = [NSURL URLWithString:Arr[indexPath.row + 1][@"Photo"]];
             [img1 sd_setImageWithURL:photo];
             [img2 sd_setImageWithURL:photo2];
-//            carLabel1.text = Arr[indexPath.row ][@"content"];
-//            carLabel2.text = Arr[indexPath.row + 1][@"content"];
-//            
+            carLabel1.text = Arr[indexPath.row ][@"content"];
+            carLabel2.text = Arr[indexPath.row + 1][@"content"];
+//
             comLabel1.text = [NSString stringWithFormat:@"%@", Arr[indexPath.row ][@"LeaveWordCount"]];
             comLabel2.text = [NSString stringWithFormat:@"%@", Arr[indexPath.row  + 1][@"LeaveWordCount"]];
             

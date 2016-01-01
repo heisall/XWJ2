@@ -52,7 +52,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
-    [btn setTitle:@"提交" forState:UIControlStateNormal];
+    [btn setTitle:@"发布" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
 //    [btn setBackgroundImage:image forState:UIControlStateNormal];

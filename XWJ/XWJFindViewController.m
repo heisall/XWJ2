@@ -17,7 +17,7 @@
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 2
 #define  SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define  CELL_HEIGHT 250.0
+#define  CELL_HEIGHT 200.0
 #define  vspacing 40
 @implementation XWJFindViewController
 
@@ -268,12 +268,12 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 //定义每个Section 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(10, 15, 0, 15);//分别为上、左、下、右
+    return UIEdgeInsetsMake(10, 5, 0, 15);//分别为上、左、下、右
 }
 - (IBAction)huodong:(id)sender {
         UIStoryboard * noticeStory = [UIStoryboard storyboardWithName:@"HomeStoryboard" bundle:nil];
         XWJNoticeViewController *notice = [noticeStory instantiateViewControllerWithIdentifier:@"noticeController"];
-        notice.type  = @"0";
+        notice.type  = @"1";
         [self.navigationController showViewController:notice sender:nil];
 }
 - (IBAction)fabu:(id)sender {

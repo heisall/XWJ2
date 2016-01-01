@@ -11,7 +11,7 @@
 #import "XWJCity.h"
 #import "XWJActivityViewController.h"
 
-
+#define cell_height 120.0
 @interface XWJNoticeViewController ()<UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -62,6 +62,8 @@
             }
             self.array = arr2;
             [self.tableView reloadData];
+            self.tableView.contentSize = CGSizeMake(0, cell_height*self.array.count+120);
+
         }else{
             UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"暂没有相关内容" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertview show];
@@ -94,6 +96,15 @@
     return 1;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden =YES;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 //    return 30.0;
@@ -103,7 +114,7 @@
 //}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 120.0;
+    return cell_height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

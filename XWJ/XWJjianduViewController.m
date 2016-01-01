@@ -55,6 +55,7 @@
     [super viewWillAppear:animated];
     self.navigationItem.title = @"物业监督";
     self.view.backgroundColor = [UIColor whiteColor];
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)addViews{
@@ -117,6 +118,8 @@
         UILabel * label1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, width-20, 20)];
         label1.textColor = [UIColor whiteColor];
         label1.text = [[self.work objectAtIndex:i] valueForKey:@"Content"];
+        label1.font = [UIFont systemFontOfSize:14.0];
+//        label1.
         label1.lineBreakMode = NSLineBreakByWordWrapping;
         UILabel * label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 100, 20)];
         label2.textColor = [UIColor whiteColor];
@@ -125,6 +128,7 @@
         UILabel * label3 = [[UILabel alloc] initWithFrame:CGRectMake(130, 30, 50, 20)];
         label3.textColor = [UIColor whiteColor];
         label3.text = [NSString stringWithFormat:@"点击 %@",[[self.work objectAtIndex:i] objectForKey:@"ClickPraiseCount"]];
+        label3.font = [UIFont systemFontOfSize:14.0];
         
         [view addSubview:label1];
         [view addSubview:label2];
@@ -191,6 +195,12 @@
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

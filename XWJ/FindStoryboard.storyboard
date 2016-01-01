@@ -30,7 +30,7 @@
                                                 <color key="textColor" red="0.5568627451" green="0.56078431370000004" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dcf-g5-qvq">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dcf-g5-qvq">
                                                 <rect key="frame" x="547" y="0.0" width="30" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" image="next"/>
@@ -223,7 +223,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cy6-pr-nkk">
-                                <rect key="frame" x="175" y="77" width="250" height="40"/>
+                                <rect key="frame" x="175" y="74" width="250" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.58039215690000001" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="3pk-yZ-qQH"/>
@@ -256,7 +256,7 @@
                             <constraint firstItem="9U2-OI-XeB" firstAttribute="top" secondItem="Uvq-Z6-ssR" secondAttribute="top" id="ISx-KY-1Rt"/>
                             <constraint firstItem="9U2-OI-XeB" firstAttribute="leading" secondItem="Uvq-Z6-ssR" secondAttribute="trailing" constant="10" id="O3O-fp-mKe"/>
                             <constraint firstItem="Uvq-Z6-ssR" firstAttribute="top" secondItem="Byv-mq-1NK" secondAttribute="bottom" constant="8" id="Szf-FS-Aau"/>
-                            <constraint firstItem="cy6-pr-nkk" firstAttribute="top" secondItem="2Kb-FN-6DO" secondAttribute="bottom" constant="8" id="e7E-wF-05n"/>
+                            <constraint firstItem="cy6-pr-nkk" firstAttribute="top" secondItem="2Kb-FN-6DO" secondAttribute="bottom" constant="5" id="e7E-wF-05n"/>
                             <constraint firstItem="Uvq-Z6-ssR" firstAttribute="leading" secondItem="e1a-mV-uzi" secondAttribute="leadingMargin" constant="14" id="fnm-Xm-hGq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9U2-OI-XeB" secondAttribute="trailing" id="gLK-DV-RyU"/>
                             <constraint firstItem="2Kb-FN-6DO" firstAttribute="leading" secondItem="Uvq-Z6-ssR" secondAttribute="leading" id="j4t-Fo-gSy"/>
@@ -337,8 +337,8 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVw-M5-k7v">
-                                <rect key="frame" x="50" y="326" width="75" height="23"/>
-                                <state key="normal" title="评论 2" image="findpinglun">
+                                <rect key="frame" x="25" y="326" width="23" height="23"/>
+                                <state key="normal" image="findpinglun">
                                     <color key="titleColor" red="0.81568627449999997" green="0.81960784310000001" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
@@ -349,8 +349,8 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiL-x9-og4">
-                                <rect key="frame" x="491" y="326" width="59" height="23"/>
-                                <state key="normal" title="分享" image="findfx">
+                                <rect key="frame" x="552" y="326" width="23" height="23"/>
+                                <state key="normal" image="findfx">
                                     <color key="titleColor" red="0.81568627449999997" green="0.81960784310000001" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
@@ -473,18 +473,18 @@
                             <constraint firstItem="HRa-4w-Mjd" firstAttribute="top" secondItem="JgO-hS-7wJ" secondAttribute="bottom" id="dRb-g6-uaw"/>
                             <constraint firstItem="A4X-Wm-hvP" firstAttribute="width" secondItem="Hy9-Hz-i1x" secondAttribute="width" id="dby-B5-vxX"/>
                             <constraint firstItem="Fet-J3-SlY" firstAttribute="top" secondItem="kQR-ba-emJ" secondAttribute="bottom" constant="10" id="duO-6S-a8G"/>
-                            <constraint firstItem="KVw-M5-k7v" firstAttribute="leading" secondItem="Hy9-Hz-i1x" secondAttribute="leadingMargin" constant="30" id="gqF-be-JUg"/>
+                            <constraint firstItem="KVw-M5-k7v" firstAttribute="leading" secondItem="Hy9-Hz-i1x" secondAttribute="leadingMargin" constant="5" id="gqF-be-JUg"/>
                             <constraint firstItem="Fet-J3-SlY" firstAttribute="leading" secondItem="Hy9-Hz-i1x" secondAttribute="leadingMargin" id="jd7-xZ-ORv"/>
                             <constraint firstItem="Tzn-mX-lOj" firstAttribute="centerX" secondItem="Hy9-Hz-i1x" secondAttribute="centerX" id="lRg-IU-guS"/>
                             <constraint firstItem="A4X-Wm-hvP" firstAttribute="centerX" secondItem="Hy9-Hz-i1x" secondAttribute="centerX" id="oYL-ee-SbE"/>
                             <constraint firstItem="KXq-my-DZa" firstAttribute="top" secondItem="A4X-Wm-hvP" secondAttribute="bottom" constant="10" id="tnT-fH-gfP"/>
                             <constraint firstItem="4Vd-EF-lA1" firstAttribute="leading" secondItem="Hy9-Hz-i1x" secondAttribute="leadingMargin" constant="10" id="u6l-Ad-aod"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Fet-J3-SlY" secondAttribute="trailing" id="yu4-Xs-9zX"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="XiL-x9-og4" secondAttribute="trailing" constant="30" id="zLd-xu-Jex"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XiL-x9-og4" secondAttribute="trailing" constant="5" id="zLd-xu-Jex"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="CommentBtn" destination="d4k-Ix-a2U" id="Czh-Hc-nf9"/>
+                        <outlet property="CommentBtn" destination="KVw-M5-k7v" id="N40-Ia-SQG"/>
                         <outlet property="bottomView" destination="JgO-hS-7wJ" id="5yw-oQ-TfQ"/>
                         <outlet property="imageView" destination="Fet-J3-SlY" id="jkC-8Q-2sN"/>
                         <outlet property="infoBtn" destination="4Vd-EF-lA1" id="NfG-l4-0ij"/>

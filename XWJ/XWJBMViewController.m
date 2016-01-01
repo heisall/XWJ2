@@ -8,6 +8,7 @@
 
 #import "XWJBMViewController.h"
 #import "XWJAccount.h"
+#import "ProgressHUD/ProgressHUD.h"
 @interface XWJBMViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *phone;
 @property (weak, nonatomic) IBOutlet UITextField *name;
@@ -28,7 +29,13 @@
 - (IBAction)baoming:(id)sender {
     
     
+    
     [self.phone resignFirstResponder];
+    
+    if (!self.phone.text.length>0||!self.name.text.length>0) {
+        [ProgressHUD showError:@"请输入手机号和姓名"];
+        return;
+    }
     NSString *url = GETENROLL_URL;
     XWJAccount *account = [XWJAccount instance];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -59,7 +66,15 @@
         
     }];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden =YES;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

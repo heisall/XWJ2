@@ -179,17 +179,19 @@
 
 -(void)initView{
 
-    NSString * zanCount = [self.dic objectForKey:@"clickPraiseCount"]==[NSNull null]?@" ":[self.dic objectForKey:@"clickPraiseCount"];
-    NSString *  leaveCount= [self.dic objectForKey:@"leaveWordCount"]==[NSNull null]?@" ":[self.dic objectForKey:@"leaveWordCount"];
-    NSString * qqCount = [self.dic objectForKey:@"shareQQCount"]==[NSNull null]?@" ":[self.dic objectForKey:@"shareQQCount"];
+    NSString * zanCount = [self.dic objectForKey:@"ClickPraiseCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ClickPraiseCount"]];
+    NSString *  leaveCount= [self.dic objectForKey:@"LeaveWordCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"LeaveWordCount"]];
+    NSString * qqCount = [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ShareQQCount"]];
 //    NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"shareWXCount"]];
 
     [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
     [_CommentBtn setTitle:leaveCount forState:UIControlStateNormal];
-    [_shareBtn setTitle:qqCount forState:UIControlStateNormal];
-    [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
+//    [_shareBtn setTitle:qqCount forState:UIControlStateNormal];
+//    [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
+    NSString * name = [self.dic objectForKey:@"NickName"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"NickName"]];
 
-    _timelabel.text = [self.dic objectForKey:@"releaseTime"];
+    [_infoBtn setTitle:name forState:UIControlStateNormal];
+    _timelabel.text = [self.dic objectForKey:@"ReleaseTime"];
     _titleLabel.text=[self.dic objectForKey:@"content"];
         _typeLabel.text = [self.dic objectForKey:@"Memo"];
     
@@ -201,7 +203,7 @@
     }else{
         _typeLabel.backgroundColor = XWJColor(67, 164, 83);
     }
-    NSString *urls = [self.dic objectForKey:@"photo"];
+    NSString *urls = [self.dic objectForKey:@"Photo"];
     NSURL *url = [NSURL URLWithString:[[urls componentsSeparatedByString:@","] objectAtIndex:0]];
 
     [_imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed: @"demo"]];

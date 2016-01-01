@@ -52,9 +52,9 @@
     if (![self.type isEqualToString:@"1"]) {
         self.btn.hidden = YES;
         
-        self.webView.frame = CGRectMake(0, 130, SCREEN_SIZE.width, SCREEN_SIZE.height);
+        self.webView.frame = CGRectMake(0, 130, SCREEN_SIZE.width, SCREEN_SIZE.height-130);
     }else{
-        self.webView.frame = CGRectMake(0, 180, SCREEN_SIZE.width, SCREEN_SIZE.height);
+        self.webView.frame = CGRectMake(0, 180, SCREEN_SIZE.width, SCREEN_SIZE.height-180);
     }
     self.webView.scalesPageToFit = TRUE;
     NSString *url = [self.dic valueForKey:KEY_AD_URL];
@@ -65,7 +65,15 @@
     }
     
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden =YES;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
 //参数：id:通知/活动id ，account:用户账号，phone：手机号码， name:姓名
 - (IBAction)enroll:(UIButton *)sender {
     

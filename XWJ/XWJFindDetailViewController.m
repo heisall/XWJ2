@@ -59,10 +59,6 @@
 
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-//    self.scrollView.contentSize = CGSizeMake(0, 1000);
-}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
@@ -117,8 +113,8 @@
                 UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 alertview.delegate = self;
                 [alertview show];
-                
-                [self.navigationController popViewControllerAnimated:YES];
+                self.textView.text = @"在此发表评论";
+//                [self.navigationController popViewControllerAnimated:NO];
 
                 
             }
@@ -178,10 +174,20 @@
                  Types = "\U7559\U8a00";
                  */
                 
-                self.array = [[dict objectForKey:@"data"] objectForKey:@"comments"]; 
+                self.array = [NSArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
                 self.dic = [NSMutableDictionary dictionaryWithDictionary:[(NSDictionary*)[dict objectForKey:@"data"] objectForKey:@"find"] ];
                 [self initView];
+                
+                
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                
+//                    self.tableView.frame = CGRectMake(0
+//                                                      , self.tableView.frame.origin.y, SCREEN_SIZE.width, 100*self.array.count);
+////                    [self.view setNeedsLayout];
+//                });
+
                 [self.tableView reloadData];
+                self.scrollView.contentSize = CGSizeMake(0,self.phraseBtn.frame.origin.y +60+100*self.array.count);
 
             }
             
@@ -241,6 +247,7 @@
  types = "\U597d\U4eba\U597d\U4e8b";
  */
 #pragma mark - Table view data source
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.array.count;
 }
@@ -283,7 +290,7 @@
      Types = "\U7559\U8a00";
      */
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]]];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]]placeholderImage:[UIImage imageNamed:@"demo"]];
     cell.commenterLabel.text = [dic objectForKey:@"NickName"]==[NSNull null]?@" ":[dic objectForKey:@"NickName"];
     cell.timeLabel.text = [dic objectForKey:@"ReleaseTime"]==[NSNull null]?@" ":[dic objectForKey:@"ReleaseTime"];
     cell.contentLabel.text = [dic objectForKey:@"LeaveWord"]==[NSNull null]?@" ":[dic objectForKey:@"LeaveWord"];
@@ -338,7 +345,11 @@
     NSLog(@"hight_hitht:%f",kbSize.height);
     
     self.bottomRect = self.bottomView.frame ;
-    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height), self.bottomRect.size.width, self.bottomRect.size.height);
+//    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height), self.bottomRect.size.width, self.bottomRect.size.height);
+    
+    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-kbSize.height, self.bottomRect.size.width, self.bottomRect.size.height);
+
+    self.textView.text = @"";
     CGFloat keyboardhight;
     if(kbSize.height == 216)
     {

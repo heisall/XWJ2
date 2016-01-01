@@ -130,19 +130,19 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     switch (self.type) {
         case HOUSENEW:{
             title = @"新房";
-            [self getXinFang:nil];
+//            [self getXinFang:nil];
         }
             break;
         case HOUSE2:{
             title = @"二手房";
-            [self get2handfang:nil];
+//            [self get2handfang:nil];
             [self get2hangFilter];
             [self setRigthNavItem:0];
         }
             break;
         case HOUSEZU:{
             title = @"租房";
-            [self getZFang:nil];
+//            [self getZFang:nil];
             [self getZufangFilter];
             [self setRigthNavItem:1];
         }
@@ -156,6 +156,34 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     self.navigationItem.title = title;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    switch (self.type) {
+        case HOUSENEW:{
+
+            [self getXinFang:nil];
+        }
+            break;
+        case HOUSE2:{
+
+            [self get2handfang:nil];
+
+
+        }
+            break;
+        case HOUSEZU:{
+
+            [self getZFang:nil];
+        }
+            break;
+        default:
+            break;
+    }
+    self.tabBarController.tabBar.hidden = YES;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden = NO;
+}
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [self.searchbar resignFirstResponder];
     NSLog(@"");
@@ -194,7 +222,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     helperView.layer.cornerRadius=5;
     helperView.tag=1002;
     helperView.clipsToBounds=YES;
-    helperView.contentSize = CGSizeMake(helperView.frame.size.width, 500);
+
     [backview addSubview:helperView];
     
     UILabel *titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 200, 40)];
@@ -266,7 +294,8 @@ typedef NS_ENUM(NSUInteger, selecttype) {
         [button addTarget:self action:@selector(confirmbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [helperView addSubview:button];
     }
-   
+    helperView.contentSize = CGSizeMake(0, 40*(count+1));
+
 }
 
 -(void)getfangInfo{

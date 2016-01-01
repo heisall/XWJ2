@@ -35,17 +35,28 @@
         self.navigationItem.title = @"物业投诉";
     }
     self.guzhangArr = [NSMutableArray array];
-    [self getGuzhang];
+//    [self getGuzhang];
     [self setNavRightItem];
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getGuzhang];
 
+    self.tabBarController.tabBar.hidden =YES;
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
 -(void)setNavRightItem{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
     
     if (self.type == 1) {
-
-    [btn setTitle:@"报修" forState:UIControlStateNormal];
+        [btn setTitle:@"报修" forState:UIControlStateNormal];
     }else
         [btn setTitle:@"投诉" forState:UIControlStateNormal];
 
@@ -161,7 +172,7 @@
         XWJGZmiaoshuViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"guzhangmiaoxu"];
 //        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 //        [dic setValue:@"" forKey:@""];
-    detail.detaildic  =  [NSMutableDictionary dictionaryWithDictionary:[self.data objectAtIndex:indexPath.row]];
+    detail.detaildic  =  [NSMutableDictionary dictionaryWithDictionary:[self.guzhangArr objectAtIndex:indexPath.row]];
         [self.navigationController showViewController: detail sender:self];
 
     

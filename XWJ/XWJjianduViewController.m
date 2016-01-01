@@ -40,8 +40,7 @@
     self.work = [NSMutableArray array];
     self.yuangong = [NSMutableArray array];
 
-    self.scrollview.frame = CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, SCREEN_SIZE.height/6);
-    [self getWuye];
+//    self.scrollview.frame = CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, SCREEN_SIZE.height/7);
 }
 
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
@@ -56,6 +55,9 @@
     self.navigationItem.title = @"物业监督";
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
+//    self.scrollview.frame = CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, SCREEN_SIZE.height/7);
+    [self getWuye];
+
 }
 
 -(void)addViews{

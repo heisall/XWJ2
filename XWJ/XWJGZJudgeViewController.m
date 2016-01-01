@@ -22,12 +22,27 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title  = @"评价";
     
-    _bar = [[RatingBar alloc] initWithFrame:CGRectMake(200, 0, 180, 30)];
+    _bar = [[RatingBar alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-200, 0, 180, 30)];
     _bar.backgroundColor = XWJColor(235.0, 237.0, 239.0);
 
     self.content.text = self.miaoshu;
     [self.rateView addSubview:_bar];
+
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //    self.jinchangScroll.frame = CGRectMake(self.jinchangScroll.frame.origin.x, self.jinchangScroll.frame.origin.y, SCREEN_SIZE.width, self.jinchangScroll.frame.size.height+30);
+    self.tabBarController.tabBar.hidden =YES;
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
+
 - (IBAction)submit:(UIButton *)sender {
     
     /*

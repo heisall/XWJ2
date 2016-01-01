@@ -103,6 +103,7 @@
 		A41A1FE71C267EBB002129DF /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A41A1FE51C267EBB002129DF /* ProgressHUD.m */; };
 		A41A1FEA1C26E236002129DF /* XWJWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41A1FE91C26E236002129DF /* XWJWebViewController.m */; };
 		A41A1FED1C26F3F2002129DF /* XWJSHuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41A1FEC1C26F3F2002129DF /* XWJSHuoViewController.m */; };
+		A42DA7C11C36856D00EF74C1 /* devAdv_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A42DA7C01C36856D00EF74C1 /* devAdv_default@2x.png */; };
 		A43810C01C1EF491001D2F29 /* XWJBMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43810BF1C1EF491001D2F29 /* XWJBMViewController.m */; };
 		A43810D01C1FD135001D2F29 /* XWJButlerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43810CF1C1FD135001D2F29 /* XWJButlerViewController.m */; };
 		A43810FF1C231530001D2F29 /* XWJFindTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43810FE1C231530001D2F29 /* XWJFindTypeController.m */; };
@@ -462,6 +463,7 @@
 		A41A1FE91C26E236002129DF /* XWJWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJWebViewController.m; sourceTree = "<group>"; };
 		A41A1FEB1C26F3F2002129DF /* XWJSHuoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSHuoViewController.h; sourceTree = "<group>"; };
 		A41A1FEC1C26F3F2002129DF /* XWJSHuoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSHuoViewController.m; sourceTree = "<group>"; };
+		A42DA7C01C36856D00EF74C1 /* devAdv_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devAdv_default@2x.png"; sourceTree = "<group>"; };
 		A43810BE1C1EF491001D2F29 /* XWJBMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJBMViewController.h; sourceTree = "<group>"; };
 		A43810BF1C1EF491001D2F29 /* XWJBMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJBMViewController.m; sourceTree = "<group>"; };
 		A43810CE1C1FD135001D2F29 /* XWJButlerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJButlerViewController.h; sourceTree = "<group>"; };
@@ -1553,6 +1555,7 @@
 				A43C97DA1C129C68006A61EE /* Images */,
 				A43C97AE1C1298AF006A61EE /* Utils */,
 				A41255471C0F33770042D8CC /* devAdv_red@2x.png */,
+				A42DA7C01C36856D00EF74C1 /* devAdv_default@2x.png */,
 				A41255481C0F33770042D8CC /* devAdv_white@2x.png */,
 				A4093EEC1C10AEF100F2F324 /* agreeButtonBg@2x.png */,
 				A4093EED1C10AEF100F2F324 /* agreeButtonSelected@2x.png */,
@@ -1754,6 +1757,7 @@
 				A4F5C19C1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib in Resources */,
 				A48801CF1C0B5D1800714F5B /* devAdv_default@2x.png in Resources */,
 				A48801D21C0B5EC500714F5B /* FindStoryboard.storyboard in Resources */,
+				A42DA7C11C36856D00EF74C1 /* devAdv_default@2x.png in Resources */,
 				8E1327151C30DED000D3EDB5 /* MineStoryboard.storyboard in Resources */,
 				A43811191C24FFDD001D2F29 /* ShareSDKUI.bundle in Resources */,
 				A40CD5C41C17137000E4D520 /* XWJlifeCollectionView.xib in Resources */,

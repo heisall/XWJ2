@@ -15,7 +15,7 @@
 #define  COLLECTION_NUMSECTIONS 2
 #define  COLLECTION_NUMITEMS 5
 
-@interface XWJCZViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,LGPhotoPickerViewControllerDelegate>{
+@interface XWJCZViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,LGPhotoPickerViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     CGFloat collectionCellHeight;
     CGFloat collectionCellWidth;
     
@@ -70,7 +70,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.collectionView.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
+    self.tableView.scrollEnabled =false;
     for (int i = 0; i<IMAGECOUNT; i++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
         imgView.tag = imgtag+i;
@@ -79,7 +79,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.zujinTF.delegate = self;
     [self getZFFubFilter];
     self.navigationItem.title = @"我要出租";
-    
+    self.imageDatas = [NSMutableArray array];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -340,6 +340,47 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 //    UIButton *btn = (UIButton *)[cell viewWithTag:1];
 //    btn.selected = NO;
 //}
+-(void)LoadImageWith:(UIImagePickerControllerSourceType)type
+{
+    UIImagePickerController * pick = [[UIImagePickerController alloc]init];
+    pick.sourceType=type;
+    pick.delegate=self;
+    pick.allowsEditing=self;
+    [self presentViewController:pick animated:NO completion:nil];
+    
+}
+//代理方法
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    //获取图片并编码；
+    UIImage * image = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    NSInteger count = self.imageDatas.count;
+    
+    if (count>6) {
+        return;
+    }
+    UIImageView *imageView = [self.imgScrollView viewWithTag:imgtag+count];
+    
+    imageView.image = image;
+    
+    NSData *data = UIImageJPEGRepresentation(imageView.image,0.4);
+    
+    
+    NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    if (encodeResult) {
+        
+        [self.imageDatas addObject:encodeResult];
+    }
+    self.imgScrollView.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageDatas.count, IMAGE_WIDTH);
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    NSLog(@"已取消选择");
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
     // 创建控制器
     LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
@@ -355,25 +396,32 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 - (void)pickerViewControllerDoneAsstes:(NSArray *)assets isOriginal:(BOOL)original{
     
     if (assets&&assets.count>0) {
-        self.imageDatas = [NSMutableArray array];
         NSUInteger count = assets.count;
-        for (int i=0; i<count; i++) {
+        
+        NSInteger imgCount = self.imageDatas.count;
+        if (imgCount+count>6) {
+            [ProgressHUD showError:@"最多上传六张图片"];
+            return;
+        }
+        for (NSInteger i=0; i<count; i++) {
             LGPhotoAssets *asset = [assets objectAtIndex:i];
-            UIImageView *imageView = [self.imgScrollView viewWithTag:imgtag+i];
+            UIImageView *imageView = [self.imgScrollView viewWithTag:imgtag+i+imgCount];
             imageView.image = asset.compressionImage;
             
-            NSData *data = UIImageJPEGRepresentation(imageView.image,1.0);
-            //            NSString *aString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//            NSString *aString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//            NSString *rawString=[[NSString alloc]initWithData:data encoding:NSASCIIStringEncoding];
+            NSData *data = UIImageJPEGRepresentation(imageView.image,0.4);
+            
+            
             NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
             if (encodeResult) {
+                
                 [self.imageDatas addObject:encodeResult];
-            }else
-            [self.imageDatas addObject:data];
+            }else{
+                [self.imageDatas addObject:data];
+                
+            }
         }
         
-        self.imgScrollView.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * count, IMAGE_WIDTH);
+        self.imgScrollView.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageDatas.count, IMAGE_WIDTH);
         
     }
     
@@ -382,7 +430,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 -(void)getZFFubFilter{
     NSString *url = GETCHUZUFBFILTER_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+
     
     /*
      buildingInfo	小区名称	String

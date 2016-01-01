@@ -104,8 +104,11 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 //    self.miaoshuLabel.frame = CGRectMake(self.miaoshuLabel.frame.origin.x, self.miaoshuLabel.frame.origin.y, SCREEN_SIZE.width, );
     self.backScroll.contentSize = CGSizeMake(0
                                              , SCREEN_SIZE.height +100);
+    self.tabBarController.tabBar.hidden = YES;
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden = NO;
+}
 /**
  id	二手房id	String
  userid	登录用户id	String

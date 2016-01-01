@@ -51,6 +51,15 @@
     self.tableView.delegate =self;
     self.tableView.dataSource =self;
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
 }
 
@@ -177,7 +186,7 @@
                                                 
                                                                         delegate:self
                                                                        imageURLs:URLs
-                                                                placeholderImage:@"devAdv_default"
+                                                                placeholderImage:nil
                                                                    timerInterval:3.0f
                                                    currentPageIndicatorTintColor:[UIColor redColor]
                                                           pageIndicatorTintColor:[UIColor whiteColor]];

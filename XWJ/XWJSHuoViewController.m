@@ -10,6 +10,8 @@
 #import "XWJWebViewController.h"
 #import "LCBannerView.h"
 #import "XWJShuoListViewController.h"
+#import "XWJMyMessageController.h"
+#import "XWJAccount.h"
 #define PADDINGTOP 64.0
 @interface XWJSHuoViewController()<LCBannerViewDelegate>{
     CGFloat typeBtnheight;
@@ -51,6 +53,8 @@
     scroll.showsVerticalScrollIndicator = NO;
     [self addView];
     [self getGShuoAD];
+    
+
 
 }
 
@@ -65,8 +69,21 @@
     [btn setImage:image forState:UIControlStateNormal];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem = barButtonItem;
-    self.navigationItem.title = @"生活";
 
+    UIImage *image1 = [UIImage imageNamed:@"homemes"];
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn1.frame = CGRectMake(0, 0, image1.size.width, image1.size.height);
+    [btn1 addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
+    [btn1 setBackgroundImage:image1 forState:UIControlStateNormal];
+    UIBarButtonItem *rbarButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn1];
+    self.navigationItem.rightBarButtonItem = rbarButtonItem;
+    if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
+        for (NSDictionary *dic in [XWJAccount instance].array ) {
+            if ([[dic valueForKey:@"isDefault" ] integerValue]== 1) {
+                self.navigationItem.title = [NSString stringWithFormat:@"%@",[dic valueForKey:@"A_name"]];
+            }
+        }
+    }
 //    self.view.backgroundColor = [UIColor redColor];
     
 //    UILabel *label  = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 100)];
@@ -75,6 +92,14 @@
 //    [self.view addSubview:label];
 
 }
+
+-(void)showList{
+    //    UIStoryboard *wuyStory = [UIStoryboard storyboardWithName:@"WuyeStoryboard" bundle:nil];
+    //    [self.navigationController showViewController:[wuyStory instantiateInitialViewController] sender:nil];
+    UIViewController * con = [[XWJMyMessageController alloc] init];
+    [self.navigationController showViewController:con sender:nil];
+}
+
 -(void)gouwuche{
             UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
     [self.navigationController showViewController:[car instantiateInitialViewController] sender:self];
@@ -100,6 +125,7 @@
     
 }
 
+
 -(void)addView{
     self.adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
     
@@ -108,7 +134,7 @@
     CGFloat width = self.view.bounds.size.width/4;
     CGFloat height = 50;
     CGFloat btny = self.adView.frame.origin.y+self.adView.bounds.size.height+10;
-    NSArray * title = [NSArray arrayWithObjects:@"上门",@"商户",@"商品",@"家装", nil];
+    NSArray * title = [NSArray arrayWithObjects:@"上门",@"商户",@"食品",@"家装", nil];
     for (int i=0; i<count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(width*i, btny, width, height);

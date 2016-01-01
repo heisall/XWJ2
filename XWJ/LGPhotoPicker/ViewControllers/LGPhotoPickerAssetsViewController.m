@@ -403,7 +403,7 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
 //cell被点击会调用
 - (void) pickerCollectionCellTouchedIndexPath:(NSIndexPath *)indexPath
 {
-    [self setupPhotoBrowserInCasePreview:NO CurrentIndexPath:indexPath];
+//    [self setupPhotoBrowserInCasePreview:NO CurrentIndexPath:indexPath];
 }
 
 //cell的右上角选择框被点击会调用

@@ -98,8 +98,14 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [super viewWillAppear:animated];
     self.backScroll.contentSize = CGSizeMake(SCREEN_SIZE.width
                                              , SCREEN_SIZE.height +100);
+    self.tabBarController.tabBar.hidden =YES;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
 /**
  id	二手房id	String
  userid	登录用户id	String

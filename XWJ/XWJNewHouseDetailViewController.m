@@ -52,6 +52,12 @@
     [super viewWillAppear:animated];
     [self getXinFangdetail];
     self.navigationController.navigationBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = YES;
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 -(void)shouCang{

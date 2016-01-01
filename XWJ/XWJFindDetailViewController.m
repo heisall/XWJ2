@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timelabel;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property  CGRect bottomRect;
 
@@ -55,6 +56,22 @@
     
     [self.phraseBtn addTarget:self action:@selector(phrase:) forControlEvents:UIControlEventTouchUpInside];
 //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
+
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+//    self.scrollView.contentSize = CGSizeMake(0, 1000);
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+//    self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.width+60);
+
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 
 }
 

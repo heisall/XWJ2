@@ -17,10 +17,17 @@
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 2
 #define  SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define  CELL_HEIGHT 200.0
-#define  vspacing 40
-@implementation XWJFindViewController
+#define  CELL_HEIGHT 150.0
+#define  vspacing 35
 
+@interface XWJFindViewController(){
+    
+    UIView *backview;
+    UIScrollView *helperView;
+}
+
+@end
+@implementation XWJFindViewController
 static NSString *kcellIdentifier = @"findcollectionCellID";
 -(void)viewDidLoad{
     self.collectionView.dataSource = self;
@@ -33,8 +40,112 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJFindCollectionCellView" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier];
     
 
-    [self getFindList:nil];
+//    [self getFindList:nil];
     self.select = -1;
+}
+-(void)showSortView:(UIButton *)btn{
+    //添加半透明背景图
+    NSUInteger type = btn.tag;
+    backview=[[UIView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.window.frame.size.height)];
+    backview.backgroundColor=[UIColor colorWithWhite:0 alpha:0.6];
+    backview.tag=4444;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeButtonClicked)];
+    backview.userInteractionEnabled = YES;
+    [backview addGestureRecognizer:tap];
+    [self.view.window addSubview:backview];
+    
+    //    //添加helper视图
+    float kHelperOrign_X=30;
+    float kHelperOrign_Y=(self.view.frame.size.height-300)/2+64;
+    helperView=[[UIScrollView alloc]initWithFrame:CGRectMake(kHelperOrign_X, kHelperOrign_Y,self.view.frame.size.width-2*kHelperOrign_X, 300)];
+    helperView.backgroundColor=[UIColor whiteColor];
+    helperView.layer.cornerRadius=5;
+    helperView.tag=1002;
+    helperView.clipsToBounds=YES;
+    //    helperView.contentSize = CGSizeMake(helperView.frame.size.width, 500);
+    [backview addSubview:helperView];
+    
+    UILabel *titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 200, 40)];
+    titleLabel.textColor=[UIColor colorWithRed:95.0/255.0 green:170.0/255.0 blue:249.0/255.0 alpha:1];
+    titleLabel.font=[UIFont boldSystemFontOfSize:17];
+    [helperView addSubview:titleLabel];
+    UILabel *line=[[UILabel alloc]initWithFrame:CGRectMake(0, 40, helperView.frame.size.width, 2)];
+    line.backgroundColor=[UIColor colorWithRed:212.0/255.0 green:212.0/255.0 blue:212.0/255.0 alpha:1];
+    [helperView addSubview:line];
+    
+    NSMutableArray *array ;
+
+    array = self.findlistArr;
+    NSInteger  count = array.count  ;
+//    [array addObjectsFromArray:self.findlistArr];
+    for (int i=0; i<count; i++) {
+        UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame=CGRectMake(0, 40+40*i, helperView.frame.size.width, 40);
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 200, 40)];
+        label.text= [[array objectAtIndex:i] valueForKey:@"memo"];
+        [button addSubview:label];
+        
+        UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(button.frame.size.width-20-10, 10, 20, 20)];
+        //       imageView.image=[UIImage imageNamed:@"tcpUnselect"];
+        //        if (sortSelected==i) {
+        //            imageView.image=[UIImage imageNamed:@"tcpSelect"];
+        //        }
+        imageView.tag=7001;
+        [button addSubview:imageView];
+        
+        UILabel *line=[[UILabel alloc]initWithFrame:CGRectMake(0, 40-1, helperView.frame.size.width, 1)];
+        line.backgroundColor=[UIColor colorWithRed:212.0/255.0 green:212.0/255.0 blue:212.0/255.0 alpha:1];
+        [button addTarget:self action:@selector(sortTypeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        button.tag=60001+i;
+        [button addSubview:line];
+        
+        [helperView addSubview:button];
+    }
+    
+    UIButton *closeButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    closeButton.frame=CGRectMake(self.view.window.frame.size.width-kHelperOrign_X-32/2, kHelperOrign_Y-32/2, 32, 32);
+    [backview addSubview:closeButton];
+    float space=(helperView.bounds.size.width-40-120);
+    for (NSUInteger i=0; i<count; i++) {
+        UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame=CGRectMake(20+(space+60)*i, helperView.bounds.size.height-10-30, 60, 30);
+        button.tag=50001+i;
+        [button addTarget:self action:@selector(confirmbuttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [helperView addSubview:button];
+    }
+    helperView.contentSize = CGSizeMake(0, 40*(count+1));
+    
+}
+
+-(void)sortTypeButtonClicked:(UIButton *)button{
+    
+    [self closeButtonClicked];
+    
+    NSInteger index = button.tag - 60001;
+    self.select = index;
+    [self getFindList:[[self.findlistArr objectAtIndex:self.select] valueForKey:@"dictValue"]];
+    NSLog(@"selcet id %ld",index);
+    
+}
+
+-(void)confirmbuttonClick:(UIButton *)button{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        
+        if (button.tag==50001) {
+            
+        }else{
+            
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+        });
+    });
+}
+
+-(void)closeButtonClicked{
+    //    UIView *backview=[self.view.window viewWithTag:3333];
+    [backview removeFromSuperview];
 }
 
 //参数：pageindex：第几页（从0开始）countperpage：每页条数 a_id ：小区id，types:类型 userid:用户id
@@ -153,6 +264,8 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     
     if (self.select>=0) {
         [self getFindList:[[self.findlistArr objectAtIndex:self.select] valueForKey:@"dictValue"]];
+    }else{
+        [self getFindList:nil];
     }
     
 
@@ -181,7 +294,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     if (self.finddetailArr.count==1) {
         return 1;
     }
-    NSInteger count = self.finddetailArr.count/COLLECTION_NUMITEMS;
+    NSInteger count = self.finddetailArr.count/COLLECTION_NUMITEMS+self.finddetailArr.count%COLLECTION_NUMITEMS;
     NSLog(@"count %ld %ld",count,self.finddetailArr.count);
     return count;
 }
@@ -193,6 +306,10 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 //    collectionCellWidth = self.collectionView.frame.size.width/COLLECTION_NUMITEMS-1;
     
     if(self.finddetailArr&&self.finddetailArr.count==1){
+        return 1;
+    }
+        NSInteger count = self.finddetailArr.count/COLLECTION_NUMITEMS+self.finddetailArr.count%COLLECTION_NUMITEMS;
+    if(self.finddetailArr.count%COLLECTION_NUMITEMS==1&&section==count-1){
         return 1;
     }
     return COLLECTION_NUMITEMS;
@@ -251,7 +368,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     
     CGFloat width,height;
     if (self.findlistArr.count ==1) {
-        return   CGSizeMake(collectionCellWidth/2-10, height);
+        return   CGSizeMake(collectionCellWidth/2, height);
 
     }
     width = self.collectionView.frame.size.width;
@@ -268,7 +385,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 //定义每个Section 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(10, 5, 0, 15);//分别为上、左、下、右
+    return UIEdgeInsetsMake(10, 10, 0, 10);//分别为上、左、下、右
 }
 - (IBAction)huodong:(id)sender {
         UIStoryboard * noticeStory = [UIStoryboard storyboardWithName:@"HomeStoryboard" bundle:nil];
@@ -292,11 +409,13 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 //    for (NSDictionary *d in self.findlistArr) {
 //        [a addObject:[d valueForKey:@"Memo"]];
 //    }
- 
-    XWJFindTypeController *viewcon = [self.storyboard  instantiateViewControllerWithIdentifier:@"findtype"];
-    viewcon.array = self.findlistArr;
-    [self.navigationController showViewController:viewcon sender:nil];
-//    // 为UIPickerView控件设置dataSource和delegate
+
+    [self showSortView:(UIButton *)sender];
+    
+//    XWJFindTypeController *viewcon = [self.storyboard  instantiateViewControllerWithIdentifier:@"findtype"];
+//    viewcon.array = self.findlistArr;
+//    [self.navigationController showViewController:viewcon sender:nil];
+    // 为UIPickerView控件设置dataSource和delegate
     
 }
 

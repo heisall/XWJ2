@@ -10,7 +10,7 @@
 #import "LGPhoto.h"
 #import "XWJAccount.h"
 #import "ProgressHUD.h"
-@interface XWJGZaddViewController ()<LGPhotoPickerViewControllerDelegate>{
+@interface XWJGZaddViewController ()<LGPhotoPickerViewControllerDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIView *backview;
     UIView *helperView;
 }
@@ -33,7 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"报修";
+
+    if (self.type == 1) {
+        self.navigationItem.title = @"报修";
+    }else{
+        self.navigationItem.title = @"投诉";
+    }
     for (int i = 0; i<IMAGECOUNT; i++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
         imgView.tag = imgtag+i;
@@ -41,7 +46,7 @@
     }
     self.lp = [NSMutableArray arrayWithObjects:@"随时上门",@"上午",@"下午",@"晚上", nil];
     self.imageDatas = [NSMutableArray array];
-
+    self.guzhangTV.delegate  = self;
 }
 - (IBAction)addImage:(UIButton *)sender {
     
@@ -69,7 +74,14 @@
 
 
 }
-
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
 -(void)LoadImageWith:(UIImagePickerControllerSourceType)type
 {
     UIImagePickerController * pick = [[UIImagePickerController alloc]init];
@@ -157,9 +169,26 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+    self.tabBarController.tabBar.hidden =YES;
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self.guzhangTV resignFirstResponder];
+}
+
 -(void)showSortView:(UIButton *)btn{
     //添加半透明背景图
-    NSUInteger type = btn.tag;
+
     backview=[[UIView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.window.frame.size.height)];
     backview.backgroundColor=[UIColor colorWithWhite:0 alpha:0.6];
     backview.tag=4444;

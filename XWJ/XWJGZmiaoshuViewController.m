@@ -7,7 +7,8 @@
 //
 
 #import "XWJGZmiaoshuViewController.h"
-
+#import "XWJGZJudgeViewController.h"
+#import "ProgressHUD.h"
 @interface XWJGZmiaoshuViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *guzhangDanhao;
 @property (weak, nonatomic) IBOutlet UILabel *connent;
@@ -27,23 +28,31 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = @"报修详情";
+    [self getGZDetail];
 
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.jinchangScroll.frame = CGRectMake(self.jinchangScroll.frame.origin.x, self.jinchangScroll.frame.origin.y, SCREEN_SIZE.width, self.jinchangScroll.frame.size.height);
+//    self.jinchangScroll.frame = CGRectMake(self.jinchangScroll.frame.origin.x, self.jinchangScroll.frame.origin.y, SCREEN_SIZE.width, self.jinchangScroll.frame.size.height+30);
+    self.tabBarController.tabBar.hidden =YES;
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden =NO;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 -(void)getGZDetail{
         NSString *url = GETFGUZHANGDETAIL_URL;
@@ -78,12 +87,6 @@
                 //            [self.houseArr addObjectsFromArray:arr];
                 //            [self.tableView reloadData];
                 
-                
-                NSString *errCode = [dict objectForKey:@"errorCode"];
-                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                alertview.delegate = self;
-                [alertview show];
-                [self.navigationController popViewControllerAnimated:YES];
                 NSLog(@"dic %@",dic);
                 [self updateView ];
             }
@@ -95,17 +98,29 @@
         }];
     
 }
+
 -(void)updateView{
     self.guzhangDanhao.text = [NSString stringWithFormat:@"%@ %@",[self.detaildic objectForKey:@"createtime"],[self.detaildic objectForKey:@"code"]];
     self.connent.text  = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"miaoshu"]];
-    self.chuliRen.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"lwclr"]];
-    self.shoujihao.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"lwpgsj"]];
-    self.timeLabel1.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime"]];
-    self.timeLabel2.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime1"]];
-    self.timeLabel3.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"gbtime"]];
+    self.chuliRen.text = [NSString stringWithFormat:@"处理人：%@",[self.detaildic objectForKey:@"lwclr"]==[NSNull null]?@"":[self.detaildic objectForKey:@"lwclr"]];
+    self.shoujihao.text = [NSString stringWithFormat:@"手机号：%@",[self.detaildic objectForKey:@"lwpgsj"]==[NSNull null]?@"":[self.detaildic objectForKey:@"lwpgsj"]];
+    self.timeLabel1.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime"]==[NSNull null]?@"":[self.detaildic objectForKey:@"yytime"]];
+    self.timeLabel2.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime1"]==[NSNull null]?@"":[self.detaildic objectForKey:@"yytime1"]];
+    self.timeLabel3.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"gbtime"]==[NSNull null]?@"":[self.detaildic objectForKey:@"gbtime"]];
     
 }
+
 - (IBAction)pingjia:(UIButton *)sender {
+    
+    NSString *xing = [NSString  stringWithFormat:@"%@",[self.detaildic objectForKey:@"xing"]];
+    if ([xing intValue]==-1) {
+        XWJGZJudgeViewController *jubge = [self.storyboard instantiateViewControllerWithIdentifier:@"gzpingjia"];
+        jubge.gzid = [self.detaildic objectForKey:@"id"];
+        jubge.miaoshu = [self.detaildic objectForKey:@"miaoshu"];
+        [self.navigationController pushViewController:jubge animated:YES ];
+    }else{
+        [ProgressHUD showSuccess:@"已评价"];
+    }
 }
 
 /*

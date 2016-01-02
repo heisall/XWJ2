@@ -29,11 +29,15 @@
     
     [self.shangpinTableView registerNib:[UINib nibWithNibName:@"XWJJiesuanCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 
+    [self.payTableView registerNib:[UINib nibWithNibName:@"XWJPayWayView" bundle:nil] forCellReuseIdentifier:@"paycell"];
+
     float money =  [self.price floatValue]+8.0;
     self.totalLabel.text = [NSString stringWithFormat:@"￥ %.3f",money];
     self.payTableView.dataSource  = self;
     self.payTableView.delegate = self;
-//    self.payTableView.contentSize = CGSizeMake(0, 30+3*60);
+    NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:0];
+    [self.payTableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
+    //    self.payTableView.contentSize = CGSizeMake(0, 30+3*60);
     self.shangpinTableView.dataSource  = self;
     self.shangpinTableView.delegate = self;
 }
@@ -69,7 +73,7 @@
     if (tableView.tag == TAG) {
         return 40.0;
     }
-    return 100.0;
+    return 90.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -95,19 +99,12 @@
         
         UITableViewCell  *cell;
         
-        cell = [tableView dequeueReusableCellWithIdentifier:@"pay3cell2"];
+        cell = [self.payTableView dequeueReusableCellWithIdentifier:@"paycell"];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pay3cell2"];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"paycell"];
         }
         cell.imageView.image = [UIImage imageNamed:self.zhifuIconArr[indexPath.row]];
         cell.textLabel.text = self.payarray[indexPath.row];
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage * image = [UIImage imageNamed:@"zhifu"];
-        btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-        [btn setImage:image forState:UIControlStateSelected];
-//        btn.backgroundColor = [UIColor redColor];
-
-        cell.accessoryView = btn;
         return cell;
     }
     

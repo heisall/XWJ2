@@ -574,6 +574,10 @@ NSArray *footer;
     return cell;
     
 }
+- (IBAction)guanjiaClick:(id)sender {
+    [self.tabBarController setSelectedIndex:1];
+
+}
 
 -(void)shangchengclick:(UITapGestureRecognizer *)ges{
     [self.tabBarController setSelectedIndex:2];

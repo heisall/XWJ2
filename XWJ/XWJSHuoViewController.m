@@ -193,7 +193,7 @@
                 url = @"";
             }
             button.contentMode =  UIViewContentModeScaleAspectFill;
-            [button sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
+            [button sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
             UITapGestureRecognizer* singleRecognizer;
             singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
             //点击的次数
@@ -237,6 +237,15 @@
 }
 
 -(void)imgesingleTap:(UITapGestureRecognizer *)image{
+    NSInteger tag =     image.view.tag-1000;
+    
+    XWJWebViewController *web  = [[XWJWebViewController alloc]init];
+    if (tag==0) {
+        web.url = [[self.adleftArr objectAtIndex:0]objectForKey:@"url"];
+
+    }else
+        web.url = [[self.adrightArr objectAtIndex:0]objectForKey:@"url"];
+    [self.navigationController showViewController:web sender:nil];
 }
 -(void)singleTap:(UITapGestureRecognizer *)image{
     NSInteger index = image.view.tag;

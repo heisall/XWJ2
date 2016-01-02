@@ -8,6 +8,7 @@
 
 #import "XWJPay3ViewController.h"
 #import "XWJdef.h"
+#import "XWJPayWayTableViewCell.h"
 @interface XWJPay3ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
 @property NSArray *payarray;
@@ -24,6 +25,9 @@
     self.navigationItem.title = @"确认订单";
     self.tabBarController.tabBar.hidden = YES;
     
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"XWJPayWayView" bundle:nil] forCellReuseIdentifier:@"pay3cell2"];
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -35,6 +39,7 @@
     self.payarray = [NSArray arrayWithObjects:@"微信支付", nil];
     self.zhifuIconArr = [NSArray arrayWithObjects:@"zhifuweixin", nil];
     self.height = 80;
+
 }
 
 #pragma mark - Table view data source
@@ -61,7 +66,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     if (tableView.tag == TAG) {
-        return 2;
+        return 1;
     }
     return self.array.count;
 
@@ -74,9 +79,9 @@
         
         UITableViewCell  *cell;
         
-        cell = [tableView dequeueReusableCellWithIdentifier:@"pay3cell2"];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:@"pay3cell2"];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pay3cell2"];
+            cell = [[XWJPayWayTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pay3cell2"];
         }
         cell.imageView.image = [UIImage imageNamed:self.zhifuIconArr[indexPath.row]];
         cell.textLabel.text = self.payarray[indexPath.row];

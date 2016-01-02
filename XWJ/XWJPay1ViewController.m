@@ -134,6 +134,13 @@
 
     return cell;
 }
+- (IBAction)qubuZD:(id)sender {
+}
+- (IBAction)weijiao:(UIButton *)sender {
+}
+- (IBAction)quanXuan:(UIButton *)sender {
+    sender.selected = !sender.selected;
+}
 
 #pragma mark - Table view delegate
 

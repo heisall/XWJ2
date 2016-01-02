@@ -10,9 +10,12 @@
 #import "LCBannerView.h"
 #import "XWJShuolistTableViewCell.h"
 #import "XWJMerDetailListController.h"
+#import "XWJGroupBuyTableViewCell.h"
+#import "XWJSPDetailViewController.h"
 @interface XWJShuoListViewController()<LCBannerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property UIView *adView;
 @property NSMutableArray *tabledata;
+@property NSMutableArray *groupBuy;
 @property UIView * typeContainView;
 @property NSMutableArray *thumbArr;
 @property NSMutableArray *adArr;
@@ -20,17 +23,20 @@
 @property UITableView *tableView;
 @end
 #define PADDINGTOP 64.0
-#define BTN_WIDTH 100.0
+//#define BTN_WIDTH 100.0
+#define BTN_WIDTH  SCREEN_SIZE.width/4
 #define BTN_HEIGHT 50.0
 
 @implementation XWJShuoListViewController
-@synthesize adView,tabledata,type,typeContainView;
+@synthesize adView,tabledata,type,typeContainView,groupBuy;
 -(void)viewDidLoad{
 
     [super viewDidLoad];
     self.thumbArr = [NSMutableArray array];
     self.adArr = [NSMutableArray array];
     tabledata = [NSMutableArray array];
+
+    
         self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.navigationItem.title = @"商户列表";
@@ -49,6 +55,7 @@
 -(void)addView{
     adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
     self.btn = [NSMutableArray array];
+
 
     UIScrollView *scroll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, PADDINGTOP+adView.bounds.size.height,BTN_WIDTH, SCREEN_SIZE.height-PADDINGTOP-adView.bounds.size.height)];
     for (int i =0; i<self.thumbArr.count; i++) {
@@ -77,6 +84,8 @@
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(BTN_WIDTH, scroll.frame.origin.y, SCREEN_SIZE.width-BTN_WIDTH, scroll.bounds.size.height)];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJShuoTableCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"XWJTuangouCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
+
 
 //    table.backgroundColor = [UIColor grayColor];
     self.tableView.dataSource = self;
@@ -121,9 +130,11 @@
             NSDictionary *dic = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dic);
             tabledata = [dic objectForKey:@"data"];
+
+            groupBuy = [dic objectForKey:@"groupBuy"];
             [self.tableView reloadData];
             self.tableView.hidden = NO;
-            self.tableView.contentSize =CGSizeMake(0,self.tabledata.count*100+100);
+            self.tableView.contentSize =CGSizeMake(0,self.tabledata.count*100+100+self.groupBuy.count*110);
         }
         
         
@@ -149,41 +160,10 @@
             
             self.adArr = [dic objectForKey:@"ad"];
                         self.thumbArr = [dic objectForKey:@"thumb"];
-//            self.array1 =  [dic objectForKey:@"sm"];
-//            self.array2 =  [dic objectForKey:@"sh"];
-//            self.array3 =  [dic objectForKey:@"sp"];
-//            self.array4 =  [dic objectForKey:@"jz"];
             
             [self addView];
             
             NSMutableArray *URLs = [NSMutableArray array];
-//            for (NSDictionary
-//                 *dic in self.adArr) {
-//                [URLs addObject:[dic valueForKey:@"Photo"]];
-//            }
-            
-            
-            //            for (NSDictionary *d in self.thumbArr) {
-            //                NSNumber *num  =[d objectForKey:@"parent_id"];
-            //                switch ([num intValue]) {
-            //                    case 1:
-            //                        [self.array1 addObject:d];
-            //                        break;
-            //                    case 2:
-            //                        [self.array2 addObject:d];
-            //                        break;
-            //                    case 3:
-            //                        [self.array3 addObject:d];
-            //                        break;
-            //                    case 4:
-            //                        [self.array4 addObject:d];
-            //                        break;
-            //                    default:
-            //                        break;
-            //                }
-            //
-            //            }
-//            [self addTypeOneView:self.array1];
             
             if(URLs&&URLs.count>0)
                 [self.adView addSubview:({
@@ -212,78 +192,139 @@
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.groupBuy&&self.groupBuy.count>0) {
+        return 2;
+    }
     return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 95;
+    if (indexPath.section==0) {
+        return 95;
+    }
+    return 110;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
 //    return self.guzhangArr.count;
-    return tabledata.count;
+    if (section ==0) {
+        return tabledata.count;
+    }else{
+        return self.groupBuy.count;
+    }
 }
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    [footer.textLabel setTextColor:XWJGREENCOLOR];
+}
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if(section ==1){
+        return  @"团购商品";
+    }
+    return @"";
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"index path %ld",(long)indexPath.row);
-    XWJShuolistTableViewCell *cell;
     
-    cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!cell) {
-        cell = [[XWJShuolistTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
-    /*
-     logo = "<null>";
-     prop = "<null>";
-     sname = "\U6d01\U5229\U8fbe";
-     sorder = 65535;
-     visits = 0;
-     */
-//    cell.label1.text = [self.tabledata ];
-    NSArray *arr = self.tabledata;
-
-    cell.label1.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"sname"];
-    cell.label2.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"visits"]];
-    if ([[arr objectAtIndex:indexPath.row] objectForKey:@"logo"]!=[NSNull null]) {
+    if (indexPath.section==0) {
+        XWJShuolistTableViewCell *cell;
         
-        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"logo"]] ];
-    }
-    
-    
-    
-    NSString * prop = [[arr objectAtIndex:indexPath.row] objectForKey:@"prop"]==[NSNull null]?nil:[[arr objectAtIndex:indexPath.row] objectForKey:@"prop"] ;
-    
-//    NSString *prop = @"有点甜,杭州的,中央特供";
-    cell.tedeView.hidden = YES;
-    if (prop&&![prop isEqualToString:@""]) {
-        NSArray *teseArr = [prop componentsSeparatedByString:@","];
-        if (teseArr&&teseArr.count>0) {
-            cell.tedeView.hidden = NO;
-            CGFloat wid = 34.0;
-            for (int i =0; i<teseArr.count; i++) {
-                
-                UIView *view = [cell.tedeView viewWithTag:100+i];
-                if (view) {
-                    [(UIButton *)view setTitle:[teseArr objectAtIndex:i] forState:UIControlStateNormal];
-
-                }else{
-                    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(1+i*wid, 0, wid, 20)];
-                    [btn setBackgroundImage:[UIImage imageNamed:@"kuang" ] forState:UIControlStateNormal];
-    //                btn.enabled = NO;
-                    btn.titleLabel.font = [UIFont systemFontOfSize:8];
-                    [btn setTitle:[teseArr objectAtIndex:i] forState:UIControlStateNormal];
-                    [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
-                    btn.tag  = 100+i;
-                    [cell.tedeView addSubview:btn];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!cell) {
+            cell = [[XWJShuolistTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        }
+        /*
+         logo = "<null>";
+         prop = "<null>";
+         sname = "\U6d01\U5229\U8fbe";
+         sorder = 65535;
+         visits = 0;
+         */
+        //    cell.label1.text = [self.tabledata ];
+        NSArray *arr = self.tabledata;
+        
+        cell.label1.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"sname"];
+        cell.label2.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"visits"]];
+        
+        if ([[arr objectAtIndex:indexPath.row] objectForKey:@"logo"]!=[NSNull null]) {
+            
+            [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"logo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+        }else{
+            [cell.imgView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"demo"]];
+            
+        }
+        
+        NSString * prop = [[arr objectAtIndex:indexPath.row] objectForKey:@"prop"]==[NSNull null]?nil:[[arr objectAtIndex:indexPath.row] objectForKey:@"prop"] ;
+        
+        //    NSString *prop = @"有点甜,杭州的,中央特供";
+        cell.tedeView.hidden = YES;
+        if (prop&&![prop isEqualToString:@""]) {
+            NSArray *teseArr = [prop componentsSeparatedByString:@","];
+            if (teseArr&&teseArr.count>0) {
+                cell.tedeView.hidden = NO;
+                CGFloat wid = 34.0;
+                for (int i =0; i<teseArr.count; i++) {
+                    
+                    UIView *view = [cell.tedeView viewWithTag:100+i];
+                    if (view) {
+                        [(UIButton *)view setTitle:[teseArr objectAtIndex:i] forState:UIControlStateNormal];
+                        
+                    }else{
+                        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(1+i*wid, 0, wid, 20)];
+                        [btn setBackgroundImage:[UIImage imageNamed:@"kuang" ] forState:UIControlStateNormal];
+                        //                btn.enabled = NO;
+                        btn.titleLabel.font = [UIFont systemFontOfSize:8];
+                        [btn setTitle:[teseArr objectAtIndex:i] forState:UIControlStateNormal];
+                        [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
+                        btn.tag  = 100+i;
+                        [cell.tedeView addSubview:btn];
+                    }
                 }
             }
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else{
+        XWJGroupBuyTableViewCell *cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"cell2"];
+        if (!cell) {
+            cell = [[XWJGroupBuyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell2"];
+        }
+        
+        
+        /*
+         "default_image" = "http://www.hisenseplus.com/ecmall/data/files/store_77/goods_37/small_201512291700375318.png";
+         "end_time" = "2016-01-27";
+         "goods_id" = 71;
+         "goods_name" = "\U3010\U5b98\U65b9\U5305\U90ae\U3011\U65b0\U98de\U592953\U5ea6500\U6beb\U5347\U8305\U53f0+\U4e94\U661f53\U5ea6500\U6beb\U5347\U8d35\U5dde\U8305\U53f0\U9171\U9999";
+         "old_price" = 2200;
+         price = 2192;
+         */
+        NSArray * arr = self.groupBuy;
+        NSString * url = [[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"];
+        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
+        cell.contentLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
+        cell.price1Label.text = [NSString stringWithFormat:@"%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
+        cell.price2Label.text = [NSString stringWithFormat:@"%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"old_price"]];
+        [cell.dateBtn setTitle:[[arr objectAtIndex:indexPath.row] objectForKey:@"end_time"] forState:UIControlStateDisabled];
+//        [cell.qiangBtn setTitle:[[arr objectAtIndex:indexPath.row] objectForKey:@"end_time"] forState:UIControlStateNormal];
+        cell.qiangBtn.tag = indexPath.row;
+        [cell.qiangBtn addTarget:self action:@selector(jiangGroup:) forControlEvents:UIControlEventTouchUpInside];
+        cell.qiangView.layer.masksToBounds = YES;
+        cell.qiangView.layer.cornerRadius = 6.0;
+        cell.qiangView.layer.borderWidth = 1.0;
+        cell.qiangView.layer.borderColor = [XWJGREENCOLOR CGColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
 }
-
+-(void)jiangGroup:(UIButton *)btn{
+    
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -297,9 +338,17 @@
 //        UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
 //        [UIApplication sharedApplication].keyWindow.rootViewController = [loginStoryboard instantiateInitialViewController];
 //    }
-    XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
-    list.dic = [self.tabledata objectAtIndex:indexPath.row];
-    [self.navigationController showViewController:list sender:self];
+    
+    if (indexPath.section==0) {
+        XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
+        list.dic = [self.tabledata objectAtIndex:indexPath.row];
+        [self.navigationController showViewController:list sender:self];
+    }else{
+        XWJSPDetailViewController *list= [[XWJSPDetailViewController alloc] init];
+        //    list.dic = [self.goodsArr objectAtIndex:indexPath.row];
+        list.goods_id = [[self.groupBuy objectAtIndex:indexPath.row] objectForKey:@"goods_id"];
+        [self.navigationController showViewController:list sender:self];
+    }
 }
 
 @end

@@ -75,7 +75,7 @@
     NSInteger count = [sender.titleLabel.text integerValue];
     count++;
     sender.enabled = NO;
-    [sender setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+    [sender setTitle:[NSString stringWithFormat:@"%d",count] forState:UIControlStateNormal];
     [self pubCommentLword:@"" type:@"点赞"];
 }
 

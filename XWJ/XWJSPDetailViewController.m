@@ -148,7 +148,7 @@
     label.text  = @"商品评论";
     headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(95, 2, 200, 20)];
     headerLabel.textColor = XWJGRAYCOLOR;
-    headerLabel.text = @"人参与评论";
+    headerLabel.text = @"0人参与评论";
     [view addSubview:headerLabel];
     [view addSubview:label];
     return view;
@@ -379,7 +379,7 @@
 
         for (NSString *s in typeArr) {
             if ([s isEqualToString:@"立即购买"]||[s isEqualToString:@"在线订购"]) {
-                [typeArr2 addObject:@""];
+                [typeArr2 insertObject:@"" atIndex:0];
                 [typeArr2 addObject:@"加入购物车"];
                 [typeArr2 addObject:@"立即购买"];
             }else
@@ -390,24 +390,54 @@
             
             NSInteger count =typeArr2.count;
             NSArray * title = typeArr2;
-            CGFloat width = self.view.bounds.size.width/count;
+            
+            CGFloat carWidth = 80;
+            CGFloat width ;
+//            if ([typeArr2 containsObject:@""]) {
+//                width = (self.view.bounds.size.width-carWidth)/(count-1);
+//
+//            }else
+                width = self.view.bounds.size.width/count;
             CGFloat height = 60;
             
             for (int i=0; i<count; i++) {
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                button.frame = CGRectMake((width+1)*i, SCREEN_SIZE.height-height, width, height);
-                button.tag = i;
                 
+                
+//                if ([[title objectAtIndex:i] isEqualToString:@""]) {
+//                    button.frame = CGRectMake((width+1)*i, SCREEN_SIZE.height-height, carWidth, height);
+//                }else
+                    button.frame = CGRectMake((width+1)*i, SCREEN_SIZE.height-height, width, height);
+                button.tag = i;
                 [button setTitle:[title objectAtIndex:i] forState:UIControlStateNormal];
-//                [button setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
-//                [button setBackgroundImage:[UIImage imageNamed:@"shuonormal"] forState:UIControlStateNormal];
+
                 
                 if ([[title objectAtIndex:i] isEqualToString:@""]) {
                     
-                    [button setBackgroundImage:[UIImage imageNamed:@"gouwuche_small"] forState:UIControlStateNormal];
+                    UIImage *buttonImage = [UIImage imageNamed:@"gouwuche_small"];
+                    
+                    buttonImage = [buttonImage stretchableImageWithLeftCapWidth:0 topCapHeight:floorf(buttonImage.size.height)];
+                    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+                    button.contentMode = UIViewContentModeCenter;
                 }
                 button.titleLabel.font = [UIFont systemFontOfSize:15];
-                [button setBackgroundColor:XWJGREENCOLOR];
+                
+                if ([[title objectAtIndex:i] isEqualToString:@""]) {
+                    [button setBackgroundColor:[UIColor whiteColor]];
+                    button.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
+//                    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+                    [button setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
+                    
+                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 20)];
+                    label.textAlignment = NSTextAlignmentRight;
+//                    label.text  =@"12";
+                    label.textColor = [UIColor redColor];
+                    label.tag = 100;
+                    [button addSubview:label];
+                    [button setTitle:@"购物车" forState:UIControlStateNormal];
+                }else
+                    [button setBackgroundColor:XWJGREENCOLOR];
+                
 //                [button setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];
                 [button setTitleColor:XWJGREENCOLOR forState:UIControlStateSelected];
                 
@@ -447,6 +477,9 @@
 //        UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
 //        XWJYueLineViewController *view = [car instantiateViewControllerWithIdentifier:@"yuyueline"];
 //        [self.navigationController showViewController:view sender:nil];
+    }else if([butn.titleLabel.text isEqualToString:@"购物车"]){
+        UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
+        [self.navigationController showViewController:[car instantiateInitialViewController] sender:self];
     }
     
 }

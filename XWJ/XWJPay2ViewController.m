@@ -43,7 +43,7 @@
         label1.frame = CGRectMake(20+width*i,15, width, 30);
         label1.text = [arr objectAtIndex:i];
         label1.textColor = XWJGRAYCOLOR;
-        label1.font = [UIFont systemFontOfSize:17.0];
+        label1.font = [UIFont systemFontOfSize:15.0];
         [self.tableHeadView addSubview:label1];
 
     }
@@ -157,6 +157,7 @@
     [view addSubview:label8];
     [view addSubview:label9];
     
+    view.tag = 100;
     [cell.contentView addSubview:view];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -185,6 +186,8 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)jiaofei:(UIButton *)sender {
 }
 
 /*

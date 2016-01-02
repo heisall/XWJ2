@@ -58,7 +58,7 @@
 //    [dict setValue:@"1" forKey:@"a_id"];
         [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
 
-    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    [dict setValue:[NSString stringWithFormat:@"%@",[XWJAccount instance].uid] forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);

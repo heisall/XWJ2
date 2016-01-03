@@ -264,6 +264,8 @@
 		A4F5C17D1C0C86A800513CD9 /* XWJHomeViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F5C17C1C0C86A800513CD9 /* XWJHomeViewController2.m */; };
 		A4F5C19A1C0DC04300513CD9 /* XWJHomeCollectionCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F5C1991C0DC04300513CD9 /* XWJHomeCollectionCell2.xib */; };
 		A4F5C19C1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F5C19B1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib */; };
+		A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */; };
+		A4FD431B1C3952FB00A44E01 /* XWJquxiaocell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */; };
 		DA20ADFA1BFB565D002032D1 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADF91BFB565D002032D1 /* libicucore.tbd */; };
 		DA20ADFC1BFB5674002032D1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADFB1BFB5674002032D1 /* libz.tbd */; };
 		DA20ADFE1BFB567D002032D1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADFD1BFB567D002032D1 /* MessageUI.framework */; };
@@ -728,6 +730,9 @@
 		A4F5C17C1C0C86A800513CD9 /* XWJHomeViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJHomeViewController2.m; sourceTree = "<group>"; };
 		A4F5C1991C0DC04300513CD9 /* XWJHomeCollectionCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJHomeCollectionCell2.xib; sourceTree = "<group>"; };
 		A4F5C19B1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJHomeCollectionCell3.xib; sourceTree = "<group>"; };
+		A4FD43171C38E50700A44E01 /* XWJGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJGroupViewController.h; sourceTree = "<group>"; };
+		A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJGroupViewController.m; sourceTree = "<group>"; };
+		A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJquxiaocell.xib; sourceTree = "<group>"; };
 		DA20ADF91BFB565D002032D1 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		DA20ADFB1BFB5674002032D1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		DA20ADFD1BFB567D002032D1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1366,6 +1371,9 @@
 				A42DA7CC1C38309100EF74C1 /* XWJPayWayTableViewCell.h */,
 				A42DA7CD1C38309100EF74C1 /* XWJPayWayTableViewCell.m */,
 				A42DA7CF1C3830A500EF74C1 /* XWJPayWayView.xib */,
+				A4FD43171C38E50700A44E01 /* XWJGroupViewController.h */,
+				A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */,
+				A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1781,6 +1789,7 @@
 				A43C97F11C129C68006A61EE /* broswerPic3.jpg in Resources */,
 				A4093EEF1C10AEF100F2F324 /* agreeButtonBg@2x.png in Resources */,
 				A48801AA1C0AB22A00714F5B /* baritemSelectedIndicator@2x.png in Resources */,
+				A4FD431B1C3952FB00A44E01 /* XWJquxiaocell.xib in Resources */,
 				A44290D91C32D6B6008816B3 /* XWJHomeCollectionCell4.xib in Resources */,
 				A48801AC1C0AB2DE00714F5B /* backIcon@2x.png in Resources */,
 				A43C97F31C129C68006A61EE /* btn_back_imagePicker@2x.png in Resources */,
@@ -1947,6 +1956,7 @@
 				A43C98361C146A1C006A61EE /* XWJPay1ViewController.m in Sources */,
 				A438111C1C257E60001D2F29 /* XWJMFViewController.m in Sources */,
 				A43929021C3039DA00572F70 /* LocationPickerVC.m in Sources */,
+				A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */,
 				8E1327431C30DFDB00D3EDB5 /* MyChuZuViewController.m in Sources */,
 				A4DC3C8D1C1C505B003D4D18 /* XWJGuzhangViewController.m in Sources */,
 				A41255721C0F39D20042D8CC /* README.md in Sources */,

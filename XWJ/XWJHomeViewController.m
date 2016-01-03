@@ -22,6 +22,7 @@
 #import "XWJADViewController.h"
 #import "XWJShuoListViewController.h"
 #import "XWJShangmenViewController.h"
+#import "XWJGroupViewController.h"
 #define  CELL_HEIGHT 150.0
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 1
@@ -478,6 +479,9 @@ NSArray *footer;
         self.navigationItem.title = @"依云小镇";
     
     
+    if([XWJAccount instance].isYouke){
+        self.navigationItem.title = [NSString stringWithFormat:@"%@",[[XWJCity instance].district valueForKey:@"a_name"]];
+    }else
     if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
         for (NSDictionary *dic in [XWJAccount instance].array ) {
             if ([[dic valueForKey:@"isDefault" ] integerValue]== 1) {
@@ -580,37 +584,40 @@ NSArray *footer;
 }
 
 -(void)shangchengclick:(UITapGestureRecognizer *)ges{
-    [self.tabBarController setSelectedIndex:2];
+    
+    UIView *view  = ges.view;
+//    [self.tabBarController setSelectedIndex:2];
 
-//    switch (view.tag) {
-//        case 1:
-//        {
-//            
-//        }
-//            break;
-//        case 2:
-//        {
-//            
-//        }
-//            break;
-//        case 3:
-//        {
-//            
-//        }
-//            break;
-//        case 4:
-//        {
-//            
-//        }
-//            break;
-//        case 5:
-//        {
-//            
-//        }
-//            break;
-//        default:
-//            break;
-//    }
+    switch (view.tag) {
+        case 1:
+        {
+            XWJGroupViewController *group  = [[XWJGroupViewController alloc] init];
+            [self.navigationController showViewController:group sender:nil];
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+        case 5:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
     
 }
 -(void)colleciotnCellclick:(UIButton *)btn{

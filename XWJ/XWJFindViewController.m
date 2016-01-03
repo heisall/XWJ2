@@ -275,6 +275,9 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     }else
         self.navigationItem.title = @"依云小镇";//    self.title = @"依云小镇";
     
+    if([XWJAccount instance].isYouke){
+        self.navigationItem.title = [NSString stringWithFormat:@"%@",[[XWJCity instance].district valueForKey:@"a_name"]];
+    }else
     if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
         for (NSDictionary *dic in [XWJAccount instance].array ) {
             if ([[dic valueForKey:@"isDefault" ] integerValue]== 1) {

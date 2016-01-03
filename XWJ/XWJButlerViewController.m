@@ -30,6 +30,9 @@
 //        self.room.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"huname"];
 //    }
     
+    if([XWJAccount instance].isYouke){
+        self.room.text = [NSString stringWithFormat:@"%@%@号楼%@单元%@",[[XWJCity instance].district valueForKey:@"a_name"],[[XWJCity instance].buiding valueForKey:@"b_name"],[XWJCity instance].rdy,[XWJCity instance].rid];
+    }else
     if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
         for (NSDictionary *dic in [XWJAccount instance].array ) {
             if ([[dic valueForKey:@"isDefault" ] integerValue]== 1) {

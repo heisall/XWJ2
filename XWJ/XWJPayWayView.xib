@@ -15,8 +15,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlightedImage="zhifu" translatesAutoresizingMaskIntoConstraints="NO" id="xoy-Rd-ifD">
-                        <rect key="frame" x="269" y="4.5" width="34" height="34"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" highlightedImage="zhifu" translatesAutoresizingMaskIntoConstraints="NO" id="xoy-Rd-ifD">
+                        <rect key="frame" x="280" y="10" width="23" height="23"/>
                     </imageView>
                 </subviews>
                 <constraints>
@@ -28,6 +28,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="zhifu" width="34" height="34"/>
+        <image name="zhifu" width="23" height="23"/>
     </resources>
 </document>

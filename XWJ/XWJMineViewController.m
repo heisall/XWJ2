@@ -300,6 +300,8 @@ NSArray *myImgs;
     }
     if (indexPath.row == 5) {
         
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"username"];
         UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
         self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
     }

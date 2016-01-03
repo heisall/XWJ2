@@ -11,9 +11,10 @@
 #import "XWJLoginViewController.h"
 #import "XWJBindHouseTableViewController.h"
 #import "XWJAccount.h"
+#import "XWJCity.h"
 @interface XWJXuanZeViewController ()<XWJBindHouseDelegate>
 @property BOOL isBind;
-
+@property BOOL isYouke;
 @end
 
 @implementation XWJXuanZeViewController
@@ -86,9 +87,17 @@
             //                XWJBingHouseViewController *bind = [[XWJBingHouseViewController alloc] initWithNibName:@"XWJBingHouseViewController" bundle:nil];
             
 //            self.isBind = TRUE;
-            UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-            [self.navigationController showViewController:[story instantiateViewControllerWithIdentifier:@"bindhouse1"] sender:nil];
             
+            if (self.isYouke) {
+                    [XWJAccount instance].isYouke =YES;
+                    [XWJAccount instance].aid = [XWJCity instance].aid;
+                    XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                    window.rootViewController = tab;
+            }else{
+                UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+                [self.navigationController showViewController:[story instantiateViewControllerWithIdentifier:@"bindhouse1"] sender:nil];
+            }
         }
             break;
         default:
@@ -106,11 +115,19 @@
         
 }
 - (IBAction)xuanze:(UIButton *)sender {
-    [XWJAccount instance].aid = @"1";
-    XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    self.view.window.rootViewController = tab;
-//    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [XWJAccount instance].aid = @"1";
+//    XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//    self.view.window.rootViewController = tab;
+
+    XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
+    bind.title = @"城市选择";
+    //    bind.dataSource = [NSArray arrayWithObjects:@"青岛市",@"济南市",@"威海市",@"烟台市",@"临沂市", nil];
+    bind.delegate = self;
+    bind->mode = HouseCity;
+    self.isYouke = YES;
+    [self.navigationController showViewController:bind sender:nil];
+    
 }
 
 /*

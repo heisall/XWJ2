@@ -37,7 +37,7 @@
     tabledata = [NSMutableArray array];
 
     
-        self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.navigationItem.title = @"商户列表";
     [self getShuoMore];

@@ -66,11 +66,18 @@
 
 
 -(void)sendCodeRes{
-
-
-    code = arc4random()%8999 + 1000;
     
-
+////    dispatch_async(dispatch_get_main_queue(),^{
+//        _btnGetcode.enabled = NO;
+////    });
+//    _btnGetcode.titleLabel.text = @"";
+//    _numlabel.hidden = NO;
+//    _numlabel.text = [NSString stringWithFormat:@"60秒后重新发送"];
+    
+    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:NO];
+    _timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+    _btnGetcode.enabled = NO;
+    code = arc4random()%8999 + 1000;
     NSString *uid = @"2735";
     NSString *phone = self.txtFieldPhoneNumber.text;
     NSString *content = [NSString stringWithFormat:MESSAGE_CONTENT,code];
@@ -83,8 +90,7 @@
 
     [manager GET:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        _timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
-        _btnGetcode.enabled = NO;
+//        _btnGetcode.enabled = NO;
         NSLog(@"success");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

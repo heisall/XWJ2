@@ -149,6 +149,7 @@
     self.intrest = nil;
     self.qianming = nil;
     self.aid = nil;
+    self.isYouke = NO;
 }
 
 @end

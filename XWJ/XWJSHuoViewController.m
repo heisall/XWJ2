@@ -12,6 +12,7 @@
 #import "XWJShuoListViewController.h"
 #import "XWJMyMessageController.h"
 #import "XWJAccount.h"
+#import "XWJCity.h"
 #define PADDINGTOP 64.0
 @interface XWJSHuoViewController()<LCBannerViewDelegate>{
     CGFloat typeBtnheight;
@@ -77,6 +78,10 @@
     [btn1 setBackgroundImage:image1 forState:UIControlStateNormal];
     UIBarButtonItem *rbarButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn1];
     self.navigationItem.rightBarButtonItem = rbarButtonItem;
+    
+    if([XWJAccount instance].isYouke){
+        self.navigationItem.title = [NSString stringWithFormat:@"%@",[[XWJCity instance].district valueForKey:@"a_name"]];
+    }else
     if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
         for (NSDictionary *dic in [XWJAccount instance].array ) {
             if ([[dic valueForKey:@"isDefault" ] integerValue]== 1) {

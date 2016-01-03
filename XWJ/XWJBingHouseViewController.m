@@ -59,14 +59,18 @@
     XWJCity *cityinstance = [XWJCity instance];
     [cityinstance getInfoValidate:^(NSDictionary *dic) {
         
-        NSString *phone = [cityinstance.yezhu valueForKey:@"mobilePhone"];
-        NSLog(@"phone number %@",phone);
-        _phonearray = [phone componentsSeparatedByString:@","];
-        
-        [self changeNumber:0];
+//        NSString *phone = [cityinstance.yezhu valueForKey:@"mobilePhone"];
+        self.array = [dic objectForKey:@"roles"];
+        [self.tableView reloadData];
+        if ([dic objectForKey:@"info"]!=[NSNull null]) {
+            NSString *phone = [[dic objectForKey:@"info"] valueForKey:@"mobilePhone"];
+            NSLog(@"phone number %@",phone);
+            _phonearray = [phone componentsSeparatedByString:@","];
+            [self changeNumber:0];
+        }
     }];
 
-    self.array = [NSArray arrayWithObjects:@"房产正在我名下",@"我是业主家属",@"我是租客", nil];
+//    self.array = [NSArray arrayWithObjects:@"房产正在我名下",@"我是业主家属",@"我是租客", nil];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:0];
@@ -101,11 +105,11 @@
         _phone10 = [[numArr objectAtIndex:9] integerValue];
         _phone11 = [[numArr objectAtIndex:10] integerValue];
 
-                _label1.text = [NSString stringWithFormat:@"%d",_phone1];
-                _label2.text = [NSString stringWithFormat:@"%d",_phone2];
-                _label3.text = [NSString stringWithFormat:@"%d",_phone3];
-                _label10.text = [NSString stringWithFormat:@"%d",_phone10];
-                _label11.text = [NSString stringWithFormat:@"%d",_phone11];
+                _label1.text = [NSString stringWithFormat:@"%ld",(long)_phone1];
+                _label2.text = [NSString stringWithFormat:@"%ld",(long)_phone2];
+                _label3.text = [NSString stringWithFormat:@"%ld",(long)_phone3];
+                _label10.text = [NSString stringWithFormat:@"%ld",(long)_phone10];
+                _label11.text = [NSString stringWithFormat:@"%ld",(long)_phone11];
 //        _phone1 = ([_phonearray[i] integerValue]/(int)10000000000);
 //        _phone2 = ([_phonearray[i] intValue]/(int)1000000000)%(int)10;
 //        _phone3 = ([_phonearray[i] intValue]/(int)100000000)%(int)10;
@@ -159,7 +163,7 @@
     
     cell.imageView.image = [UIImage imageNamed:@"jiaoseicon"];
     cell.imageView.highlightedImage = [UIImage imageNamed:@"jiaoseiconselect"];
-    cell.textLabel.text = [self.array objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[self.array objectAtIndex:indexPath.row] objectForKey:@"Memo"];
     cell.textLabel.textColor = XWJGRAYCOLOR;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     
@@ -169,12 +173,13 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    _typeindex = indexPath.row+1;
+//    _typeindex = indexPath.row+1;
+    _typeindex = indexPath.row;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (range.location >= 0){
+    if (range.location > 0){
 //        if ([string  isEqual:@"\n"]) {
         
             NSInteger tag =  textField.tag;
@@ -260,7 +265,7 @@
 - (IBAction)sure:(UIButton *)sender {
     if ([self checkphone:_phoneindex]) {
         XWJCity *city = [XWJCity instance];
-        [city bindRoom:[NSString stringWithFormat:@"%ld",(long)_typeindex]  :^(NSInteger arr) {
+        [city bindRoom:[NSString stringWithFormat:@"%@",[[self.array objectAtIndex:_typeindex ] valueForKey:@"DictValue"]]  :^(NSInteger arr) {
             
             if (arr==1) {
                 UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"绑定成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

@@ -23,7 +23,7 @@
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
+      [self.tableView registerNib:[UINib nibWithNibName:@"XWJquxiaocell" bundle:nil] forCellReuseIdentifier:@"cell1"];
     
 //    [dic valueForKey:@"R_dy"],[dic valueForKey:@"R_id"]]
     XWJCity *cityinstance = [XWJCity instance];
@@ -84,24 +84,27 @@
         cell.detailTextLabel.text = [self.array objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }else{
-        cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell1"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell1"];
-            cell.imageView.image = [UIImage imageNamed:@"agree"];
+            
+            
+//            cell.imageView.highlightedImage = [UIImage imageNamed:@"agree"];
+//            cell.imageView.image = [UIImage imageNamed:@"agree"];
             cell.textLabel.text =  @"我同意";
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            btn.frame = CGRectMake(150, 0, 200, 40);
-            [btn setTitle:@"许可及服务协议" forState:UIControlStateNormal];
-            [btn setTitleColor:XWJColor(249, 62, 0) forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"agreeline"] forState:UIControlStateNormal];
-//            btn.backgroundColor = [UIColor redColor];
-            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-            btn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-            [btn setImageEdgeInsets:UIEdgeInsetsMake(35, 0, 0, 0)];
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(15, -100, 0, 0)];
+//            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//            btn.frame = CGRectMake(150, 0, 200, 40);
+//            [btn setTitle:@"许可及服务协议" forState:UIControlStateNormal];
+//            [btn setTitleColor:XWJColor(249, 62, 0) forState:UIControlStateNormal];
+//            [btn setImage:[UIImage imageNamed:@"agreeline"] forState:UIControlStateNormal];
+////            btn.backgroundColor = [UIColor redColor];
+//            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//            btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+//            btn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+//            [btn setImageEdgeInsets:UIEdgeInsetsMake(35, 0, 0, 0)];
+//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(15, -100, 0, 0)];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            [cell addSubview:btn];
+//            [cell addSubview:btn];
 
         }
         
@@ -121,6 +124,9 @@
         UIViewController *controller = [controllers objectAtIndex:indexPath.row+1];
         [self.navigationController popToViewController:controller animated:YES];
         
+    }else{
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+
     }
         //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MineStoryboard" bundle:nil];
         //        [self.navigationController showViewController:[storyboard instantiateViewControllerWithIdentifier:@"suggestStory"] sender:nil];

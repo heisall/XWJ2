@@ -30,4 +30,5 @@ typedef NS_ENUM(NSUInteger, HouseMode) {
 @property (nonatomic, weak) id <XWJBindHouseDelegate> delegate;
 @property (strong,nonatomic)NSArray *dataSource;
 @property (strong,nonatomic)UITableView * tableView;
+@property BOOL isYouke;
 @end

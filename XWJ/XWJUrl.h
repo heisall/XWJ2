@@ -93,6 +93,8 @@
 //#define GETROOM_URL @"http://www.hisenseplus.com:8100/appPhone/build/getRooms"
 #define LOCKROOM_URL  XWJBASEURL"build/lockRooms"
 
+//tuangou
+#define GETGROUP_URL  XWJBASEURL"life/groupBuying"
 
 #define YEZHU_URL  XWJBASEURL"build/infoValidate"
 #define CHANGEFANGYUAN_URL  XWJBASEURL"build/changeDefault"

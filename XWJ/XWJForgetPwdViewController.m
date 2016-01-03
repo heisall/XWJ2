@@ -75,8 +75,11 @@
 }
 - (IBAction)getIDCode:(id)sender {
     
+    
+    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:NO];
     _timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
     _codeBtn.enabled = NO;
+    _codeBtn.titleLabel.text = [NSString stringWithFormat:@"60秒后重新发送"];
 
     code = arc4random()%8999 + 1000;
     

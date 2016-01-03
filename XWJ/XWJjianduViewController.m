@@ -10,6 +10,7 @@
 #import "WuyeTableViewCell.h"
 #import "XWJdef.h"
 #import "XWJCity.h"
+#import "XWJAccount.h"
 #import "XWJjianduDetailViewController.h"
 @interface XWJjianduViewController ()
 
@@ -152,8 +153,7 @@
     NSString *url = GETWUYE_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setValue:[XWJCity instance].aid  forKey:@"id"];
-    
+    [dict setValue:[XWJAccount instance].aid  forKey:@"id"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

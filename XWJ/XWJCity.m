@@ -314,11 +314,11 @@
     NSString *url = GETACTIVE_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-//    [dict setValue:_aid  forKey:@"a_id"];
-        [dict setValue:@"1"  forKey:@"a_id"];
+    [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
+//        [dict setValue:@"1"  forKey:@"a_id"];
     [dict setValue:type  forKey:@"types"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"20"  forKey:@"countperpage"];
+    [dict setValue:@"100"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"个性签名";
     [self createUI];
     
 }

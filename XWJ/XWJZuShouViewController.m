@@ -33,9 +33,9 @@
 }
 -(void)createUI{
 
-    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64 +44,self.view.frame.size.width,self.view.frame.size.height - 44 -64)];
+    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0,44,self.view.frame.size.width,self.view.frame.size.height - 44)];
     _scrollView.delegate = self;
-    _scrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height - 64);
+    _scrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height - 64 -200);
     _scrollView.pagingEnabled = YES;
     _scrollView.bounces = NO;
     _scrollView.directionalLockEnabled = YES;
@@ -48,7 +48,7 @@
     NSArray * array = @[@"我的出售",@"我的出租"];
     _titleView.titles = array;
     _titleView.buttonSelectAtIndex = ^(NSInteger index){
-        scrollview.contentOffset = CGPointMake(WIDTH*index, 0);
+        scrollview.contentOffset = CGPointMake(WIDTH*index, -64);
     };
     [self.view addSubview:_titleView];
 }

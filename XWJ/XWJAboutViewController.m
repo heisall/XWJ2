@@ -29,7 +29,7 @@
     //    使网页透明
     webView.opaque = NO;
     //    加载网页
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://ecmall.hisenseplus.com/index.php?app=article&act=view&article_id=6"]]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://ecmall.hisenseplus.com:88/index.php?app=article&act=content_only&article_id=6"]]];
     [self.view addSubview:webView];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "XWJBaseViewController.h"
-
+#import "XWJMyMessageController.h"
 @interface XWJBaseViewController ()
 
 @end
@@ -62,6 +62,15 @@
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem = barButtonItem;
     
+    
+    UIImage *rimage = [UIImage imageNamed:@"homemes"];
+    UIButton *rbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rbtn.frame = CGRectMake(0, 0, rimage.size.width, rimage.size.height);
+    [rbtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
+    [rbtn setBackgroundImage:rimage forState:UIControlStateNormal];
+    UIBarButtonItem *rbarButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:rbtn];
+    self.navigationItem.rightBarButtonItem = rbarButtonItem;
+    
 //    self.navigationItem.leftBarButtonItem.style = UIBarButtonSystemItemCancel;
     
 //    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
@@ -70,6 +79,13 @@
 //    self.navigationController.navigationBar.barTintColor  = [UIColor colorWithRed:20.0/255.0 green:157.0/255.0 blue:150.0/255.0 alpha:1.0];
         self.navigationController.navigationBar.barTintColor  = [UIColor colorWithRed:49/255.0 green:203/255.0 blue:201/255.0 alpha:1.0];
 
+}
+
+-(void)showList{
+    //    UIStoryboard *wuyStory = [UIStoryboard storyboardWithName:@"WuyeStoryboard" bundle:nil];
+    //    [self.navigationController showViewController:[wuyStory instantiateInitialViewController] sender:nil];
+    UIViewController * con = [[XWJMyMessageController alloc] init];
+    [self.navigationController showViewController:con sender:nil];
 }
 
 -(void)back{

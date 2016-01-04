@@ -674,7 +674,6 @@
                                 </state>
                                 <connections>
                                     <action selector="next:" destination="HGe-7N-sYc" eventType="touchUpInside" id="YZp-dR-CQw"/>
-                                    <segue destination="Yg1-6G-4fI" kind="show" id="T5G-WA-a0b"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择您的房产" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5g-b1-dBs">

@@ -81,7 +81,8 @@ NSArray *myImgs;
     [super viewWillAppear:YES];
     self.navigationItem.title = @"我的";
     self.navigationItem.leftBarButtonItem = nil;
-    
+    self.navigationItem.rightBarButtonItem = nil;
+
     [self getPersonInfo];
 
 }

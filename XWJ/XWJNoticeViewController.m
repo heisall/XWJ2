@@ -28,7 +28,8 @@
     }else{
         self.navigationItem.title = @"社区活动";
     }
-    
+//    self.navigationItem.title = @"详情";
+
     /*
      ClickCount = 34;
      addTime = "2015-12-10";
@@ -39,7 +40,30 @@
      title = "\U6d77\U4fe1\U201c\U4fe1\U6211\U5bb6\U201d\U667a\U6167\U793e\U533aAPP\U5f00\U59cb\U6d4b\U8bd5\U4e86\U3002";
      types = 0;
      */
-     XWJCity *city =    [XWJCity instance];
+
+//    NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
+//    [dic setValue:@"重要公告寒流来袭，快把装备上全" forKey:KEY_TITLE];
+//    [dic setValue:@"0天前" forKey:KEY_TIME];
+//    [dic setValue:@"这几天，全国大面积降温降雪，一片银装素裹，哆嗦嗦，哆嗦嗦，" forKey:KEY_CONTENT];
+//    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
+    
+    
+    [self loadNewData];
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        
+        [self loadNewData];
+        
+    }];
+
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+}
+-(void)loadNewData{
+    XWJCity *city =    [XWJCity instance];
     [city getActive:self.type :^(NSArray *arr) {
         NSLog(@"room  %@",arr);
         
@@ -62,26 +86,18 @@
             }
             self.array = arr2;
             [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
             self.tableView.contentSize = CGSizeMake(0, cell_height*self.array.count+120);
-
+            
         }else{
             UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"暂没有相关内容" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertview show];
         }
         
-//        [self.activityIndicatorView stopAnimating];
+        //        [self.activityIndicatorView stopAnimating];
         
     }];
-//    NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
-//    [dic setValue:@"重要公告寒流来袭，快把装备上全" forKey:KEY_TITLE];
-//    [dic setValue:@"0天前" forKey:KEY_TIME];
-//    [dic setValue:@"这几天，全国大面积降温降雪，一片银装素裹，哆嗦嗦，哆嗦嗦，" forKey:KEY_CONTENT];
-//    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
-    
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

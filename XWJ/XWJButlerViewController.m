@@ -30,6 +30,9 @@
 //        self.room.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"huname"];
 //    }
     
+    
+
+    
     if([XWJAccount instance].isYouke){
         self.room.text = [NSString stringWithFormat:@"%@%@号楼%@单元%@",[[XWJCity instance].district valueForKey:@"a_name"],[[XWJCity instance].buiding valueForKey:@"b_name"],[XWJCity instance].rdy,[XWJCity instance].rid];
     }else
@@ -171,7 +174,28 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationItem.title = @"管家";
+//    self.navigationItem.title = @"管家";
+    
+    
+    if([XWJAccount instance].isYouke){
+        self.navigationItem.title = [NSString stringWithFormat:@"%@",[[XWJCity instance].district valueForKey:@"a_name"]];
+    }else
+        if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
+            for (NSDictionary *dic in [XWJAccount instance].array ) {
+                if ([[dic valueForKey:@"isDefault" ] integerValue]== 1) {
+                    self.navigationItem.title = [NSString stringWithFormat:@"%@",[dic valueForKey:@"A_name"]];
+                }
+            }
+        }
+    
+    UIImage *image = [UIImage imageNamed:@"homemes"];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    [btn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
+    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+
     self.navigationItem.leftBarButtonItem = nil;
 
     self.tabBarController.tabBar.hidden = NO;

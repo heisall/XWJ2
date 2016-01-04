@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" text="" backgroundImage="searchbackImg" translatesAutoresizingMaskIntoConstraints="NO" id="Smn-oZ-0dP">
-                                <rect key="frame" x="0.0" y="34" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="3pn-Ld-dXr"/>
                                 </constraints>
@@ -36,7 +36,7 @@
                                     </mask>
                                 </variation>
                             </searchBar>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g24-nr-tzu">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g24-nr-tzu">
                                 <rect key="frame" x="0.0" y="78" width="600" height="0.0"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="HBX-ff-AwT">
@@ -54,7 +54,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0f0-5j-yfC">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0f0-5j-yfC">
                                 <rect key="frame" x="0.0" y="78" width="600" height="522"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -128,7 +128,7 @@
                             <constraint firstItem="g24-nr-tzu" firstAttribute="top" secondItem="Smn-oZ-0dP" secondAttribute="bottom" id="OrP-th-cyZ"/>
                             <constraint firstItem="0f0-5j-yfC" firstAttribute="top" secondItem="g24-nr-tzu" secondAttribute="bottom" id="REa-d7-JPU"/>
                             <constraint firstItem="g24-nr-tzu" firstAttribute="centerX" secondItem="wEc-Ky-kv8" secondAttribute="centerX" id="eKz-wn-kz4"/>
-                            <constraint firstItem="Smn-oZ-0dP" firstAttribute="top" secondItem="Vqr-i0-YLe" secondAttribute="bottom" constant="14" id="ep5-6s-bvt"/>
+                            <constraint firstItem="Smn-oZ-0dP" firstAttribute="top" secondItem="Vqr-i0-YLe" secondAttribute="bottom" id="ep5-6s-bvt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Smn-oZ-0dP" secondAttribute="trailing" constant="-20" id="nPV-V4-A12"/>
                             <constraint firstItem="0f0-5j-yfC" firstAttribute="centerX" secondItem="wEc-Ky-kv8" secondAttribute="centerX" id="oMZ-Ew-tmS"/>
                             <constraint firstItem="Smn-oZ-0dP" firstAttribute="leading" secondItem="wEc-Ky-kv8" secondAttribute="leadingMargin" constant="-20" id="sL1-Lv-LU1"/>

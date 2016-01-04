@@ -123,6 +123,12 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     self.selectView.frame = CGRectZero;
     
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        
+        [self loadData];
+        
+    }];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -155,30 +161,33 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     self.navigationItem.title = title;
 }
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+-(void)loadData{
     switch (self.type) {
         case HOUSENEW:{
-
+            
             [self getXinFang:nil];
         }
             break;
         case HOUSE2:{
-
+            
             [self get2handfang:nil];
-
-
+            
+            
         }
             break;
         case HOUSEZU:{
-
+            
             [self getZFang:nil];
         }
             break;
         default:
             break;
     }
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+    [self loadData];
     self.tabBarController.tabBar.hidden = YES;
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -530,6 +539,8 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             NSArray *arr  = [dic objectForKey:@"data"];
             [self.houseArr removeAllObjects];
             [self.houseArr addObjectsFromArray:arr];
+            
+            [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
             NSLog(@"dic %@",dic);
         }
@@ -581,6 +592,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             NSArray *arr  = [dic objectForKey:@"data"];
             [self.houseArr removeAllObjects];
             [self.houseArr addObjectsFromArray:arr];
+            [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
             NSLog(@"dic %@",dic);
         }
@@ -621,6 +633,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             NSArray *arr  = [dic objectForKey:@"data"];
             [self.houseArr removeAllObjects];
             [self.houseArr addObjectsFromArray:arr];
+            [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
             NSLog(@"dic %@",dic);
         }

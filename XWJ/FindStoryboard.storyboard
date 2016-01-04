@@ -199,32 +199,32 @@
             </objects>
             <point key="canvasLocation" x="482" y="784"/>
         </scene>
-        <!--物业通知-->
+        <!--详情-->
         <scene sceneID="r4T-0d-jtE">
             <objects>
-                <viewController storyboardIdentifier="activityDetail" title="物业通知" automaticallyAdjustsScrollViewInsets="NO" id="X4i-Qa-8M6" customClass="XWJActivityViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="activityDetail" title="详情" automaticallyAdjustsScrollViewInsets="NO" id="X4i-Qa-8M6" customClass="XWJActivityViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Byv-mq-1NK"/>
                         <viewControllerLayoutGuide type="bottom" id="pDa-Tj-nvW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="e1a-mV-uzi">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="【亲子欢乐行】冬令营全面开启" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uvq-Z6-ssR">
-                                <rect key="frame" x="34" y="28" width="486" height="18"/>
+                                <rect key="frame" x="30" y="28" width="319" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-11-11 12:32" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Kb-FN-6DO">
-                                <rect key="frame" x="34" y="51" width="116.5" height="18"/>
+                                <rect key="frame" x="30" y="51" width="116.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cy6-pr-nkk">
-                                <rect key="frame" x="175" y="74" width="250" height="40"/>
+                                <rect key="frame" x="62" y="74" width="250" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.58039215690000001" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="3pk-yZ-qQH"/>
@@ -238,11 +238,8 @@
                                     <action selector="enroll:" destination="X4i-Qa-8M6" eventType="touchUpInside" id="NUN-tx-WPW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9U2-OI-XeB">
-                                <rect key="frame" x="530" y="28" width="50" height="23"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="YH7-j0-UFa"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9U2-OI-XeB">
+                                <rect key="frame" x="309" y="46" width="50" height="23"/>
                                 <state key="normal" title="2" image="findpinglun">
                                     <color key="titleColor" red="0.4431372549" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -253,9 +250,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Uvq-Z6-ssR" secondAttribute="trailing" constant="10" id="4s4-ak-fT5"/>
                             <constraint firstItem="2Kb-FN-6DO" firstAttribute="top" secondItem="Uvq-Z6-ssR" secondAttribute="bottom" constant="5" id="HF4-dF-z85"/>
                             <constraint firstItem="9U2-OI-XeB" firstAttribute="top" secondItem="Uvq-Z6-ssR" secondAttribute="top" id="ISx-KY-1Rt"/>
-                            <constraint firstItem="9U2-OI-XeB" firstAttribute="leading" secondItem="Uvq-Z6-ssR" secondAttribute="trailing" constant="10" id="O3O-fp-mKe"/>
+                            <constraint firstItem="9U2-OI-XeB" firstAttribute="bottom" secondItem="2Kb-FN-6DO" secondAttribute="bottom" id="QuE-VZ-JaY"/>
                             <constraint firstItem="Uvq-Z6-ssR" firstAttribute="top" secondItem="Byv-mq-1NK" secondAttribute="bottom" constant="8" id="Szf-FS-Aau"/>
                             <constraint firstItem="cy6-pr-nkk" firstAttribute="top" secondItem="2Kb-FN-6DO" secondAttribute="bottom" constant="5" id="e7E-wF-05n"/>
                             <constraint firstItem="Uvq-Z6-ssR" firstAttribute="leading" secondItem="e1a-mV-uzi" secondAttribute="leadingMargin" constant="14" id="fnm-Xm-hGq"/>
@@ -263,7 +261,13 @@
                             <constraint firstItem="2Kb-FN-6DO" firstAttribute="leading" secondItem="Uvq-Z6-ssR" secondAttribute="leading" id="j4t-Fo-gSy"/>
                             <constraint firstItem="cy6-pr-nkk" firstAttribute="centerX" secondItem="e1a-mV-uzi" secondAttribute="centerX" id="unI-0j-tbp"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ISx-KY-1Rt"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="actTitle" destination="Uvq-Z6-ssR" id="DTg-5M-Wek"/>
                         <outlet property="btn" destination="cy6-pr-nkk" id="tjN-U6-39v"/>

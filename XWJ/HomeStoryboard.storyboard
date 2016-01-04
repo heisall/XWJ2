@@ -362,7 +362,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fc0-AA-bZi">
                                 <rect key="frame" x="172" y="190.5" width="257" height="36"/>
-                                <state key="normal" title="报名" backgroundImage="loginnext">
+                                <state key="normal" title="完成" backgroundImage="loginnext">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

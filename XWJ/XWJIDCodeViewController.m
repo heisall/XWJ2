@@ -77,6 +77,7 @@
     [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:NO];
     _timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
     _btnGetcode.enabled = NO;
+    [_btnGetcode setTitle:@"" forState:UIControlStateNormal];
     code = arc4random()%8999 + 1000;
     NSString *uid = @"2735";
     NSString *phone = self.txtFieldPhoneNumber.text;

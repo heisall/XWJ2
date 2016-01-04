@@ -48,7 +48,7 @@
         self.numlabel.hidden = YES;
         _codeBtn.enabled = YES;
         timeTick = 61;
-        //        [_btnGetcode setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         
     }else
     {
@@ -80,6 +80,7 @@
     _timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
     _codeBtn.enabled = NO;
     _codeBtn.titleLabel.text = [NSString stringWithFormat:@"60秒后重新发送"];
+    [_codeBtn setTitle:@"" forState:UIControlStateNormal];
 
     code = arc4random()%8999 + 1000;
     

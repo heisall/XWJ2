@@ -32,7 +32,7 @@
     
     [self.phone resignFirstResponder];
     
-    if (!self.phone.text.length>0||!self.name.text.length>0) {
+    if (!self.telPhone.text.length>0||!self.name.text.length>0) {
         [ProgressHUD showError:@"请输入手机号和姓名"];
         return;
     }
@@ -56,7 +56,7 @@
             UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertview show];
             
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"baoming" object:nil];
             NSLog(@"dic %@",dic);
         }
         

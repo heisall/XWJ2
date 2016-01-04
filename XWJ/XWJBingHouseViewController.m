@@ -305,10 +305,140 @@
 //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         
 
-        UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-        self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];    }
+//        UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+//        self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
+        
+        [self login:[XWJAccount instance].account :[XWJAccount instance].password];
+    }
 }
-
+-(void)login:(NSString *)username :(NSString *)pwd{
+    if (username.length>0&&pwd.length>0) {
+        
+        //        NSString *url = @"http://www.hisenseplus.com:8100/appPhone/rest/user/userLogin";
+        NSString *url = LOGIN_URL;
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict setValue:username forKey:@"account"];
+        [dict setValue:pwd forKey:@"password"];
+        
+        
+        manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+        [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            
+            
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            
+            NSNumber * result = [dic valueForKey:@"result"];
+            
+            /*
+             Account = 15092245487;
+             AccountCount = 0;
+             DictValue = "<null>";
+             LastLoginIP = "<null>";
+             LastLoginTime = "<null>";
+             NAME = "<null>";
+             NickName = "<null>";
+             PhoneType = iPhone;
+             Photo = "<null>";
+             "R_id" = 24215;
+             RegisterIP = "168.0.0.1";
+             RegisterTime = "2015-12-07";
+             TEL = "<null>";
+             Types = 1;
+             "U_id" = 1;
+             gxqm = "<null>";
+             id = 13;
+             sex = "<null>";
+             */
+            if ([result intValue]== 1) {
+                
+                NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
+                NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
+                //            [XWJAccount instance].uid = ;
+                if (![username isEqualToString:uname]) {
+                    [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"username"];
+                    [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
+                    //                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"bind"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                }else if(![pwd isEqualToString:pass]){
+                    [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
+                }
+                
+                NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
+                NSString *sid = [userDic valueForKey:@"id"];
+                NSLog(@"sid %@",sid);
+                [XWJAccount instance].uid = sid;
+                [XWJAccount instance].account = [userDic valueForKey:@"Account"];
+                [XWJAccount instance].password = pass;
+                [XWJAccount instance].NickName =[userDic valueForKey:@"NickName"];
+                [XWJAccount instance].name = [userDic valueForKey:@"NAME"];
+                [XWJAccount instance].Sex = [userDic valueForKey:@"sex"];
+                [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
+                /*
+                 "A_id" = 4;
+                 "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";
+                 isDefault = 1;
+                 */
+                [XWJAccount instance].array = [[dic objectForKey:@"data"] valueForKey:@"area"];
+                if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
+                    for (NSDictionary *di in [XWJAccount instance].array ) {
+                        if ([[di valueForKey:@"isDefault" ] integerValue]== 1) {
+                            [XWJAccount instance].aid = [NSString stringWithFormat:@"%@",[di valueForKey:@"A_id"]];
+                        }
+                    }
+                }
+                
+                //                BOOL isBind = [[NSUserDefaults standardUserDefaults] boolForKey:@"bind"];
+//                BOOL isBind = [XWJAccount instance].aid?TRUE:FALSE;
+//                if (!isBind) {
+//                    UIViewController *view =[self.storyboard instantiateViewControllerWithIdentifier:@"xuanzefangshi"];
+//                    [self.navigationController showViewController:view sender:nil];
+//                }else{
+                
+                    XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+                    //                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                    self.view.window.rootViewController = tab;
+//                }
+            }else{
+                NSString *errCode = [dic objectForKey:@"errorCode"];
+                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                alertview.delegate = self;
+                [alertview show];
+            }
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"log fail ");
+            //        dispatch_async(dispatch_get_main_queue(), ^{
+            //            XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+            //            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            //            window.rootViewController = tab;            //        });
+            
+            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"服务端返回异常" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            alertview.delegate = self;
+            [alertview show];
+        }];
+    }else{
+        UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"请输入用户名和密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alertview.delegate = self;
+        [alertview show];
+        //    if ([self.tFieldUserName.text isEqualToString:username]&&[self.tFieldPassWord.text isEqualToString:pwd]) {
+        //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+        //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        //        window.rootViewController = tab;
+        //    }
+    }
+    
+    /*
+     XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
+     bind.title = @"城市选择";
+     bind.dataSource = [NSArray arrayWithObjects:@"青岛市",@"济南市",@"威海市", nil];
+     bind.delegate = self;
+     bind->mode = HouseCity;
+     [self.navigationController showViewController:bind sender:nil];
+     */
+}
 //- (IBAction)bind:(UIButton *)sender {
 //}
 

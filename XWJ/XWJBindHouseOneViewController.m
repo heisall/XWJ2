@@ -8,11 +8,12 @@
 
 #import "XWJBindHouseOneViewController.h"
 #import "XWJdef.h"
+#import "XWJQXTableViewCell.h"
 #import "XWJCity.h"
 @interface XWJBindHouseOneViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
 @property NSArray *typearray;
-
+@property UIButton *agreeBtn;
 @end
 
 @implementation XWJBindHouseOneViewController
@@ -40,6 +41,11 @@
     
 }
 - (IBAction)next:(UIButton *)sender {
+    
+    if (!_agreeBtn.selected) {
+        UIViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"bindhouse2"];
+        [self.navigationController showViewController:view sender:nil];
+    }
 }
 
 #pragma mark - Table view data source
@@ -68,11 +74,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell;
     
     if (indexPath.section == 0) {
 
-        cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
         }
@@ -83,36 +88,31 @@
         cell.detailTextLabel.textColor = XWJGREENCOLOR;
         cell.detailTextLabel.text = [self.array objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        return cell;
+
     }else{
-        cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell1"];
+        XWJQXTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell1"];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell1"];
-            
-            
-//            cell.imageView.highlightedImage = [UIImage imageNamed:@"agree"];
-//            cell.imageView.image = [UIImage imageNamed:@"agree"];
-            cell.textLabel.text =  @"我同意";
-//            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//            btn.frame = CGRectMake(150, 0, 200, 40);
-//            [btn setTitle:@"许可及服务协议" forState:UIControlStateNormal];
-//            [btn setTitleColor:XWJColor(249, 62, 0) forState:UIControlStateNormal];
-//            [btn setImage:[UIImage imageNamed:@"agreeline"] forState:UIControlStateNormal];
-////            btn.backgroundColor = [UIColor redColor];
-//            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//            btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-//            btn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-//            [btn setImageEdgeInsets:UIEdgeInsetsMake(35, 0, 0, 0)];
-//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(15, -100, 0, 0)];
+            cell = [[XWJQXTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell1"];
+        }
+            _agreeBtn = (UIButton *)[cell viewWithTag:100] ;
+//        [_agreeBtn setImage:[UIImage imageNamed:@"agree1"] forState:UIControlStateNormal];
+//        [_agreeBtn setImage:[UIImage imageNamed:@"agree2"] forState:UIControlStateSelected];
+        
+         [_agreeBtn addTarget:self action:@selector(agree:) forControlEvents:UIControlEventTouchUpInside];
+
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //            [cell addSubview:btn];
 
-        }
         
+        return cell;
+
     }
     
-    return cell;
 }
-
+-(void)agree:(UIButton*)btn{
+    btn.selected = !btn.selected;
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

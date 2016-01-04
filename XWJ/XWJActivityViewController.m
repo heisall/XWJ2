@@ -20,9 +20,12 @@
 //#define KEY_URL @"url"
 //#define KEY_ID  @"id"
 
+-(void)viewDidUnload{
+    [[NSNotificationCenter defaultCenter] removeObserver:@"baoming"];
+}
 -(void)viewDidLoad{
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yibaoming) name:@"baoming" object:nil];
     if ((NSNull *)[self.dic valueForKey:KEY_AD_TITLE]!=[NSNull null]) {
         
         self.actTitle.text = [self.dic valueForKey:KEY_AD_TITLE];
@@ -64,6 +67,10 @@
         [self.webView loadRequest:request];
     }
     
+}
+
+-(void)yibaoming{
+    self.btn.enabled = NO;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

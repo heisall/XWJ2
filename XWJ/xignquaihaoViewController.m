@@ -123,7 +123,8 @@
 
 -(void)downLoadData{
     
-    NSString *xingquUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/findEmotions";
+    NSString *xingquUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/findHobbies";
+  //  http://IP:PORT/appPhone/rest/user/findHobbies
     AFHTTPRequestOperationManager *manager  = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //请求参数

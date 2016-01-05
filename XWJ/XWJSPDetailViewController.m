@@ -85,9 +85,9 @@
 -(void)addView2{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+5, SCREEN_SIZE.width, HEIGHT_VIEW2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 100, 20)];
-    shangpinImg = [[UIImageView alloc] initWithFrame:CGRectMake(2, 25, SCREEN_SIZE.width-4, HEIGHT_VIEW2)];
+    shangpinImg = [[UIImageView alloc] initWithFrame:CGRectMake(40, 25, SCREEN_SIZE.width-4-80, HEIGHT_VIEW2)];
 
-    label.text = @"商品介绍";
+    label.text = @"商品信息";
     label.textColor = XWJGREENCOLOR;
     view.backgroundColor = [UIColor whiteColor];
 
@@ -310,7 +310,7 @@
     titleLabel.text = [self.goodsDic objectForKey:@"goods_name"];
     
     [self addBottomBtn];
-    NSString * prop = [self.goodsDic objectForKey:@"goods_img"]==[NSNull null]?nil:[self.goodsDic objectForKey:@"goods_img"] ;
+    NSString * prop = [self.goodsDic objectForKey:@"description"]==[NSNull null]?nil:[self.goodsDic objectForKey:@"description"] ;
     
     if (prop&&![prop isEqualToString:@""]) {
         NSArray *imgs = [prop componentsSeparatedByString:@","];
@@ -325,9 +325,12 @@
             view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, HEIGHT_VIEW2*imgs.count);
             [shangpinImg sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:0]]];
 
+//            [shangpinImg sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:0]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//                shangpinImg.frame =
+//            }];
             for (int i =1; i<imgs.count; i++) {
                 
-                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(2, 25+HEIGHT_VIEW2*i, SCREEN_SIZE.width-4, HEIGHT_VIEW2)];
+                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(40, 25+HEIGHT_VIEW2*i, SCREEN_SIZE.width-4-80, HEIGHT_VIEW2)];
                 [img sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:i]]];
                 [view addSubview:img];
             }
@@ -346,7 +349,7 @@
     if(URLs&&URLs.count>0)
         [self.adView addSubview:({
             
-            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width-80,
                                                                                     self.adView.bounds.size.height)
                                         
                                                                 delegate:self

@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self createButton];
     // Do any additional setup after loading the view.
     
     [self.tableView registerNib:[UINib nibWithNibName:@"gztablecell" bundle:nil] forCellReuseIdentifier:@"cell"];
@@ -238,5 +239,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+-(void)createButton{
+
+    UIButton *button  = [[UIButton alloc]initWithFrame:CGRectMake(20, [UIScreen mainScreen].bounds.size.height - 50, [UIScreen mainScreen].bounds.size.width - 40, 30)];
+    if (self.type == 1) {
+        [button setTitle:@"我要报修" forState:UIControlStateNormal];
+    }else
+        [button setTitle:@"我要投诉" forState:UIControlStateNormal];
+    
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.layer.cornerRadius = 5;
+    button.backgroundColor = [UIColor colorWithRed:.27 green:0.82 blue:0.82 alpha:1.00];
+    [button addTarget:self action:@selector(onTousuButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+}
+-(void)onTousuButtonClick{
+
+    [self baoxiu];
+}
 
 @end

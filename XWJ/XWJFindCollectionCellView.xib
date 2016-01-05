@@ -88,6 +88,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="findCellMsgIcon" width="16" height="16"/>
+        <image name="findCellMsgIcon" width="25" height="25"/>
     </resources>
 </document>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A2301" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -16,18 +16,21 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSW-hX-ImZ">
-                        <rect key="frame" x="0.0" y="0.0" width="125.5" height="77"/>
+                        <rect key="frame" x="0.0" y="0.0" width="126" height="77"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shangjia1" translatesAutoresizingMaskIntoConstraints="NO" id="Anm-YL-x3z">
-                                <rect key="frame" x="0.0" y="0.0" width="125.5" height="60"/>
+                                <rect key="frame" x="0.0" y="0.0" width="126" height="60"/>
+                                <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="团购" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ez9-mS-MKW">
-                                <rect key="frame" x="46" y="57" width="32" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="团购" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ez9-mS-MKW">
+                                <rect key="frame" x="46" y="57" width="32" height="20"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Anm-YL-x3z" firstAttribute="width" secondItem="bSW-hX-ImZ" secondAttribute="width" id="3O4-hn-aEK"/>
@@ -37,19 +40,22 @@
                             <constraint firstItem="Ez9-mS-MKW" firstAttribute="centerX" secondItem="bSW-hX-ImZ" secondAttribute="centerX" id="uDr-Lh-rCf"/>
                         </constraints>
                     </view>
-                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFg-4Z-2ME">
-                        <rect key="frame" x="126.5" y="0.0" width="125.5" height="77"/>
+                    <view tag="2" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oFg-4Z-2ME">
+                        <rect key="frame" x="127" y="0.0" width="125" height="77"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shangjia2" translatesAutoresizingMaskIntoConstraints="NO" id="EsE-5W-amy">
-                                <rect key="frame" x="0.0" y="0.0" width="125.5" height="60"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shangjia2" translatesAutoresizingMaskIntoConstraints="NO" id="EsE-5W-amy">
+                                <rect key="frame" x="0.0" y="0.0" width="126" height="60"/>
+                                <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商户" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-xI-11Z">
-                                <rect key="frame" x="46" y="57" width="32" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="商户" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-xI-11Z">
+                                <rect key="frame" x="46" y="57" width="32" height="20"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3A1-xI-11Z" firstAttribute="top" secondItem="EsE-5W-amy" secondAttribute="bottom" constant="-3" id="IEE-Rp-zbd"/>
@@ -60,18 +66,21 @@
                         </constraints>
                     </view>
                     <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvC-Xo-WAn">
-                        <rect key="frame" x="0.0" y="78" width="125.5" height="77"/>
+                        <rect key="frame" x="0.0" y="78" width="126" height="77"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shangjia4" translatesAutoresizingMaskIntoConstraints="NO" id="oaJ-jm-BaR">
-                                <rect key="frame" x="0.0" y="0.0" width="125.5" height="60"/>
+                                <rect key="frame" x="0.0" y="0.0" width="126" height="60"/>
+                                <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="食品" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkI-kH-DWO">
-                                <rect key="frame" x="46" y="57" width="32" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="食品" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkI-kH-DWO">
+                                <rect key="frame" x="46" y="57" width="32" height="20"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vkI-kH-DWO" firstAttribute="top" secondItem="oaJ-jm-BaR" secondAttribute="bottom" constant="-3" id="AUx-AA-w5w"/>
@@ -81,19 +90,22 @@
                             <constraint firstItem="oaJ-jm-BaR" firstAttribute="centerX" secondItem="yvC-Xo-WAn" secondAttribute="centerX" id="vjN-S3-0bF"/>
                         </constraints>
                     </view>
-                    <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cva-gu-gMh">
-                        <rect key="frame" x="126.5" y="78" width="125.5" height="77"/>
+                    <view tag="4" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cva-gu-gMh">
+                        <rect key="frame" x="127" y="78" width="125" height="77"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shangjia3" translatesAutoresizingMaskIntoConstraints="NO" id="D3Z-pf-zKp">
-                                <rect key="frame" x="0.0" y="0.0" width="125.5" height="60"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shangjia3" translatesAutoresizingMaskIntoConstraints="NO" id="D3Z-pf-zKp">
+                                <rect key="frame" x="0.0" y="0.0" width="126" height="60"/>
+                                <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="家装" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEZ-Kt-1O2">
-                                <rect key="frame" x="46" y="57" width="32" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="家装" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEZ-Kt-1O2">
+                                <rect key="frame" x="46" y="57" width="32" height="20"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="D3Z-pf-zKp" firstAttribute="width" secondItem="Cva-gu-gMh" secondAttribute="width" id="5tL-Yf-p1j"/>
@@ -103,12 +115,15 @@
                             <constraint firstItem="D3Z-pf-zKp" firstAttribute="centerX" secondItem="Cva-gu-gMh" secondAttribute="centerX" id="Oi7-Dm-rTQ"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shangjia0" translatesAutoresizingMaskIntoConstraints="NO" id="127-Lf-Jdy">
-                        <rect key="frame" x="253" y="0.0" width="167.5" height="154"/>
+                    <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shangjia0" translatesAutoresizingMaskIntoConstraints="NO" id="127-Lf-Jdy">
+                        <rect key="frame" x="253" y="0.0" width="168" height="154"/>
+                        <animations/>
                     </imageView>
                 </subviews>
+                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <animations/>
             <constraints>
                 <constraint firstItem="bSW-hX-ImZ" firstAttribute="width" secondItem="Nq5-Wt-b4K" secondAttribute="width" multiplier="1.5:5" id="1jE-Hq-4Zb"/>
                 <constraint firstItem="yvC-Xo-WAn" firstAttribute="leading" secondItem="bSW-hX-ImZ" secondAttribute="leading" id="3mL-7j-zrr"/>

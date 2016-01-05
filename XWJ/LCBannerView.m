@@ -191,8 +191,9 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
         UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, scrollH - 10.0f - LCPageDistance, scrollW, 10.0f)];
         pageControl.numberOfPages = self.count;
         pageControl.userInteractionEnabled = NO;
-        pageControl.currentPageIndicatorTintColor = self.currentPageIndicatorTintColor ?: [UIColor orangeColor];
-        pageControl.pageIndicatorTintColor = self.pageIndicatorTintColor ?: [UIColor lightGrayColor];
+        pageControl.currentPageIndicatorTintColor = self.currentPageIndicatorTintColor ?: [UIColor blueColor];
+        pageControl.pageIndicatorTintColor = self.pageIndicatorTintColor ?: [UIColor yellowColor];
+        
         
         self.pageControl = pageControl;
     })];
@@ -279,7 +280,9 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
         UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, scrollH - 10.0f - LCPageDistance, scrollW, 10.0f)];
         pageControl.numberOfPages = self.count;
         pageControl.userInteractionEnabled = NO;
-        pageControl.currentPageIndicatorTintColor = self.currentPageIndicatorTintColor ?: [UIColor orangeColor];
+//        pageControl.currentPageIndicatorTintColor = self.currentPageIndicatorTintColor ?: [UIColor orangeColor];
+//        pageControl.pageIndicatorTintColor = self.pageIndicatorTintColor ?: [UIColor lightGrayColor];
+        pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:0.27 green:0.82 blue:0.82 alpha:1];
         pageControl.pageIndicatorTintColor = self.pageIndicatorTintColor ?: [UIColor lightGrayColor];
         
         self.pageControl = pageControl;

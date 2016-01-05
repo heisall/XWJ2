@@ -28,7 +28,7 @@
     }else{
         self.navigationItem.title = @"社区活动";
     }
-//    self.navigationItem.title = @"详情";
+    self.navigationItem.title = @"详情";
 
     /*
      ClickCount = 34;

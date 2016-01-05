@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self downLoadData];
+    self.title = @"婚姻状况";
     [self createUI];
     
 }

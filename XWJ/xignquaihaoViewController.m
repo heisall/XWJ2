@@ -30,6 +30,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"兴趣爱好";
     _buttonSource = [NSMutableArray array];
 
 //    [self createUI];
@@ -73,7 +74,7 @@
     Finish.titleLabel.font = [UIFont systemFontOfSize:22];
     Finish.frame = CGRectMake(WIDTH/2-100, 230, 200, 40);
     [Finish setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [Finish setBackgroundColor:[UIColor orangeColor]];
+    [Finish setBackgroundColor:[UIColor colorWithRed:0.27 green:0.82 blue:0.82 alpha:1.00]];
     Finish.layer.cornerRadius = 10.0;
     Finish.layer.masksToBounds = YES;
     Finish.tag = 200;
@@ -94,7 +95,7 @@
                 [_buttonSource removeObject:button.titleLabel.text];
             }
         }
-        NSLog(@"_buttonSource%@",_buttonSource);
+     //   NSLog(@"_buttonSource%@",_buttonSource);
     }else{
         NSString *returnStr = @"";
         for (id str in _buttonSource) {
@@ -123,7 +124,8 @@
 
 -(void)downLoadData{
     
-    NSString *xingquUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/findEmotions";
+    NSString *xingquUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/findHobbies";
+  //  http://IP:PORT/appPhone/rest/user/findHobbies
     AFHTTPRequestOperationManager *manager  = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //请求参数

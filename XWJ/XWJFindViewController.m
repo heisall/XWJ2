@@ -14,6 +14,7 @@
 #import "XWJFindTypeController.h"
 #import "XWJFindPubViewController.h"
 #import "XWJAccount.h"
+#import "XWJMyMessageController.h"
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 2
 #define  SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
@@ -285,9 +286,24 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
             }
         }
     }
+    
+    UIImage *image = [UIImage imageNamed:@"homemes"];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    [btn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
+    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+    
     self.navigationItem.leftBarButtonItem = nil;
 }
 
+-(void)showList{
+    //    UIStoryboard *wuyStory = [UIStoryboard storyboardWithName:@"WuyeStoryboard" bundle:nil];
+    //    [self.navigationController showViewController:[wuyStory instantiateInitialViewController] sender:nil];
+    UIViewController * con = [[XWJMyMessageController alloc] init];
+    [self.navigationController showViewController:con sender:nil];
+}
 #pragma mark -CollectionView datasource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {

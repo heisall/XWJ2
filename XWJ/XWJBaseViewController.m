@@ -63,13 +63,13 @@
     self.navigationItem.leftBarButtonItem = barButtonItem;
     
     
-    UIImage *rimage = [UIImage imageNamed:@"homemes"];
-    UIButton *rbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rbtn.frame = CGRectMake(0, 0, rimage.size.width, rimage.size.height);
-    [rbtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
-    [rbtn setBackgroundImage:rimage forState:UIControlStateNormal];
-    UIBarButtonItem *rbarButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:rbtn];
-    self.navigationItem.rightBarButtonItem = rbarButtonItem;
+//    UIImage *rimage = [UIImage imageNamed:@"homemes"];
+//    UIButton *rbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    rbtn.frame = CGRectMake(0, 0, rimage.size.width, rimage.size.height);
+//    [rbtn addTarget:self action:@selector(showList) forControlEvents:UIControlEventTouchUpInside];
+//    [rbtn setBackgroundImage:rimage forState:UIControlStateNormal];
+//    UIBarButtonItem *rbarButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:rbtn];
+//    self.navigationItem.rightBarButtonItem = rbarButtonItem;
     
 //    self.navigationItem.leftBarButtonItem.style = UIBarButtonSystemItemCancel;
     
@@ -87,6 +87,8 @@
     UIViewController * con = [[XWJMyMessageController alloc] init];
     [self.navigationController showViewController:con sender:nil];
 }
+
+
 
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];

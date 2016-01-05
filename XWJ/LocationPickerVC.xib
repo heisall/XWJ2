@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A2301" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LocationPickerVC">
@@ -26,6 +26,7 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQk-EQ-bnb">
                     <rect key="frame" x="10" y="80" width="300" height="30"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="Gpc-la-xFR"/>
                         <constraint firstAttribute="height" constant="30" id="Yn1-hC-l4f"/>
@@ -40,6 +41,7 @@
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0G-QN-RKL" userLabel="省">
                     <rect key="frame" x="10" y="121" width="100" height="30"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="Wph-xT-UtX"/>
                         <constraint firstAttribute="height" constant="30" id="fLm-6J-Qxp"/>
@@ -51,6 +53,7 @@
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrq-7j-0kf" userLabel="市">
                     <rect key="frame" x="110" y="121" width="100" height="30"/>
+                    <animations/>
                     <state key="normal" title="Button">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,6 +61,7 @@
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sva-yG-Jc8" userLabel="县">
                     <rect key="frame" x="210" y="121" width="100" height="30"/>
+                    <animations/>
                     <state key="normal" title="Button">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,6 +69,7 @@
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mna-jD-iB4">
                     <rect key="frame" x="0.0" y="176" width="320" height="35"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="dyt-gx-MC8"/>
                     </constraints>
@@ -73,12 +78,14 @@
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fn7-dt-Ifw">
                     <rect key="frame" x="0.0" y="148" width="68" height="20"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收件人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26q-dB-AFI">
                     <rect key="frame" x="4" y="219" width="51" height="21"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="Ife-dH-qnQ"/>
                     </constraints>
@@ -88,6 +95,7 @@
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1hL-QC-Jwh">
                     <rect key="frame" x="0.0" y="250" width="320" height="35"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="8bv-cr-6hE"/>
                     </constraints>
@@ -96,6 +104,7 @@
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgl-LT-lCi">
                     <rect key="frame" x="4" y="295" width="51" height="21"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="R1A-t1-MQZ"/>
                     </constraints>
@@ -105,6 +114,7 @@
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67s-Mm-k0T">
                     <rect key="frame" x="0.0" y="317" width="320" height="35"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="mH8-uJ-p9G"/>
                     </constraints>
@@ -112,6 +122,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="67s-Mm-k0T" firstAttribute="top" secondItem="dgl-LT-lCi" secondAttribute="bottom" constant="1" id="3Tm-bx-xX5"/>
@@ -152,6 +163,7 @@
             <subviews>
                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vYg-iu-vPn">
                     <rect key="frame" x="0.0" y="34" width="320" height="216"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="216" id="7ZS-vX-PRX"/>
                     </constraints>
@@ -162,6 +174,7 @@
                 </pickerView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75c-eT-Kce">
                     <rect key="frame" x="0.0" y="0.0" width="80" height="39"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="39" id="dfB-yf-xrf"/>
                         <constraint firstAttribute="width" constant="80" id="wI1-Ei-eda"/>
@@ -176,6 +189,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSx-u6-hdY">
                     <rect key="frame" x="240" y="0.0" width="80" height="39"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="39" id="bkj-Ar-0gJ"/>
                         <constraint firstAttribute="width" constant="80" id="td2-jx-U5i"/>
@@ -189,6 +203,7 @@
                     </connections>
                 </button>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="vYg-iu-vPn" firstAttribute="leading" secondItem="PzK-9M-rC1" secondAttribute="leading" id="49I-0x-b86"/>

@@ -302,7 +302,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSu-m9-JhR">
                                                     <rect key="frame" x="548" y="37" width="34" height="23"/>
                                                     <animations/>
-                                                    <state key="normal" title="2" image="findpinglun">
+                                                    <state key="normal" title="2" image="findCellMsgIcon">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="disabled" image="findpinglun"/>
@@ -1112,6 +1112,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="findCellMsgIcon" width="25" height="25"/>
         <image name="findpinglun" width="23" height="23"/>
         <image name="headDefaultImg" width="65" height="65"/>
         <image name="headerimg" width="319" height="91"/>

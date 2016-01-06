@@ -22,7 +22,7 @@
 #import "XWJAboutViewController.h"
 #import "XWJMyMessageController.h"
 #import "XWJForgetPwdViewController.h"
-
+#import "XWJMyOrderViewController.h"
 
 #define  CELL_HEIGHT 30.0
 #define  COLLECTION_NUMSECTIONS 2
@@ -177,6 +177,10 @@ NSArray *myImgs;
         if (indexPath.row == 2) {
             XWJZuShouViewController *find = [[XWJZuShouViewController alloc]init];
             [self.navigationController pushViewController:find animated:YES];
+        }
+        if (indexPath.row == 3) {
+            XWJMyOrderViewController *order = [[XWJMyOrderViewController alloc]init];
+            [self.navigationController pushViewController:order animated:YES];
         }
     }
     

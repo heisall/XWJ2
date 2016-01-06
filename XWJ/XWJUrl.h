@@ -96,6 +96,9 @@
 //tuangou
 #define GETGROUP_URL  XWJBASEURL"life/groupBuying"
 
+//order
+#define GETORDER_URL  XWJBASEURL"order/myOrders"
+
 #define YEZHU_URL  XWJBASEURL"build/infoValidate"
 #define CHANGEFANGYUAN_URL  XWJBASEURL"build/changeDefault"
 

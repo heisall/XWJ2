@@ -268,6 +268,13 @@
 		A4E28DFB1C2FF39600644909 /* XWJYouHuiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E28DFA1C2FF39600644909 /* XWJYouHuiViewController.m */; };
 		A4E28DFE1C30225000644909 /* XWJJiesuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E28DFD1C30225000644909 /* XWJJiesuanViewController.m */; };
 		A4ED9BD71C036B1100142991 /* ResetPWDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4ED9BD61C036B1100142991 /* ResetPWDViewController.m */; };
+		A4F14CE81C3D452400D4BFB0 /* XWJMyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14CE71C3D452400D4BFB0 /* XWJMyOrderViewController.m */; };
+		A4F14CEA1C3D45B600D4BFB0 /* XWJOrderCellHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F14CE91C3D45B600D4BFB0 /* XWJOrderCellHeader.xib */; };
+		A4F14CEC1C3D45C700D4BFB0 /* XWJOrderCellFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F14CEB1C3D45C700D4BFB0 /* XWJOrderCellFooter.xib */; };
+		A4F14CEE1C3D45D600D4BFB0 /* XWJOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F14CED1C3D45D600D4BFB0 /* XWJOrderCell.xib */; };
+		A4F14CF11C3D50C100D4BFB0 /* XWJOrderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14CF01C3D50C100D4BFB0 /* XWJOrderHeader.m */; };
+		A4F14CF61C3D51F600D4BFB0 /* XWJOrderFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14CF51C3D51F600D4BFB0 /* XWJOrderFooter.m */; };
+		A4F14CF91C3D531000D4BFB0 /* XWJOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14CF81C3D531000D4BFB0 /* XWJOrderTableViewCell.m */; };
 		A4F2571B1C2B59FF00B2EC58 /* XWJShuoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F2571A1C2B59FF00B2EC58 /* XWJShuoTableCell.xib */; };
 		A4F2571E1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F2571D1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.m */; };
 		A4F257211C2B6BE100B2EC58 /* XWJMerDetailListController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F257201C2B6BE100B2EC58 /* XWJMerDetailListController.m */; };
@@ -765,6 +772,17 @@
 		A4E28DFD1C30225000644909 /* XWJJiesuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJJiesuanViewController.m; sourceTree = "<group>"; };
 		A4ED9BD51C036B1100142991 /* ResetPWDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPWDViewController.h; sourceTree = "<group>"; };
 		A4ED9BD61C036B1100142991 /* ResetPWDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPWDViewController.m; sourceTree = "<group>"; };
+		A4F14CE61C3D452400D4BFB0 /* XWJMyOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJMyOrderViewController.h; sourceTree = "<group>"; };
+		A4F14CE71C3D452400D4BFB0 /* XWJMyOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJMyOrderViewController.m; sourceTree = "<group>"; };
+		A4F14CE91C3D45B600D4BFB0 /* XWJOrderCellHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJOrderCellHeader.xib; sourceTree = "<group>"; };
+		A4F14CEB1C3D45C700D4BFB0 /* XWJOrderCellFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJOrderCellFooter.xib; sourceTree = "<group>"; };
+		A4F14CED1C3D45D600D4BFB0 /* XWJOrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJOrderCell.xib; sourceTree = "<group>"; };
+		A4F14CEF1C3D50C100D4BFB0 /* XWJOrderHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJOrderHeader.h; sourceTree = "<group>"; };
+		A4F14CF01C3D50C100D4BFB0 /* XWJOrderHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJOrderHeader.m; sourceTree = "<group>"; };
+		A4F14CF41C3D51F600D4BFB0 /* XWJOrderFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJOrderFooter.h; sourceTree = "<group>"; };
+		A4F14CF51C3D51F600D4BFB0 /* XWJOrderFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJOrderFooter.m; sourceTree = "<group>"; };
+		A4F14CF71C3D531000D4BFB0 /* XWJOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJOrderTableViewCell.h; sourceTree = "<group>"; };
+		A4F14CF81C3D531000D4BFB0 /* XWJOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJOrderTableViewCell.m; sourceTree = "<group>"; };
 		A4F2571A1C2B59FF00B2EC58 /* XWJShuoTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJShuoTableCell.xib; sourceTree = "<group>"; };
 		A4F2571C1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJShuolistTableViewCell.h; sourceTree = "<group>"; };
 		A4F2571D1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJShuolistTableViewCell.m; sourceTree = "<group>"; };
@@ -1392,6 +1410,17 @@
 				8E1327101C30DED000D3EDB5 /* XWJMyZSViewController.m */,
 				8E1327111C30DED000D3EDB5 /* XWJSuggestionController.h */,
 				8E1327121C30DED000D3EDB5 /* XWJSuggestionController.m */,
+				A4F14CE61C3D452400D4BFB0 /* XWJMyOrderViewController.h */,
+				A4F14CE71C3D452400D4BFB0 /* XWJMyOrderViewController.m */,
+				A4F14CE91C3D45B600D4BFB0 /* XWJOrderCellHeader.xib */,
+				A4F14CEB1C3D45C700D4BFB0 /* XWJOrderCellFooter.xib */,
+				A4F14CED1C3D45D600D4BFB0 /* XWJOrderCell.xib */,
+				A4F14CEF1C3D50C100D4BFB0 /* XWJOrderHeader.h */,
+				A4F14CF01C3D50C100D4BFB0 /* XWJOrderHeader.m */,
+				A4F14CF41C3D51F600D4BFB0 /* XWJOrderFooter.h */,
+				A4F14CF51C3D51F600D4BFB0 /* XWJOrderFooter.m */,
+				A4F14CF71C3D531000D4BFB0 /* XWJOrderTableViewCell.h */,
+				A4F14CF81C3D531000D4BFB0 /* XWJOrderTableViewCell.m */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -1959,6 +1988,7 @@
 				A4DC3CAA1C1D0A67003D4D18 /* XWJShangchengStoryboard.storyboard in Resources */,
 				A4F40BCA1C08A44D006E2F19 /* nav_Back_Icon@2x.png in Resources */,
 				A43C97851C11CB5D006A61EE /* XWJFindCollectionCellView.xib in Resources */,
+				A4F14CEE1C3D45D600D4BFB0 /* XWJOrderCell.xib in Resources */,
 				A412550E1C0F22FC0042D8CC /* LICENSE in Resources */,
 				A4DC3C8A1C1C4FB8003D4D18 /* GuzhanStoryboard.storyboard in Resources */,
 				A4F5C19A1C0DC04300513CD9 /* XWJHomeCollectionCell2.xib in Resources */,
@@ -1968,6 +1998,7 @@
 				A43C97EE1C129C68006A61EE /* broswerPic0.jpg in Resources */,
 				A43929031C3039DA00572F70 /* LocationPickerVC.xib in Resources */,
 				A48801DF1C0B7DC500714F5B /* XWJSupplementaryView.xib in Resources */,
+				A4F14CEA1C3D45B600D4BFB0 /* XWJOrderCellHeader.xib in Resources */,
 				A42DA7D01C3830A500EF74C1 /* XWJPayWayView.xib in Resources */,
 				A43C97FF1C129C68006A61EE /* xiang.png in Resources */,
 				A43C97F71C129C68006A61EE /* checkbox_pic_non@2x.png in Resources */,
@@ -1978,6 +2009,7 @@
 				A48801DD1C0B7B1C00714F5B /* XWJHomeCollectionCell.xib in Resources */,
 				DA8834751BFCB4A3001B2862 /* XWJLoginStoryboard.storyboard in Resources */,
 				A42DA7C31C37839F00EF74C1 /* XWJTuangouCell.xib in Resources */,
+				A4F14CEC1C3D45C700D4BFB0 /* XWJOrderCellFooter.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2030,6 +2062,7 @@
 				A459474C1C2CB34D00DD8A2E /* XWJShangmenViewController.m in Sources */,
 				A4DC3CB41C1DFC8B003D4D18 /* XWJADViewController.m in Sources */,
 				A412550A1C0F22FC0042D8CC /* AFURLConnectionOperation.m in Sources */,
+				A4F14CE81C3D452400D4BFB0 /* XWJMyOrderViewController.m in Sources */,
 				A41255171C0F22FC0042D8CC /* UIWebView+AFNetworking.m in Sources */,
 				A48801791C09D2A400714F5B /* XWJBingHouseViewController.m in Sources */,
 				8E1327451C30DFDB00D3EDB5 /* XWJZuShouViewController.m in Sources */,
@@ -2040,6 +2073,7 @@
 				8E1327271C30DED000D3EDB5 /* XWJMyZSViewController.m in Sources */,
 				A49DD3FD1C2F0A5100DB1EC1 /* XWJGouWucheTableViewCell.m in Sources */,
 				DA8834731BFCB47F001B2862 /* XWJLoginViewController.m in Sources */,
+				A4F14CF91C3D531000D4BFB0 /* XWJOrderTableViewCell.m in Sources */,
 				A48801CD1C0B5C9500714F5B /* StyledPageControl.m in Sources */,
 				A4093EEB1C10ACEB00F2F324 /* UIPlaceHolderTextView.m in Sources */,
 				A412557E1C0F39D20042D8CC /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -2053,6 +2087,7 @@
 				8E1327251C30DED000D3EDB5 /* XWJMyInfoViewController.m in Sources */,
 				A41255091C0F22FC0042D8CC /* AFSecurityPolicy.m in Sources */,
 				A43C98391C146ACE006A61EE /* XWJPay2ViewController.m in Sources */,
+				A4F14CF11C3D50C100D4BFB0 /* XWJOrderHeader.m in Sources */,
 				A4F40BD01C08B5B4006E2F19 /* XWJResetPasswordViewController.m in Sources */,
 				A48801911C09FAE700714F5B /* XWJLifeTabFactory.m in Sources */,
 				A4E28DF81C2FF07C00644909 /* XWJYueLineViewController.m in Sources */,
@@ -2127,6 +2162,7 @@
 				A4DC3C901C1C5084003D4D18 /* XWJGZmiaoshuViewController.m in Sources */,
 				A43C98361C146A1C006A61EE /* XWJPay1ViewController.m in Sources */,
 				A438111C1C257E60001D2F29 /* XWJMFViewController.m in Sources */,
+				A4F14CF61C3D51F600D4BFB0 /* XWJOrderFooter.m in Sources */,
 				A4CBC7791C3B31EC00274040 /* XWJQXTableViewCell.m in Sources */,
 				A43929021C3039DA00572F70 /* LocationPickerVC.m in Sources */,
 				A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */,

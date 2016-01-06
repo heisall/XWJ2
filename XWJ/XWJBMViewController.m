@@ -9,6 +9,7 @@
 #import "XWJBMViewController.h"
 #import "XWJAccount.h"
 #import "ProgressHUD/ProgressHUD.h"
+#import "XWJActivityViewController.h"
 @interface XWJBMViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *phone;
 @property (weak, nonatomic) IBOutlet UITextField *name;
@@ -24,6 +25,7 @@
     self.navigationItem.title = @"报名";
     
     self.phone.text = [NSString stringWithFormat:@"电话 %@",[XWJAccount instance].account];
+    _telPhone.text = [XWJAccount instance].account;
     
 }
 - (IBAction)baoming:(id)sender {
@@ -59,6 +61,11 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"baoming" object:nil];
             NSLog(@"dic %@",dic);
         }
+        
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
+//        
+//        XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
+//        [self.navigationController popToViewController:acti animated:YES];
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

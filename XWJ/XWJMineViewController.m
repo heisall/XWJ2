@@ -21,6 +21,7 @@
 #import "XWJMyInfoViewController.h"
 #import "XWJAboutViewController.h"
 #import "XWJMyMessageController.h"
+#import "XWJForgetPwdViewController.h"
 
 
 #define  CELL_HEIGHT 30.0
@@ -293,6 +294,12 @@ NSArray *myImgs;
         
         XWJAboutViewController *about = [[XWJAboutViewController alloc]init];
         [self.navigationController pushViewController:about animated:YES];
+    }
+    if (indexPath.row == 2) {
+        
+        UIStoryboard *changePassWord = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+        XWJForgetPwdViewController *forgotPassWord = [changePassWord instantiateViewControllerWithIdentifier:@"forget1"];
+        [self.navigationController showViewController:forgotPassWord sender:nil];
     }
     if (indexPath.row == 4) {
         

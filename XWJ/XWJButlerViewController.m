@@ -158,7 +158,8 @@
     UIStoryboard * story = [UIStoryboard storyboardWithName:@"XWJZFStoryboard" bundle:nil];
 
     XWJZFViewController *zf = [story instantiateInitialViewController];
-    zf.type = 2;
+    zf.type = 0;
+    
     UIStoryboard *guzhang = [UIStoryboard storyboardWithName:@"GuzhanStoryboard" bundle:nil];
     XWJGuzhangViewController *gz = [guzhang instantiateInitialViewController];
     gz.type = 1;

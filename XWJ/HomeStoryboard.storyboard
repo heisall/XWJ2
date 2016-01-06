@@ -306,6 +306,7 @@
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="disabled" image="findpinglun"/>
+                                                    <state key="highlighted" image="addImage"/>
                                                 </button>
                                             </subviews>
                                             <animations/>
@@ -1112,6 +1113,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="addImage" width="45" height="45"/>
         <image name="findCellMsgIcon" width="25" height="25"/>
         <image name="findpinglun" width="23" height="23"/>
         <image name="headDefaultImg" width="65" height="65"/>

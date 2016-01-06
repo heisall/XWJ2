@@ -15,6 +15,7 @@
 #import "XWJBindHouseTableViewController.h"
 #import "XWJPay1ViewController.h"
 #import "XWJZFViewController.h"
+
 #import "XWJGuzhangViewController.h"
 #import "XWJActivityViewController.h"
 #import "XWJCity.h"

@@ -275,6 +275,8 @@
 		A4F14CF11C3D50C100D4BFB0 /* XWJOrderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14CF01C3D50C100D4BFB0 /* XWJOrderHeader.m */; };
 		A4F14CF61C3D51F600D4BFB0 /* XWJOrderFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14CF51C3D51F600D4BFB0 /* XWJOrderFooter.m */; };
 		A4F14CF91C3D531000D4BFB0 /* XWJOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14CF81C3D531000D4BFB0 /* XWJOrderTableViewCell.m */; };
+		A4F14D101C3EC5EF00D4BFB0 /* XWJSPinfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14D0F1C3EC5EF00D4BFB0 /* XWJSPinfoViewController.m */; };
+		A4F14D131C3EC66D00D4BFB0 /* XWJSPGuigeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F14D121C3EC66D00D4BFB0 /* XWJSPGuigeViewController.m */; };
 		A4F2571B1C2B59FF00B2EC58 /* XWJShuoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F2571A1C2B59FF00B2EC58 /* XWJShuoTableCell.xib */; };
 		A4F2571E1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F2571D1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.m */; };
 		A4F257211C2B6BE100B2EC58 /* XWJMerDetailListController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F257201C2B6BE100B2EC58 /* XWJMerDetailListController.m */; };
@@ -619,7 +621,7 @@
 		A43C98281C140D93006A61EE /* XWJZFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJZFViewController.h; sourceTree = "<group>"; };
 		A43C98291C140D93006A61EE /* XWJZFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJZFViewController.m; sourceTree = "<group>"; };
 		A43C982E1C142D16006A61EE /* XWJBindHouseOneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJBindHouseOneViewController.h; sourceTree = "<group>"; };
-		A43C982F1C142D16006A61EE /* XWJBindHouseOneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJBindHouseOneViewController.m; sourceTree = "<group>"; };
+		A43C982F1C142D16006A61EE /* XWJBindHouseOneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJBindHouseOneViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		A43C98341C146A1C006A61EE /* XWJPay1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJPay1ViewController.h; sourceTree = "<group>"; };
 		A43C98351C146A1C006A61EE /* XWJPay1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJPay1ViewController.m; sourceTree = "<group>"; };
 		A43C98371C146ACE006A61EE /* XWJPay2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJPay2ViewController.h; sourceTree = "<group>"; };
@@ -783,6 +785,10 @@
 		A4F14CF51C3D51F600D4BFB0 /* XWJOrderFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJOrderFooter.m; sourceTree = "<group>"; };
 		A4F14CF71C3D531000D4BFB0 /* XWJOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJOrderTableViewCell.h; sourceTree = "<group>"; };
 		A4F14CF81C3D531000D4BFB0 /* XWJOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJOrderTableViewCell.m; sourceTree = "<group>"; };
+		A4F14D0E1C3EC5EF00D4BFB0 /* XWJSPinfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSPinfoViewController.h; sourceTree = "<group>"; };
+		A4F14D0F1C3EC5EF00D4BFB0 /* XWJSPinfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSPinfoViewController.m; sourceTree = "<group>"; };
+		A4F14D111C3EC66D00D4BFB0 /* XWJSPGuigeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSPGuigeViewController.h; sourceTree = "<group>"; };
+		A4F14D121C3EC66D00D4BFB0 /* XWJSPGuigeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSPGuigeViewController.m; sourceTree = "<group>"; };
 		A4F2571A1C2B59FF00B2EC58 /* XWJShuoTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJShuoTableCell.xib; sourceTree = "<group>"; };
 		A4F2571C1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJShuolistTableViewCell.h; sourceTree = "<group>"; };
 		A4F2571D1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJShuolistTableViewCell.m; sourceTree = "<group>"; };
@@ -1667,6 +1673,10 @@
 				A42DA7C21C37839F00EF74C1 /* XWJTuangouCell.xib */,
 				A42DA7C71C37DD9000EF74C1 /* XWJGroupBuyTableViewCell.h */,
 				A42DA7C81C37DD9000EF74C1 /* XWJGroupBuyTableViewCell.m */,
+				A4F14D0E1C3EC5EF00D4BFB0 /* XWJSPinfoViewController.h */,
+				A4F14D0F1C3EC5EF00D4BFB0 /* XWJSPinfoViewController.m */,
+				A4F14D111C3EC66D00D4BFB0 /* XWJSPGuigeViewController.h */,
+				A4F14D121C3EC66D00D4BFB0 /* XWJSPGuigeViewController.m */,
 			);
 			name = shangcheng;
 			sourceTree = "<group>";
@@ -2116,6 +2126,7 @@
 				A412554F1C0F38C70042D8CC /* WuyeTableViewCell.m in Sources */,
 				A4DC3C961C1C50CF003D4D18 /* XWJGZJudgeViewController.m in Sources */,
 				A4DC3C561C19C808003D4D18 /* XWJXuanZeViewController.m in Sources */,
+				A4F14D101C3EC5EF00D4BFB0 /* XWJSPinfoViewController.m in Sources */,
 				8E1327441C30DFDB00D3EDB5 /* TitleView.m in Sources */,
 				A41255791C0F39D20042D8CC /* SDWebImageManager.m in Sources */,
 				A43C97AA1C1297E1006A61EE /* LGPhotoPickerCollectionViewCell.m in Sources */,
@@ -2231,6 +2242,7 @@
 				A43C97881C11EB2C006A61EE /* XWJFindPubViewController.m in Sources */,
 				A43C97CC1C129A79006A61EE /* LGImagePickerSelectView.m in Sources */,
 				A41255101C0F22FC0042D8CC /* AFNetworkActivityIndicatorManager.m in Sources */,
+				A4F14D131C3EC66D00D4BFB0 /* XWJSPGuigeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@
 #import "XWJdef.h"
 #import "XWJQXTableViewCell.h"
 #import "XWJCity.h"
+#import "XWJWebViewController.h"
 @interface XWJBindHouseOneViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
 @property NSArray *typearray;
@@ -100,6 +101,8 @@
 //        [_agreeBtn setImage:[UIImage imageNamed:@"agree2"] forState:UIControlStateSelected];
         
          [_agreeBtn addTarget:self action:@selector(agree:) forControlEvents:UIControlEventTouchUpInside];
+//        UIButton *xieybtn = (UIButton *)[cell viewWithTag:101] ;
+        [cell.xieyiBtn addTarget:self action:@selector(xieyi) forControlEvents:UIControlEventTouchUpInside];
 
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //            [cell addSubview:btn];
@@ -109,6 +112,11 @@
 
     }
     
+}
+-(void)xieyi{
+    XWJWebViewController *web = [[XWJWebViewController alloc] init];
+    web.url  = XIEYI_URL;
+    [self.navigationController pushViewController:web animated:NO];
 }
 -(void)agree:(UIButton*)btn{
     btn.selected = !btn.selected;

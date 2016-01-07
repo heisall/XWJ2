@@ -14,6 +14,8 @@
 #import "ProgressHUD/ProgressHUD.h"
 #import "XWJYueLineViewController.h"
 #import "XWJYouHuiViewController.h"
+#import "XWJSPGuigeViewController.h"
+#import "XWJSPinfoViewController.h"
 @interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property UIScrollView *scrollView;
 
@@ -36,8 +38,10 @@
 
 #define PADDINGTOP 64
 #define HEIGHT_VIEW1 250
-#define HEIGHT_VIEW2 400
+//#define HEIGHT_VIEW2 400
 #define HEIGHT_VIEW3 250
+#define HEIGHT_VIEW2 40
+
 #define HEIGHT_VIEW4 250
 
 
@@ -56,6 +60,7 @@
     [self addView];
     [self addView2];
     [self addView3];
+    [self addView4];
     [self getDetail];
     
     tableView.dataSource =self;
@@ -76,34 +81,93 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
--(void)addView3{
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+HEIGHT_VIEW2+10, SCREEN_SIZE.width, HEIGHT_VIEW3)];
+-(void)addView4{
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+HEIGHT_VIEW2+HEIGHT_VIEW2+12, SCREEN_SIZE.width, HEIGHT_VIEW3)];
     
     tableView.backgroundColor = [UIColor whiteColor];
     [scrollView addSubview:tableView];
 }
 -(void)addView2{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+5, SCREEN_SIZE.width, HEIGHT_VIEW2)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 100, 20)];
-    shangpinImg = [[UIImageView alloc] initWithFrame:CGRectMake(40, 25, SCREEN_SIZE.width-4-80, HEIGHT_VIEW2)];
-
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+10, SCREEN_SIZE.width, HEIGHT_VIEW2)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, (HEIGHT_VIEW2-20)/2, 100, 20)];
+    shangpinImg = [[UIImageView alloc] initWithFrame:CGRectMake(80, 5, SCREEN_SIZE.width-4-160, HEIGHT_VIEW2)];
     label.text = @"商品信息";
-    label.textColor = XWJGREENCOLOR;
+//    label.textColor = XWJGREENCOLOR;
     view.backgroundColor = [UIColor whiteColor];
 
+    UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(SCREEN_SIZE.width-110, (HEIGHT_VIEW2-30)/2, 100, 30);
+    [btn setImage:[UIImage imageNamed:@"next2"] forState:UIControlStateNormal];
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [btn addTarget:self action:@selector(shangpinClick:) forControlEvents:UIControlEventTouchUpInside];
+    btn.tag= 0;
+    [view addSubview:btn];
     [view addSubview:label];
-    [view addSubview:shangpinImg];
+//    [view addSubview:shangpinImg];
     [scrollView addSubview:view];
 }
+-(void)addView3{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+HEIGHT_VIEW2+11, SCREEN_SIZE.width, HEIGHT_VIEW2)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, (HEIGHT_VIEW2-20)/2, 100, 20)];
+    label.text = @"商品规格";
+    view.backgroundColor = [UIColor whiteColor];
+    
+    UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(SCREEN_SIZE.width-110, (HEIGHT_VIEW2-30)/2, 100, 30);
+    [btn setImage:[UIImage imageNamed:@"next2"] forState:UIControlStateNormal];
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [btn addTarget:self action:@selector(shangpinClick:) forControlEvents:UIControlEventTouchUpInside];
+    btn.tag= 1;
+    [view addSubview:btn];
+    [view addSubview:label];
+    [scrollView addSubview:view];
+}
+
+-(void)shangpinClick:(UIButton *)btn{
+ 
+    NSInteger tag  = btn.tag;
+    switch (tag) {
+        case 0:
+        {
+            XWJSPinfoViewController *view  = [[XWJSPinfoViewController alloc ] init];
+            
+            NSString * prop = [self.goodsDic objectForKey:@"description"]==[NSNull null]?nil:[self.goodsDic objectForKey:@"description"] ;
+            
+            if (prop&&![prop isEqualToString:@""]) {
+                NSArray *imgs = [prop componentsSeparatedByString:@","];
+                view.arr = imgs;
+            }
+            [self.navigationController pushViewController:view animated:NO];
+        }
+            break;
+        case 1:
+        {
+            XWJSPGuigeViewController *view  = [[XWJSPGuigeViewController alloc ] init];
+            [self.navigationController pushViewController:view animated:NO];
+        }
+            break;
+        case 2:
+            ;
+            break;
+        default:
+            break;
+    }
+}
+
 -(void)addView{
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
-    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, SCREEN_SIZE.width, 20)];
-    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, titleLabel.frame.origin.y+titleLabel.bounds.size.height, SCREEN_SIZE.width, 150)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, adView.frame.origin.y+adView.bounds.size.height, 120, 30)];
-
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150-25, SCREEN_SIZE.width, 25)];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.backgroundColor = [UIColor darkGrayColor];
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    titleLabel.textAlignment  = NSTextAlignmentCenter;
+    titleLabel.alpha = 0.6;
+    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 150)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, adView.frame.origin.y+adView.bounds.size.height, 100, 30)];
+    label.font = [UIFont systemFontOfSize:15];
     youhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.size.width, adView.frame.origin.y+adView.bounds.size.height, SCREEN_SIZE.width, 30)];
-    shichangjiaLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, label.frame.origin.y+label.bounds.size.height, 100, 30)];
-    xiaoliangLabel = [[UILabel alloc] initWithFrame:CGRectMake(150,label.frame.origin.y+label.bounds.size.height, 150, 30)];
+    shichangjiaLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, label.frame.origin.y+label.bounds.size.height, 120, 30)];
+    xiaoliangLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-80,adView.frame.origin.y+adView.bounds.size.height, 80, 30)];
     
     shichangjiaLabel.font = [UIFont systemFontOfSize:14.0];
     xiaoliangLabel.font = [UIFont systemFontOfSize:14.0];
@@ -125,11 +189,13 @@
 //    [view addSubview:dianpuBtn];
     [view addSubview:titleLabel];
     youhuLabel.text = @"￥ 80";
-    shichangjiaLabel.text = @"市场价 100";
+    shichangjiaLabel.text = @"市场价 :";
     xiaoliangLabel.text = @"销量： 100";
     titleLabel.text = @"农夫山泉 天然饮用水";
     label.text = @"业主专属价：";
-
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(50, shichangjiaLabel.bounds.size.height/2, shichangjiaLabel.bounds.size.width-65, 1)];
+    line.backgroundColor =[UIColor lightGrayColor];
+    [shichangjiaLabel addSubview:line];
     [scrollView addSubview:view];
 }
 
@@ -142,13 +208,22 @@
     return 30;
 }
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 30)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 80, 20)];
-    label.textColor = XWJGREENCOLOR;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 40)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, (HEIGHT_VIEW2-20)/2, 80, 20)];
+//    label.textColor = XWJGREENCOLOR;
     label.text  = @"商品评论";
-    headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(95, 2, 200, 20)];
-    headerLabel.textColor = XWJGRAYCOLOR;
-    headerLabel.text = @"0人参与评论";
+    headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, (HEIGHT_VIEW2-20)/2, 150, 20)];
+    headerLabel.textColor = [UIColor lightGrayColor];
+    headerLabel.text = @"(0人参与评论)";
+    headerLabel.font = [UIFont systemFontOfSize:14];
+    
+    UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(SCREEN_SIZE.width-110, (HEIGHT_VIEW2-30)/2, 100, 30);
+    [btn setImage:[UIImage imageNamed:@"next2"] forState:UIControlStateNormal];
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [btn addTarget:self action:@selector(shangpinClick:) forControlEvents:UIControlEventTouchUpInside];
+    btn.tag= 2;
+    [view addSubview:btn];
     [view addSubview:headerLabel];
     [view addSubview:label];
     return view;
@@ -304,9 +379,10 @@
     
 //    if(self.comments&&self.comments.count>0)
     headerLabel.text = [NSString stringWithFormat:@"(%lu人参与评论)",(unsigned long)self.comments.count];
-    youhuLabel.text = [NSString stringWithFormat:@"￥ %@",[self.goodsDic objectForKey:@"price"]];
-    shichangjiaLabel.text = [NSString stringWithFormat:@"市场价: ￥%@",[self.goodsDic objectForKey:@"old_price"] ];
-    xiaoliangLabel.text = [NSString stringWithFormat:@"销量：%@件",[self.goodsDic objectForKey:@"sales"]];
+    youhuLabel.text = [NSString stringWithFormat:@"￥ %.1f",[[self.goodsDic valueForKey:@"price"]floatValue ]];
+
+    shichangjiaLabel.text = [NSString stringWithFormat:@"市场价: ￥%.1f",[[self.goodsDic valueForKey:@"old_price"] floatValue] ];
+    xiaoliangLabel.text = [NSString stringWithFormat:@"销量：%@",[self.goodsDic objectForKey:@"sales"]];
     titleLabel.text = [self.goodsDic objectForKey:@"goods_name"];
     
     [self addBottomBtn];
@@ -322,20 +398,21 @@
 
         if (imgs&&imgs.count>0) {
             UIView * view  =shangpinImg.superview;
-            view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, HEIGHT_VIEW2*imgs.count);
-            [shangpinImg sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:0]]];
-
-//            [shangpinImg sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:0]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                shangpinImg.frame =
-//            }];
-            for (int i =1; i<imgs.count; i++) {
-                
-                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(40, 25+HEIGHT_VIEW2*i, SCREEN_SIZE.width-4-80, HEIGHT_VIEW2)];
-                [img sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:i]]];
-                [view addSubview:img];
-            }
+//            view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, HEIGHT_VIEW2*imgs.count);
+//            [shangpinImg sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:0]]];
+//            for (int i =1; i<imgs.count; i++) {
+//                
+//                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(40, 25+HEIGHT_VIEW2*i, SCREEN_SIZE.width-4-80, HEIGHT_VIEW2)];
+//                [img sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:i]]];
+//                [view addSubview:img];
+//            }
             
-            tableView.frame = CGRectMake(tableView.frame.origin.x, HEIGHT_VIEW1+view.frame.size.height+5, tableView.frame.size.width, HEIGHT_VIEW3);
+
+            if (self.comments.count==0) {
+                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            }else{
+                tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 40+self.comments.count*95+10);
+            }
             [tableView reloadData];
             scrollView.contentSize  = CGSizeMake(0, HEIGHT_VIEW1+HEIGHT_VIEW3+view.frame.size.height);
         }
@@ -345,21 +422,25 @@
     
     NSMutableArray *URLs = [NSMutableArray array];
     [URLs addObject:[self.goodsDic objectForKey:@"default_image"]];
+    UIImageView *logoImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,                                                                                           self.adView.bounds.size.height)];
+    logoImgV.contentMode  = UIViewContentModeScaleAspectFit;
+    [logoImgV sd_setImageWithURL:[NSURL URLWithString:[self.goodsDic objectForKey:@"default_image"]] placeholderImage:[UIImage imageNamed:@"demo"]];
     
-    if(URLs&&URLs.count>0)
-        [self.adView addSubview:({
-            
-            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width-80,
-                                                                                    self.adView.bounds.size.height)
-                                        
-                                                                delegate:self
-                                                               imageURLs:URLs
-                                                        placeholderImage:@"devAdv_default"
-                                                           timerInterval:3.0f
-                                           currentPageIndicatorTintColor:[UIColor redColor]
-                                                  pageIndicatorTintColor:[UIColor whiteColor]];
-            bannerView;
-        })];
+    [self.adView addSubview:logoImgV];
+//    if(URLs&&URLs.count>0)
+//        [self.adView addSubview:({
+//            
+//            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width-80,
+//                                                                                    self.adView.bounds.size.height)
+//                                        
+//                                                                delegate:self
+//                                                               imageURLs:URLs
+//                                                        placeholderImage:@"devAdv_default"
+//                                                           timerInterval:3.0f
+//                                           currentPageIndicatorTintColor:[UIColor redColor]
+//                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+//            bannerView;
+//        })];
     
     
 }

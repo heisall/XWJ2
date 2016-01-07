@@ -11,4 +11,5 @@
 @interface XWJWebViewController : XWJBaseViewController
 
 @property NSString *url;
+
 @end

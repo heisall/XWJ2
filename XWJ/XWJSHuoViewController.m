@@ -53,7 +53,7 @@
     scroll.showsHorizontalScrollIndicator = NO;
     scroll.showsVerticalScrollIndicator = NO;
     [self addView];
-    [self getGShuoAD];
+//    [self getGShuoAD];
     
 
 
@@ -61,6 +61,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+        [self getGShuoAD];
 
     UIImage *image = [UIImage imageNamed:@"gouwuche"];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

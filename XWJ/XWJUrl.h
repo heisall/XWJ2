@@ -108,7 +108,8 @@
 //huodong
 #define HUODONG_URL  XWJBASEURL"act/findActPage"
 
-
+//zhucexiy
+#define XIEYI_URL @"http://ecmall.hisenseplus.com:88/index.php?app=article&act=content_only&article_id=7"
 #define AD_URL  XWJBASEURL"index/ads"
 
 

@@ -10,5 +10,6 @@
 
 @interface XWJQXTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *agreeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *xieyiBtn;
 
 @end

@@ -12,6 +12,7 @@
 #import "XWJMerDetailListController.h"
 #import "XWJGroupBuyTableViewCell.h"
 #import "XWJSPDetailViewController.h"
+#import "XWJWebViewController.h"
 @interface XWJShuoListViewController()<LCBannerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property UIView *adView;
 @property NSMutableArray *tabledata;
@@ -22,7 +23,7 @@
 @property NSMutableArray *btn;
 @property UITableView *tableView;
 @end
-#define PADDINGTOP 64.0
+#define PADDINGTOP 22.0
 //#define BTN_WIDTH 100.0
 #define BTN_WIDTH  SCREEN_SIZE.width/4
 #define BTN_HEIGHT 50.0
@@ -37,7 +38,7 @@
     tabledata = [NSMutableArray array];
 
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.navigationItem.title = @"商户列表";
     [self getShuoMore];
@@ -46,12 +47,21 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = YES;
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
+- (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index{
+    XWJWebViewController *web = [[XWJWebViewController alloc] init];
+    
+    NSString *url  = [[self.adArr objectAtIndex:index] objectForKey:@"url"];
+    web.url = url;
+    [self.navigationController  showViewController:web sender:self];
+}
+
 -(void)addView{
     adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
     self.btn = [NSMutableArray array];
@@ -93,6 +103,13 @@
     self.tableView.hidden = YES;
     [self.view addSubview:self.tableView];
     [self.view addSubview:scroll];
+    
+    [self.view addSubview:adView];
+    
+}
+
+-(void)popView{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)btnclick:(UIButton *)butn{
@@ -165,6 +182,9 @@
             
             NSMutableArray *URLs = [NSMutableArray array];
             
+            for (NSDictionary *d in self.adArr) {
+                [URLs addObject:[d valueForKey:@"Photo"]];
+            }
             if(URLs&&URLs.count>0)
                 [self.adView addSubview:({
                     
@@ -179,7 +199,11 @@
                                                           pageIndicatorTintColor:[UIColor whiteColor]];
                     bannerView;
                 })];
-            
+            UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+            back.frame = CGRectMake(10, 5, 30, 30);
+            [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+            [adView addSubview:back];
+            [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
         }
         
         

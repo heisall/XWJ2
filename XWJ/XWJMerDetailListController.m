@@ -11,7 +11,8 @@
 #import "LCBannerView.h"
 #import "XWJSPDetailViewController.h"
 #import "XWJAccount.h"
-#define PADDINGTOP 64.0
+#import "ProgressHUD/ProgressHUD.h"
+#define PADDINGTOP 22.0
 #define BTN_WIDTH 100.0
 #define BTN_HEIGHT 50.0
 @interface XWJMerDetailListController()<UITableViewDataSource,UITableViewDelegate,LCBannerViewDelegate>{
@@ -52,6 +53,8 @@
 //    self.adView.backgroundColor =[UIColor blackColor];
     [scroll addSubview:self.adView];
     
+
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     [self addView];
@@ -62,9 +65,13 @@
     scroll.contentSize =CGSizeMake(0, 800);
     [self.view addSubview:scroll];
 }
-
+-(void)popView{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = YES;
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -111,7 +118,7 @@
     
     cell.title.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
     cell.chakan.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"views"]];
-    cell.pricee.text = [NSString stringWithFormat:@"￥ %@",[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
+    cell.pricee.text = [NSString stringWithFormat:@"￥ %.1f",[[[arr objectAtIndex:indexPath.row] valueForKey:@"price"] floatValue]];
     
     if ([[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]!=[NSNull null]) {
         
@@ -135,6 +142,7 @@
 
 //0 zx 1 xl 2 jp
 -(void)getShanghuoDetailNew:(NSInteger)type{
+    
     NSString *url = GETLIFESTORE_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -153,6 +161,11 @@
         default:
             break;
     }
+    [ProgressHUD show:@""];
+    if (self.lpIndex !=0) {
+
+        [dict setValue:[[self.cates objectAtIndex:self.lpIndex] objectForKey:@"cate_id"] forKey:@"cateId"];
+    }
     [dict setValue:@"0" forKey:@"pageindex"];
     [dict setValue:@"100" forKey:@"countperpage"];
 //    [dict setValue:[XWJAccount instance].account forKey:@"account"];
@@ -170,9 +183,11 @@
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
         
+        [ProgressHUD dismiss];
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dic);
+            
             
             self.goodsArr = [dic objectForKey:@"goods"];
             self.store = [dic objectForKey:@"store"];
@@ -184,7 +199,7 @@
             self.tableView.frame  =CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y
                                             , self.tableView.frame
                                               .size.width, 100*self.goodsArr.count);
-            self.scroll.contentSize = CGSizeMake(0, 100*self.goodsArr.count+imgView.bounds.size.height+imgView.frame.origin.y+150);
+            self.scroll.contentSize = CGSizeMake(0, 100*self.goodsArr.count+150);
 //            self.adArr = [dic objectForKey:@"ad"];
 //            self.thumb = [dic objectForKey:@"thumb"];
             NSMutableArray *URLs = [NSMutableArray array];
@@ -195,31 +210,53 @@
             [URLs addObject:[self.store valueForKey:@"store_banner"]];
             
 //            [self addView];
-            if(URLs&&URLs.count>0)
-                [self.adView addSubview:({
-                    
-                    LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-                                                                                            self.adView.bounds.size.height)
-                                                
-                                                                        delegate:self
-                                                                       imageURLs:URLs
-                                                                placeholderImage:nil
-                                                                   timerInterval:3.0f
-                                                   currentPageIndicatorTintColor:[UIColor redColor]
-                                                          pageIndicatorTintColor:[UIColor whiteColor]];
-                    bannerView;
-                })];
+//            if(URLs&&URLs.count>0)
+//                [self.adView addSubview:({
+//                    
+//                    LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+//                                                                                            self.adView.bounds.size.height)
+//                                                
+//                                                                        delegate:self
+//                                                                       imageURLs:URLs
+//                                                                placeholderImage:nil
+//                                                                   timerInterval:3.0f
+//                                                   currentPageIndicatorTintColor:[UIColor redColor]
+//                                                          pageIndicatorTintColor:[UIColor whiteColor]];
+//
+//                    bannerView;
+//                })];
+
+            UIImageView *logoImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,                                                                                           self.adView.bounds.size.height)];
+            logoImgV.contentMode  = UIViewContentModeRedraw;
+            [logoImgV sd_setImageWithURL:[NSURL URLWithString:[self.store valueForKey:@"store_banner"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+            UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+            back.frame = CGRectMake(10, 5, 30, 30);
+            [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+            
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.adView.bounds
+                                                                            .size.height-30, SCREEN_SIZE.width, 30)];
+            titleLabel.textAlignment  = NSTextAlignmentCenter;
+            titleLabel.backgroundColor = [UIColor blackColor];
+            titleLabel.alpha = 0.4;
+            titleLabel.text = [self.store valueForKey:@"store_name"];
+            titleLabel.textColor = [UIColor whiteColor];
+            titleLabel.font = [UIFont systemFontOfSize:15];
+            [self.adView addSubview:logoImgV];
+            [self.adView addSubview:titleLabel];
+            [self.adView addSubview:back];
+            [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
             
             if ([self.store valueForKey:@"store_ad"] ==[NSNull null]){
                 return;
             }
-            [imgView sd_setImageWithURL:[NSURL URLWithString:[self.store valueForKey:@"store_ad"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+//            [imgView sd_setImageWithURL:[NSURL URLWithString:[self.store valueForKey:@"store_ad"]] placeholderImage:[UIImage imageNamed:@"demo"]];
         }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
-        
+        [ProgressHUD dismiss];
+
     }];
 }
 
@@ -286,13 +323,15 @@
 }
 
 -(void)sortTypeButtonClicked:(UIButton *)button{
-    
     [self closeButtonClicked];
     NSInteger index = button.tag - 60001;
     NSLog(@"selcet id %ld",index);
     self.lpIndex = index;
-    self.typeLabel.text = [NSString stringWithFormat:@"%@",[[self.cates objectAtIndex:index] objectForKey:@"cate_name"]];
+//    self.typeLabel.text = [NSString stringWithFormat:@"%@",[[self.cates objectAtIndex:index] objectForKey:@"cate_name"]];
     
+    [((UIButton *)[self.btn objectAtIndex:0]) setTitle:[NSString stringWithFormat:@"%@",[[self.cates objectAtIndex:index] objectForKey:@"cate_name"]] forState:UIControlStateNormal];
+ 
+    [self getShanghuoDetailNew:0];
 }
 
 -(void)addView{
@@ -314,12 +353,12 @@
     [typeBtn addSubview:typeLabel];
     [typeBtn setImage:[UIImage imageNamed:@"pulldown"] forState:UIControlStateNormal];
     typeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [scroll addSubview:typeBtn];
-    imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.adView.frame.origin.y+self.adView.bounds.size.height+30, SCREEN_SIZE.width, 100)];
+//    [scroll addSubview:typeBtn];
+//    imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.adView.frame.origin.y+self.adView.bounds.size.height+30, SCREEN_SIZE.width, 100)];
     
-    [scroll addSubview:imgView];
-    CGFloat btny = self.adView.frame.origin.y+self.adView.bounds.size.height+10+100+30;
-    NSArray * title = [NSArray arrayWithObjects:@"最新",@"销量",@"价格", nil];
+//    [scroll addSubview:imgView];
+    CGFloat btny = self.adView.frame.origin.y+self.adView.bounds.size.height;
+    NSArray * title = [NSArray arrayWithObjects:@"全部",@"销量",@"价格", nil];
     for (int i=0; i<count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(width*i, btny, width, height);
@@ -341,6 +380,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, btny+height, SCREEN_SIZE.width, SCREEN_SIZE.height-btny+height)];
     [scroll addSubview:self.tableView];
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+    [self getShanghuoDetailNew:0];
     ((UIButton*)self.btn[0]).selected=YES;
     [((UIButton*)self.btn[0]) sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
@@ -351,7 +391,10 @@
     }
     butn.selected = !butn.selected;
     
-    [self getShanghuoDetailNew:index];
+    if (index == 0) {
+        [self showSortView:butn];
+    }else
+        [self getShanghuoDetailNew:index];
     
 }
 @end

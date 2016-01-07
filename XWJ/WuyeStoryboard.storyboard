@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QBK-Vh-Dcz">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QBK-Vh-Dcz">
                                 <rect key="frame" x="0.0" y="283" width="375" height="384"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -54,7 +54,7 @@
                                                     <color key="textColor" red="0.29019607843137252" green="0.66666666666666663" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgi-xC-FGz">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgi-xC-FGz">
                                                     <rect key="frame" x="325" y="49" width="23" height="23"/>
                                                     <animations/>
                                                     <state key="normal" image="dial"/>
@@ -99,11 +99,12 @@
                                 </prototypes>
                             </tableView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyT-FX-nhW">
-                                <rect key="frame" x="0.0" y="20" width="375" height="223"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="222"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.91764705882352937" green="0.92156862745098034" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="contentStretch" x="0.0" y="0.10000000000000001" width="1" height="1"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qr-nw-Bxw">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qr-nw-Bxw">
                                 <rect key="frame" x="0.0" y="283" width="375" height="1"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,7 +112,7 @@
                                     <constraint firstAttribute="height" constant="1" id="nl8-3L-mkq"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物业员工" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsQ-3z-6iq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="物业员工" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsQ-3z-6iq">
                                 <rect key="frame" x="24" y="254" width="68" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -123,7 +124,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jjb-4h-UZe" firstAttribute="top" secondItem="QBK-Vh-Dcz" secondAttribute="bottom" id="4i2-LV-Nk2"/>
-                            <constraint firstItem="oyT-FX-nhW" firstAttribute="top" secondItem="5c6-lm-gAY" secondAttribute="bottom" id="8Ph-lC-gmW"/>
+                            <constraint firstItem="oyT-FX-nhW" firstAttribute="top" secondItem="5c6-lm-gAY" secondAttribute="bottom" constant="8" id="8Ph-lC-gmW"/>
                             <constraint firstItem="oyT-FX-nhW" firstAttribute="width" secondItem="I3p-q0-h6F" secondAttribute="width" id="DBs-or-tRZ"/>
                             <constraint firstItem="8qr-nw-Bxw" firstAttribute="centerX" secondItem="I3p-q0-h6F" secondAttribute="centerX" id="FlN-Uw-Oef"/>
                             <constraint firstItem="QBK-Vh-Dcz" firstAttribute="width" secondItem="I3p-q0-h6F" secondAttribute="width" id="f89-Z4-vAT"/>
@@ -371,7 +372,8 @@
                             <constraint firstItem="rOM-Xi-n8g" firstAttribute="leading" secondItem="GvK-pI-b1Y" secondAttribute="leadingMargin" id="yZa-dW-Myv"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="bottomView" destination="9vy-Uo-tRW" id="RJD-PK-M1E"/>
                         <outlet property="comBtn" destination="VMZ-ek-1MF" id="1iE-fg-5OH"/>
@@ -387,7 +389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFM-RI-7i0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="823" y="355"/>
+            <point key="canvasLocation" x="720.5" y="738.5"/>
         </scene>
     </scenes>
     <resources>

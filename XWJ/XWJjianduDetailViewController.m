@@ -326,16 +326,43 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    //        讲textField向上移动100个单位
+    CGPoint point = self.commentTextView.center;
+    point.y -= 200;
+    self.commentTextView.center = point;
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
     [btn setTitle:@"完成" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+    btn.tag = 999;
+    CGPoint pointButton = btn.center;
+    pointButton.y = 200;
+    btn.center = pointButton;
     UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = done;
 }
+//编辑结束之后
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+        CGPoint point = self.commentTextView.center;
+        point.y += 200;
+        self.commentTextView.center = point;
+        
+        //        找到button
+        UIButton *button = (UIButton *)[self.view viewWithTag:999];
+        //        将button移动到距离上面170单位处
+        CGPoint pointButton = button.center;
+        pointButton.y = self.view.frame.size.height-100-40;
+        button.center = pointButton;
+}
 
-
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    
+    return YES;
+}
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     self.navigationItem.rightBarButtonItem = nil;

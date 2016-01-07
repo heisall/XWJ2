@@ -278,8 +278,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="115"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMQ-hG-Da6">
-                                                    <rect key="frame" x="28" y="40" width="38" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKg-na-81a">
+                                                    <rect key="frame" x="8" y="0.0" width="584" height="107"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" red="0.50196078431372548" green="0.76470588235294112" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMQ-hG-Da6">
+                                                    <rect key="frame" x="28" y="40" width="38" height="19"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
@@ -299,23 +307,24 @@
                                                     <color key="textColor" red="0.0" green="0.58039215690000001" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSu-m9-JhR">
-                                                    <rect key="frame" x="548" y="37" width="34" height="23"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSu-m9-JhR">
+                                                    <rect key="frame" x="525" y="37" width="47" height="23"/>
                                                     <animations/>
                                                     <state key="normal" title="2" image="findCellMsgIcon">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                     </state>
-                                                    <state key="disabled" image="findpinglun"/>
+                                                    <state key="disabled" image="findCellMsgIcon"/>
                                                     <state key="highlighted" image="addImage"/>
                                                 </button>
                                             </subviews>
                                             <animations/>
-                                            <color key="backgroundColor" red="0.57647058819999997" green="0.80392156859999997" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.89803921568627454" green="0.90196078431372551" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="bMZ-v8-nPS" firstAttribute="leading" secondItem="vMQ-hG-Da6" secondAttribute="leading" id="Bch-6G-OsF"/>
                                                 <constraint firstItem="vMQ-hG-Da6" firstAttribute="top" secondItem="Eyw-dR-zST" secondAttribute="bottom" constant="5" id="JAy-id-AhJ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="VSu-m9-JhR" secondAttribute="trailing" constant="10" id="LQS-dL-gX6"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="bMZ-v8-nPS" secondAttribute="trailing" constant="10" id="MGO-RO-rZ0"/>
+                                                <constraint firstItem="nKg-na-81a" firstAttribute="trailing" secondItem="tWT-1N-ZVl" secondAttribute="trailingMargin" constant="-8" id="MW7-QX-rba"/>
                                                 <constraint firstItem="Eyw-dR-zST" firstAttribute="top" secondItem="tWT-1N-ZVl" secondAttribute="topMargin" constant="7" id="TWj-Dx-YQF"/>
                                                 <constraint firstItem="bMZ-v8-nPS" firstAttribute="top" secondItem="vMQ-hG-Da6" secondAttribute="bottom" constant="10" id="X9m-Xa-NDb"/>
                                                 <constraint firstItem="Eyw-dR-zST" firstAttribute="leading" secondItem="tWT-1N-ZVl" secondAttribute="leadingMargin" constant="20" id="aBK-6m-hej"/>
@@ -348,13 +357,14 @@
                             <constraint firstItem="hdk-gO-DEO" firstAttribute="height" secondItem="lCH-pr-0U0" secondAttribute="height" id="vqJ-Ah-eDb"/>
                         </constraints>
                     </view>
+                    <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="0fI-Dz-hfU" id="8gF-bF-Fxx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zay-vM-fo1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="803" y="304"/>
+            <point key="canvasLocation" x="913" y="304"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="gjk-Qn-Fmz">
@@ -1115,7 +1125,6 @@
     <resources>
         <image name="addImage" width="45" height="45"/>
         <image name="findCellMsgIcon" width="25" height="25"/>
-        <image name="findpinglun" width="23" height="23"/>
         <image name="headDefaultImg" width="65" height="65"/>
         <image name="headerimg" width="319" height="91"/>
         <image name="homeheaderImg" width="20" height="20"/>

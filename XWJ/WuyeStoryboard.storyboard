@@ -317,7 +317,7 @@
                                             <action selector="enroll:" destination="CgQ-fp-ghz" eventType="touchUpInside" id="u0h-Jb-PMJ"/>
                                         </connections>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="在此发表评论" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NQf-Jd-rpt">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NQf-Jd-rpt">
                                         <rect key="frame" x="21" y="6" width="274" height="44"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -183,7 +183,10 @@
     
     NSString *type = [self.dic objectForKey:@"Types"];
     _timeLabel.text = [self.dic objectForKey:@"ReleaseTime"];
+    _timeLabel.font = [UIFont systemFontOfSize:12];
     _titleLabel.text=[self.dic objectForKey:@"Content"];
+    _titleLabel.numberOfLines = 0;
+    _titleLabel.font = [UIFont systemFontOfSize:12];
     _typeLabel.text = type;
     
     if ([type isEqualToString:@"工作进展"]) {

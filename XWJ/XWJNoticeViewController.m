@@ -148,8 +148,13 @@
     // Configure the cell...
     NSDictionary *dic = (NSDictionary *)self.array[indexPath.row];
     cell.titleLabel.text = [dic valueForKey:KEY_AD_TITLE];
+    cell.titleLabel.font = [UIFont systemFontOfSize:18];
+    cell.titleLabel.textColor = [UIColor colorWithRed:0 green:0.33 blue:0.33 alpha:1.00];
     cell.timeLabel.text = [dic valueForKey:KEY_AD_TIME];
+    cell.timeLabel.font = [UIFont systemFontOfSize:13];
     cell.contentLabel.text = [dic valueForKey:KEY_AD_CONTENT];
+    cell.contentLabel.font = [UIFont systemFontOfSize:16];
+    cell.contentLabel.numberOfLines = 1;
 //    cell.clickBtn.titleLabel.text = @""
     [cell.clickBtn setTitle:[dic valueForKey:KEY_AD_CLICKCOUNT] forState:UIControlStateNormal];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

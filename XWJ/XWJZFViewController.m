@@ -676,7 +676,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 }
 
 -(void)click:(UIButton *)btn{
-    NSLog(@"click");
+  //  NSLog(@"click");
 }
 
 

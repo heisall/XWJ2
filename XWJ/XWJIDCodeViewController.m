@@ -110,6 +110,7 @@
         self.numlabel.hidden = YES;
         _btnGetcode.enabled = YES;
         timeTick = 61;
+        [_btnGetcode setTitle:@"重新发送验证码" forState:UIControlStateNormal];
 //        [_btnGetcode setTitle:@"获取验证码" forState:UIControlStateNormal];
         
     }else

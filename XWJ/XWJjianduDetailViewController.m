@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (nonatomic)NSArray *array;
+@property (nonatomic)NSDictionary *dicWork;
 @property  CGRect bottomRect;
 @end
 
@@ -42,12 +43,19 @@
     [dic setValue:@"2015-11-11" forKey:KEY_TIME];
     [dic setValue:@"保养几次了什么时候方便看车" forKey:KEY_CONTENT];
     
+    
     [self initView];
     [self getWuyeDetail];
+    
 //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
     
 }
+-(void)addDianJi{
 
+//    NSInteger count = [self.comBtn.titleLabel.text integerValue];
+   // count++;
+    [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden =YES;
@@ -59,9 +67,10 @@
 }
 - (IBAction)commect:(id)sender {
     
-//    NSInteger count = [self.comBtn.titleLabel.text integerValue];
-//    count++;
-//    [self.comBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+    NSInteger count = [self.comBtn.titleLabel.text integerValue];
+    count++;
+    [self.comBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+   // [self pubCommentLword:@"" type:@"留言"];
 }
 - (IBAction)zan:(UIButton *)sender {
     NSInteger count = [sender.titleLabel.text integerValue];
@@ -72,9 +81,9 @@
 
 }
 - (IBAction)share:(UIButton *)sender {
-//    NSInteger count = [sender.titleLabel.text integerValue];
-//    count++;
-//    [sender setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+    NSInteger count = [sender.titleLabel.text integerValue];
+    count++;
+    [sender setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
 }
 
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
@@ -138,7 +147,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+     //   NSLog(@"%s success ",__FUNCTION__);
         
         /*
          "A_id" = 1;
@@ -154,18 +163,18 @@
          */
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+           // NSLog(@"dic------ %@",dic);
             self.array = [dic objectForKey:@"comments"];
-
-                
+            self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
+        //    NSLog(@"*****%@",self.dicWork);
             [self.tableView reloadData];
-            
-            
+            [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+           // [self addDianJi];
         }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+       // NSLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }

@@ -59,19 +59,24 @@
             [alertview show];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"baoming" object:nil];
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
+            XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
+            [self.navigationController pushViewController:acti animated:YES ];
+            
             NSLog(@"dic %@",dic);
         }
-        
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
-//        
-//        XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
-//        [self.navigationController popToViewController:acti animated:YES];
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
+    
+    
+
+    
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

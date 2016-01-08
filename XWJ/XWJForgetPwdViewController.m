@@ -48,7 +48,7 @@
         self.numlabel.hidden = YES;
         _codeBtn.enabled = YES;
         timeTick = 61;
-        [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_codeBtn setTitle:@"重新发送验证码" forState:UIControlStateNormal];
         
     }else
     {
@@ -57,8 +57,8 @@
             _numlabel.hidden = NO;
         }
         _numlabel.text = str;
-        _codeBtn.titleLabel.text = @"";
-        //        [_btnGetcode setTitle:str forState:UIControlStateNormal];
+        _codeBtn.titleLabel.text = @"重新发送";
+//        [_btnGetcode setTitle:str forState:UIControlStateNormal];
     }
 }
 

@@ -128,9 +128,9 @@
         label2.textColor = [UIColor whiteColor];
         label2.text = [[self.work objectAtIndex:i] valueForKey:@"ReleaseTime"];
         label2.font = [UIFont systemFontOfSize:14.0];
-        UILabel * label3 = [[UILabel alloc] initWithFrame:CGRectMake(130, 30, 50, 20)];
+        UILabel * label3 = [[UILabel alloc] initWithFrame:CGRectMake(130, 30, 100, 20)];
         label3.textColor = [UIColor whiteColor];
-        label3.text = [NSString stringWithFormat:@"点击 %@",[[self.work objectAtIndex:i] objectForKey:@"ClickPraiseCount"]];
+        label3.text = [NSString stringWithFormat:@"点击:%@",[[self.work objectAtIndex:i] objectForKey:@"clicks"]];
         label3.font = [UIFont systemFontOfSize:14.0];
         
         [view addSubview:label1];
@@ -146,7 +146,7 @@
 -(void)click:(UITapGestureRecognizer *)ges{
     
     [self bannerView:nil didClickedImageIndex:ges.view.tag];
-    NSLog(@"click");
+   // NSLog(@"click");
 }
 
 -(void)getWuye{
@@ -157,7 +157,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+      //  NSLog(@"%s success ",__FUNCTION__);
         
         /*
          Name = "\U674e\U56db";
@@ -177,7 +177,7 @@
          */
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+          //  NSLog(@"dic----- %@",dic);
             NSNumber *res =[dic objectForKey:@"result"];
             if ([res intValue] == 1) {
                 

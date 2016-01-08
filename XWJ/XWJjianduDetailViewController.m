@@ -110,11 +110,11 @@
                 NSString *errCode = [dict objectForKey:@"errorCode"];
                 UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 alertview.delegate = self;
-                [alertview show];
+            //    [alertview show];
                 
 //                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
-                    [self.navigationController popViewControllerAnimated:YES];
+                 //   [self.navigationController popViewControllerAnimated:YES];
 //                });
                 
                 
@@ -293,13 +293,16 @@
 //实现当键盘出现的时候计算键盘的高度大小。用于输入框显示位置
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
+    UILabel *lab = (UILabel *)[self.view viewWithTag:555];
+    lab.textColor = [UIColor whiteColor];
+    [lab removeFromSuperview];
     NSDictionary* info = [aNotification userInfo];
     //kbSize即為鍵盤尺寸 (有width, height)
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//得到鍵盤的高度
     NSLog(@"hight_hitht:%f",kbSize.height);
     
     self.bottomRect = self.bottomView.frame ;
-    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height), self.bottomRect.size.width, self.bottomRect.size.height);
+    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height) -45, self.bottomRect.size.width, self.bottomRect.size.height);
     CGFloat keyboardhight;
     if(kbSize.height == 216)
     {
@@ -331,36 +334,36 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     
     //        讲textField向上移动100个单位
-    CGPoint point = self.commentTextView.center;
-    point.y -= 200;
-    self.commentTextView.center = point;
+//    CGPoint point = self.commentTextView.center;
+//    point.y -= 200;
+//    self.commentTextView.center = point;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
     [btn setTitle:@"完成" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-    btn.tag = 999;
-    CGPoint pointButton = btn.center;
-    pointButton.y = 200;
-    btn.center = pointButton;
+//    btn.tag = 999;
+//    CGPoint pointButton = btn.center;
+//    pointButton.y = 200;
+//    btn.center = pointButton;
     UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = done;
 }
 //编辑结束之后
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    
-        CGPoint point = self.commentTextView.center;
-        point.y += 200;
-        self.commentTextView.center = point;
-        
-        //        找到button
-        UIButton *button = (UIButton *)[self.view viewWithTag:999];
-        //        将button移动到距离上面170单位处
-        CGPoint pointButton = button.center;
-        pointButton.y = self.view.frame.size.height-100-40;
-        button.center = pointButton;
-}
+//- (void)textFieldDidEndEditing:(UITextField *)textField{
+//    
+//        CGPoint point = self.commentTextView.center;
+//        point.y += 200;
+//        self.commentTextView.center = point;
+//        
+//        //        找到button
+//        UIButton *button = (UIButton *)[self.view viewWithTag:999];
+//        //        将button移动到距离上面170单位处
+//        CGPoint pointButton = button.center;
+//        pointButton.y = self.view.frame.size.height-100-40;
+//        button.center = pointButton;
+//}
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     

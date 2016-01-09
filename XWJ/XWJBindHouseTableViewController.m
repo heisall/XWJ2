@@ -43,7 +43,7 @@
         
         self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         self.city = @"GPS定位中...";
-//        [self.activityIndicatorView stopAnimating];
+//       [self.activityIndicatorView stopAnimating];
 
     }else{
         self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -53,7 +53,7 @@
         case HouseCommunity:
         {
             [city getDistrct:^(NSArray *arr) {
-                NSLog(@"district  %@",arr);
+                NSLog(@"district 888888 %@",arr);
                 NSMutableArray *arr2 = [NSMutableArray array];
                 
                 for (NSDictionary *dic in arr) {
@@ -327,7 +327,11 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (mode == HouseCity && indexPath.section == 0) {
+    if (mode == HouseCity) {
+        [self.dataSource containsObject:self.city];
+        NSLog(@"contains");
+    }
+    if (indexPath.section == 0) {
         [self.dataSource containsObject:self.city];
         NSLog(@"contains");
     }

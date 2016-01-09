@@ -195,7 +195,7 @@
             NSInteger tag =  textField.tag;
             switch (tag) {
                 case TAG+1:{
-//                    self.txtField4.text = string;
+                    self.txtField4.text = string;
                     self.txtField5.text = string;
                     [self.txtField5 becomeFirstResponder];
                 

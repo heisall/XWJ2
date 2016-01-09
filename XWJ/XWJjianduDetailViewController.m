@@ -195,10 +195,10 @@
     
     NSString *type = [self.dic objectForKey:@"Types"];
     _timeLabel.text = [self.dic objectForKey:@"ReleaseTime"];
-    _timeLabel.font = [UIFont systemFontOfSize:12];
+//    _timeLabel.font = [UIFont systemFontOfSize:12];
     _titleLabel.text=[self.dic objectForKey:@"Content"];
-    _titleLabel.numberOfLines = 0;
-    _titleLabel.font = [UIFont systemFontOfSize:12];
+//    _titleLabel.numberOfLines = 0;
+//    _titleLabel.font = [UIFont systemFontOfSize:12];
     _typeLabel.text = type;
     
     if ([type isEqualToString:@"工作进展"]) {
@@ -255,7 +255,7 @@
         url = @"";
     }
     
-    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
+    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
 //    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
     cell.commenterLabel.text = ([dic valueForKey:@"NickName"]==[NSNull null])?@"小王":[dic valueForKey:@"NickName"];
     cell.timeLabel.text = [dic valueForKey:@"ReleaseTime"];

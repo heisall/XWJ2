@@ -78,6 +78,16 @@
     _typeindex = 0;
     self.navigationItem.title = @"绑定房源";
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSInteger selectedIndex = 0;
+    
+    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+    
+    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    
+    [super viewDidAppear:animated];
+}
 
 -(void)changeNumber:(NSInteger)i{
     
@@ -185,36 +195,41 @@
             NSInteger tag =  textField.tag;
             switch (tag) {
                 case TAG+1:{
-                    self.txtField4.text = string;
+//                    self.txtField4.text = string;
+                    self.txtField5.text = string;
                     [self.txtField5 becomeFirstResponder];
+                
                 }
                     break;
                 case TAG+2:{
-                    self.txtField5.text = string;
+                    //self.txtField5.text = string;
+                    self.txtField6.text = string;
 
                     [self.txtField6 becomeFirstResponder];
                 }
                     break;
                 case TAG+3:{
-                    self.txtField6.text = string;
+                   // self.txtField6.text = string;
+                    self.txtField7.text = string;
 
                     [self.txtField7 becomeFirstResponder];
                 }
                     break;
                 case TAG+4:{
-                    self.txtField7.text = string;
+                   // self.txtField7.text = string;
+                    self.txtField8.text = string;
 
                     [self.txtField8 becomeFirstResponder];
                 }
                     break;
                 case TAG+5:{
-                    self.txtField8.text = string;
-
+                  //  self.txtField8.text = string;
+                    self.txtField9.text = string;
                     [self.txtField9 becomeFirstResponder];
                 }
                     break;
                 case TAG+6:{
-                    self.txtField9.text = string;
+                  //  self.txtField9.text = string;
 
                     [textField resignFirstResponder];
                 }
@@ -222,6 +237,12 @@
                 default:
                     break;
             }
+        for (id text in self.view.subviews) {
+            if ([text isKindOfClass:[UITextField class]]) {
+                UITextField *textField = text;
+                [textField resignFirstResponder];
+            }
+        }
 //        }
         return NO; // return NO to not change text
     }
@@ -257,7 +278,7 @@
     if (n4==_phone4&&n5==_phone5&&n6==_phone6&&n7==_phone7&&n8==_phone8&&n9==_phone9) {
         return YES;
     }
-
+   
     return NO;
 }
 
@@ -451,5 +472,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.txtField4 resignFirstResponder];
+    [self.txtField5 resignFirstResponder];
+    [self.txtField6 resignFirstResponder];
+    [self.txtField7 resignFirstResponder];
+    [self.txtField8 resignFirstResponder];
+    [self.txtField9 resignFirstResponder];
+}
+
+
 
 @end

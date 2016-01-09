@@ -10,6 +10,7 @@
 #import "LCBannerView.h"
 #import "XWJADViewController.h"
 #import "XWJShuoListViewController.h"
+#import "XWJAccount.h"
 @interface XWJShangmenViewController ()<LCBannerViewDelegate>
 @property NSMutableArray *adArr;
 @property NSMutableArray *thumb;
@@ -50,8 +51,8 @@
     
     //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
     
-    //    [dict setValue:@"1" forKey:@"a_id"];
-    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+        [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
+//        [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);

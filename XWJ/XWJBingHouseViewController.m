@@ -189,7 +189,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (range.location > 0){
+    if (range.location > 0 ||string.length>0){
 //        if ([string  isEqual:@"\n"]) {
         
             NSInteger tag =  textField.tag;

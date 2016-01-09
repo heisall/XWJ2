@@ -13,6 +13,7 @@
 #import "XWJGroupBuyTableViewCell.h"
 #import "XWJSPDetailViewController.h"
 #import "XWJWebViewController.h"
+#import "XWJAccount.h"
 @interface XWJShuoListViewController()<LCBannerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property UIView *adView;
 @property NSMutableArray *tabledata;
@@ -166,6 +167,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
+    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
     [dict setValue:[self.dic objectForKey:@"parent_id"] forKey:@"parent_id"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

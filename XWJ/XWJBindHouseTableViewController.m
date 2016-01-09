@@ -53,7 +53,7 @@
         case HouseCommunity:
         {
             [city getDistrct:^(NSArray *arr) {
-                NSLog(@"district 888888 %@",arr);
+            //NSLog(@"district 888888 %@",arr);
                 NSMutableArray *arr2 = [NSMutableArray array];
                 
                 for (NSDictionary *dic in arr) {

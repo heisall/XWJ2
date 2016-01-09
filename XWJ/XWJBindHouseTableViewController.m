@@ -332,7 +332,7 @@
 //        [self.dataSource containsObject:self.city];
         NSLog(@"contains");
     }
-    if (indexPath.section == 0) {
+    if (mode == HouseCity&&indexPath.section == 0) {
 //        [self.dataSource containsObject:self.city];
         NSLog(@"contains");
         NSInteger index =-1;

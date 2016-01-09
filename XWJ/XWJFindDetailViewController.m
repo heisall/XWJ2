@@ -9,6 +9,8 @@
 #import "XWJFindDetailViewController.h"
 #import "XWJFindDetailTableViewCell.h"
 #import "XWJAccount.h"
+#import "LCBannerView.h"
+#import "UIImage+Category.h"
 #define KEY_HEADIMG @"headimg"
 #define KEY_TITLE @"title"
 #define KEY_TIME  @"time"
@@ -200,6 +202,8 @@
     }];
 }
 
+
+
 -(void)initView{
 
     NSString * zanCount = [self.dic objectForKey:@"ClickPraiseCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ClickPraiseCount"]];
@@ -226,10 +230,44 @@
     }else{
         _typeLabel.backgroundColor = XWJColor(67, 164, 83);
     }
-    NSString *urls = [self.dic objectForKey:@"Photo"];
-    NSURL *url = [NSURL URLWithString:[[urls componentsSeparatedByString:@","] objectAtIndex:0]];
 
-    [_imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed: @"demo"]];
+    NSString * userP = [self.dic objectForKey:@"userP"]==[NSNull null]?nil:[self.dic objectForKey:@"userP"];
+    if (userP) {
+        [_infoBtn.imageView sd_setImageWithURL:[NSURL URLWithString:userP] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            
+            //        _infoBtn.imageView.contentMode = UIViewContentModeCenter;
+            //        _infoBtn.imageView.frame = CGRectMake(_infoBtn.imageView.frame.origin.x, _infoBtn.imageView.frame.origin.y, _infoBtn.bounds.size.height, _infoBtn.bounds.size.height);
+            
+            CGFloat width=  _infoBtn.bounds.size.height-5;
+            _infoBtn.imageView.layer.cornerRadius = width/2;
+            [_infoBtn setImage:[image transformWidth:width height:width] forState:UIControlStateDisabled];
+            
+        }];
+    }
+
+    
+//    [_infoBtn.imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
+    
+
+    NSString *urls = [self.dic objectForKey:@"Photo"]==[NSNull null]?@"":[self.dic objectForKey:@"Photo"];
+
+        NSArray *url = [urls componentsSeparatedByString:@","];
+        [self.imageView addSubview:({
+            
+            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,
+                                                                                    self.imageView.bounds.size.height)
+                                        
+                                                                delegate:self
+                                                               imageURLs:url
+                                                        placeholderImage:@"devAdv_default"
+                                                           timerInterval:5.0f
+                                           currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+            bannerView;
+        })];
+
+//    [_imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
 }
 
 /*
@@ -290,7 +328,17 @@
      Types = "\U7559\U8a00";
      */
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]]placeholderImage:[UIImage imageNamed:@"demo"]];
+    
+    CGFloat width=  cell.headImgView.bounds.size.height;
+    cell.headImgView.layer.cornerRadius = width/2;
+    [cell.headImgView  sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        [cell.headImgView  setImage:[image transformWidth:width height:width]];
+ 
+
+    }];
+    
+//    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]]placeholderImage:[UIImage imageNamed:@"demo"]];
     cell.commenterLabel.text = [dic objectForKey:@"NickName"]==[NSNull null]?@" ":[dic objectForKey:@"NickName"];
     cell.timeLabel.text = [dic objectForKey:@"ReleaseTime"]==[NSNull null]?@" ":[dic objectForKey:@"ReleaseTime"];
     cell.contentLabel.text = [dic objectForKey:@"LeaveWord"]==[NSNull null]?@" ":[dic objectForKey:@"LeaveWord"];

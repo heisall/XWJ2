@@ -11,6 +11,7 @@
 #import "UIPlaceHolderTextView.h"
 #import "XWJFindDetailTableViewCell.h"
 #import "XWJAccount.h"
+#import "LCBannerView.h"
 #define MYTV_MESSAGE_COMMANTS_FONT [UIFont boldSystemFontOfSize:14.0f] // 
 #define LONGIN_TEXTVIEW_SELECTED_BORDER_COLOR [UIColor colorWithRed:50/255.0 green:176/255.0 blue:178/255.0 alpha:1].CGColor // 用户名和密码框选中的时候边框颜色
 #define TEXT_VIEW_MIN_HEIGH 44
@@ -166,8 +167,29 @@
            // NSLog(@"dic------ %@",dic);
             self.array = [dic objectForKey:@"comments"];
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
+            
+            NSString *url = [[dic objectForKey:@"work"] valueForKey:@"photo"];
+            NSArray *URLs = [url componentsSeparatedByString:@","];
+            
+            if(URLs&&URLs.count>0)
+                [self.imgView addSubview:({
+                    
+                    LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imgView.bounds.size.width,
+                                                                                            self.imgView.bounds.size.height)
+                                                
+                                                                        delegate:self
+                                                                       imageURLs:URLs
+                                                                placeholderImage:@"devAdv_default"
+                                                                   timerInterval:5.0f
+                                                   currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                          pageIndicatorTintColor:[UIColor whiteColor]];
+                    bannerView;
+                })];
         //    NSLog(@"*****%@",self.dicWork);
             [self.tableView reloadData];
+            
+      
+
             
             self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
             [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];

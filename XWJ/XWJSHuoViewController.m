@@ -228,9 +228,15 @@
         
         NSString *url ;
         if (i==0) {
-            url = [NSString stringWithFormat:@"%@",[[self.adleftArr objectAtIndex:0]objectForKey:@"Photo"]];
+            if (self.adleftArr &&self.adleftArr.count>0) {
+                
+                url = [NSString stringWithFormat:@"%@",[[self.adleftArr objectAtIndex:0]objectForKey:@"Photo"]];
+            }
         }else
-            url = [NSString stringWithFormat:@"%@",[[self.adrightArr objectAtIndex:0]objectForKey:@"Photo"]];
+            if (self.adrightArr&&self.adrightArr.count>0) {
+                
+                url = [NSString stringWithFormat:@"%@",[[self.adrightArr objectAtIndex:0]objectForKey:@"Photo"]];
+            }
 
         [button sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
         UITapGestureRecognizer* singleRecognizer;

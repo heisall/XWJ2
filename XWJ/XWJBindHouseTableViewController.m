@@ -8,6 +8,7 @@
 
 #import "XWJBindHouseTableViewController.h"
 #import "XWJCity.h"
+#import "ProgressHUD.h"
 @interface XWJBindHouseTableViewController ()
 @property (nonatomic)CLLocationManager  *locationManager;
 @property (nonatomic)NSString *city;
@@ -328,13 +329,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (mode == HouseCity) {
-        [self.dataSource containsObject:self.city];
+//        [self.dataSource containsObject:self.city];
         NSLog(@"contains");
     }
     if (indexPath.section == 0) {
-        [self.dataSource containsObject:self.city];
+//        [self.dataSource containsObject:self.city];
         NSLog(@"contains");
-    }
+        NSInteger index =-1;
+//        for (int i= 0; i<self.dataSource.count; i++) {
+//            if ([self.city isEqualToString:[[self.dataSource objectAtIndex:i] valueForKey:@"CityName"]]) {
+//                index  = i;
+//                break;
+//            }
+//        }
+        if (self.dataSource&&self.dataSource.count>0) {
+            index = [self.dataSource indexOfObject:self.city];
+        }
+        
+        if (index ==-1) {
+            [ProgressHUD showError:@"没有此城市的房源"];
+        }else{
+            [[XWJCity instance] selectCity:index];
+            [self.delegate didSelectAtIndex:index Type:mode];
+        }
+    
+    }else{
     
     switch (mode) {
         case HouseCity:
@@ -356,6 +375,7 @@
 
     
     [self.delegate didSelectAtIndex:indexPath.row Type:mode];
+    }
 }
 
 /*

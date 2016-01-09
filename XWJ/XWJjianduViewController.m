@@ -46,7 +46,7 @@
 
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
         
-    XWJjianduDetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"jiandudetail"];
+    XWJjianduDetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"jiandudetail2"];
     detail.dic = [self.work objectAtIndex:index];
     [self.navigationController showViewController:detail sender:nil];
 }
@@ -181,6 +181,8 @@
             NSNumber *res =[dic objectForKey:@"result"];
             if ([res intValue] == 1) {
                 
+                self.work = [NSMutableArray array];
+                self.yuangong = [NSMutableArray array];
                 [self.yuangong addObjectsFromArray:[dic objectForKey:@"supervise"] ] ;
                 [self.work addObjectsFromArray:[dic objectForKey:@"work"]];
                 
@@ -245,7 +247,7 @@
 //    cell.photoLabel.text = @"13666666666";
 
 //    cell.headImg.tag =[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]];
-    [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"mor_icon_default"]];
+    [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
     cell.nameLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Name"];
     cell.positionLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Position"];
     cell.photoLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Phone"];

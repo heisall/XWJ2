@@ -168,7 +168,10 @@
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
         //    NSLog(@"*****%@",self.dicWork);
             [self.tableView reloadData];
+            
+            self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
             [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+            self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+10);
            // [self addDianJi];
         }
         
@@ -192,10 +195,10 @@
     
     NSString *type = [self.dic objectForKey:@"Types"];
     _timeLabel.text = [self.dic objectForKey:@"ReleaseTime"];
-    _timeLabel.font = [UIFont systemFontOfSize:12];
+//    _timeLabel.font = [UIFont systemFontOfSize:12];
     _titleLabel.text=[self.dic objectForKey:@"Content"];
-    _titleLabel.numberOfLines = 0;
-    _titleLabel.font = [UIFont systemFontOfSize:12];
+//    _titleLabel.numberOfLines = 0;
+//    _titleLabel.font = [UIFont systemFontOfSize:12];
     _typeLabel.text = type;
     
     if ([type isEqualToString:@"工作进展"]) {
@@ -252,7 +255,7 @@
         url = @"";
     }
     
-    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
+    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
 //    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
     cell.commenterLabel.text = ([dic valueForKey:@"NickName"]==[NSNull null])?@"小王":[dic valueForKey:@"NickName"];
     cell.timeLabel.text = [dic valueForKey:@"ReleaseTime"];

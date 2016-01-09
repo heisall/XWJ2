@@ -224,6 +224,8 @@
 		A49DD3FD1C2F0A5100DB1EC1 /* XWJGouWucheTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49DD3FC1C2F0A5100DB1EC1 /* XWJGouWucheTableViewCell.m */; };
 		A49DD3FF1C2F0BB500DB1EC1 /* XWJCarStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DD3FE1C2F0BB500DB1EC1 /* XWJCarStoryboard.storyboard */; };
 		A49DD4021C2F0E1D00DB1EC1 /* XWJCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A49DD4011C2F0E1D00DB1EC1 /* XWJCarViewController.m */; };
+		A49E77C21C40C064001C7C30 /* XWJHouseInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49E77C11C40C064001C7C30 /* XWJHouseInfoCell.m */; };
+		A49E77C41C40C09E001C7C30 /* XWJHouseInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A49E77C31C40C09E001C7C30 /* XWJHouseInfoCell.xib */; };
 		A4CBC7641C3AA46600274040 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = A4CBC73A1C3AA46600274040 /* MJRefreshAutoFooter.m */; };
 		A4CBC7651C3AA46600274040 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = A4CBC73C1C3AA46600274040 /* MJRefreshBackFooter.m */; };
 		A4CBC7661C3AA46600274040 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = A4CBC73E1C3AA46600274040 /* MJRefreshComponent.m */; };
@@ -692,6 +694,9 @@
 		A49DD3FE1C2F0BB500DB1EC1 /* XWJCarStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XWJCarStoryboard.storyboard; sourceTree = "<group>"; };
 		A49DD4001C2F0E1D00DB1EC1 /* XWJCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJCarViewController.h; sourceTree = "<group>"; };
 		A49DD4011C2F0E1D00DB1EC1 /* XWJCarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJCarViewController.m; sourceTree = "<group>"; };
+		A49E77C01C40C064001C7C30 /* XWJHouseInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJHouseInfoCell.h; sourceTree = "<group>"; };
+		A49E77C11C40C064001C7C30 /* XWJHouseInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJHouseInfoCell.m; sourceTree = "<group>"; };
+		A49E77C31C40C09E001C7C30 /* XWJHouseInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJHouseInfoCell.xib; sourceTree = "<group>"; };
 		A4CBC7391C3AA46600274040 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		A4CBC73A1C3AA46600274040 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		A4CBC73B1C3AA46600274040 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -1327,6 +1332,9 @@
 				A438110E1C2462C4001D2F29 /* XWJHouseMapController.m */,
 				A43811201C25C957001D2F29 /* XWJCZFDetailViewController.h */,
 				A43811211C25C957001D2F29 /* XWJCZFDetailViewController.m */,
+				A49E77C01C40C064001C7C30 /* XWJHouseInfoCell.h */,
+				A49E77C11C40C064001C7C30 /* XWJHouseInfoCell.m */,
+				A49E77C31C40C09E001C7C30 /* XWJHouseInfoCell.xib */,
 			);
 			name = zufang;
 			sourceTree = "<group>";
@@ -1990,6 +1998,7 @@
 				A48801AC1C0AB2DE00714F5B /* backIcon@2x.png in Resources */,
 				A43C97F31C129C68006A61EE /* btn_back_imagePicker@2x.png in Resources */,
 				A412558C1C0F59120042D8CC /* WuyeStoryboard.storyboard in Resources */,
+				A49E77C41C40C09E001C7C30 /* XWJHouseInfoCell.xib in Resources */,
 				A43C97FA1C129C68006A61EE /* paizhao@2x.png in Resources */,
 				A43C97F51C129C68006A61EE /* checkbox_pic@2x.png in Resources */,
 				A4093EF01C10AEF100F2F324 /* agreeButtonSelected@2x.png in Resources */,
@@ -2177,6 +2186,7 @@
 				A4CBC7791C3B31EC00274040 /* XWJQXTableViewCell.m in Sources */,
 				A43929021C3039DA00572F70 /* LocationPickerVC.m in Sources */,
 				A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */,
+				A49E77C21C40C064001C7C30 /* XWJHouseInfoCell.m in Sources */,
 				8E1327431C30DFDB00D3EDB5 /* MyChuZuViewController.m in Sources */,
 				A4DC3C8D1C1C505B003D4D18 /* XWJGuzhangViewController.m in Sources */,
 				A41255721C0F39D20042D8CC /* README.md in Sources */,

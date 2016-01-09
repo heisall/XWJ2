@@ -803,7 +803,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     }
     else{
         
-        XWJNewHouseDetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"newhousedetail"];
+        XWJNewHouseDetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"newhousedetail2"];
         detail.dic = [self.houseArr objectAtIndex:indexPath.row];
         [self.navigationController showViewController:detail sender:self];
     }

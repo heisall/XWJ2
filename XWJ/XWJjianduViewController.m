@@ -46,7 +46,7 @@
 
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
         
-    XWJjianduDetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"jiandudetail"];
+    XWJjianduDetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"jiandudetail2"];
     detail.dic = [self.work objectAtIndex:index];
     [self.navigationController showViewController:detail sender:nil];
 }

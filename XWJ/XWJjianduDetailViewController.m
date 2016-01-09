@@ -168,7 +168,10 @@
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
         //    NSLog(@"*****%@",self.dicWork);
             [self.tableView reloadData];
+            
+            self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
             [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+            self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+10);
            // [self addDianJi];
         }
         

@@ -10,8 +10,10 @@
 #import "XWJNewHouseInfoViewController.h"
 #import "XWJAccount.h"
 #import "XWJHouseMapController.h"
+#import "XWJHouseInfoCell.h"
 @interface XWJNewHouseDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIScrollView *backScrollView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *timeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *locationBtn;
@@ -19,10 +21,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *houseImg;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView *infoTableView;
+@property (nonatomic) NSMutableArray *tableData1;
+
 @property (nonatomic) NSMutableArray *tableData;
 @property NSMutableArray *photos;
 @property NSMutableArray *buts;
-
+@property CGFloat height;
 @end
 
 @implementation XWJNewHouseDetailViewController
@@ -32,13 +36,16 @@
     [super viewDidLoad];
     
  self.tableData = [NSMutableArray array];
+    self.tableData1 = [NSMutableArray arrayWithObjects:@"开       盘",@"地       址",
+                       @"状       态",@"优       惠",@"特       点",@"最新动态",@"周边配套",@"详细信息", nil];
+
     self.photos = [NSMutableArray array];
     
 //    [self.tableData addObjectsFromArray:[NSArray arrayWithObjects:@"开盘 2015-5-1",@"地址 青岛市崂山区崂山路25号",@"状态 在售",@"优惠 交5000可98折 ", nil]];
 
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 30)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 30)];
     label.textColor = XWJGREENCOLOR;
     label.text = @"楼盘信息";
     [view addSubview:label];
@@ -127,20 +134,20 @@
                          self.dic  = [dic objectForKey:@"house"];
             [self.photos addObjectsFromArray:[dic objectForKey:@"photo"] ];
             
-            [self.tableData addObject:[NSString  stringWithFormat:@"开盘 %@",[self.dic objectForKey:@"kpsj"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"地址 %@",[self.dic objectForKey:@"lpmc"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"状态 %@",[self.dic objectForKey:@"zt"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"优惠 %@",[self.dic objectForKey:@"yhxx"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"kpsj"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@%@%@",[self.dic objectForKey:@"cityName"],[self.dic objectForKey:@"quyu"],[self.dic objectForKey:@"weiZhi"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zt"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"yhxx"]]] ;
 //            特点、最新动态、周边配套和详细信息
-            [self.tableData addObject:[NSString  stringWithFormat:@"特点 %@",[self.dic objectForKey:@"zxdt"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"最新动态 %@",[self.dic objectForKey:@"yhxx"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"周边配套 %@",[self.dic objectForKey:@"zbpt"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"详细信息 %@",[self.dic objectForKey:@"xxxx"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zxdt"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"yhxx"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zbpt"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"xxxx"]]] ;
 
             
             self.nameLabel.text = [self.dic objectForKey:@"lpmc"];
             self.moneyLabel.text = [NSString stringWithFormat:@"开盘 %@",[self.dic objectForKey:@"jiage"]];
-            [self.locationBtn setTitle:[self.dic objectForKey:@"weiZhi"] forState:UIControlStateNormal];
+            [self.locationBtn setTitle:[NSString  stringWithFormat:@"地址 %@%@%@",[self.dic objectForKey:@"cityName"],[self.dic objectForKey:@"quyu"],[self.dic objectForKey:@"weiZhi"]] forState:UIControlStateNormal];
             [self.timeBtn setTitle:[self.dic objectForKey:@"kpsj"] forState:UIControlStateNormal];
             
             NSString *houseurl;
@@ -151,17 +158,20 @@
             }
             
             [self.houseImg sd_setImageWithURL:[NSURL URLWithString:houseurl] placeholderImage:[UIImage imageNamed:@"newhouse"]];
+            
+            self.infoTableView.frame = CGRectMake(self.infoTableView.frame.origin.x, self.infoTableView.frame.origin.y, self.infoTableView.frame.size.width, self.height);
+
             [self.infoTableView reloadData];
-            self.infoTableView.contentSize = CGSizeMake(0, 30*self.tableData.count+60);
+//            self.infoTableView.contentSize = CGSizeMake(0, 30*self.tableData.count+60);
             NSInteger count = self.photos.count;
             CGFloat width = self.view.bounds.size.width/3;
             CGFloat height = self.scrollView.bounds.size.height;
-            self.scrollView.contentSize = CGSizeMake(width*count, height);
+            self.scrollView.contentSize = CGSizeMake((width+5)*count+10, height);
 //            if(count>6)
 //                count = 6;
             for (int i=0; i<count; i++) {
                 UIImageView *button = [[UIImageView alloc ] init];
-                button.frame = CGRectMake(width*i, 0, width, height);
+                button.frame = CGRectMake(5+(width+5)*i, 0, width, height);
                 button.tag = TAG+i;
                 button.userInteractionEnabled = YES;
 
@@ -183,8 +193,11 @@
 
                 [self.scrollView addSubview:button];
             }
+            self.infoTableView.frame = CGRectMake(self.infoTableView.frame.origin.x, self.infoTableView.frame.origin.y, self.infoTableView.frame.size.width, self.height+40);
+            [self.infoTableView setNeedsDisplay];
             //            [self.houseArr addObjectsFromArray:arr];
-            //            [self.tableView reloadData];
+                        [self.infoTableView reloadData];
+            self.backScrollView.contentSize = CGSizeMake(0, self.infoTableView.frame.origin.y+self.infoTableView.bounds.size.height+100);
                         NSLog(@"dic %@",dic);
         }
         
@@ -215,7 +228,12 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 30;
+    NSString *text =  [self.tableData objectAtIndex:indexPath.row];
+
+   CGSize size =   [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(200, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap];
+    self.height = self.height + size.height;
+    return size.height+10;
+//    return 30;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -225,14 +243,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell;
+    XWJHouseInfoCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"cztablecell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cztablecell"];
+        cell = [[XWJHouseInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cztablecell"];
     }
     // Configure the cell...
-    cell.textLabel.text = [self.tableData objectAtIndex:indexPath.row];
+//    cell.detailTextLabel.text = [self.tableData objectAtIndex:indexPath.row];
+
+    cell.label1.text = [self.tableData1 objectAtIndex:indexPath.row];
+
+    cell.label2.text = [self.tableData objectAtIndex:indexPath.row];
+
+
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

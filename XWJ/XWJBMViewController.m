@@ -60,9 +60,7 @@
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"baoming" object:nil];
             
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
-            XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
-            [self.navigationController pushViewController:acti animated:YES ];
+            [self.navigationController popViewControllerAnimated:YES];
             
             NSLog(@"dic %@",dic);
         }

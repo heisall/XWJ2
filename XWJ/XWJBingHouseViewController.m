@@ -196,42 +196,42 @@
             switch (tag) {
                 case TAG+1:{
                     self.txtField4.text = string;
-                    self.txtField5.text = string;
+                   // self.txtField5.text = string;
                     [self.txtField5 becomeFirstResponder];
                 
                 }
                     break;
                 case TAG+2:{
-                    //self.txtField5.text = string;
-                    self.txtField6.text = string;
+                    self.txtField5.text = string;
+                  //  self.txtField6.text = string;
 
                     [self.txtField6 becomeFirstResponder];
                 }
                     break;
                 case TAG+3:{
-                   // self.txtField6.text = string;
-                    self.txtField7.text = string;
+                    self.txtField6.text = string;
+                   // self.txtField7.text = string;
 
                     [self.txtField7 becomeFirstResponder];
                 }
                     break;
                 case TAG+4:{
-                   // self.txtField7.text = string;
-                    self.txtField8.text = string;
+                    self.txtField7.text = string;
+                  //  self.txtField8.text = string;
 
                     [self.txtField8 becomeFirstResponder];
                 }
                     break;
                 case TAG+5:{
-                  //  self.txtField8.text = string;
-                    self.txtField9.text = string;
+                    self.txtField8.text = string;
+                   // self.txtField9.text = string;
                     [self.txtField9 becomeFirstResponder];
                 }
                     break;
                 case TAG+6:{
-                  //  self.txtField9.text = string;
+                    self.txtField9.text = string;
 
-                    [textField resignFirstResponder];
+                    [self.txtField9 resignFirstResponder];
                 }
                     break;
                 default:

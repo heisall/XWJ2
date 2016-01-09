@@ -33,6 +33,7 @@
         self.actTitle.text = @"";
 
     }
+    self.btn.layer.cornerRadius = 5;
     
     if ((NSNull *)[self.dic valueForKey:KEY_AD_TIME]!=[NSNull null]) {
         

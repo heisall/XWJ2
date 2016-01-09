@@ -12,4 +12,6 @@
 
 - (UIImage*)transformWidth:(CGFloat)width
                     height:(CGFloat)height ;
+-(UIImage *) createRoundedRectImage:(UIImage*)image size:(CGSize)size;
+
 @end

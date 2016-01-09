@@ -329,10 +329,11 @@
      */
     
     
-    CGFloat width=  cell.headImgView.bounds.size.height;
-    cell.headImgView.layer.cornerRadius = width/2;
     [cell.headImgView  sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
+        CGFloat width=  cell.headImgView.bounds.size.height;
+        cell.headImgView.layer.cornerRadius = width/2;
+        cell.headImgView.layer.masksToBounds = YES;
         [cell.headImgView  setImage:[image transformWidth:width height:width]];
  
 

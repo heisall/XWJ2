@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -377,16 +378,20 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5i7-B0-Knt">
-                                                            <rect key="frame" x="16" y="3" width="94" height="74.5"/>
+                                                            <rect key="frame" x="16" y="15.5" width="60" height="60"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="5i7-B0-Knt" secondAttribute="height" multiplier="1:1" id="67Y-eX-vOh"/>
+                                                                <constraint firstAttribute="width" constant="60" id="Y27-7d-fhk"/>
+                                                            </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论者1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gx-ls-ZJd">
-                                                            <rect key="frame" x="125" y="3" width="59" height="24"/>
+                                                            <rect key="frame" x="91" y="15.5" width="59" height="11.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9Z-9M-A7d">
-                                                            <rect key="frame" x="125" y="32" width="42" height="21"/>
+                                                            <rect key="frame" x="91" y="32" width="42" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="ggG-6L-tNI"/>
                                                             </constraints>
@@ -395,7 +400,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZc-0t-ZOX">
-                                                            <rect key="frame" x="125" y="63" width="42" height="21"/>
+                                                            <rect key="frame" x="91" y="63" width="42" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="Rzi-Iq-hbT"/>
                                                             </constraints>
@@ -406,6 +411,7 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="jZc-0t-ZOX" firstAttribute="leading" secondItem="v9Z-9M-A7d" secondAttribute="leading" id="F2t-HL-Y71"/>
+                                                        <constraint firstItem="5i7-B0-Knt" firstAttribute="centerY" secondItem="c6e-s3-acj" secondAttribute="centerY" id="N9d-9I-Lok"/>
                                                         <constraint firstItem="v9Z-9M-A7d" firstAttribute="centerX" secondItem="3Gx-ls-ZJd" secondAttribute="centerX" id="PNh-ko-C3K"/>
                                                         <constraint firstItem="v9Z-9M-A7d" firstAttribute="top" secondItem="3Gx-ls-ZJd" secondAttribute="bottom" constant="5" id="Q7c-4t-ebi"/>
                                                         <constraint firstItem="3Gx-ls-ZJd" firstAttribute="top" secondItem="5i7-B0-Knt" secondAttribute="top" id="WDY-Oe-jQA"/>
@@ -420,6 +426,9 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
+                                                            <exclude reference="m75-hj-owv"/>
+                                                            <exclude reference="vno-hA-cZb"/>
+                                                            <exclude reference="xfK-B3-IJh"/>
                                                             <exclude reference="PNh-ko-C3K"/>
                                                         </mask>
                                                     </variation>

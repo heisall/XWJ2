@@ -26,6 +26,8 @@
 
 
 @interface LCBannerView : UIView
+@property UIViewContentMode mode ;
+@property BOOL changeMode;
 @property (nonatomic, strong) NSArray *titles;
 
 #pragma mark - Class methods

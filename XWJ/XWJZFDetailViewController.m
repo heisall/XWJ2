@@ -37,9 +37,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *dialBtn;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionIView;
 @property (weak, nonatomic) IBOutlet UIView *teseView;
+@property (weak, nonatomic) IBOutlet UILabel *liulanLabel;
 @property (nonatomic) NSArray *collectionData;
 @property (weak, nonatomic) IBOutlet UILabel *yueduLabel;
 @property NSMutableDictionary * datailDic;
+@property (weak, nonatomic) IBOutlet UILabel *changxiangLabel;
+@property (weak, nonatomic) IBOutlet UIButton *shouCangBtn;
+@property (weak, nonatomic) IBOutlet UILabel *tedianLabel;
 @end
 
 @implementation XWJZFDetailViewController
@@ -90,6 +94,9 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     }
     self.navigationItem.title = title;
     
+
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -97,11 +104,13 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         self.miaoshuLabel.frame = CGRectMake(self.miaoshuLabel.frame.origin.x, self.miaoshuLabel.frame.origin.y, SCREEN_SIZE.width,150 );
 
     self.backScroll.contentSize = CGSizeMake(0
-                                             , SCREEN_SIZE.height +100);
+                                             , SCREEN_SIZE.height +self.miaoshuLabel.bounds.size.height +10);
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //    self.miaoshuLabel.frame = CGRectMake(self.miaoshuLabel.frame.origin.x, self.miaoshuLabel.frame.origin.y, SCREEN_SIZE.width, );
+    
+    self.navigationController.navigationBar.hidden  = YES;
     self.backScroll.contentSize = CGSizeMake(0
                                              , SCREEN_SIZE.height +100);
     self.tabBarController.tabBar.hidden = YES;
@@ -161,14 +170,27 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
             self.datailDic = [dic objectForKey:@"data"];
             [self updateView];
             
+        }else{
+            [self addBackBtn];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
-        
+        [self addBackBtn];
     }];
 }
 
+-(void)popView{
+    [self.navigationController popViewControllerAnimated:NO];
+}
+-(void)addBackBtn{
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *image  = [UIImage imageNamed:@"back"];
+    back.frame = CGRectMake(5, 5, image.size.width, image.size.height);
+    [back setImage:image forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
+    [self.adView addSubview:back];
+}
 -(void)updateView{
     
     /*
@@ -226,26 +248,36 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         bannerView;
     })];
     
-    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"buildingInfo"],[NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]]];
+    [self addBackBtn];
+    
+//    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"buildingInfo"],[NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]]];
+        self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"buildingInfo"]];
     self.timeLabel.text = [NSString stringWithFormat:@"发布时间：%@",[self.datailDic objectForKey:@"ReleaseTime"]];
-    self.zoneLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"area"]];
+    self.zoneLabel.text = [NSString stringWithFormat:@"%@%@",[self.datailDic objectForKey:@"city"],[self.datailDic objectForKey:@"area"]==[NSNull null]?@"":[self.datailDic objectForKey:@"area"]];
     self.moneyLabel.text = [NSString stringWithFormat:@"%@万元",[self.datailDic objectForKey:@"rent"]];
     self.typeLabel.text = [NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]];
-    self.sizeLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"buildingArea"]];
+    self.sizeLabel.text = [NSString stringWithFormat:@"%.1fm²",[self.datailDic objectForKey:@"buildingArea"]==[NSNull null]?@"":[self.datailDic objectForKey:@"buildingArea"]];
     self.zhuangxiuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
 //    self.priceLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
     self.loucengLabel.text = [NSString stringWithFormat:@"%@/%@",[self.datailDic objectForKey:@"floors"],[self.datailDic objectForKey:@"floorCount"]];
 //    self.shoufuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
-    self.niandaiLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"niandai"]];
+    self.niandaiLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"niandai"]==[NSNull null]?@"":[self.datailDic objectForKey:@"niandai"]];
 //    self.yuegongLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
-    
-    
+    self.changxiangLabel.text =  [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"orientation"]==[NSNull null]?@"":[self.datailDic objectForKey:@"orientation"]];
+    self.liulanLabel.text= [NSString stringWithFormat:@"浏览次数 %@",[self.datailDic objectForKey:@"clickCount"]==[NSNull null]?@"":[self.datailDic objectForKey:@"clickCount"]];
+    self.tedianLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"maidian"]==[NSNull null]?@"":[self.datailDic objectForKey:@"maidian"]];
     [self.dialBtn setTitle:[NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"contactPerson"],[self.datailDic objectForKey:@"contactPhone"]] forState:UIControlStateNormal];
     
+    NSString *collect = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"isCollected"]];
+    if ([collect isEqualToString:@"0"]) {
+        self.shouCangBtn.selected = NO;
+    }else{
+        self.shouCangBtn.selected = YES;
+    }
     
 //    @property (weak, nonatomic) IBOutlet UIImageView *yaoshiView;
 //    @property (weak, nonatomic) IBOutlet UIImageView *xuequView;
-    self.miaoshuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"des"]];
+    self.miaoshuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"des"]==[NSNull null]?@"":[self.datailDic objectForKey:@"des"]];
 
 
     
@@ -383,6 +415,8 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 //    }
 //}
 - (IBAction)shoucangEvt:(UIButton *)sender {
+    
+    sender.selected = !sender.selected;
     [self shouCang:@"2"];
 }
 
@@ -400,12 +434,18 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:[self.datailDic valueForKey:@"id"]  forKey:@"lpId"];
     [dict setValue:type  forKey:@"type"];
     [dict setValue: account.uid  forKey:@"userid"];
-    NSString *collect = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"isCollected"]];
-    if ([collect isEqualToString:@"0"]) {
-        [dict setValue:@"1" forKey:@"isCollect"];
-    }else{
-        [dict setValue:@"0" forKey:@"isCollect"];
-    }
+//    NSString *collect = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"isCollected"]];
+//    if ([collect isEqualToString:@"0"]) {
+//        [dict setValue:@"1" forKey:@"isCollect"];
+//    }else{
+//        [dict setValue:@"0" forKey:@"isCollect"];
+//    }
+    
+        if (self.shouCangBtn.selected) {
+            [dict setValue:@"1" forKey:@"isCollect"];
+        }else{
+            [dict setValue:@"0" forKey:@"isCollect"];
+        }
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

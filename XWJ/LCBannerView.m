@@ -74,7 +74,7 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
         self.timerInterval = timeInterval;
         self.currentPageIndicatorTintColor = currentPageIndicatorTintColor;
         self.pageIndicatorTintColor = pageIndicatorTintColor;
-        
+
         [self setupMainView];
     }
     return self;
@@ -90,7 +90,8 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
         self.timerInterval = timeInterval;
         self.currentPageIndicatorTintColor = currentPageIndicatorTintColor;
         self.pageIndicatorTintColor = pageIndicatorTintColor;
-        
+
+
         [self setupMainView2];
     }
     return self;
@@ -107,7 +108,8 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
         self.currentPageIndicatorTintColor = currentPageIndicatorTintColor;
         self.pageIndicatorTintColor = pageIndicatorTintColor;
         self.placeholderImage = placeholderImage;
-        
+
+
         [self setupMainView];
     }
     return self;
@@ -254,7 +256,14 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
             
             imageView.clipsToBounds = YES;
             imageView.userInteractionEnabled = YES;
-            imageView.contentMode = UIViewContentModeRedraw;
+            
+//            if (self.changeMode ) {
+//                imageView.contentMode = self.mode;
+//            }else
+//                imageView.contentMode = UIViewContentModeRedraw;
+
+            imageView.contentMode = UIViewContentModeScaleAspectFit;
+
             imageView.frame = CGRectMake(scrollW * i, 0, scrollW, scrollH);
             [scrollView addSubview:imageView];
             

@@ -34,13 +34,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *fukuanLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *yaoshiView;
 @property (weak, nonatomic) IBOutlet UIImageView *xuequView;
-@property (weak, nonatomic) IBOutlet UILabel *miaoshuLabel;
+@property (weak, nonatomic) IBOutlet UILabel *miaosLabel;
+
 @property (weak, nonatomic) IBOutlet UIButton *dialBtn;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionIView;
 @property (weak, nonatomic) IBOutlet UIView *teseView;
 @property (nonatomic) NSArray *collectionData;
 @property (weak, nonatomic) IBOutlet UILabel *yueduLabel;
 @property (weak, nonatomic) IBOutlet UILabel *chaoxiangLabel;
+@property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
+@property (weak, nonatomic) IBOutlet UILabel *liulanLabel;
 @property NSMutableDictionary * datailDic;
 @end
 
@@ -96,11 +99,28 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.backScroll.contentSize = CGSizeMake(SCREEN_SIZE.width
-                                             , SCREEN_SIZE.height +100);
+
+    self.navigationController.navigationBar.hidden  = YES;
     self.tabBarController.tabBar.hidden =YES;
 }
 
+-(void)popView{
+    [self.navigationController popViewControllerAnimated:NO];
+}
+-(void)addBackBtn{
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *image  = [UIImage imageNamed:@"back"];
+    back.frame = CGRectMake(5, 5, image.size.width, image.size.height);
+    [back setImage:image forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
+    [self.adView addSubview:back];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.backScroll.contentSize = CGSizeMake(SCREEN_SIZE.width
+                                             , SCREEN_SIZE.height +10+self.miaosLabel.bounds.size.height+100);
+}
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden =NO;
@@ -158,11 +178,14 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
             self.datailDic = [dic objectForKey:@"data"];
             [self updateView];
             
-        }
+        }else
+            [self addBackBtn];
+
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
-        
+        [self addBackBtn];
+
     }];
 }
 
@@ -203,32 +226,35 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     }
     [self.adView addSubview:({
         
-        LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-                                                                                self.adView.bounds.size.height)
+        LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+                                                                                  self.adView.bounds.size.height)
                                     
-                                                            delegate:self
-                                                           imageURLs:URLs
-                                                    placeholderImage:nil
-                                                       timerInterval:3.0f
-                                       currentPageIndicatorTintColor:XWJGREENCOLOR
-                                              pageIndicatorTintColor:[UIColor whiteColor]];
+                                                              delegate:self
+                                                             imageURLs:URLs
+                                                      placeholderImage:nil
+                                                         timerInterval:3.0f
+                                         currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                pageIndicatorTintColor:[UIColor whiteColor]
+                                                                      :UIViewContentModeScaleAspectFit];
         bannerView;
     })];
-    
-    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"buildingInfo"],[NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]]];
+    [self addBackBtn];
+
+//    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"buildingInfo"],[NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]]];
+        self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"buildingInfo"]];
     self.timeLabel.text = [NSString stringWithFormat:@"发布时间：%@",[self.datailDic objectForKey:@"ReleaseTime"]];
     self.zoneLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"area"]];
     self.moneyLabel.text = [NSString stringWithFormat:@"%@万元",[self.datailDic objectForKey:@"rent"]];
     self.typeLabel.text = [NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]];
-    self.sizeLabel.text = [NSString stringWithFormat:@"%@M²",[self.datailDic objectForKey:@"buildingArea"]];
+    self.sizeLabel.text = [NSString stringWithFormat:@"%.1fm²",[self.datailDic objectForKey:@"buildingArea"]==[NSNull null]?[@"0" floatValue]:[[self.datailDic valueForKey:@"buildingArea"] floatValue]];
     self.zhuangxiuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
     //    self.priceLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
     self.loucengLabel.text = [NSString stringWithFormat:@"%@/%@",[self.datailDic objectForKey:@"floors"],[self.datailDic objectForKey:@"floorCount"]];
     //    self.shoufuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
-    self.niandaiLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"niandai"]];
+    self.niandaiLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"niandai"]==[NSNull null]?@"":[self.datailDic objectForKey:@"niandai"]];
     //    self.yuegongLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
     self.fukuanLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"fkfs"]];
-    
+        self.liulanLabel.text= [NSString stringWithFormat:@"浏览次数 %@",[self.datailDic objectForKey:@"clickCount"]==[NSNull null]?@"":[self.datailDic objectForKey:@"clickCount"]];
     [self.dialBtn setTitle:[NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"contactPerson"],[self.datailDic objectForKey:@"contactPhone"]] forState:UIControlStateNormal];
     
     if([self.datailDic objectForKey:@"supporting"]!=[NSNull null]){
@@ -238,8 +264,14 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     }
     //    @property (weak, nonatomic) IBOutlet UIImageView *yaoshiView;
     //    @property (weak, nonatomic) IBOutlet UIImageView *xuequView;
-    self.miaoshuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"des"]];
-    //    self.datailDic;
+    self.miaosLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"description"]==[NSNull null]?@"":[self.datailDic objectForKey:@"description"]];
+    NSString *collect = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"isCollected"]];
+    
+    if ([collect isEqualToString:@"0"]) {
+        self.shoucangBtn.selected = NO;
+    }else{
+        self.shoucangBtn.selected = YES;
+    }
     
 }
 
@@ -385,6 +417,8 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)shoucang:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    btn.selected = !btn.selected;
     if (self.type == HOUSE2) {
         [self shoucang:@"2"];
     }
@@ -408,13 +442,17 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:type  forKey:@"type"];
     [dict setValue: account.uid  forKey:@"userid"];
     
-    NSString *collect = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"isCollected"]];
-    if ([collect isEqualToString:@"0"]) {
+//    NSString *collect = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"isCollected"]];
+//    if ([collect isEqualToString:@"0"]) {
+//        [dict setValue:@"1" forKey:@"isCollect"];
+//    }else{
+//        [dict setValue:@"0" forKey:@"isCollect"];
+//    }
+    if (self.shoucangBtn.selected) {
         [dict setValue:@"1" forKey:@"isCollect"];
     }else{
         [dict setValue:@"0" forKey:@"isCollect"];
     }
-
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

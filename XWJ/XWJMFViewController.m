@@ -16,7 +16,7 @@
 #define  COLLECTION_NUMITEMS 5
 
 
-@interface XWJMFViewController ()<UICollectionViewDataSource,UICollectionViewDelegate ,LGPhotoPickerViewControllerDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface XWJMFViewController ()<UICollectionViewDataSource,UICollectionViewDelegate ,LGPhotoPickerViewControllerDelegate,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     CGFloat collectionCellHeight;
     CGFloat collectionCellWidth;
     UIView *backview;
@@ -45,9 +45,13 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *xiaoquLabel;
 
+@property (weak, nonatomic) IBOutlet UITextView *fyMiaoshu;
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIScrollView *imgScrollView;
+@property  UIControl *controlView;
 
+@property (weak, nonatomic) IBOutlet UIButton *quedingBtn;
 @property NSMutableArray *imageDatas;
 
 @property NSMutableArray *lp;
@@ -66,6 +70,7 @@ static NSString *kcellIdentifier = @"collectionCellID";
 static NSString *kheaderIdentifier = @"headerIdentifier";
 @implementation XWJMFViewController
 #define  imgtag 100
+@synthesize controlView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,12 +78,13 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 //    self.collectionData = [NSArray arrayWithObjects:@"床",@"衣柜",@"空调",@"电视",@"冰箱",@"洗衣机",@"天然气",@"暖气",@"热水器",@"宽带",nil];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZFCollectionCell" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJSupplementaryView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kheaderIdentifier];
-    
+    self.fyMiaoshu.delegate = self;
+
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.navigationItem.title = @"我要卖房";
     [self get2hangFubFilter];
-    self.scrollView.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+50);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+200);
     for (int i = 0; i<IMAGECOUNT; i++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
         imgView.tag = imgtag+i;
@@ -86,6 +92,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     }
     self.imageDatas = [NSMutableArray array];
 
+//    [self.quedingBtn addTarget:self action:@selector(sure:) forControlEvents:UIControlEventTouchDragInside];
     // Do any additional setup after loading the view.
 }
 
@@ -535,7 +542,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
 - (IBAction)sure:(UIButton *)sender {
     
-    [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
+//    [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
 
     [ProgressHUD show:@"正在发布" Interaction:YES];
     NSString *url = GET2HANDFB_URL;
@@ -593,6 +600,8 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:md forKey:@"maidian"];
 //    [dict setValue:@"" forKey:@"fangyuanmiaoshu"];
 //
+    [dict setValue:self.niandaiTF.text forKey:@"niandai"];
+    [dict setValue:self.fyMiaoshu.text forKey:@"fangyuanmiaoshu"];
     [dict setValue:[[self.cx objectAtIndex:self.cxIndex] objectForKey:@"dicKey"] forKey:@"orientation"];
     [dict setValue:[[self.zx objectAtIndex:self.zxIndex] objectForKey:@"dicKey"] forKey:@"renovationInfo"];
     [dict setValue:self.phoneTF.text forKey:@"mobilePhone"];
@@ -645,7 +654,34 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     }];
 }
 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if (!controlView) {
+        controlView        = [[UIControl alloc] initWithFrame:self.view.frame];
+        [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+        controlView.backgroundColor = [UIColor clearColor];
+    }
+    [self.view addSubview:controlView];
+//    self.scrollView.contentOffset = CGPointMake(0, -100);
+    //    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    btn.frame = CGRectMake(0, 0, 40, 40);
+    //    [btn setTitle:@"完成" forState:UIControlStateNormal];
+    //    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    //    [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+    //    UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    //    self.navigationItem.rightBarButtonItem = done;
+}
 
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    [controlView removeFromSuperview];
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)leaveEditMode {
+    [self.fyMiaoshu resignFirstResponder];
+}
 
 /*
 #pragma mark - Navigation

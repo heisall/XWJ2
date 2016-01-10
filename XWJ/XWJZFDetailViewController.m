@@ -101,10 +101,10 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
 -(void)viewDidAppear:(BOOL)animated{
     
-        self.miaoshuLabel.frame = CGRectMake(self.miaoshuLabel.frame.origin.x, self.miaoshuLabel.frame.origin.y, SCREEN_SIZE.width,150 );
+//        self.miaoshuLabel.frame = CGRectMake(self.miaoshuLabel.frame.origin.x, self.miaoshuLabel.frame.origin.y, SCREEN_SIZE.width,150 );
 
     self.backScroll.contentSize = CGSizeMake(0
-                                             , SCREEN_SIZE.height +self.miaoshuLabel.bounds.size.height +10);
+                                             , SCREEN_SIZE.height +self.miaoshuLabel.bounds.size.height +100);
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -235,8 +235,9 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         URLs = [[self.datailDic valueForKey:@"photo"] componentsSeparatedByString:@","];
     }
     [self.adView addSubview:({
-        
-        LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+
+
+        LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
                                                                                 self.adView.bounds.size.height)
                                     
                                                             delegate:self
@@ -244,7 +245,8 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
                                                     placeholderImage:nil
                                                        timerInterval:3.0f
                                        currentPageIndicatorTintColor:XWJGREENCOLOR
-                                              pageIndicatorTintColor:[UIColor whiteColor]];
+                                              pageIndicatorTintColor:[UIColor whiteColor]
+                                    :UIViewContentModeScaleAspectFit];
         bannerView;
     })];
     
@@ -256,7 +258,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.zoneLabel.text = [NSString stringWithFormat:@"%@%@",[self.datailDic objectForKey:@"city"],[self.datailDic objectForKey:@"area"]==[NSNull null]?@"":[self.datailDic objectForKey:@"area"]];
     self.moneyLabel.text = [NSString stringWithFormat:@"%@万元",[self.datailDic objectForKey:@"rent"]];
     self.typeLabel.text = [NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]];
-    self.sizeLabel.text = [NSString stringWithFormat:@"%.1fm²",[self.datailDic objectForKey:@"buildingArea"]==[NSNull null]?@"":[self.datailDic objectForKey:@"buildingArea"]];
+    self.sizeLabel.text = [NSString stringWithFormat:@"%.1fm²",[self.datailDic objectForKey:@"buildingArea"]==[NSNull null]?[@"0" floatValue]:[[self.datailDic valueForKey:@"buildingArea"] floatValue]];
     self.zhuangxiuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
 //    self.priceLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
     self.loucengLabel.text = [NSString stringWithFormat:@"%@/%@",[self.datailDic objectForKey:@"floors"],[self.datailDic objectForKey:@"floorCount"]];

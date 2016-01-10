@@ -22,14 +22,22 @@
     UIView *backview;
     UIScrollView *helperView;
 }
+@property (weak, nonatomic) IBOutlet UIScrollView *backScroll;
 @property (weak, nonatomic) IBOutlet UITextField *shiTF;
 @property (weak, nonatomic) IBOutlet UITextField *tingTF;
+@property (weak, nonatomic) IBOutlet UITextField *niandaiTF;
 
 @property (weak, nonatomic) IBOutlet UITextField *weiTF;
 @property (weak, nonatomic) IBOutlet UITextField *mianjiTF;
 @property (weak, nonatomic) IBOutlet UITextField *zujinTF;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UITextField *zongCengTF;
+@property (weak, nonatomic) IBOutlet UITextField *jicengTF;
+@property (weak, nonatomic) IBOutlet UILabel *zhuangxiuLabel;
+@property (weak, nonatomic) IBOutlet UIButton *changcBtn;
+@property (weak, nonatomic) IBOutlet UILabel *changxLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fukuanLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *xiaoquLabel;
 @property (nonatomic) NSArray *collectionData;
@@ -40,8 +48,15 @@
 @property (nonatomic) NSMutableArray *collectionSelect;
 
 @property NSMutableArray *lp;
+@property NSMutableArray *cx;
+@property NSMutableArray *fu;
+@property NSMutableArray *zx;
 
 @property NSInteger lpIndex;
+@property NSInteger cxIndex;
+@property NSInteger fuIndex;
+@property NSInteger zxIndex;
+@property NSInteger stype;
 
 @end
 @implementation XWJCZViewController
@@ -60,7 +75,8 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     
 //    self.collectionData = [NSArray arrayWithObjects:@"床",@"衣柜",@"空调",@"电视",@"冰箱",@"洗衣机",@"天然气",@"暖气",@"热水器",@"宽带",nil];
-    
+    self.backScroll.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+200);
+
     self.tableData = [NSArray arrayWithObjects:@"描述",@"联系人",@"手机号", nil];
     _tableHolderData = [NSArray arrayWithObjects:@"小区环境，交通状况等",@"请输入您的姓名",@"请输入您的手机号", nil];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZFCollectionCell" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier];
@@ -81,6 +97,18 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.navigationItem.title = @"我要出租";
     self.imageDatas = [NSMutableArray array];
 }
+- (IBAction)changxiang:(id)sender {
+    [self showSortView:sender];
+
+}
+- (IBAction)zuangxiu:(id)sender {
+    [self showSortView:sender];
+
+}
+- (IBAction)fukuan:(id)sender {
+    [self showSortView:sender];
+
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -93,6 +121,8 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 }
 -(void)showSortView:(UIButton *)btn{
     //添加半透明背景图
+    NSUInteger type = btn.tag;
+    self.stype = btn.tag;
     backview=[[UIView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.window.frame.size.height)];
     backview.backgroundColor=[UIColor colorWithWhite:0 alpha:0.6];
     backview.tag=4444;
@@ -121,10 +151,31 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     NSMutableArray *array = [NSMutableArray array];
     NSInteger  count = 0  ;
- 
-        count = self.lp.count;
-        [array addObjectsFromArray:self.lp];
+    switch (type) {
+        case 1:{
+            count = self.lp.count;
+            [array addObjectsFromArray:self.lp];
+        }
+            break;
+        case 2:{
+            count = self.cx.count;
+            [array addObjectsFromArray:self.cx];
+        }
+            break;
+        case 3:{
+            count = self.zx.count;
+            [array addObjectsFromArray:self.zx];
 
+        }
+            break;
+        case 4:{
+            count = self.fu.count;
+            [array addObjectsFromArray:self.fu];
+        }
+            break;
+        default:
+            break;
+    }
     for (int i=0; i<count; i++) {
         UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
         button.frame=CGRectMake(0, 40+40*i, helperView.frame.size.width, 40);
@@ -145,20 +196,63 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         [helperView addSubview:button];
     }
     helperView.contentSize = CGSizeMake(0, 40*(count+1));
+    
 }
 -(void)closeButtonClicked{
     //    UIView *backview=[self.view.window viewWithTag:3333];
     [backview removeFromSuperview];
 }
 
+//-(void)sortTypeButtonClicked:(UIButton *)button{
+//    
+//    [self closeButtonClicked];
+//    NSInteger index = button.tag - 60001;
+//    NSLog(@"selcet id %ld",index);
+//    self.lpIndex = index;
+//    self.xiaoquLabel.text = [NSString stringWithFormat:@"%@",[[self.lp objectAtIndex:index] objectForKey:@"dicValue"]];
+//
+//}
+
 -(void)sortTypeButtonClicked:(UIButton *)button{
     
     [self closeButtonClicked];
+    
     NSInteger index = button.tag - 60001;
     NSLog(@"selcet id %ld",index);
-    self.lpIndex = index;
-    self.xiaoquLabel.text = [NSString stringWithFormat:@"%@",[[self.lp objectAtIndex:index] objectForKey:@"dicValue"]];
+    switch (self.stype) {
+        case 1:
+        {
+            self.lpIndex = index;
+            
+            self.xiaoquLabel.text = [NSString stringWithFormat:@"%@",[[self.lp objectAtIndex:index] objectForKey:@"dicValue"]];
+        }
+            break;
+        case 2:{
+            self.cxIndex = index;
+            
+            self.changxLabel.text = [NSString stringWithFormat:@"%@",[[self.cx objectAtIndex:index] objectForKey:@"dicValue"]];
+        }
+            break;
+        case 3:{
+            self.zxIndex = index;
+            self.zhuangxiuLabel.text = [NSString stringWithFormat:@"%@",[[self.zx objectAtIndex:index] objectForKey:@"dicValue"]];
+            
+            
+            
+        }
+            break;
+        case 4:{
+            
+            self.fuIndex = index;
+            self.fukuanLabel.text = [NSString stringWithFormat:@"%@",[[self.fu objectAtIndex:index] objectForKey:@"dicValue"]];
+            
 
+        }
+            break;
+        default:
+            break;
+    }
+    
 }
 
 -(void)xuanze:(UIButton *)btn{
@@ -458,13 +552,13 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
             
             
             self.lp  = [NSMutableArray arrayWithArray:[dic objectForKey:@"lp"]];
-//            self.cx  = [NSMutableArray arrayWithArray:[dic objectForKey:@"cx"]];
-//            self.md  = [NSMutableArray arrayWithArray:[dic objectForKey:@"md"]];
-//            self.zx  = [NSMutableArray arrayWithArray:[dic objectForKey:@"zx"]];
-//            [self.lp insertObject:quanbu atIndex:0];
-//            [self.cx insertObject:quanbu atIndex:0];
-//            [self.md insertObject:quanbu atIndex:0];
-//            [self.zx insertObject:quanbu atIndex:0];
+            self.cx  = [NSMutableArray arrayWithArray:[dic objectForKey:@"cx"]];
+            self.fu  = [NSMutableArray arrayWithArray:[dic objectForKey:@"fkfs"]];
+            self.zx  = [NSMutableArray arrayWithArray:[dic objectForKey:@"zx"]];
+            [self.lp insertObject:quanbu atIndex:0];
+            [self.cx insertObject:quanbu atIndex:0];
+            [self.fu insertObject:quanbu atIndex:0];
+            [self.zx insertObject:quanbu atIndex:0];
             
             self.collectionData = [NSMutableArray arrayWithArray:[dic objectForKey:@"md"]];
             self.collectionSelect = [NSMutableArray arrayWithCapacity:self.collectionData.count];
@@ -490,6 +584,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 - (IBAction)xuanxiaoqu:(UIButton *)sender {
     [self showSortView:sender];
 }
+
 - (IBAction)sure:(UIButton *)sender {
     [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
     [ProgressHUD show:@"正在发布" Interaction:YES];
@@ -528,6 +623,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:self.shiTF.text forKey:@"house_Indoor"];
     [dict setValue:self.tingTF.text forKey:@"house_living"];
     [dict setValue:self.weiTF.text forKey:@"house_Toilet"];
+    [dict setValue:self.niandaiTF.text forKey:@"niandai"];
     [dict setValue:[NSString stringWithFormat:@"%@",self.mianjiTF.text] forKey:@"buildingArea"];
     [dict setValue:self.zujinTF.text forKey:@"rent"];
 ////    [dict setValue:@"" forKey:@"supporting"];
@@ -545,12 +641,21 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:md forKey:@"supporting"];
     [dict setValue:((UITextField *)[self.tableView viewWithTag:100]).text forKey:@"fangyuanmiaoshu"];
 //
-//    [dict setValue:[[self.cx objectAtIndex:self.cxIndex] objectForKey:@"dicKey"] forKey:@"orientation"];
-//    [dict setValue:[[self.zx objectAtIndex:self.zxIndex] objectForKey:@"dicKey"] forKey:@"renovationInfo"];
+    [dict setValue:[[self.cx objectAtIndex:self.cxIndex] objectForKey:@"dicKey"] forKey:@"orientation"];
+    [dict setValue:[[self.zx objectAtIndex:self.zxIndex] objectForKey:@"dicKey"] forKey:@"renovationInfo"];
+    [dict setValue:[[self.lp objectAtIndex:self.lpIndex] objectForKey:@"dicKey"] forKey:@"buildingInfo"];
+    [dict setValue:[[self.fu objectAtIndex:self.fuIndex] objectForKey:@"dicKey"] forKey:@"payMethod"];
+
     [dict setValue:((UITextField *)[self.tableView viewWithTag:102]).text forKey:@"mobilePhone"];
+//    private String floors;
+//    private String floorCount;
+    [dict setValue:self.jicengTF.text forKey:@"floors"];
+    [dict setValue:self.zongCengTF.text forKey:@"floorCount"];
+
     if (self.imageDatas) {
         [dict setObject:self.imageDatas forKey:@"photo"];
     }
+    
     NSString *person = ((UITextField *)[self.tableView viewWithTag:101]).text;
     if (person) {
         

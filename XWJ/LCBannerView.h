@@ -26,7 +26,6 @@
 
 
 @interface LCBannerView : UIView
-@property UIViewContentMode mode ;
 @property BOOL changeMode;
 @property (nonatomic, strong) NSArray *titles;
 
@@ -53,6 +52,15 @@
 currentPageIndicatorTintColor:(UIColor *)currentPageIndicatorTintColor
        pageIndicatorTintColor:(UIColor *)pageIndicatorTintColor;
 
++ (instancetype)bannerViewWithFrame:(CGRect)frame
+                           delegate:(id<LCBannerViewDelegate>)delegate
+                          imageName:(NSString *)imageName
+                              count:(NSInteger)count
+                      timerInterval:(NSInteger)timeInterval
+      currentPageIndicatorTintColor:(UIColor *)currentPageIndicatorTintColor
+             pageIndicatorTintColor:(UIColor *)pageIndicatorTintColor
+                                    :(UIViewContentMode)m;
+- (LCBannerView *)initWithFrame:(CGRect)frame delegate:(id<LCBannerViewDelegate>)delegate imageURLs:(NSArray *)imageURLs placeholderImage:(NSString *)placeholderImage timerInterval:(NSInteger)timeInterval currentPageIndicatorTintColor:(UIColor *)currentPageIndicatorTintColor pageIndicatorTintColor:(UIColor *)pageIndicatorTintColor :(UIViewContentMode)m;
 
 + (instancetype)bannerViewWithFrame:(CGRect)frame delegate:(id<LCBannerViewDelegate>)delegate titles:(NSArray *)titles timerInterval:(NSInteger)timeInterval currentPageIndicatorTintColor:(UIColor *)currentPageIndicatorTintColor pageIndicatorTintColor:(UIColor *)pageIndicatorTintColor;
 

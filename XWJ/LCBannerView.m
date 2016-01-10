@@ -27,6 +27,7 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) UIPageControl *pageControl;
+@property NSInteger mode ;
 
 
 @end
@@ -64,6 +65,7 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
                 pageIndicatorTintColor:pageIndicatorTintColor];
 }
 
+
 - (instancetype)initWithFrame:(CGRect)frame delegate:(id<LCBannerViewDelegate>)delegate imageName:(NSString *)imageName count:(NSInteger)count timerInterval:(NSInteger)timeInterval currentPageIndicatorTintColor:(UIColor *)currentPageIndicatorTintColor pageIndicatorTintColor:(UIColor *)pageIndicatorTintColor {
     
     if (self = [super initWithFrame:frame]) {
@@ -74,6 +76,7 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
         self.timerInterval = timeInterval;
         self.currentPageIndicatorTintColor = currentPageIndicatorTintColor;
         self.pageIndicatorTintColor = pageIndicatorTintColor;
+        self.mode = -1;
 
         [self setupMainView];
     }
@@ -91,8 +94,26 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
         self.currentPageIndicatorTintColor = currentPageIndicatorTintColor;
         self.pageIndicatorTintColor = pageIndicatorTintColor;
 
-
+        self.mode = -1;
         [self setupMainView2];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame delegate:(id<LCBannerViewDelegate>)delegate imageURLs:(NSArray *)imageURLs placeholderImage:(NSString *)placeholderImage timerInterval:(NSInteger)timeInterval currentPageIndicatorTintColor:(UIColor *)currentPageIndicatorTintColor pageIndicatorTintColor:(UIColor *)pageIndicatorTintColor :(UIViewContentMode)m{
+    
+    if (self = [super initWithFrame:frame]) {
+        
+        self.delegate = delegate;
+        self.imageURLs = imageURLs;
+        self.count = imageURLs.count;
+        self.timerInterval = timeInterval;
+        self.currentPageIndicatorTintColor = currentPageIndicatorTintColor;
+        self.pageIndicatorTintColor = pageIndicatorTintColor;
+        self.placeholderImage = placeholderImage;
+        self.mode = m;
+        
+        [self setupMainView];
     }
     return self;
 }
@@ -109,6 +130,7 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
         self.pageIndicatorTintColor = pageIndicatorTintColor;
         self.placeholderImage = placeholderImage;
 
+        self.mode = -1;
 
         [self setupMainView];
     }
@@ -262,7 +284,12 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
 //            }else
 //                imageView.contentMode = UIViewContentModeRedraw;
 
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
+            if (self.mode!=-1) {
+                imageView.contentMode = self.mode;
+            }else
+                imageView.contentMode = UIViewContentModeRedraw;
+
+//            imageView.contentMode = UIViewContentModeScaleAspectFit;
 
             imageView.frame = CGRectMake(scrollW * i, 0, scrollW, scrollH);
             [scrollView addSubview:imageView];

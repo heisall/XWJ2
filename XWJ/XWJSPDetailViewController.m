@@ -67,10 +67,14 @@
     tableView.delegate = self;
     
     UIImage *image = [UIImage imageNamed:@"shoucang"];
+    UIImage *image2 = [UIImage imageNamed:@"quxiaoShoucang"];
+
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     [btn addTarget:self action:@selector(shoucang) forControlEvents:UIControlEventTouchUpInside];
     [btn setBackgroundImage:image forState:UIControlStateNormal];
+    [btn setBackgroundImage:image2 forState:UIControlStateSelected];
+
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = barButtonItem;
 }

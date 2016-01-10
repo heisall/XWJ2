@@ -52,12 +52,13 @@
     self.infoTableView.tableHeaderView = view;
     self.infoTableView.delegate = self;
     self.infoTableView.dataSource = self;
+    [self getXinFangdetail];
+
     // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self getXinFangdetail];
     self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = YES;
 
@@ -127,20 +128,20 @@
         NSLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
-            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSDictionary *resdic = (NSDictionary *)responseObject;
             
             //            XWJCity *city  = [[XWJCity alloc] init];
             
-                         self.dic  = [dic objectForKey:@"house"];
-            [self.photos addObjectsFromArray:[dic objectForKey:@"photo"] ];
-            
+                         self.dic  = [resdic objectForKey:@"house"];
+            [self.photos addObjectsFromArray:[resdic objectForKey:@"photo"] ];
+            self.tableData = [NSMutableArray array];
             [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"kpsj"]]] ;
             [self.tableData addObject:[NSString  stringWithFormat:@"%@%@%@",[self.dic objectForKey:@"cityName"],[self.dic objectForKey:@"quyu"],[self.dic objectForKey:@"weiZhi"]]] ;
             [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zt"]]] ;
             [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"yhxx"]]] ;
 //            特点、最新动态、周边配套和详细信息
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"td"]]] ;
             [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zxdt"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"yhxx"]]] ;
             [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zbpt"]]] ;
             [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"xxxx"]]] ;
 
@@ -198,7 +199,7 @@
             //            [self.houseArr addObjectsFromArray:arr];
                         [self.infoTableView reloadData];
             self.backScrollView.contentSize = CGSizeMake(0, self.infoTableView.frame.origin.y+self.infoTableView.bounds.size.height+100);
-                        NSLog(@"dic %@",dic);
+//                        NSLog(@"dic %@",resdic);
         }
         
         

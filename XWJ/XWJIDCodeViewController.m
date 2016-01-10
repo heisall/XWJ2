@@ -12,6 +12,7 @@
 #import "XWJResetPasswordViewController.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "XWJUrl.h"
+#import "ProgressHUD.h"
 @interface XWJIDCodeViewController (){
     int code;
     int timeTick;
@@ -74,6 +75,10 @@
 //    _numlabel.hidden = NO;
 //    _numlabel.text = [NSString stringWithFormat:@"60秒后重新发送"];
     
+    if(self.txtFieldPhoneNumber.text.length!=11){
+        [ProgressHUD showError:@"请输入正确手机号码"];
+        return;
+    }
     [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:NO];
     _timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
     _btnGetcode.enabled = NO;

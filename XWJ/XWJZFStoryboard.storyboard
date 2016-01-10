@@ -335,6 +335,7 @@
                                 <state key="normal" title="收藏" image="shoucang">
                                     <color key="titleColor" red="0.18823529410000001" green="0.19215686269999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <state key="selected" image="quxiaoShoucang"/>
                                 <connections>
                                     <action selector="shoucangEvt:" destination="o0h-A9-902" eventType="touchUpInside" id="aLe-Ie-vBO"/>
                                 </connections>
@@ -1990,6 +1991,7 @@
                                 <state key="normal" title="收藏" image="shoucang">
                                     <color key="titleColor" red="0.18823529410000001" green="0.19215686269999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <state key="selected" image="quxiaoShoucang"/>
                                 <connections>
                                     <action selector="shoucang:" destination="R9x-rt-eFD" eventType="touchUpInside" id="VwT-3U-E9k"/>
                                 </connections>
@@ -2374,6 +2376,7 @@
         <image name="newhouseshoucang" width="19" height="19"/>
         <image name="newhousetime" width="13" height="13"/>
         <image name="next" width="30" height="30"/>
+        <image name="quxiaoShoucang" width="22" height="22"/>
         <image name="searchbackImg" width="320" height="71"/>
         <image name="shoucang" width="22" height="22"/>
         <image name="xinfangbackImg" width="320" height="401"/>

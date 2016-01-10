@@ -184,6 +184,7 @@
                  */
                 [XWJAccount instance].array = [[dic objectForKey:@"data"] valueForKey:@"area"];
                 if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
+                    [XWJAccount instance].isYouke = NO;
                     for (NSDictionary *di in [XWJAccount instance].array ) {
                         if ([[di valueForKey:@"isDefault" ] integerValue]== 1) {
                             [XWJAccount instance].aid = [NSString stringWithFormat:@"%@",[di valueForKey:@"A_id"]];

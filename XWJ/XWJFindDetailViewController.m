@@ -10,13 +10,14 @@
 #import "XWJFindDetailTableViewCell.h"
 #import "XWJAccount.h"
 #import "LCBannerView.h"
+#import "XWJWebViewController.h"
 #import "UIImage+Category.h"
 #define KEY_HEADIMG @"headimg"
 #define KEY_TITLE @"title"
 #define KEY_TIME  @"time"
 #define KEY_CONTENT @"content"
 
-@interface XWJFindDetailViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface XWJFindDetailViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,LCBannerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *CommentBtn;
@@ -29,13 +30,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
+@property  UIControl *controlView;
 @property  CGRect bottomRect;
 
 @end
 
 @implementation XWJFindDetailViewController
-
+@synthesize controlView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -45,6 +46,11 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+//    UIControl *controlView = [[UIControl alloc] initWithFrame:self.view.frame];
+//    [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view insertSubview:controlView atIndex:0];
+//    controlView.backgroundColor = [UIColor clearColor];
     
 //    [self initView];
     NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
@@ -77,7 +83,7 @@
     NSInteger count = [sender.titleLabel.text integerValue];
     count++;
     sender.enabled = NO;
-    [sender setTitle:[NSString stringWithFormat:@"%d",count] forState:UIControlStateNormal];
+    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
     [self pubCommentLword:@"" type:@"点赞"];
 }
 
@@ -101,6 +107,8 @@
     [dict setValue:[self.dic valueForKey:@"types"]  forKey:@"findType"];
     [dict setValue:@"find" forKey:@"leixing"];
 
+    [self leaveEditMode];
+
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
@@ -111,6 +119,7 @@
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
               
+                [self getFind:0];
                 NSString *errCode = [dict objectForKey:@"errorCode"];
                 UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 alertview.delegate = self;
@@ -128,6 +137,15 @@
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
+}
+
+- (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index{
+    XWJWebViewController * web = [[XWJWebViewController alloc] init];
+    NSString *urls = [self.dic objectForKey:@"Photo"]==[NSNull null]?@"":[self.dic objectForKey:@"Photo"];
+    
+    NSArray *url = [urls componentsSeparatedByString:@","];
+    web.url = [url objectAtIndex:index];
+    [self.navigationController pushViewController:web animated:NO];
 }
 
 -(void)getFind:(NSInteger )index{
@@ -201,8 +219,6 @@
         
     }];
 }
-
-
 
 -(void)initView{
 
@@ -429,18 +445,27 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 40, 40);
-    [btn setTitle:@"完成" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
-    self.navigationItem.rightBarButtonItem = done;
+    if (!controlView) {
+        controlView        = [[UIControl alloc] initWithFrame:self.view.frame];
+        [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+        controlView.backgroundColor = [UIColor clearColor];
+    }
+    [self.view addSubview:controlView];
+    
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn.frame = CGRectMake(0, 0, 40, 40);
+//    [btn setTitle:@"完成" forState:UIControlStateNormal];
+//    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+//    [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
+//    self.navigationItem.rightBarButtonItem = done;
 }
 
 
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    [controlView removeFromSuperview];
     self.navigationItem.rightBarButtonItem = nil;
 }
 

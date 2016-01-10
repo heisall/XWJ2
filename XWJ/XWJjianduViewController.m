@@ -153,7 +153,7 @@
     NSString *url = GETWUYE_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setValue:[XWJAccount instance].aid  forKey:@"id"];
+    [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -186,7 +186,11 @@
                 [self.yuangong addObjectsFromArray:[dic objectForKey:@"supervise"] ] ;
                 [self.work addObjectsFromArray:[dic objectForKey:@"work"]];
                 
-                [self.tableView reloadData];
+                if (self.yuangong.count>0) {
+                    [self.tableView reloadData];
+                }else{
+                    self.tableView.hidden = YES;
+                }
                 
                 [self addViews];
 
@@ -213,7 +217,10 @@
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(self.yuangong.count>0)
     return 1;
+    else
+        return 0;
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

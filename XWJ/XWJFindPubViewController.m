@@ -43,12 +43,15 @@
         imgView.tag = TAG+i;
         [self.imageScroll addSubview:imgView];
     }
+    
+    self.typeBackView.layer.borderWidth =0.5;
+    self.typeBackView.layer.borderColor = [[UIColor colorWithWhite:0.8  alpha:1] CGColor];
 //    self.tableView.delegate = self;
 //    self.tableView.dataSource = self;
 //    self.dataSource = [NSArray arrayWithObjects:@"二手市场",@"帮帮忙",@"个人商店", nil];
     [self.dataSource removeObjectAtIndex:0];
     self.contentTextView.delegate = self;
-    self.select = 0;
+    self.select = -1;
     self.imageArray = [NSMutableArray array];
 }
 
@@ -272,6 +275,16 @@
     
     if (!self.contentTextView.text.length>0) {
         [ProgressHUD showError:@"请输入发布内容"];
+        return;
+    }
+    
+    if (self.imageArray.count==0) {
+        [ProgressHUD showError:@"请选择发布图片"];
+        return;
+    }
+    
+    if (self.select == -1) {
+        [ProgressHUD showError:@"请选择发布类型"];
         return;
     }
     

@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleTexField;
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 @property(nonatomic)NSMutableArray *dataSource;
+@property (weak, nonatomic) IBOutlet UIView *typeBackView;
 
 @end

@@ -41,8 +41,17 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJFindCollectionCellView" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier];
     
 
-//    [self getFindList:nil];
     self.select = -1;
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        if (self.select>=0) {
+            [self getFindList:[[self.findlistArr objectAtIndex:self.select] valueForKey:@"dictValue"]];
+        }else{
+            [self getFindList:nil];
+        }
+    }];
+
+//    [self getFindList:nil];
 }
 -(void)showSortView:(UIButton *)btn{
     //添加半透明背景图
@@ -166,6 +175,8 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
         
+        [self.collectionView.mj_header endRefreshing];
+
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             

@@ -190,8 +190,8 @@ NSArray *footer;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 //    [dict setValue:[XWJCity instance].aid  forKey:@"a_id"];
-//        [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
-            [dict setValue:@"1" forKey:@"a_id"];
+        [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
+//            [dict setValue:@"1" forKey:@"a_id"];
 
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -279,7 +279,7 @@ NSArray *footer;
 //    self.isBind = YES;
     NSArray *jump = [NSArray arrayWithObjects:notice,notice2,wu,gz,gz2,pay, nil];
 
-    if (!self.isBind&&((sender.tag-TAG == 3)||(sender.tag - TAG == 5)||(sender.tag - TAG == 4))) {
+    if ([XWJAccount instance].isYouke&&((sender.tag-TAG == 3)||(sender.tag - TAG == 5)||(sender.tag - TAG == 4))) {
 //        
 //        XWJCity *city = [XWJCity instance];
 //

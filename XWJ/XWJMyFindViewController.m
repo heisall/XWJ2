@@ -9,6 +9,7 @@
 #import "XWJMyFindViewController.h"
 #import "XWJMyFindViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "XWJAccount.h"
 
 
 #define  COLLECTION_NUMSECTIONS 3
@@ -204,12 +205,10 @@
     NSLog(@"----->%@,%@",userid,a_id);
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:@"1" forKey:@"pageindex"];
-    [dict setObject:@"5" forKey:@"countperpage"];
+    [dict setObject:@"0" forKey:@"pageindex"];
+    [dict setObject:@"9" forKey:@"countperpage"];
     [dict setObject:@"" forKey:@"userid"];
     [dict setObject:@"" forKey:@"a_id"];
-    
-    
     
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];

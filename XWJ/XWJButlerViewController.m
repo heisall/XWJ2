@@ -18,6 +18,7 @@
 #import "XWJAccount.h"
 #import "XWJWebViewController.h"
 #import "XWJUtil.h"
+#import "XWJBindHouseTableViewController.h"
 @implementation XWJButlerViewController
 
 -(void)viewDidLoad{
@@ -169,7 +170,48 @@
 
 -(void)btnclick:(UIButton *)btn{
     [self.navigationController showViewController:[self.vConlers objectAtIndex:btn.tag] sender:nil];
+
+//       if ([XWJAccount instance].isYouke&&((sender.tag-TAG == 3)||(sender.tag - TAG == 5)||(sender.tag - TAG == 4))) {
+//    //
+//    //        XWJCity *city = [XWJCity instance];
+//    //
+//    //        [city getCity:^(NSArray *arr) {
+//    //
+//    //            NSLog(@"arr %@",arr);
+//    //            NSMutableArray *arr2 = [NSMutableArray array];
+//    //
+//    //            for (NSDictionary *dic in arr) {
+//    //                [arr2 addObject:[dic valueForKey:@"CityName"]];
+//    //            }
+//    //        }];
+//       UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"您还没有绑定房间，请绑定后使用。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        alertview.delegate = self;
+//       [alertview show];
+//    
+//    
+//      }else{
+//    //        if(sender.tag -TAG >1)
+//    //            return;
+//    
+//    
+//    [self.navigationController showViewController:[jump objectAtIndex:sender.tag-TAG] sender:nil];
+//    
+//      }
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
+    bind.title = @"城市选择";
+    //            bind.dataSource = [NSArray arrayWithObjects:@"青岛市",@"济南市",@"威海市",@"烟台市",@"临沂市", nil];
+    
+    //        bind.dataSource = arr2;
+    bind.delegate = self;
+    bind->mode = HouseCity;
+    [self.navigationController showViewController:bind sender:nil];
+}
+
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

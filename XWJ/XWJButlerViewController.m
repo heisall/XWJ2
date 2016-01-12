@@ -42,7 +42,7 @@
             }
         }
     }
-;
+
 }
 
 -(void)getGuanjiaAD{
@@ -76,7 +76,12 @@
             
             self.roomDic = [dic objectForKey:@"room"];
             
-            self.room.text = [NSString stringWithFormat:@"%@%@号楼%@单元%@",[self.roomDic objectForKey:@"A_name"]==[NSNull null]?@"":[self.roomDic objectForKey:@"A_name"],[self.roomDic objectForKey:@"b_id"]==[NSNull null]?@"":[self.roomDic objectForKey:@"b_id"],[self.roomDic objectForKey:@"r_dy"]==[NSNull null]?@"":[self.roomDic objectForKey:@"r_dy"],[self.roomDic objectForKey:@"r_id"]==[NSNull null]?@"":[self.roomDic objectForKey:@"r_id"]];
+            if([XWJAccount instance].isYouke){
+                self.room.text  = @"";
+            }else{
+                self.room.text = [NSString stringWithFormat:@"%@%@号楼%@单元%@",[self.roomDic objectForKey:@"A_name"]==[NSNull null]?@"":[self.roomDic objectForKey:@"A_name"],[self.roomDic objectForKey:@"b_id"]==[NSNull null]?@"":[self.roomDic objectForKey:@"b_id"],[self.roomDic objectForKey:@"r_dy"]==[NSNull null]?@"":[self.roomDic objectForKey:@"r_dy"],[self.roomDic objectForKey:@"r_id"]==[NSNull null]?@"":[self.roomDic objectForKey:@"r_id"]];
+            }
+            
             NSMutableArray *URLs = [NSMutableArray array];
             for (NSDictionary
                  *dic in self.notices) {

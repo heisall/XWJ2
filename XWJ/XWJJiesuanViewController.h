@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *buyerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *diquLabel;
 
 @property (weak, nonatomic) IBOutlet UITableView *payTableView;
 @property (weak, nonatomic) IBOutlet UITableView *shangpinTableView;
@@ -20,4 +22,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property NSArray *arr;
 @property NSString *price;
+@property NSDictionary *selectDic;
 @end

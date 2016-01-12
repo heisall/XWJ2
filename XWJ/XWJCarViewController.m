@@ -331,6 +331,11 @@
                     }
                     
                     [tableView reloadData];
+
+
+//                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//                        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+
 //                    for (NSDictionary *d in arr) {
 //                        NSDictionary
 //                    }
@@ -351,6 +356,7 @@
     self.tabBarController.tabBar.hidden = NO;
 
 }
+
 -(void)edit{
     
     [tableView setEditing:!tableView.editing animated:YES];
@@ -366,6 +372,7 @@
             for (NSIndexPath *index in selection) {
                 [dic setObject:[NSString stringWithFormat:@"%lu",index.section] forKey:[NSString stringWithFormat:@"%lu",index.section]];
             }
+        
             if (dic.allKeys.count>1) {
                 [ProgressHUD showError:@"不支持多商户同时结算"];
             }else{
@@ -377,6 +384,7 @@
                     NSDictionary *d = [NSDictionary dictionaryWithDictionary:dic];
                     [arr addObject:d];
                 }
+                
                 XWJJiesuanViewController *con = [self.storyboard instantiateViewControllerWithIdentifier:@"jiesuanview"];
                 con.price = priceLabel.text;
                 con.arr = arr;

@@ -7,8 +7,9 @@
 //
 
 #import "XWJBaseViewController.h"
-
+#import "XWJJiesuanViewController.h"
 @interface XWJAddressController : XWJBaseViewController
 @property (weak, nonatomic) IBOutlet UIButton *add;
+@property (weak)XWJJiesuanViewController * con;
 
 @end

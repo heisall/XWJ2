@@ -33,7 +33,7 @@
 #define CLEANCAR_URL  XWJBASEURL"order/cleanCart"
 #define GETGOODORDER_URL  XWJBASEURL"order/bookOnLine"
 
-#define GETADDRESS_URL  XWJBASEURL"/order/manegerAddress"
+#define GETADDRESS_URL  XWJBASEURL"order/manegerAddress"
 #define GETADDRESSLIST_URL  XWJBASEURL"order/addressList"
 
 //life

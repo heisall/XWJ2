@@ -9,10 +9,13 @@
 #import "XWJJiesuanViewController.h"
 #import "LocationPickerVC.h"
 #import "XWJJiesuanTableViewCell.h"
+#import "XWJAddressController.h"
+#import "XWJAccount.h"
 @interface XWJJiesuanViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property NSArray *array;
 @property NSArray *payarray;
 @property NSArray *zhifuIconArr;
+@property NSDictionary *addressDic;
 @end
 
 @implementation XWJJiesuanViewController
@@ -40,7 +43,10 @@
     //    self.payTableView.contentSize = CGSizeMake(0, 30+3*60);
     self.shangpinTableView.dataSource  = self;
     self.shangpinTableView.delegate = self;
+    [self getAddress];
+
 }
+
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -137,6 +143,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+
+    if (self.selectDic) {
+        self.buyerLabel.text = [self.selectDic objectForKey:@"consignee"];
+        self.addressLabel.text = [self.selectDic objectForKey:@"address"];
+        self.phoneLabel.text = [self.selectDic objectForKey:@"phone_tel"];
+        self.diquLabel.text = [self.selectDic objectForKey:@"region_name"];
+    }
 //    NSString *adds=[[NSUserDefaults standardUserDefaults] valueForKey:@"buyeraddress"];
 //    NSString *name= [[NSUserDefaults standardUserDefaults] valueForKey:@"buyername"];
 //    NSString *phone= [[NSUserDefaults standardUserDefaults] valueForKey:@"buyerphone"];
@@ -150,11 +163,68 @@
 }
 
 - (IBAction)toAddress:(id)sender {
-        LocationPickerVC *locationPickerVC = [[LocationPickerVC alloc] initWithNibName:@"LocationPickerVC" bundle:nil];
+//        LocationPickerVC *locationPickerVC = [[LocationPickerVC alloc] initWithNibName:@"LocationPickerVC" bundle:nil];
 //    [self.navigationController showViewController:locationPickerVC sender:nil];
-    locationPickerVC.con = self;
-    [self.navigationController pushViewController:locationPickerVC animated:YES];
+//    locationPickerVC.con = self;
+//    [self.navigationController pushViewController:locationPickerVC animated:YES];
+    
+    XWJAddressController *addr = [self.storyboard instantiateViewControllerWithIdentifier:@"address"];
+    addr.con =self;
+    [self.navigationController pushViewController:addr animated:YES];
+    
+
 }
+
+-(void)getAddress{
+    
+    NSString *url = GETADDRESSLIST_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setValue:@"1" forKey:@"store_id"];
+    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *num = [dic objectForKey:@"result"];
+            /*
+             {
+             "addr_id" = 20;
+             address = sdfasd;
+             consignee = alp;
+             "is_default" = 1;
+             "phone_tel" = 13500000020;
+             "region_id" = 1;
+             "region_name" = "\U9752\U5c9b\U5e02";
+             */
+            if ([num intValue]== 1) {
+                self.array = [dic objectForKey:@"data"];
+                for (NSDictionary *dic in self.array) {
+                    
+                    if ([[NSString stringWithFormat:@"%@",[dic valueForKey:@"is_default"]] isEqualToString:@"1"]) {
+                        self.addressDic = dic;
+                        self.buyerLabel.text = [dic objectForKey:@"consignee"];
+                        self.addressLabel.text = [dic objectForKey:@"address"];
+                        self.phoneLabel.text = [dic objectForKey:@"phone_tel"];
+                        self.diquLabel.text = [dic objectForKey:@"region_name"];
+                        break;
+                    }
+                }
+            }
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+    
+}
+
 - (IBAction)p:(id)sender {
 }
 

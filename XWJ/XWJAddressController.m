@@ -9,7 +9,7 @@
 #import "XWJAddressController.h"
 #import "XWJAccount.h"
 #import "XWJAddresCell.h"
-@interface XWJAddressController()
+@interface XWJAddressController()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property NSArray *array;
 //@property UITableView *tableView;
@@ -20,9 +20,21 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.navigationItem.title = @"收货地址";
-
+    tableview.delegate = self;
+    tableview.dataSource = self;
+    [self getAddress];
 }
 - (IBAction)add:(id)sender {
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 #pragma mark - Table view data source
@@ -53,7 +65,7 @@
 //    if (tableView.tag == TAG) {
 //        return 40.0;
 //    }
-    return 90.0;
+    return 70.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -67,6 +79,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    self.con.selectDic = [self.array objectAtIndex:indexPath.row] ;
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -77,15 +91,13 @@
     
   
     /*
-     "goods_id" = 14;
-     "goods_image" = "http://www.hisenseplus.com/ecmall/data/files/store_7/goods_87/small_201512221541271733.jpg";
-     "goods_name" = "\U949f\U7231\U9c9c\U82b1\U901f\U9012 33\U6735\U73ab\U7470\U82b1\U675f \U9c9c\U82b1\U5feb\U9012\U5317\U4eac\U5168\U56fd\U82b1\U5e97\U9001\U82b1 33\U6735\U9999\U69df\U73ab\U7470\U82b1\U675f1";
-     price = 2592;
-     quantity = 1;
-     "rec_id" = 21;
-     "spec_id" = 14;
-     "store_id" = 7;
-     "store_name" = "\U521a\U54e5\U9c9c\U82b1";
+     "addr_id" = 12;
+     address = "\U9752\U5c9b\U5c71\U4e1c";
+     consignee = sjs;
+     "is_default" = 1;
+     "phone_tel" = 13100000020;
+     "region_id" = 1;
+     "region_name" = "\U9752\U5c9b\U5e02";
      */
     XWJAddresCell  *cell;
     cell = [tableView dequeueReusableCellWithIdentifier:@"addcell"];
@@ -98,6 +110,13 @@
 //    cell.title.text = [[self.arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
 //    cell.price.text = [NSString stringWithFormat:@"%.1f",[[[self.arr objectAtIndex:indexPath.row] objectForKey:@"price"] floatValue]];
 //    cell.numLabel.text = [NSString stringWithFormat:@"x%@",[[self.arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
+    cell.label1.text = [[self.array objectAtIndex:indexPath.row] objectForKey:@"consignee"];
+    cell.label2.text = [[self.array objectAtIndex:indexPath.row] objectForKey:@"phone_tel"];
+    cell.label3.text = [[self.array objectAtIndex:indexPath.row] objectForKey:@"region_name"];
+    cell.label4.text = [[self.array objectAtIndex:indexPath.row] objectForKey:@"address"];
+    
+    if([[NSString stringWithFormat:@"%@",[[self.array objectAtIndex:indexPath.row] objectForKey:@"is_default"]]isEqualToString:@"1" ])
+        cell.label5.text = @"[默认]";
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -121,51 +140,18 @@
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *num = [dic objectForKey:@"result"];
             /*
-             data =     (
-             {
-             "goods_id" = 3;
-             "goods_image" = "http://www.hisenseplus.com/ecmall/data/files/store_4/goods_32/small_201512191643527793.jpg";
-             "goods_name" = "\U519c\U592b\U5c71\U6cc9\U5929\U7136\U5927\U6876\U6c341L";
-             price = 14;
-             quantity = 1;
-             "rec_id" = 20;
-             "spec_id" = 3;
-             "store_id" = 4;
-             "store_name" = "\U519c\U592b\U5c71\U6cc9\U77ff\U6cc9\U6c34";
-             }
-             );
+             "addr_id" = 20;
+             address = sdfasd;
+             consignee = alp;
+             "is_default" = 1;
+             "phone_tel" = 13500000020;
+             "region_id" = 1;
+             "region_name" = "\U9752\U5c9b\U5e02";
              */
             if ([num intValue]== 1) {
-                NSMutableArray * arr = [NSMutableArray array];
+//                NSMutableArray * arr ;
                 
-                for (NSDictionary *d in [dic objectForKey:@"data"]) {
-                    [arr addObject:[NSMutableDictionary dictionaryWithDictionary:d]];
-                }
-                
-//                //                    NSMutableArray *typeAr = [NSMutableArray array];
-//                //                    [typeAr addObject:store_name];
-//                NSMutableDictionary *snameDic = [NSMutableDictionary dictionary];
-//                for (NSMutableDictionary *d in arr) {
-//                    [snameDic setObject:[d objectForKey:@"store_name"] forKey:[d objectForKey:@"store_name"]];
-//                }
-//                
-//                //                    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:d11,d22, nil];
-//                //                    [dic2 setValue:@"农夫山泉矿泉水" forKey:@"type"];
-//                //                    [dic2 setObject:arr2 forKey:@"data"];
-//                
-//                NSArray *key = [snameDic allKeys];
-//                for (NSString *name in key) {
-//                    NSPredicate *predicate =
-//                    [NSPredicate predicateWithFormat:@"store_name = %@", name];
-//                    NSMutableArray *a1 =   [NSMutableArray arrayWithArray:[arr  filteredArrayUsingPredicate:predicate]];
-//                    NSLog(@"a1 %@",a1);
-//                    
-//                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//                    [dic setObject:a1 forKey:@"data"];
-//                    [dic setValue:name forKey:@"type"];
-//                    [carListArr addObject:dic];
-//                }
-                
+                self.array = [dic objectForKey:@"data"];
                 [tableview reloadData];
 
             }

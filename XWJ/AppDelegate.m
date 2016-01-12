@@ -11,7 +11,6 @@
 #import "AFNetworking.h"
 #import "XWJAccount.h"
 #import "XWJTabViewController.h"
-#import "XWJAddAdrController.h"
 ////腾讯开放平台（对应QQ和QQ空间）SDK头文件
 //#import <TencentOpenAPI/TencentOAuth.h>
 //#import <TencentOpenAPI/QQApiInterface.h>
@@ -21,6 +20,14 @@
 
 #import <SMS_SDK/SMSSDK.h>
 #import "XWJCity.h"
+
+//极光推送
+#import "XRQJpush.h"
+//友盟分享
+#import "UMSocial.h"
+//微信分享
+#import "UMSocialWechatHandler.h"
+
 #define mobAppKey @"c647ba762dc0"
 #define mobAppSecret @"76e6d7422f5d958e9a882675d0ffbd29"
 
@@ -34,6 +41,20 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    /*
+     加推送
+     */
+    [XRQJpush setupWithOptions:launchOptions];
+    
+    /*
+     加分享
+     */
+    [UMSocialData setAppKey:@"56938a23e0f55aac1d001cb6"];
+    
+    //设置微信AppId、appSecret，分享url
+    [UMSocialWechatHandler setWXAppId:@"wx869e417c4c31b315" appSecret:@"5d7d1ace07d9a184814d85ede50ecd84" url:@"http://www.umeng.com/social"];
+    
+    
     [SMSSDK registerApp:mobAppKey withSecret:mobAppSecret];
     
     /**
@@ -43,94 +64,91 @@
      *  在此事件中写入连接代码。第四个参数则为配置本地社交平台时触发，根据返回的平台类型来配置平台信息。
      *  如果您使用的时服务端托管平台信息时，第二、四项参数可以传入nil，第三项参数则根据服务端托管平台来决定要连接的社交SDK。
      */
-//    [ShareSDK registerApp:@"iosv1101"
-//     
-//          activePlatforms:@[
-//                            @(SSDKPlatformTypeSinaWeibo),
-//                            @(SSDKPlatformTypeMail),
-//                            @(SSDKPlatformTypeSMS),
-//                            @(SSDKPlatformTypeCopy),
-//                            @(SSDKPlatformTypeWechat),
-//                            @(SSDKPlatformTypeQQ),
-//                            @(SSDKPlatformTypeRenren),
-//                            @(SSDKPlatformTypeGooglePlus)]
-//                 onImport:^(SSDKPlatformType platformType)
-//     {
-//         switch (platformType)
-//         {
-//             case SSDKPlatformTypeWechat:
-//                 [ShareSDKConnector connectWeChat:[WXApi class]];
-//                 break;
-//             case SSDKPlatformTypeQQ:
-//                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
-//                 break;
-//             case SSDKPlatformTypeSinaWeibo:
-//                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
-//                 break;
-//             case SSDKPlatformTypeRenren:
-//                 [ShareSDKConnector connectRenren:[RennClient class]];
-//                 break;
-//             case SSDKPlatformTypeGooglePlus:
-//                 [ShareSDKConnector connectGooglePlus:[GPPSignIn class]
-//                                           shareClass:[GPPShare class]];
-//                 break;
-//             default:
-//                 break;
-//         }
-//     }
-//          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo)
-//     {
-//         
-//         switch (platformType)
-//         {
-//             case SSDKPlatformTypeSinaWeibo:
-//                 //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
-//                 [appInfo SSDKSetupSinaWeiboByAppKey:@"568898243"
-//                                           appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
-//                                         redirectUri:@"http://www.sharesdk.cn"
-//                                            authType:SSDKAuthTypeBoth];
-//                 break;
-//             case SSDKPlatformTypeWechat:
-//                 [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885"
-//                                       appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
-//                 break;
-//             case SSDKPlatformTypeQQ:
-//                 [appInfo SSDKSetupQQByAppId:@"100371282"
-//                                      appKey:@"aed9b0303e3ed1e27bae87c33761161d"
-//                                    authType:SSDKAuthTypeBoth];
-//                 break;
-//             case SSDKPlatformTypeRenren:
-//                 [appInfo        SSDKSetupRenRenByAppId:@"226427"
-//                                                 appKey:@"fc5b8aed373c4c27a05b712acba0f8c3"
-//                                              secretKey:@"f29df781abdd4f49beca5a2194676ca4"
-//                                               authType:SSDKAuthTypeBoth];
-//                 break;
-//             case SSDKPlatformTypeGooglePlus:
-//                 [appInfo SSDKSetupGooglePlusByClientID:@"232554794995.apps.googleusercontent.com"
-//                                           clientSecret:@"PEdFgtrMw97aCvf0joQj7EMk"
-//                                            redirectUri:@"http://localhost"
-//                                               authType:SSDKAuthTypeBoth];
-//                 break;
-//             default:
-//                 break;
-//         }
-//     }];
+    //    [ShareSDK registerApp:@"iosv1101"
+    //
+    //          activePlatforms:@[
+    //                            @(SSDKPlatformTypeSinaWeibo),
+    //                            @(SSDKPlatformTypeMail),
+    //                            @(SSDKPlatformTypeSMS),
+    //                            @(SSDKPlatformTypeCopy),
+    //                            @(SSDKPlatformTypeWechat),
+    //                            @(SSDKPlatformTypeQQ),
+    //                            @(SSDKPlatformTypeRenren),
+    //                            @(SSDKPlatformTypeGooglePlus)]
+    //                 onImport:^(SSDKPlatformType platformType)
+    //     {
+    //         switch (platformType)
+    //         {
+    //             case SSDKPlatformTypeWechat:
+    //                 [ShareSDKConnector connectWeChat:[WXApi class]];
+    //                 break;
+    //             case SSDKPlatformTypeQQ:
+    //                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+    //                 break;
+    //             case SSDKPlatformTypeSinaWeibo:
+    //                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+    //                 break;
+    //             case SSDKPlatformTypeRenren:
+    //                 [ShareSDKConnector connectRenren:[RennClient class]];
+    //                 break;
+    //             case SSDKPlatformTypeGooglePlus:
+    //                 [ShareSDKConnector connectGooglePlus:[GPPSignIn class]
+    //                                           shareClass:[GPPShare class]];
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    //          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo)
+    //     {
+    //
+    //         switch (platformType)
+    //         {
+    //             case SSDKPlatformTypeSinaWeibo:
+    //                 //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+    //                 [appInfo SSDKSetupSinaWeiboByAppKey:@"568898243"
+    //                                           appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
+    //                                         redirectUri:@"http://www.sharesdk.cn"
+    //                                            authType:SSDKAuthTypeBoth];
+    //                 break;
+    //             case SSDKPlatformTypeWechat:
+    //                 [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885"
+    //                                       appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
+    //                 break;
+    //             case SSDKPlatformTypeQQ:
+    //                 [appInfo SSDKSetupQQByAppId:@"100371282"
+    //                                      appKey:@"aed9b0303e3ed1e27bae87c33761161d"
+    //                                    authType:SSDKAuthTypeBoth];
+    //                 break;
+    //             case SSDKPlatformTypeRenren:
+    //                 [appInfo        SSDKSetupRenRenByAppId:@"226427"
+    //                                                 appKey:@"fc5b8aed373c4c27a05b712acba0f8c3"
+    //                                              secretKey:@"f29df781abdd4f49beca5a2194676ca4"
+    //                                               authType:SSDKAuthTypeBoth];
+    //                 break;
+    //             case SSDKPlatformTypeGooglePlus:
+    //                 [appInfo SSDKSetupGooglePlusByClientID:@"232554794995.apps.googleusercontent.com"
+    //                                           clientSecret:@"PEdFgtrMw97aCvf0joQj7EMk"
+    //                                            redirectUri:@"http://localhost"
+    //                                               authType:SSDKAuthTypeBoth];
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //     }];
     
-//    __strong NSMutableArray *arr = [NSMutableArray array];
-
-//    [self getCity];
-//
+    //    __strong NSMutableArray *arr = [NSMutableArray array];
+    
+    //    [self getCity];
+    //
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
     NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
-
-//    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-//    self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
     
-//    XWJAddAdrController    *view=[[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"addaddress"];
-//    self.window.rootViewController  = view;
-//    return 0;
+    //    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+    //    self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
+    //    return 0;
     if (uname&&pass) {
         [self loginUname:uname Pwd:pass];
     }else{
@@ -138,8 +156,8 @@
         
     }
     
-//    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-//    self.window.rootViewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"bindhouse2"];
+    //    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+    //    self.window.rootViewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"bindhouse2"];
     
     
     return YES;
@@ -161,7 +179,7 @@
             NSDictionary *dic = (NSDictionary *)responseObject;
             NSNumber * result = [dic valueForKey:@"result"];
             if ([result intValue]== 1) {
-            
+                
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
                 NSLog(@"sid %@",sid);
@@ -182,7 +200,7 @@
                     for (NSDictionary *di in [XWJAccount instance].array ) {
                         if ([[di valueForKey:@"isDefault" ] integerValue]== 1) {
                             [XWJAccount instance].aid = [NSString stringWithFormat:@"%@",[di valueForKey:@"A_id"]];
-
+                            
                         }
                     }
                 }
@@ -210,7 +228,7 @@
                 }
             }else{
                 [self toLoginController];
-
+                
             }
             
             
@@ -222,7 +240,7 @@
             //            window.rootViewController = tab;            //        });
             
             [self toLoginController];
-
+            
         }];
     }
     
@@ -239,13 +257,13 @@
 -(void)toLoginController{
     UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
     self.window.rootViewController = [loginStoryboard instantiateInitialViewController];
-
+    
 }
 -(void)getCity{
     
     NSString *url = GETCITY_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
- 
+    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
@@ -253,8 +271,8 @@
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             
-//            NSMutableArray * array = [NSMutableArray array];
-//            XWJCity *city  = [[XWJCity alloc] init];
+            //            NSMutableArray * array = [NSMutableArray array];
+            //            XWJCity *city  = [[XWJCity alloc] init];
             
             NSArray *arr  = [dic objectForKey:@"data"];
             for (NSDictionary *d in arr) {
@@ -279,10 +297,47 @@
 }
 
 -(BOOL)checkAutoLogin{
-
+    
     return FALSE;
 }
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [XRQJpush registerDeviceToken:deviceToken];
+    return;
+}
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [XRQJpush handleRemoteNotification:userInfo completion:nil];
+    return;
+}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
+// ios7.0以后才有此功能
+- (void)application:(UIApplication *)application didReceiveRemoteNotification
+                   :(NSDictionary *)userInfo fetchCompletionHandler
+                   :(void (^)(UIBackgroundFetchResult))completionHandler {
+    [XRQJpush handleRemoteNotification:userInfo completion:completionHandler];
+    
+    // 应用正处理前台状态下，不会收到推送消息，因此在此处需要额外处理一下
+    if (application.applicationState == UIApplicationStateActive) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"收到推送消息"
+                                                        message:userInfo[@"aps"][@"alert"]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"取消"
+                                              otherButtonTitles:@"确定", nil];
+        [alert show];
+    }
+    return;
+}
+#endif
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    [XRQJpush showLocalNotificationAtFront:notification];
+    return;
+}
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSLog(@"Error in registration. Error: %@", err);
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -304,5 +359,12 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        //调用其他SDK，例如支付宝SDK等
+    }
+    return result;
+}
 @end

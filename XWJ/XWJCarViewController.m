@@ -378,13 +378,15 @@
             }else{
                 
                 NSMutableArray *arr = [NSMutableArray array];
+                NSString *sid;
                 for (NSIndexPath *indes in selection) {
                     
                     NSDictionary *dic  = [[[carListArr objectAtIndex:indes.section] objectForKey:@"data"] objectAtIndex:indes.row];
+                    sid = [dic valueForKey:@"store_id"];
                     NSDictionary *d = [NSDictionary dictionaryWithDictionary:dic];
                     [arr addObject:d];
                 }
-                
+                [self addOrder:sid];
                 XWJJiesuanViewController *con = [self.storyboard instantiateViewControllerWithIdentifier:@"jiesuanview"];
                 con.price = priceLabel.text;
                 con.arr = arr;
@@ -395,6 +397,36 @@
     
 }
 
+-(void)addOrder:(NSString *)storeid{
+    NSString *url = ADDORDER_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setValue:@"1" forKey:@"store_id"];
+    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    [dict setValue:storeid forKey:@"storeId"];
+
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *nu = [dic objectForKey:@"result"];
+            
+            if ([nu integerValue]== 1) {
+//                                [ProgressHUD showSuccess:errCode];
+            }else{
+                //                [ProgressHUD showError:errCode];
+            }
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

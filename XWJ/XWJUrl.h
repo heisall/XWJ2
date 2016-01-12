@@ -26,6 +26,9 @@
 #define REGISTER_URL  XWJBASEURL"user/register"
 #define RESETPWD_URL  XWJBASEURL"user/resetPass"
 
+//dingdand
+#define ADDORDER_URL  XWJBASEURL"order/addOrder"
+#define SAVEORDER_URL  XWJBASEURL"order/saveOrder"
 
 //car
 #define ADDCAR_URL  XWJBASEURL"order/addCart"

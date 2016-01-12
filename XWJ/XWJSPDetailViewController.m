@@ -16,6 +16,7 @@
 #import "XWJYouHuiViewController.h"
 #import "XWJSPGuigeViewController.h"
 #import "XWJSPinfoViewController.h"
+#import "XWJJiesuanViewController.h"
 @interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property UIScrollView *scrollView;
 
@@ -31,13 +32,13 @@
 @property NSDictionary *goodsDic;
 @property NSArray *comments ;
 @property UIButton *button;
-
+@property UILabel *gouwucheLabel;
 @property NSMutableArray *btn;
-
+@property NSString * gouwuCheCounts;
 @end
 
 #define PADDINGTOP 64
-#define HEIGHT_VIEW1 250
+#define HEIGHT_VIEW1 400
 //#define HEIGHT_VIEW2 400
 #define HEIGHT_VIEW3 250
 #define HEIGHT_VIEW2 40
@@ -47,7 +48,7 @@
 
 @implementation XWJSPDetailViewController
 @synthesize scrollView,titleLabel,youhuLabel,shichangjiaLabel,xiaoliangLabel,adView,dianpuBtn;
-@synthesize shangpinImg,tableView,headerLabel;
+@synthesize shangpinImg,tableView,headerLabel,gouwucheLabel;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -160,13 +161,13 @@
 
 -(void)addView{
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
-    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150-25, SCREEN_SIZE.width, 25)];
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 300-25, SCREEN_SIZE.width, 25)];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.backgroundColor = [UIColor darkGrayColor];
     titleLabel.font = [UIFont systemFontOfSize:15];
     titleLabel.textAlignment  = NSTextAlignmentCenter;
     titleLabel.alpha = 0.6;
-    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 150)];
+    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 300)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, adView.frame.origin.y+adView.bounds.size.height, 100, 30)];
     label.font = [UIFont systemFontOfSize:15];
     youhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.size.width, adView.frame.origin.y+adView.bounds.size.height, SCREEN_SIZE.width, 30)];
@@ -307,6 +308,8 @@
             NSNumber *nu = [dic objectForKey:@"result"];
       
             if ([nu integerValue]== 1) {
+                int count = self.gouwuCheCounts.intValue;
+                gouwucheLabel.text = [NSString stringWithFormat:@"%d",count++];
                 [ProgressHUD showSuccess:errCode];
             }else{
                 [ProgressHUD showError:errCode];
@@ -325,6 +328,7 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     //    [dict setValue:@"1" forKey:@"store_id"];
     [dict setValue:self.goods_id  forKey:@"goods_id"];
+    [dict setValue:[XWJAccount instance].account forKey:@"account"];
     /*
      
      store_id	商户id	String
@@ -345,7 +349,7 @@
             
             self.goodsDic = [dic objectForKey:@"goods"];
             self.comments = [dic objectForKey:@"comments"];
-            
+            self.gouwuCheCounts = [NSString stringWithFormat:@"%@",[dic objectForKey:@"counts"]];
             [self.tableView reloadData];
             self.tableView.contentSize = CGSizeMake(0, 100*self.goodsDic.count+150);
             //            self.adArr = [dic objectForKey:@"ad"];
@@ -516,19 +520,22 @@
 //                    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
                     [button setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
                     
-                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 20)];
-                    label.textAlignment = NSTextAlignmentRight;
+                    gouwucheLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 20)];
+                    gouwucheLabel.textAlignment = NSTextAlignmentRight;
 //                    label.text  =@"12";
-                    label.textColor = [UIColor redColor];
-                    label.tag = 100;
-                    [button addSubview:label];
+                    if (self.gouwuCheCounts&&![self.gouwuCheCounts isEqualToString:@"0"]) {
+                        
+                        gouwucheLabel.text= self.gouwuCheCounts;
+                    }
+                    gouwucheLabel.textColor = [UIColor redColor];
+                    gouwucheLabel.tag = 100;
+                    [button addSubview:gouwucheLabel];
                     [button setTitle:@"购物车" forState:UIControlStateNormal];
                 }else
                     [button setBackgroundColor:XWJGREENCOLOR];
                 
 //                [button setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];
                 [button setTitleColor:XWJGREENCOLOR forState:UIControlStateSelected];
-                
                 [button addTarget:self action:@selector(typeclick:) forControlEvents:UIControlEventTouchUpInside];
                 [self.btn addObject:button];
                 [self.view addSubview:button];
@@ -565,6 +572,14 @@
 //        UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
 //        XWJYueLineViewController *view = [car instantiateViewControllerWithIdentifier:@"yuyueline"];
 //        [self.navigationController showViewController:view sender:nil];
+        XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];
+        con.price = [NSString stringWithFormat:@"%.1f",[[self.goodsDic valueForKey:@"price"] floatValue]];
+        
+        NSMutableDictionary *dic  = [NSMutableDictionary dictionaryWithDictionary:self.goodsDic];
+        [dic setValue:[self.goodsDic valueForKey:@"default_image"] forKey:@"goods_image"];
+        [dic setValue:@"1" forKey:@"quantity"];
+        con.arr = [NSArray arrayWithObject:dic];
+        [self.navigationController showViewController:con sender:nil];
     }else if([butn.titleLabel.text isEqualToString:@"购物车"]){
         UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
         [self.navigationController showViewController:[car instantiateInitialViewController] sender:self];

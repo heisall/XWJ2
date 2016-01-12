@@ -211,6 +211,11 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
+        UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+        back.frame = CGRectMake(10, 5, 30, 30);
+        [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [adView addSubview:back];
+        [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
         
     }];
 }

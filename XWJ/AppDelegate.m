@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "XWJAccount.h"
 #import "XWJTabViewController.h"
+#import "XWJAddAdrController.h"
 ////腾讯开放平台（对应QQ和QQ空间）SDK头文件
 //#import <TencentOpenAPI/TencentOAuth.h>
 //#import <TencentOpenAPI/QQApiInterface.h>
@@ -126,6 +127,9 @@
 
 //    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
 //    self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
+    
+//    XWJAddAdrController    *view=[[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"addaddress"];
+//    self.window.rootViewController  = view;
 //    return 0;
     if (uname&&pass) {
         [self loginUname:uname Pwd:pass];

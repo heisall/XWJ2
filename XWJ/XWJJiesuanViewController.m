@@ -32,7 +32,7 @@
     [self.payTableView registerNib:[UINib nibWithNibName:@"XWJPayWayView" bundle:nil] forCellReuseIdentifier:@"paycell"];
 
     float money =  [self.price floatValue]+8.0;
-    self.totalLabel.text = [NSString stringWithFormat:@"￥ %.3f",money];
+    self.totalLabel.text = [NSString stringWithFormat:@"￥ %.1f",[self.price floatValue]];
     self.payTableView.dataSource  = self;
     self.payTableView.delegate = self;
     NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:0];
@@ -128,7 +128,7 @@
     NSString *url = [[self.arr objectAtIndex:indexPath.row] objectForKey:@"goods_image"];
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url]];
     cell.title.text = [[self.arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
-    cell.price.text = [NSString stringWithFormat:@"%@",[[self.arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
+    cell.price.text = [NSString stringWithFormat:@"%.1f",[[[self.arr objectAtIndex:indexPath.row] objectForKey:@"price"] floatValue]];
     cell.numLabel.text = [NSString stringWithFormat:@"x%@",[[self.arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

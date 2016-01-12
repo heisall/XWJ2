@@ -48,7 +48,7 @@
     scroll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
     self.navigationItem.title = @"商品列表";
 
-    self.adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/5)];
+    self.adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
 
 //    self.adView.backgroundColor =[UIColor blackColor];
     [scroll addSubview:self.adView];

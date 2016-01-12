@@ -193,6 +193,9 @@
 		A4462E641C2EE365004361BB /* XWJSPDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4462E631C2EE365004361BB /* XWJSPDetailTableViewCell.m */; };
 		A4462E661C2EE37F004361BB /* XWJSPDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4462E651C2EE37F004361BB /* XWJSPDetail.xib */; };
 		A459474C1C2CB34D00DD8A2E /* XWJShangmenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459474B1C2CB34D00DD8A2E /* XWJShangmenViewController.m */; };
+		A45DCC031C446BC7001543CE /* XWJAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45DCC021C446BC7001543CE /* XWJAddressController.m */; };
+		A45DCC061C446C4E001543CE /* XWJAddAdrController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45DCC051C446C4E001543CE /* XWJAddAdrController.m */; };
+		A45DCC091C447A0D001543CE /* XWJAddresCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45DCC081C447A0D001543CE /* XWJAddresCell.m */; };
 		A46320721C00D6990062AA24 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46320701C00D6990062AA24 /* AddressBook.framework */; };
 		A46320731C00D6990062AA24 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46320711C00D6990062AA24 /* AddressBookUI.framework */; };
 		A467B0F91C0BE0FA00394B75 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A467B0F81C0BE0FA00394B75 /* MOBFoundation.framework */; };
@@ -649,6 +652,12 @@
 		A4462E651C2EE37F004361BB /* XWJSPDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJSPDetail.xib; sourceTree = "<group>"; };
 		A459474A1C2CB34D00DD8A2E /* XWJShangmenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJShangmenViewController.h; sourceTree = "<group>"; };
 		A459474B1C2CB34D00DD8A2E /* XWJShangmenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJShangmenViewController.m; sourceTree = "<group>"; };
+		A45DCC011C446BC7001543CE /* XWJAddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJAddressController.h; sourceTree = "<group>"; };
+		A45DCC021C446BC7001543CE /* XWJAddressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJAddressController.m; sourceTree = "<group>"; };
+		A45DCC041C446C4E001543CE /* XWJAddAdrController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJAddAdrController.h; sourceTree = "<group>"; };
+		A45DCC051C446C4E001543CE /* XWJAddAdrController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJAddAdrController.m; sourceTree = "<group>"; };
+		A45DCC071C447A0D001543CE /* XWJAddresCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJAddresCell.h; sourceTree = "<group>"; };
+		A45DCC081C447A0D001543CE /* XWJAddresCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJAddresCell.m; sourceTree = "<group>"; };
 		A46320701C00D6990062AA24 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		A46320711C00D6990062AA24 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		A467B0F81C0BE0FA00394B75 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
@@ -1690,6 +1699,12 @@
 				A4F14D0F1C3EC5EF00D4BFB0 /* XWJSPinfoViewController.m */,
 				A4F14D111C3EC66D00D4BFB0 /* XWJSPGuigeViewController.h */,
 				A4F14D121C3EC66D00D4BFB0 /* XWJSPGuigeViewController.m */,
+				A45DCC011C446BC7001543CE /* XWJAddressController.h */,
+				A45DCC021C446BC7001543CE /* XWJAddressController.m */,
+				A45DCC041C446C4E001543CE /* XWJAddAdrController.h */,
+				A45DCC051C446C4E001543CE /* XWJAddAdrController.m */,
+				A45DCC071C447A0D001543CE /* XWJAddresCell.h */,
+				A45DCC081C447A0D001543CE /* XWJAddresCell.m */,
 			);
 			name = shangcheng;
 			sourceTree = "<group>";
@@ -2134,6 +2149,7 @@
 				A43C984B1C1516CC006A61EE /* XWJGuanjiaViewController.m in Sources */,
 				DAC4AF1C1BF0619700D66E76 /* main.m in Sources */,
 				A4CBC76A1C3AA46600274040 /* MJRefreshAutoNormalFooter.m in Sources */,
+				A45DCC061C446C4E001543CE /* XWJAddAdrController.m in Sources */,
 				8E13271A1C30DED000D3EDB5 /* xingbieViewController.m in Sources */,
 				A43C97A61C1297E1006A61EE /* LGPhotoPickerAssetsViewController.m in Sources */,
 				A43C97CB1C129A79006A61EE /* LGPhotoPickerBrowserViewController.m in Sources */,
@@ -2142,6 +2158,7 @@
 				A4DC3C561C19C808003D4D18 /* XWJXuanZeViewController.m in Sources */,
 				A4F14D101C3EC5EF00D4BFB0 /* XWJSPinfoViewController.m in Sources */,
 				8E1327441C30DFDB00D3EDB5 /* TitleView.m in Sources */,
+				A45DCC031C446BC7001543CE /* XWJAddressController.m in Sources */,
 				A41255791C0F39D20042D8CC /* SDWebImageManager.m in Sources */,
 				A43C97AA1C1297E1006A61EE /* LGPhotoPickerCollectionViewCell.m in Sources */,
 				A41255801C0F39D20042D8CC /* UIView+WebCacheOperation.m in Sources */,
@@ -2175,6 +2192,7 @@
 				A41A1FED1C26F3F2002129DF /* XWJSHuoViewController.m in Sources */,
 				A43810D01C1FD135001D2F29 /* XWJButlerViewController.m in Sources */,
 				A41255751C0F39D20042D8CC /* SDWebImageCompat.m in Sources */,
+				A45DCC091C447A0D001543CE /* XWJAddresCell.m in Sources */,
 				A4DC3CA71C1C8155003D4D18 /* XWJGZTableViewCell.m in Sources */,
 				A43C98241C140C16006A61EE /* XWJZFTableViewCell.m in Sources */,
 				A43C98061C12BFE4006A61EE /* XWJActivityViewController.m in Sources */,

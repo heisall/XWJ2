@@ -276,8 +276,11 @@
     }else{
         url = @"";
     }
-    
+
     [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
+    cell.headImgView.layer.cornerRadius = cell.headImgView.frame.size.width/2;
+    cell.headImgView.layer.masksToBounds = YES;
+    
 //    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
     cell.commenterLabel.text = ([dic valueForKey:@"NickName"]==[NSNull null])?@"小王":[dic valueForKey:@"NickName"];
     cell.timeLabel.text = [dic valueForKey:@"ReleaseTime"];

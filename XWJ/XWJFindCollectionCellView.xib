@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -17,27 +17,32 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="40P-iO-1UH">
                         <rect key="frame" x="0.0" y="0.0" width="248" height="180"/>
+                        <animations/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="二手车转让" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xf9-bq-M2B">
+                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="二手车转让" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xf9-bq-M2B">
                         <rect key="frame" x="5" y="185" width="238" height="19"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91W-WJ-cEE">
+                    <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91W-WJ-cEE">
                         <rect key="frame" x="30" y="209" width="18" height="20"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="left" horizontalHuggingPriority="251" text="5分钟前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2i-hS-ygz">
+                    <label opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="5分钟前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2i-hS-ygz">
                         <rect key="frame" x="188" y="209" width="55" height="18"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="findCellMsgIcon" translatesAutoresizingMaskIntoConstraints="NO" id="4r6-Yr-1cD">
+                    <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="findCellMsgIcon" translatesAutoresizingMaskIntoConstraints="NO" id="4r6-Yr-1cD">
                         <rect key="frame" x="5" y="209" width="20" height="20"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="EBI-jC-VVo"/>
                             <constraint firstAttribute="width" constant="20" id="wJ0-nW-ozy"/>
@@ -45,6 +50,7 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="二手市场" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soC-Qn-SBb">
                         <rect key="frame" x="168" y="0.0" width="80" height="24"/>
+                        <animations/>
                         <color key="backgroundColor" red="0.74117647060000003" green="0.070588235289999995" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="bWz-Hz-v5h"/>
@@ -55,8 +61,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="xf9-bq-M2B" secondAttribute="trailing" constant="5" id="7GD-fW-sBB"/>

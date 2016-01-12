@@ -377,38 +377,7 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
-//- (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
-//    // 创建控制器
-//    LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
-//    // 默认显示相册里面的内容SavePhotos
-//    pickerVc.status = PickerViewShowStatusCameraRoll;
-//    // 最多能选9张图片
-//    pickerVc.maxCount = 6;
-//    pickerVc.delegate = self;
-//    self.showType = style;
-//    [pickerVc showPickerVc:self];
-//}
-//
-//- (void)pickerViewControllerDoneAsstes:(NSArray *)assets isOriginal:(BOOL)original{
-//    
-//    if (assets&&assets.count>0) {
-//        
-//        NSUInteger count = assets.count;
-//        for (int i=0; i<count; i++) {
-//            LGPhotoAssets *asset = [assets objectAtIndex:i];
-//            UIImageView *imageView = [self.imageScroll viewWithTag:TAG+i];
-//            imageView.image = asset.compressionImage;
-//            
-//            NSData *data = UIImageJPEGRepresentation(imageView.image,1.0);
-//          
-//            NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//            [self.imageArray addObject:encodeResult];
-//        }
-//        self.imageScroll.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * count, IMAGE_WIDTH);
-//
-//    }
-//    
-//}
+
 
 #pragma  mark table delegate
 
@@ -416,8 +385,6 @@
     return 3;
 }
 
-// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     

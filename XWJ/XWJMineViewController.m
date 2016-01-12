@@ -28,7 +28,7 @@
 #define  COLLECTION_NUMSECTIONS 2
 #define  COLLECTION_NUMITEMS 4
 
-@interface XWJMineViewController()
+@interface XWJMineViewController()<UIAlertViewDelegate>
 @property NSArray *mine;
 
 @end
@@ -311,13 +311,23 @@ NSArray *myImgs;
         [self.navigationController pushViewController:sug animated:YES];
     }
     if (indexPath.row == 5) {
-        
+        UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"确定要退出登陆？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alertview.delegate = self;
+        [alertview show];
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"username"];
+//        UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+//        self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
+    }
+    
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"username"];
         UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
         self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
     }
-    
 }
 
 @end

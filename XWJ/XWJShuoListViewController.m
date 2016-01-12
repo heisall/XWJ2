@@ -179,7 +179,6 @@
             
             self.adArr = [dic objectForKey:@"ad"];
                         self.thumbArr = [dic objectForKey:@"thumb"];
-            
             [self addView];
             
             NSMutableArray *URLs = [NSMutableArray array];

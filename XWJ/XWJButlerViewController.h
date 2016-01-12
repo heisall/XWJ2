@@ -8,7 +8,7 @@
 
 #import "XWJBaseViewController.h"
 #import "LCBannerView.h"
-@interface XWJButlerViewController : XWJBaseViewController<LCBannerViewDelegate>
+@interface XWJButlerViewController : XWJBaseViewController<LCBannerViewDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *adView;
 @property (weak, nonatomic) IBOutlet UILabel *room;
 

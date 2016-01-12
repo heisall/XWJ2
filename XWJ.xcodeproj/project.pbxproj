@@ -2406,7 +2406,7 @@
 					"$(PROJECT_DIR)/XWJ",
 				);
 				INFOPLIST_FILE = XWJ/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
@@ -2429,7 +2429,7 @@
 					"$(PROJECT_DIR)/XWJ",
 				);
 				INFOPLIST_FILE = XWJ/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";

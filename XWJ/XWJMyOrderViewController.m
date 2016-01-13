@@ -11,7 +11,13 @@
 #import "XWJOrderHeader.h"
 #import "XWJOrderTableViewCell.h"
 #import "XWJAccount.h"
-@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+#import "OrderFinishModel.h"
+#import "OrderFinishTableViewCell.h"
+#import "UITableViewCell+HYBMasonryAutoCellHeight.h"
+#import "EvaluationViewController.h"
+#import "UMSocial.h"
+@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate>
 
 @property NSMutableArray *btn;
 @property NSMutableArray *cornerBtn;
@@ -21,27 +27,30 @@
 @property NSDictionary *statusDic;
 @property NSInteger index;
 @property NSArray *status;
+@property(nonatomic,retain)NSMutableArray* dataSourceArr;
 @end
 
 @implementation XWJMyOrderViewController
 @synthesize statusDic;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dataSourceArr = [[NSMutableArray alloc] init];
     self.navigationItem.title  = @"我的订单";
-
+    //默认当前选中按钮是第0个
     [self addView];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCellHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"header"];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCellFooter" bundle:nil] forHeaderFooterViewReuseIdentifier:@"footer"];
     statusDic = [NSDictionary dictionaryWithObjectsAndKeys:@"待付款",@"11",@"待收货",@"30",@"待评价",@"40", nil];
     self.status = [NSArray arrayWithObjects:@"",@"11",@"30",@"40", nil];
-
+    
     self.tableView.delegate =self;
     self.tableView.dataSource =self;
+    self.tableView.separatorStyle = NO;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         
-    [self getOrderList:[self.status objectAtIndex:self.index]];
+        [self getOrderList:[self.status objectAtIndex:self.index]];
     }];    // Do any additional setup after loading the view.
 }
 -(void)getOrderList:(NSString *)status{
@@ -75,6 +84,22 @@
             self.dic = [dict objectForKey:@"orderCount"];
             
             [self updateCount:self.dic];
+            
+            if (3 == self.index) {
+                self.dataSourceArr = [[NSMutableArray alloc] init];
+                for (NSDictionary* temDic in self.orderArr) {
+                    OrderFinishModel* model = [[OrderFinishModel alloc] init];
+                    //cell.priceLabel.text = [NSString stringWithFormat:@"￥%.1f x %@",[pri floatValue],[[arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
+                    model.headImageStr = temDic[@"goods_image"];
+                    NSLog(@"======头像地址====%@",model.headImageStr);
+                    model.titleStr = temDic[@"goods_name"];
+                    model.e_status = [temDic[@"e_status"] integerValue];
+                    model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.1f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"plsj"]];
+                    [self.dataSourceArr addObject:model];
+                }
+                NSLog(@"我新创建的数据源------%@",self.dataSourceArr);
+            }
+            
             [self.tableView reloadData];
             self.tableView.hidden = NO;
             
@@ -98,30 +123,50 @@
 -(void)updateCount:(NSDictionary *)dict{
     [self.cornerBtn[0] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"all_pay_num"]] forState:UIControlStateNormal];
     
-
+    
     [self.cornerBtn[1] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_pay_num"]] forState:UIControlStateNormal];
     [self.cornerBtn[2] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_receive_num"]] forState:UIControlStateNormal];
     [self.cornerBtn[3] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_evaluation_num"]] forState:UIControlStateNormal];
     
-        [self.cornerBtn[0] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"all_pay_num"]] isEqualToString:@"0"]];
-        [self.cornerBtn[1] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_pay_num"]] isEqualToString:@"0"]];
-        [self.cornerBtn[2] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_receive_num"]] isEqualToString:@"0"]];
-        [self.cornerBtn[3] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_evaluation_num"]] isEqualToString:@"0"]];
+    [self.cornerBtn[0] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"all_pay_num"]] isEqualToString:@"0"]];
+    [self.cornerBtn[1] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_pay_num"]] isEqualToString:@"0"]];
+    [self.cornerBtn[2] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_receive_num"]] isEqualToString:@"0"]];
+    [self.cornerBtn[3] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_evaluation_num"]] isEqualToString:@"0"]];
     
 }
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (3 == self.index) {
+        return 1;
+    }
     return self.orderArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (3 == self.index) {
+        OrderFinishModel *model = nil;
+        if (indexPath.row < self.dataSourceArr.count) {
+            model = [self.dataSourceArr objectAtIndex:indexPath.row];
+        }
+        return [OrderFinishTableViewCell hyb_heightForIndexPath:indexPath config:^(UITableViewCell *sourceCell) {
+            OrderFinishTableViewCell *cell = (OrderFinishTableViewCell *)sourceCell;
+            // 配置数据
+            [cell configueUI:model];
+        }];
+    }
     return 95;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (3 == self.index) {
+        return 0;
+    }
     return 40;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (3 == self.index) {
+        return 0;
+    }
     return 60;
 }
 
@@ -130,15 +175,18 @@
     header = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header"];
     header.contentLabel.text  = [[self.orderArr objectAtIndex:section] objectForKey:@"seller_name"];
     header.statusLabel.text  = [statusDic objectForKey:[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:section] objectForKey:@"status"]]];
-
+    
     [header.imgVIew sd_setImageWithURL:[NSURL URLWithString:[[self.orderArr objectAtIndex:section] objectForKey:@"store_logo"]!=[NSNull null]?[[self.orderArr objectAtIndex:section] objectForKey:@"store_logo"]:@""] placeholderImage:[UIImage imageNamed:@"demo"]];
     header.imgVIew.layer.cornerRadius = header.imgVIew.bounds.size.width/2;
-//    header.imgVIew.layer.masksToBounds = YES;
-//    [header.imgVIew sd_setImageWithURL:[NSURL URLWithString:[[self.orderArr objectAtIndex:section] objectForKey:@"store_logo"]!=[NSNull null]?[[self.orderArr objectAtIndex:section] objectForKey:@"store_logo"]:@""] placeholderImage:[UIImage imageNamed:@"demo"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        header.imgVIew.layer.cornerRadius = header.imgVIew.bounds.size.width/2;
-//        header.imgVIew.image = image;
-//    }];
-
+    //    header.imgVIew.layer.masksToBounds = YES;
+    //    [header.imgVIew sd_setImageWithURL:[NSURL URLWithString:[[self.orderArr objectAtIndex:section] objectForKey:@"store_logo"]!=[NSNull null]?[[self.orderArr objectAtIndex:section] objectForKey:@"store_logo"]:@""] placeholderImage:[UIImage imageNamed:@"demo"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    //        header.imgVIew.layer.cornerRadius = header.imgVIew.bounds.size.width/2;
+    //        header.imgVIew.image = image;
+    //    }];
+    
+    if (3 == self.index) {
+        return nil;
+    }
     return header;
 }
 
@@ -165,11 +213,18 @@
     footer.delBtn.layer.cornerRadius = 6.0;
     footer.delBtn.layer.borderWidth = 1.0;
     footer.delBtn.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    
+    if (3 == self.index) {
+        return nil;
+    }
+    
     return footer;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+    if (3 == self.index) {
+        return self.dataSourceArr.count;
+    }
     if ([[self.orderArr objectAtIndex:section] objectForKey:@"detail"]!=[NSNull null]) {
         
         return ((NSArray *)[[self.orderArr objectAtIndex:section] objectForKey:@"detail"]).count;
@@ -224,40 +279,80 @@
      "store_logo" = "http://www.hisenseplus.com/ecmall/data/files/store_103/other/store_logo.jpg";
      */
     //    cell.label1.text = [self.tabledata ];
-//    NSArray *arr = self.goodsArr;
-
-
-//    cell..text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
-//    cell.chakan.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"views"]];
-//    cell.pricee.text = [NSString stringWithFormat:@"￥ %@",[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
-//    
-//    if ([[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]!=[NSNull null]) {
-//
+    //    NSArray *arr = self.goodsArr;
+    
+    
+    //    cell..text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
+    //    cell.chakan.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"views"]];
+    //    cell.pricee.text = [NSString stringWithFormat:@"￥ %@",[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
+    //
+    //    if ([[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]!=[NSNull null]) {
+    //
     
     NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:indexPath.section] objectForKey:@"detail"];
-
+    
     cell.contentLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
     NSString *pri = [NSString stringWithFormat:@"%@",[[arr objectAtIndex:indexPath.row] valueForKey:@"price"]];
     
     cell.priceLabel.text = [NSString stringWithFormat:@"￥%.1f x %@",[pri floatValue],[[arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"goods_image"]!=[NSNull null]?[[arr objectAtIndex:indexPath.row] objectForKey:@"goods_image"]:@""] placeholderImage:[UIImage imageNamed:@"demo"]];
-
-//        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]] ];
-//    }
+    
+    //        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]] ];
+    //    }
+    if (3 == self.index) {
+        OrderFinishTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ID2"];
+        if (!cell) {
+            cell = [[OrderFinishTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ID2"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.tableView.showsVerticalScrollIndicator = NO;
+        cell.OrderFinishDelegate = self;
+        cell.cellIndex = indexPath.row;
+        OrderFinishModel* model = self.dataSourceArr[indexPath.row];
+        [cell configueUI:model];
+        return cell;
+    }
     
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
-
+#pragma mark - 评论代理实现
+- (void)pinglun:(NSInteger)index{
+    NSLog(@"评论----%ld",(long)index);
+    OrderFinishModel* model = self.dataSourceArr[index];
+    EvaluationViewController* vc = [[EvaluationViewController alloc] init];
+    vc.headImageStr = model.headImageStr;
+    vc.titleStr = model.titleStr;
+    vc.priceAndTimeStr = model.priceAndTimeStr;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    XWJSPDetailViewController *list= [[XWJSPDetailViewController alloc] init];
-//    //    list.dic = [self.goodsArr objectAtIndex:indexPath.row];
-//    list.goods_id = [[self.goodsArr objectAtIndex:indexPath.row] objectForKey:@"goods_id"];
-//    [self.navigationController showViewController:list sender:self];
+    //
+    //    XWJSPDetailViewController *list= [[XWJSPDetailViewController alloc] init];
+    //    //    list.dic = [self.goodsArr objectAtIndex:indexPath.row];
+    //    list.goods_id = [[self.goodsArr objectAtIndex:indexPath.row] objectForKey:@"goods_id"];
+    //    [self.navigationController showViewController:list sender:self];
+    if (3 == self.index) {
+        [UMSocialSnsService presentSnsIconSheetView:self
+                                             appKey:@"56938a23e0f55aac1d001cb6"
+                                          shareText:@"友盟社会化分享让您快速实现分享等社会化功能，www.umeng.com/social"
+                                         shareImage:[UIImage imageNamed:@"icon.png"]
+                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
+                                           delegate:self];
+    }
+}
+//实现回调方法（可选）：
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+    }
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -275,7 +370,7 @@
     CGFloat width = self.view.bounds.size.width/count;
     CGFloat height = 40;
     CGFloat btny = 66;
-    NSArray * title = [NSArray arrayWithObjects:@"全部订单",@"待付款",@"待收货",@"待评价", nil];
+    NSArray * title = [NSArray arrayWithObjects:@"全部订单",@"待付款",@"待收货",@"已完成", nil];
     for (int i=0; i<count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(width*i, btny, width, height);
@@ -303,7 +398,7 @@
         [self.cornerBtn addObject:corner];
         
         [self.view addSubview:button];
-    
+        
     }
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, btny+height, SCREEN_SIZE.width, SCREEN_SIZE.height-btny+height)];
@@ -315,13 +410,14 @@
 }
 -(void)typeclick:(UIButton *)butn{
     self.index = butn.tag;
+    NSLog(@"当前点中按钮tag---%ld",(long)butn.tag);
     for (UIButton *b in self.btn) {
         b.selected = NO;
     }
     butn.selected = !butn.selected;
-
+    
     [self getOrderList:[self.status objectAtIndex:self.index]];
-
+    
     
 }
 - (void)didReceiveMemoryWarning {
@@ -330,13 +426,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

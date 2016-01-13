@@ -57,7 +57,7 @@
 
 //    NSInteger count = [self.comBtn.titleLabel.text integerValue];
    // count++;
-    [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+   // [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -70,9 +70,9 @@
 }
 - (IBAction)commect:(id)sender {
     
-    NSInteger count = [self.comBtn.titleLabel.text integerValue];
-    count++;
-    [self.comBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+//    NSInteger count = [self.comBtn.titleLabel.text integerValue];
+//    count++;
+//    [self.comBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
    // [self pubCommentLword:@"" type:@"留言"];
 }
 - (IBAction)zan:(UIButton *)sender {

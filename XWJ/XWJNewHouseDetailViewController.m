@@ -219,6 +219,8 @@
     vie.dic = [NSMutableDictionary dictionary];
     [vie.dic setDictionary:self.dic];
     [vie.dic setObject:iv.image forKey:@"image"];
+    vie.urls = self.photos;
+    
     [self.navigationController showViewController:vie sender:nil];
     NSLog(@"click ");
 }

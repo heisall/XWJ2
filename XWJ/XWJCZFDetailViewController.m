@@ -241,26 +241,31 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self addBackBtn];
 
 //    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"buildingInfo"],[NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]]];
-        self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"buildingInfo"]];
+        self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"buildingInfo"]==[NSNull null]?@"":[self.datailDic objectForKey:@"buildingInfo"]];
     self.timeLabel.text = [NSString stringWithFormat:@"发布时间：%@",[self.datailDic objectForKey:@"ReleaseTime"]];
     self.zoneLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"area"]];
-    self.moneyLabel.text = [NSString stringWithFormat:@"%@万元",[self.datailDic objectForKey:@"rent"]];
+    self.moneyLabel.text = [NSString stringWithFormat:@"%@万元",[self.datailDic objectForKey:@"rent"]==[NSNull null]?@"":[self.datailDic objectForKey:@"rent"]];
     self.typeLabel.text = [NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]];
     self.sizeLabel.text = [NSString stringWithFormat:@"%.1fm²",[self.datailDic objectForKey:@"buildingArea"]==[NSNull null]?[@"0" floatValue]:[[self.datailDic valueForKey:@"buildingArea"] floatValue]];
-    self.zhuangxiuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
+    self.zhuangxiuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]==[NSNull null]?@"":[self.datailDic objectForKey:@"renovationInfo"]];
     //    self.priceLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
     self.loucengLabel.text = [NSString stringWithFormat:@"%@/%@",[self.datailDic objectForKey:@"floors"],[self.datailDic objectForKey:@"floorCount"]];
     //    self.shoufuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
     self.niandaiLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"niandai"]==[NSNull null]?@"":[self.datailDic objectForKey:@"niandai"]];
     //    self.yuegongLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
-    self.fukuanLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"fkfs"]];
+    self.fukuanLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"fkfs"]==[NSNull null]?@"":[self.datailDic objectForKey:@"fkfs"]];
         self.liulanLabel.text= [NSString stringWithFormat:@"浏览次数 %@",[self.datailDic objectForKey:@"clickCount"]==[NSNull null]?@"":[self.datailDic objectForKey:@"clickCount"]];
-    [self.dialBtn setTitle:[NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"contactPerson"],[self.datailDic objectForKey:@"contactPhone"]] forState:UIControlStateNormal];
+    
+
+    [self.dialBtn setTitle:[NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"contactPerson"]==[NSNull null]?@"":[self.datailDic objectForKey:@"contactPerson"],[self.datailDic objectForKey:@"contactPhone"]==[NSNull null]?@"":[self.datailDic objectForKey:@"contactPhone"]] forState:UIControlStateNormal];
     
     if([self.datailDic objectForKey:@"supporting"]!=[NSNull null]){
-        
-        self.collectionData = [NSArray arrayWithArray:[self.datailDic objectForKey:@"supporting"]];
-        [self.collectionIView reloadData];
+
+        if ([[self.datailDic objectForKey:@"supporting"] isKindOfClass:[NSArray class]]) {
+            
+            self.collectionData = [NSArray arrayWithArray:[self.datailDic objectForKey:@"supporting"]];
+            [self.collectionIView reloadData];
+        }
     }
     //    @property (weak, nonatomic) IBOutlet UIImageView *yaoshiView;
     //    @property (weak, nonatomic) IBOutlet UIImageView *xuequView;

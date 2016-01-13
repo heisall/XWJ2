@@ -418,10 +418,11 @@ NSArray *footer;
             
 //            XWJADViewController *acti =[[XWJADViewController alloc] init];
             acti.dic  = [dic objectForKey:@"data"];
+            NSLog(@"=====%@",acti.dic);
             acti.type = [acti.dic valueForKey:@"Types"];
             [self.navigationController showViewController:acti sender:nil];
             
-        }
+       }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

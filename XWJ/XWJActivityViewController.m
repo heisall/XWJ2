@@ -26,6 +26,12 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yibaoming) name:@"baoming" object:nil];
+//    NSLog(@"dic,%@",self.dic);
+    NSString *sr = [NSString stringWithFormat:@"%ld",(long)self.dic];
+    NSString *str = [[NSUserDefaults standardUserDefaults] valueForKey:sr];
+    if ([str isEqualToString:@"yibaoming"]) {
+        [self yibaoming];
+    }
     if ((NSNull *)[self.dic valueForKey:KEY_AD_TITLE]!=[NSNull null]) {
         
         self.actTitle.text = [self.dic valueForKey:KEY_AD_TITLE];
@@ -44,7 +50,7 @@
     }
     if ((NSNull*)[self.dic valueForKey:KEY_AD_CLICKCOUNT]!=[NSNull null]) {
         
-        NSString *count = [NSString stringWithFormat:@"%@",[self.dic objectForKey:KEY_AD_CLICKCOUNT] ];
+        NSString *count = [NSString stringWithFormat:@"%@",[self.dic objectForKey:KEY_AD_CLICKCOUNT]];
         [self.clickBtn setTitle:count forState:UIControlStateNormal];
     }else{
         self.clickBtn.hidden = YES;
@@ -72,6 +78,8 @@
 
 -(void)yibaoming{
     self.btn.enabled = NO;
+    NSString *sr = [NSString stringWithFormat:@"%ld",(long)self.dic];
+    [[NSUserDefaults standardUserDefaults] setObject:@"yibaoming" forKey:sr];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

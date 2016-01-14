@@ -108,7 +108,7 @@
     [self.payTypeLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.lineView.mas_bottom).offset(7);
         make.left.mas_equalTo(self.payStatusLable);
-        make.width.mas_offset(100);
+        make.width.mas_offset(66);
         make.height.mas_offset(14);
     }];
     
@@ -145,8 +145,8 @@
     
     self.sendTimeLable.text = model.sendTimeStr;
     
-    [self.payTypeImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@""]];
-    self.payTypeImageView.backgroundColor = [UIColor redColor];
+    [self.payTypeImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"zhifuweixin"]];
+//    self.payTypeImageView.backgroundColor = [UIColor redColor];
     
     self.payTypeYLable.text = model.payTypeStr;
 }

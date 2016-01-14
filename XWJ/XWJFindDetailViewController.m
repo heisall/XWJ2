@@ -12,12 +12,14 @@
 #import "LCBannerView.h"
 #import "XWJWebViewController.h"
 #import "UIImage+Category.h"
+
+#import "UMSocial.h"
 #define KEY_HEADIMG @"headimg"
 #define KEY_TITLE @"title"
 #define KEY_TIME  @"time"
 #define KEY_CONTENT @"content"
 
-@interface XWJFindDetailViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,LCBannerViewDelegate>
+@interface XWJFindDetailViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,LCBannerViewDelegate,UMSocialUIDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *CommentBtn;
@@ -30,9 +32,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+- (IBAction)shareDetail:(id)sender;
 @property  UIControl *controlView;
 @property  CGRect bottomRect;
-
+@property(nonatomic,copy)NSString* shareImageStr;
+@property(nonatomic,copy)NSString* sharecontStr;
 @end
 
 @implementation XWJFindDetailViewController
@@ -66,7 +70,29 @@
 //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
 
 }
-
+#pragma mark - 分享按钮响应
+- (void)shareDetail:(id)sender{
+    NSLog(@"分享");
+    UIImageView* temIV = [[UIImageView alloc] init];
+    
+    [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"56938a23e0f55aac1d001cb6"
+                                      shareText:self.sharecontStr
+                                     shareImage:temIV.image
+                                shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
+                                       delegate:self];
+}
+#pragma mark - //实现回调方法（可选)
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+    }
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
@@ -145,6 +171,7 @@
     
     NSArray *url = [urls componentsSeparatedByString:@","];
     web.url = [url objectAtIndex:index];
+    self.shareImageStr = [url firstObject];
     [self.navigationController pushViewController:web animated:NO];
 }
 
@@ -236,6 +263,7 @@
     [_infoBtn setTitle:name forState:UIControlStateNormal];
     _timelabel.text = [self.dic objectForKey:@"ReleaseTime"];
     _titleLabel.text=[self.dic objectForKey:@"content"];
+    self.sharecontStr = [self.dic objectForKey:@"content"];
         _typeLabel.text = [self.dic objectForKey:@"Memo"];
     
     NSString *type = [self.dic objectForKey:@"Memo"];
@@ -443,7 +471,6 @@
     [self pubCommentLword:self.textView.text type:@"留言"];
 //    [self.navigationController popViewControllerAnimated:YES];
 }
-
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if (!controlView) {
         controlView        = [[UIControl alloc] initWithFrame:self.view.frame];

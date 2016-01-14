@@ -98,11 +98,12 @@
     NSInteger count = [sender.titleLabel.text integerValue];
     count++;
     sender.enabled = NO;
-    [sender setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
     [self pubCommentLword:@"" type:@"点赞"];
 
 }
 - (IBAction)share:(UIButton *)sender {
+<<<<<<< HEAD
             UIImageView* temIV = [[UIImageView alloc] init];
     
             [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
@@ -124,6 +125,11 @@
         count++;
         [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
     }
+=======
+    NSInteger count = [sender.titleLabel.text integerValue];
+    count++;
+    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
+>>>>>>> 0730e7c4fff1672355d480e284c8dde6b3617c25
 }
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
     NSString *url = GETFINDPUBCOM_URL;
@@ -163,10 +169,11 @@
 //                [alertview show];
                 if ([types isEqualToString:@"点赞"]) {
                     [ProgressHUD showSuccess:@"点赞成功"];
-                }else
+                }else{
                     [ProgressHUD showSuccess:@"评论成功"];
                 
-                [self getWuyeDetail];
+                    [self getWuyeDetail];
+                }
 //                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
                  //   [self.navigationController popViewControllerAnimated:YES];
@@ -220,13 +227,13 @@
             
             if (self.array&&self.array.count>0) {
                 
-                self.headLabel.text = [NSString stringWithFormat:@"最新评论 (%ld)",self.array.count];
+                self.headLabel.text = [NSString stringWithFormat:@"最新评论 (%ld)",(unsigned long)self.array.count];
             }
-            [self.array sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                NSDictionary * d1 = (NSDictionary *)obj1;
-                NSDictionary * d2 = (NSDictionary *)obj2;
-                return [[d2 valueForKey:@"ReleaseTime"]compare:[d1 valueForKey:@"ReleaseTime"]];
-            }];
+//            [self.array sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//                NSDictionary * d1 = (NSDictionary *)obj1;
+//                NSDictionary * d2 = (NSDictionary *)obj2;
+//                return [[d2 valueForKey:@"ReleaseTime"]compare:[d1 valueForKey:@"ReleaseTime"]];
+//            }];
             
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
             self.dicw = [dic objectForKey:@"work"];

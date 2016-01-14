@@ -13,4 +13,7 @@
 @property(nonatomic,copy)NSString* titleStr;
 @property(nonatomic,copy)NSString* priceAndTimeStr;
 @property(nonatomic,assign)NSInteger e_status;
+@property(nonatomic,copy)NSString* orderId;
+@property(nonatomic,copy)NSString* seller_id;
+@property(nonatomic,copy)NSString* goodsId;
 @end

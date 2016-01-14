@@ -17,7 +17,10 @@
 #import "UITableViewCell+HYBMasonryAutoCellHeight.h"
 #import "EvaluationViewController.h"
 #import "UMSocial.h"
-@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate>
+
+#import "MyOrderDetailViewController.h"
+
+@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate>
 
 @property NSMutableArray *btn;
 @property NSMutableArray *cornerBtn;
@@ -32,6 +35,7 @@
 
 @implementation XWJMyOrderViewController
 @synthesize statusDic;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataSourceArr = [[NSMutableArray alloc] init];
@@ -52,6 +56,12 @@
         
         [self getOrderList:[self.status objectAtIndex:self.index]];
     }];    // Do any additional setup after loading the view.
+}
+#pragma mark - 评论代理实现
+- (void)sendBackCellNum:(NSInteger)cellNum{
+    OrderFinishModel* model = self.dataSourceArr[cellNum];
+    model.e_status = 1;
+    [_tableView reloadData];
 }
 -(void)getOrderList:(NSString *)status{
     NSString *url = GETORDER_URL;
@@ -94,6 +104,9 @@
                     NSLog(@"======头像地址====%@",model.headImageStr);
                     model.titleStr = temDic[@"goods_name"];
                     model.e_status = [temDic[@"e_status"] integerValue];
+                    model.orderId = temDic[@"order_id"];
+                    model.seller_id = temDic[@"seller_id"];
+                    model.goodsId = temDic[@"goods_id"];
                     model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.1f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"plsj"]];
                     [self.dataSourceArr addObject:model];
                 }
@@ -325,6 +338,10 @@
     vc.headImageStr = model.headImageStr;
     vc.titleStr = model.titleStr;
     vc.priceAndTimeStr = model.priceAndTimeStr;
+    vc.orderId = model.orderId;
+    vc.storeId = model.seller_id;
+    vc.goodsId = model.goodsId;
+    vc.evaluationDelegate = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - Table view delegate
@@ -342,6 +359,19 @@
                                          shareImage:[UIImage imageNamed:@"icon.png"]
                                     shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
                                            delegate:self];
+    }else{
+        NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:indexPath.section] objectForKey:@"detail"];
+        
+        MyOrderDetailViewController* vc = [[MyOrderDetailViewController alloc] init];
+        if (0 == self.index || 1 == self.index) {
+            vc.isDaishouhuo = @"0";
+            vc.status = @"11";
+        }else{
+            vc.isDaishouhuo = @"1";
+            vc.status = @"30";
+        }
+        vc.orderId = [[arr objectAtIndex:indexPath.row] objectForKey:@"order_id"];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 //实现回调方法（可选）：

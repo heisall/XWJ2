@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2126970A1C47206600F5DF7D /* MyOrderDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697071C47206600F5DF7D /* MyOrderDetailTableViewCell.m */; };
+		2126970B1C47206600F5DF7D /* MyOrderDetailTableViewCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697081C47206600F5DF7D /* MyOrderDetailTableViewCell1.m */; };
+		2126970C1C47206600F5DF7D /* MyOrderDetailTableViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697091C47206600F5DF7D /* MyOrderDetailTableViewCell2.m */; };
+		212697131C47212300F5DF7D /* MyOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697101C47212300F5DF7D /* MyOrderDetailModel.m */; };
+		212697141C47212300F5DF7D /* MyOrderDetailModel1.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697111C47212300F5DF7D /* MyOrderDetailModel1.m */; };
+		212697151C47212300F5DF7D /* MyOrderDetailModel2.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697121C47212300F5DF7D /* MyOrderDetailModel2.m */; };
+		219CCB441C45DD8E00791D9E /* JKNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB401C45DD8E00791D9E /* JKNotifier.m */; };
+		219CCB451C45DD8E00791D9E /* JKNotifier_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */; };
+		219CCB461C45DD8E00791D9E /* JKNotifierBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB431C45DD8E00791D9E /* JKNotifierBar.m */; };
+		219CCB761C461CF200791D9E /* MyOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB751C461CF200791D9E /* MyOrderDetailViewController.m */; };
 		8E1327131C30DED000D3EDB5 /* FindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1326ED1C30DED000D3EDB5 /* FindModel.m */; };
 		8E1327141C30DED000D3EDB5 /* gexingqianmingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1326EF1C30DED000D3EDB5 /* gexingqianmingViewController.m */; };
 		8E1327151C30DED000D3EDB5 /* MineStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1326F01C30DED000D3EDB5 /* MineStoryboard.storyboard */; };
@@ -367,6 +377,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		212697041C47206600F5DF7D /* MyOrderDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailTableViewCell.h; sourceTree = "<group>"; };
+		212697051C47206600F5DF7D /* MyOrderDetailTableViewCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailTableViewCell1.h; sourceTree = "<group>"; };
+		212697061C47206600F5DF7D /* MyOrderDetailTableViewCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailTableViewCell2.h; sourceTree = "<group>"; };
+		212697071C47206600F5DF7D /* MyOrderDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailTableViewCell.m; sourceTree = "<group>"; };
+		212697081C47206600F5DF7D /* MyOrderDetailTableViewCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailTableViewCell1.m; sourceTree = "<group>"; };
+		212697091C47206600F5DF7D /* MyOrderDetailTableViewCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailTableViewCell2.m; sourceTree = "<group>"; };
+		2126970D1C47212300F5DF7D /* MyOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailModel.h; sourceTree = "<group>"; };
+		2126970E1C47212300F5DF7D /* MyOrderDetailModel1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailModel1.h; sourceTree = "<group>"; };
+		2126970F1C47212300F5DF7D /* MyOrderDetailModel2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailModel2.h; sourceTree = "<group>"; };
+		212697101C47212300F5DF7D /* MyOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailModel.m; sourceTree = "<group>"; };
+		212697111C47212300F5DF7D /* MyOrderDetailModel1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailModel1.m; sourceTree = "<group>"; };
+		212697121C47212300F5DF7D /* MyOrderDetailModel2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailModel2.m; sourceTree = "<group>"; };
+		219CCB3F1C45DD8E00791D9E /* JKNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNotifier.h; sourceTree = "<group>"; };
+		219CCB401C45DD8E00791D9E /* JKNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNotifier.m; sourceTree = "<group>"; };
+		219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JKNotifier_default_icon@2x.png"; sourceTree = "<group>"; };
+		219CCB421C45DD8E00791D9E /* JKNotifierBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNotifierBar.h; sourceTree = "<group>"; };
+		219CCB431C45DD8E00791D9E /* JKNotifierBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNotifierBar.m; sourceTree = "<group>"; };
+		219CCB741C461CF200791D9E /* MyOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailViewController.h; sourceTree = "<group>"; };
+		219CCB751C461CF200791D9E /* MyOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailViewController.m; sourceTree = "<group>"; };
 		8E1326EC1C30DED000D3EDB5 /* FindModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindModel.h; sourceTree = "<group>"; };
 		8E1326ED1C30DED000D3EDB5 /* FindModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindModel.m; sourceTree = "<group>"; };
 		8E1326EE1C30DED000D3EDB5 /* gexingqianmingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gexingqianmingViewController.h; sourceTree = "<group>"; };
@@ -1013,6 +1042,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		219CCB3E1C45DD8E00791D9E /* JKNotifier */ = {
+			isa = PBXGroup;
+			children = (
+				219CCB3F1C45DD8E00791D9E /* JKNotifier.h */,
+				219CCB401C45DD8E00791D9E /* JKNotifier.m */,
+				219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */,
+				219CCB421C45DD8E00791D9E /* JKNotifierBar.h */,
+				219CCB431C45DD8E00791D9E /* JKNotifierBar.m */,
+			);
+			path = JKNotifier;
+			sourceTree = "<group>";
+		};
+		219CCB5C1C461BBE00791D9E /* 订单详情 */ = {
+			isa = PBXGroup;
+			children = (
+				219CCB731C461C9100791D9E /* 订单详情Cell */,
+				219CCB721C461C7F00791D9E /* 订单详情Model */,
+				219CCB741C461CF200791D9E /* MyOrderDetailViewController.h */,
+				219CCB751C461CF200791D9E /* MyOrderDetailViewController.m */,
+			);
+			path = "订单详情";
+			sourceTree = "<group>";
+		};
+		219CCB721C461C7F00791D9E /* 订单详情Model */ = {
+			isa = PBXGroup;
+			children = (
+				2126970D1C47212300F5DF7D /* MyOrderDetailModel.h */,
+				2126970E1C47212300F5DF7D /* MyOrderDetailModel1.h */,
+				2126970F1C47212300F5DF7D /* MyOrderDetailModel2.h */,
+				212697101C47212300F5DF7D /* MyOrderDetailModel.m */,
+				212697111C47212300F5DF7D /* MyOrderDetailModel1.m */,
+				212697121C47212300F5DF7D /* MyOrderDetailModel2.m */,
+			);
+			path = "订单详情Model";
+			sourceTree = "<group>";
+		};
+		219CCB731C461C9100791D9E /* 订单详情Cell */ = {
+			isa = PBXGroup;
+			children = (
+				212697041C47206600F5DF7D /* MyOrderDetailTableViewCell.h */,
+				212697051C47206600F5DF7D /* MyOrderDetailTableViewCell1.h */,
+				212697061C47206600F5DF7D /* MyOrderDetailTableViewCell2.h */,
+				212697071C47206600F5DF7D /* MyOrderDetailTableViewCell.m */,
+				212697081C47206600F5DF7D /* MyOrderDetailTableViewCell1.m */,
+				212697091C47206600F5DF7D /* MyOrderDetailTableViewCell2.m */,
+			);
+			path = "订单详情Cell";
+			sourceTree = "<group>";
+		};
 		8E1327291C30DF3200D3EDB5 /* emotion status */ = {
 			isa = PBXGroup;
 			children = (
@@ -2020,6 +2098,8 @@
 		EC95184C1C4540C400AEA7E5 /* NewAndy */ = {
 			isa = PBXGroup;
 			children = (
+				219CCB5C1C461BBE00791D9E /* 订单详情 */,
+				219CCB3E1C45DD8E00791D9E /* JKNotifier */,
 				EC9518BF1C4540CD00AEA7E5 /* JPushSDK */,
 				EC95184D1C4540C400AEA7E5 /* HYBMasonryAutoCellHeight */,
 				EC9518501C4540C400AEA7E5 /* Masonry */,
@@ -2294,6 +2374,7 @@
 				DAC4AF271BF0619700D66E76 /* Images.xcassets in Resources */,
 				A41255491C0F33770042D8CC /* devAdv_red@2x.png in Resources */,
 				A4DC3CA01C1C7593003D4D18 /* Images.xcassets in Resources */,
+				219CCB451C45DD8E00791D9E /* JKNotifier_default_icon@2x.png in Resources */,
 				A4462E661C2EE37F004361BB /* XWJSPDetail.xib in Resources */,
 				A43811181C24FFDD001D2F29 /* ShareSDK.bundle in Resources */,
 				A43C97FC1C129C68006A61EE /* shanguangdeng2@2x.png in Resources */,
@@ -2384,9 +2465,11 @@
 				A4462E641C2EE365004361BB /* XWJSPDetailTableViewCell.m in Sources */,
 				A4CBC7691C3AA46600274040 /* MJRefreshAutoGifFooter.m in Sources */,
 				A4CBC76D1C3AA46600274040 /* MJRefreshBackNormalFooter.m in Sources */,
+				212697151C47212300F5DF7D /* MyOrderDetailModel2.m in Sources */,
 				8E1327641C30E03B00D3EDB5 /* NSArray+JSONModel.m in Sources */,
 				8E1327191C30DED000D3EDB5 /* xignquaihaoViewController.m in Sources */,
 				A41255781C0F39D20042D8CC /* SDWebImageDownloaderOperation.m in Sources */,
+				212697141C47212300F5DF7D /* MyOrderDetailModel1.m in Sources */,
 				EC9518BE1C4540C400AEA7E5 /* UITextView+placeholder.m in Sources */,
 				8E13271D1C30DED000D3EDB5 /* XWJMineViewController.m in Sources */,
 				DAC4AF221BF0619700D66E76 /* ViewController.m in Sources */,
@@ -2507,7 +2590,9 @@
 				A43811221C25C957001D2F29 /* XWJCZFDetailViewController.m in Sources */,
 				A4DC3C841C1C0D82003D4D18 /* XWJNewHouseDetailViewController.m in Sources */,
 				8E1327411C30DFDB00D3EDB5 /* chuzuTableViewCell.m in Sources */,
+				2126970C1C47206600F5DF7D /* MyOrderDetailTableViewCell2.m in Sources */,
 				A412557F1C0F39D20042D8CC /* UIImageView+WebCache.m in Sources */,
+				212697131C47212300F5DF7D /* MyOrderDetailModel.m in Sources */,
 				A4CBC7681C3AA46600274040 /* MJRefreshHeader.m in Sources */,
 				A412557B1C0F39D20042D8CC /* UIButton+WebCache.m in Sources */,
 				A4E28DFE1C30225000644909 /* XWJJiesuanViewController.m in Sources */,
@@ -2555,9 +2640,12 @@
 				A41255051C0F22FC0042D8CC /* AFHTTPRequestOperation.m in Sources */,
 				A41255151C0F22FC0042D8CC /* UIProgressView+AFNetworking.m in Sources */,
 				A412550B1C0F22FC0042D8CC /* AFURLRequestSerialization.m in Sources */,
+				219CCB761C461CF200791D9E /* MyOrderDetailViewController.m in Sources */,
+				219CCB441C45DD8E00791D9E /* JKNotifier.m in Sources */,
 				A438110F1C2462C4001D2F29 /* XWJHouseMapController.m in Sources */,
 				A41A1FEA1C26E236002129DF /* XWJWebViewController.m in Sources */,
 				EC95189E1C4540C400AEA7E5 /* UITableViewCell+HYBMasonryAutoCellHeight.m in Sources */,
+				2126970A1C47206600F5DF7D /* MyOrderDetailTableViewCell.m in Sources */,
 				A43C97A71C1297E1006A61EE /* LGPhotoPickerGroupViewController.m in Sources */,
 				A43C97A91C1297E1006A61EE /* LGPhotoPickerCollectionView.m in Sources */,
 				8E1327261C30DED000D3EDB5 /* XWJMyMessageController.m in Sources */,
@@ -2584,6 +2672,7 @@
 				8E1327611C30E03B00D3EDB5 /* JSONModelArray.m in Sources */,
 				A48801A31C09FDAD00714F5B /* XWJTabViewController.m in Sources */,
 				A43C97CF1C129A79006A61EE /* LGPhotoPickerBrowserPhotoView.m in Sources */,
+				2126970B1C47206600F5DF7D /* MyOrderDetailTableViewCell1.m in Sources */,
 				A4DC3CAE1C1D0FF9003D4D18 /* XWJCity.m in Sources */,
 				A43810C01C1EF491001D2F29 /* XWJBMViewController.m in Sources */,
 				8E1327671C30E03B00D3EDB5 /* JSONModel+networking.m in Sources */,
@@ -2591,6 +2680,7 @@
 				A4DC3C871C1C1133003D4D18 /* XWJNewHouseInfoViewController.m in Sources */,
 				A41255771C0F39D20042D8CC /* SDWebImageDownloader.m in Sources */,
 				A4F2571E1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.m in Sources */,
+				219CCB461C45DD8E00791D9E /* JKNotifierBar.m in Sources */,
 				8E1327181C30DED000D3EDB5 /* qingganViewController.m in Sources */,
 				A4DC3C931C1C5096003D4D18 /* XWJGZaddViewController.m in Sources */,
 				A43C97CD1C129A79006A61EE /* LGPhotoPickerBrowserPhotoImageView.m in Sources */,
@@ -2736,8 +2826,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aiyang Xiao (LW67M99NCE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Aiyang Xiao (LW67M99NCE)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2765,8 +2855,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aiyang Xiao (LW67M99NCE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Aiyang Xiao (LW67M99NCE)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

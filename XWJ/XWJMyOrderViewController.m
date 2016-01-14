@@ -324,10 +324,14 @@
     //    list.goods_id = [[self.goodsArr objectAtIndex:indexPath.row] objectForKey:@"goods_id"];
     //    [self.navigationController showViewController:list sender:self];
     if (2 == self.index) {
+        UIImageView* temIV = [[UIImageView alloc] init];
+        
+        OrderFinishModel* model = self.dataSourceArr[indexPath.row];
+        [temIV sd_setImageWithURL:[NSURL URLWithString:model.headImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
         [UMSocialSnsService presentSnsIconSheetView:self
                                              appKey:@"56938a23e0f55aac1d001cb6"
-                                          shareText:@"友盟社会化分享让您快速实现分享等社会化功能，www.umeng.com/social"
-                                         shareImage:[UIImage imageNamed:@"icon.png"]
+                                          shareText:model.titleStr
+                                         shareImage:temIV.image
                                     shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
                                            delegate:self];
     }else{

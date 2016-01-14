@@ -13,11 +13,14 @@
 #import "XWJAccount.h"
 #import "ProgressHUD/ProgressHUD.h"
 #import "LCBannerView.h"
+
+#import "UMSocial.h"
+
 #define MYTV_MESSAGE_COMMANTS_FONT [UIFont boldSystemFontOfSize:14.0f] // 
 #define LONGIN_TEXTVIEW_SELECTED_BORDER_COLOR [UIColor colorWithRed:50/255.0 green:176/255.0 blue:178/255.0 alpha:1].CGColor // 用户名和密码框选中的时候边框颜色
 #define TEXT_VIEW_MIN_HEIGH 44
 
-@interface XWJjianduDetailViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface XWJjianduDetailViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITextField *inputTextField;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
@@ -28,6 +31,8 @@
 @property UILabel *headLabel;
 @property  CGRect bottomRect;
 @property CGPoint center;
+@property(nonatomic,copy)NSString* shareImageStr;
+@property(nonatomic,copy)NSString* shareTitleStr;
 @end
 
 @implementation XWJjianduDetailViewController
@@ -98,11 +103,30 @@
 
 }
 - (IBAction)share:(UIButton *)sender {
-    NSInteger count = [sender.titleLabel.text integerValue];
-    count++;
-    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
+            UIImageView* temIV = [[UIImageView alloc] init];
+    
+            [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
+            [UMSocialSnsService presentSnsIconSheetView:self
+                                                 appKey:@"56938a23e0f55aac1d001cb6"
+                                              shareText:self.shareTitleStr
+                                             shareImage:temIV.image
+                                        shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
+                                               delegate:self];
 }
+//实现回调方法（可选）：
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSInteger count = [self.shareBtn.titleLabel.text integerValue];
+        count++;
+        [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+    }
 
+
+}
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
     NSString *url = GETFINDPUBCOM_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -211,7 +235,9 @@
             self.dicw = [dic objectForKey:@"work"];
             NSString *url = [[dic objectForKey:@"work"] valueForKey:@"photo"];
             NSArray *URLs = [url componentsSeparatedByString:@","];
-            
+            self.shareImageStr = [URLs firstObject];
+            NSLog(@"-------%@",self.dicw[@"Content"]);
+            self.shareTitleStr = self.dicw[@"Content"];
             if(URLs&&URLs.count>0)
                 
                 if (!(self.imgView.subviews&&self.imgView.subviews.count>0)) {

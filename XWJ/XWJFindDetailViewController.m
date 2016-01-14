@@ -12,6 +12,10 @@
 #import "LCBannerView.h"
 #import "XWJWebViewController.h"
 #import "UIImage+Category.h"
+
+
+#import "UMSocial.h"
+
 #import "UMSocial.h"
 #import "ProgressHUD/ProgressHUD.h"
 

@@ -83,8 +83,11 @@
 //    })];
     
     NSInteger count = self.work.count;
-    CGFloat width = self.view.bounds.size.width/4*3;
-    CGFloat height = width;
+    
+    CGFloat height = self.view.bounds.size.width/2;
+    CGFloat width = height/3*4;
+    
+    self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, height);
     self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, 0);
     for (int i=0; i<count; i++) {
         

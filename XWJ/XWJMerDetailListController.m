@@ -54,6 +54,12 @@
     [scroll addSubview:self.adView];
     
 
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back.frame = CGRectMake(10, 5, 30, 30);
+    [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    
+    [self.adView addSubview:back];
+    [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
 
@@ -250,13 +256,25 @@
                 return;
             }
 //            [imgView sd_setImageWithURL:[NSURL URLWithString:[self.store valueForKey:@"store_ad"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+        }else{
+            UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+            back.frame = CGRectMake(10, 5, 30, 30);
+            [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+            
+            [self.adView addSubview:back];
+            [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
         }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
         [ProgressHUD dismiss];
-
+        UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+        back.frame = CGRectMake(10, 5, 30, 30);
+        [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        
+        [self.adView addSubview:back];
+        [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
     }];
 }
 

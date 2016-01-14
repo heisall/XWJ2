@@ -22,7 +22,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (nonatomic)NSArray *array;
-@property (nonatomic)NSDictionary *dicWork;
+@property (nonatomic)NSString *dicWork;
+@property (nonatomic)NSDictionary *dicw;
+
 @property  CGRect bottomRect;
 @end
 
@@ -55,7 +57,7 @@
 
 //    NSInteger count = [self.comBtn.titleLabel.text integerValue];
    // count++;
-    [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+   // [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -68,9 +70,9 @@
 }
 - (IBAction)commect:(id)sender {
     
-    NSInteger count = [self.comBtn.titleLabel.text integerValue];
-    count++;
-    [self.comBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+//    NSInteger count = [self.comBtn.titleLabel.text integerValue];
+//    count++;
+//    [self.comBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
    // [self pubCommentLword:@"" type:@"留言"];
 }
 - (IBAction)zan:(UIButton *)sender {
@@ -102,7 +104,7 @@
     XWJAccount *account = [XWJAccount instance];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"findId"];
     [dict setValue:types  forKey:@"types"];
-    [dict setValue: account.uid  forKey:@"personId"];
+    [dict setValue:account.uid  forKey:@"personId"];
     [dict setValue:leaveword  forKey:@"leaveWord"];
     [dict setValue:[self.dic valueForKey:@"types"]  forKey:@"findType"];
     [dict setValue:@"supervise" forKey:@"leixing"];
@@ -167,7 +169,7 @@
            // NSLog(@"dic------ %@",dic);
             self.array = [dic objectForKey:@"comments"];
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
-            
+            self.dicw = [dic objectForKey:@"work"];
             NSString *url = [[dic objectForKey:@"work"] valueForKey:@"photo"];
             NSArray *URLs = [url componentsSeparatedByString:@","];
             
@@ -186,14 +188,19 @@
                     bannerView;
                 })];
         //    NSLog(@"*****%@",self.dicWork);
-            [self.tableView reloadData];
             
-      
-
-            
-            self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
-            [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
-            self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+10);
+            NSString *istalk = [NSString stringWithFormat:@"%@",[self.dicw objectForKey:@"iftalk"]];
+            if ([istalk isEqualToString:@"0"]) {
+                self.tableView.hidden = YES;
+                self.commentTextView.editable = NO;
+                self.commentTextView.text =@"";
+                self.bottomView.hidden = YES;
+            }else{
+                [self.tableView reloadData];
+                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
+                [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+                self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+200);
+            }
            // [self addDianJi];
         }
         
@@ -252,7 +259,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100.0;
+    return 110.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -285,8 +292,10 @@
     cell.commenterLabel.text = ([dic valueForKey:@"NickName"]==[NSNull null])?@"小王":[dic valueForKey:@"NickName"];
     cell.timeLabel.text = [dic valueForKey:@"ReleaseTime"];
     cell.contentLabel.text = [dic valueForKey:@"LeaveWord"];
+//    cell.contentLabel.backgroundColor = [UIColor redColor];
+//    cell.contentLabel.textColor = [UIColor blackColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+
     //    [cell.dialBtn setImage:[] forState:<#(UIControlState)#>]
     //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 69, self.view.bounds.size.width,1)];
     //    view.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];

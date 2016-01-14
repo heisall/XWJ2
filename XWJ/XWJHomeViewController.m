@@ -404,7 +404,6 @@ NSArray *footer;
     [dict setValue:[[self.notices objectAtIndex:index] valueForKey:@"id"]  forKey:@"id"];
     [dict setValue:[XWJAccount instance].account  forKey:@"account"];
 
-    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
@@ -418,10 +417,11 @@ NSArray *footer;
             
 //            XWJADViewController *acti =[[XWJADViewController alloc] init];
             acti.dic  = [dic objectForKey:@"data"];
+            NSLog(@"=====%@",acti.dic);
             acti.type = [acti.dic valueForKey:@"Types"];
             [self.navigationController showViewController:acti sender:nil];
             
-        }
+       }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

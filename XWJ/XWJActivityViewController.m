@@ -26,6 +26,12 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yibaoming) name:@"baoming" object:nil];
+//    NSLog(@"dic,%@",self.dic);
+    NSString *sr = [NSString stringWithFormat:@"%ld",(long)self.dic];
+    NSString *str = [[NSUserDefaults standardUserDefaults] valueForKey:sr];
+    if ([str isEqualToString:@"yibaoming"]) {
+        [self yibaoming];
+    }
     if ((NSNull *)[self.dic valueForKey:KEY_AD_TITLE]!=[NSNull null]) {
         
         self.actTitle.text = [self.dic valueForKey:KEY_AD_TITLE];
@@ -44,7 +50,7 @@
     }
     if ((NSNull*)[self.dic valueForKey:KEY_AD_CLICKCOUNT]!=[NSNull null]) {
         
-        NSString *count = [NSString stringWithFormat:@"%@",[self.dic objectForKey:KEY_AD_CLICKCOUNT] ];
+        NSString *count = [NSString stringWithFormat:@"%@",[self.dic objectForKey:KEY_AD_CLICKCOUNT]];
         [self.clickBtn setTitle:count forState:UIControlStateNormal];
     }else{
         self.clickBtn.hidden = YES;
@@ -68,10 +74,46 @@
         [self.webView loadRequest:request];
     }
     
+    [self getDetailAD];
+}
+
+
+-(void)getDetailAD{
+    NSString *url = GETDETAILAD_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
+    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *isEnrollEnd = [NSString stringWithFormat:@"%@",[[dic objectForKey:@"data"] objectForKey:@"IsEnrollEnd"]];
+            NSString *isAllowEnroll = [NSString stringWithFormat:@"%@",[[dic objectForKey:@"data"] objectForKey:@"IsAllowEnroll"]];
+            NSString *canEnroll = [NSString stringWithFormat:@"%@",[[dic objectForKey:@"data"] objectForKey:@"canEnroll"]];
+            
+            if ([isEnrollEnd isEqualToString:@"0"]&&[isAllowEnroll isEqualToString:@"1"]&&[canEnroll isEqualToString:@"1"]) {
+                self.btn.enabled = YES;
+            }else
+                self.btn.enabled = NO;
+
+
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
 }
 
 -(void)yibaoming{
     self.btn.enabled = NO;
+    NSString *sr = [NSString stringWithFormat:@"%ld",(long)self.dic];
+    [[NSUserDefaults standardUserDefaults] setObject:@"yibaoming" forKey:sr];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

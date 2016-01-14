@@ -41,10 +41,10 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    array1 =[NSMutableArray array ];
-    array2 =[NSMutableArray array ];
-    array3 =[NSMutableArray array ];
-    array4 =[NSMutableArray array ];
+    array1 =[NSMutableArray array];
+    array2 =[NSMutableArray array];
+    array3 =[NSMutableArray array];
+    array4 =[NSMutableArray array];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     scroll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
@@ -53,15 +53,13 @@
     scroll.showsHorizontalScrollIndicator = NO;
     scroll.showsVerticalScrollIndicator = NO;
     [self addView];
-//    [self getGShuoAD];
+    [self getGShuoAD];
     
-
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-        [self getGShuoAD];
+//        [self getGShuoAD];
 
     UIImage *image = [UIImage imageNamed:@"gouwuche"];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

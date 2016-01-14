@@ -10,7 +10,7 @@
 #import "XWJNotcieTableViewCell.h"
 #import "XWJCity.h"
 #import "XWJActivityViewController.h"
-
+#import "XWJAccount.h"
 #define cell_height 120.0
 @interface XWJNoticeViewController ()<UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -48,7 +48,6 @@
 //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
     
     
-    [self loadNewData];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
@@ -62,6 +61,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
+
 -(void)loadNewData{
     XWJCity *city =    [XWJCity instance];
     [city getActive:self.type :^(NSArray *arr) {
@@ -115,6 +115,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden =YES;
+    [self loadNewData];
+
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -181,6 +183,7 @@
     [self.navigationController showViewController:acti sender:nil];
 
 }
+
 
 /*
 #pragma mark - Navigation

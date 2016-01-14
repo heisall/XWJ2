@@ -7,7 +7,7 @@
 //
 
 #import "XWJNewHouseInfoViewController.h"
-
+#import "LCBannerView.h"
 @interface XWJNewHouseInfoViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *houseImg;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -33,7 +33,32 @@
     self.firstLabel.text = [self.dic objectForKey:@"lpmc"];
     self.directionLabel.text =[self.dic objectForKey:@"lpmc"];
     
-    [self getXinFangInfo];
+//    [self getXinFangInfo];
+    
+    UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
+    [self.view addSubview:scroll];
+    NSMutableArray *URLs = [NSMutableArray array];
+    for (NSDictionary
+         *dic in self.urls ) {
+        [URLs addObject:[dic valueForKey:@"hxt"]];
+        
+    }
+    
+    if(URLs&&URLs.count>0)
+        [scroll addSubview:({
+            
+            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+                                                                                    scroll.bounds.size.height)
+                                        
+                                                                delegate:self
+                                                               imageURLs:URLs
+                                                        placeholderImage:@"devAdv_default"
+                                                           timerInterval:3.0f
+                                           currentPageIndicatorTintColor:[UIColor redColor]
+                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+            bannerView;
+        })];
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -94,14 +119,11 @@
             
             self.dict  = [dic objectForKey:@"data"];
 
-            [self updateView];
+//            [self updateView];
             //            [self.houseArr addObjectsFromArray:arr];
             //            [self.tableView reloadData];
             NSLog(@"dic %@",dic);
         }
-        
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
         

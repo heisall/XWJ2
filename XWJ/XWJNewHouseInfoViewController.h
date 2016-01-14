@@ -11,5 +11,5 @@
 @interface XWJNewHouseInfoViewController : XWJBaseViewController
 
 @property NSMutableDictionary *dic;
-
+@property NSArray *urls;
 @end

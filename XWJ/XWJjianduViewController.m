@@ -177,7 +177,7 @@
          */
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-          //  NSLog(@"dic----- %@",dic);
+            NSLog(@"dic----- %@",dic);
             NSNumber *res =[dic objectForKey:@"result"];
             if ([res intValue] == 1) {
                 

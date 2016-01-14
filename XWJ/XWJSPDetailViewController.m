@@ -508,9 +508,13 @@
                     
                     UIImage *buttonImage = [UIImage imageNamed:@"gouwuche_small"];
                     
-                    buttonImage = [buttonImage stretchableImageWithLeftCapWidth:0 topCapHeight:floorf(buttonImage.size.height)];
-                    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-                    button.contentMode = UIViewContentModeCenter;
+//                    buttonImage = [buttonImage stretchableImageWithLeftCapWidth:0 topCapHeight:floorf(buttonImage.size.height)];
+//                    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+                    
+                    UIImageView *imgView =  [[UIImageView alloc] initWithFrame:CGRectMake((button.bounds.size.width-buttonImage.size.width)/2, 2, buttonImage.size.width, buttonImage.size.height)];
+                    imgView.image = buttonImage;
+                    [button addSubview:imgView];
+//                    button.contentMode = UIViewContentModeCenter;
                 }
                 button.titleLabel.font = [UIFont systemFontOfSize:15];
                 

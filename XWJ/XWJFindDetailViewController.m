@@ -12,12 +12,12 @@
 #import "LCBannerView.h"
 #import "XWJWebViewController.h"
 #import "UIImage+Category.h"
-<<<<<<< HEAD
+
 
 #import "UMSocial.h"
-=======
+
 #import "ProgressHUD/ProgressHUD.h"
->>>>>>> 22ddb3b28ebc13460019f5f256452f2a82ed77e1
+
 #define KEY_HEADIMG @"headimg"
 #define KEY_TITLE @"title"
 #define KEY_TIME  @"time"
@@ -257,7 +257,9 @@
         
     }];
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.textView resignFirstResponder];
+}
 -(void)initView{
 
     NSString * zanCount = [self.dic objectForKey:@"ClickPraiseCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ClickPraiseCount"]];
@@ -413,14 +415,6 @@
     return cell;
 }
 
-#pragma mark - Table view delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
-//    [self.navigationController showViewController:[storyboard instantiateViewControllerWithIdentifier:@"activityDetail"] sender:nil];
-    
-}
-
 - (void)registerForKeyboardNotifications
 {
     //使用NSNotificationCenter 鍵盤出現時
@@ -477,18 +471,16 @@
 }
 
 - (IBAction)enroll:(id)sender {
-    
-    [self.textView resignFirstResponder];
     [self pubCommentLword:self.textView.text type:@"留言"];
-//    [self.navigationController popViewControllerAnimated:YES];
+    [self.textView resignFirstResponder];
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    if (!controlView) {
-        controlView        = [[UIControl alloc] initWithFrame:self.view.frame];
-        [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-        controlView.backgroundColor = [UIColor clearColor];
-    }
-    [self.view addSubview:controlView];
+//    if (!controlView) {
+//        controlView        = [[UIControl alloc] initWithFrame:self.view.frame];
+//        [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+//        controlView.backgroundColor = [UIColor clearColor];
+//    }
+//    [self.view addSubview:controlView];
     
 //    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    btn.frame = CGRectMake(0, 0, 40, 40);

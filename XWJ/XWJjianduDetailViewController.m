@@ -11,6 +11,7 @@
 #import "UIPlaceHolderTextView.h"
 #import "XWJFindDetailTableViewCell.h"
 #import "XWJAccount.h"
+#import "ProgressHUD/ProgressHUD.h"
 #import "LCBannerView.h"
 #define MYTV_MESSAGE_COMMANTS_FONT [UIFont boldSystemFontOfSize:14.0f] // 
 #define LONGIN_TEXTVIEW_SELECTED_BORDER_COLOR [UIColor colorWithRed:50/255.0 green:176/255.0 blue:178/255.0 alpha:1].CGColor // 用户名和密码框选中的时候边框颜色
@@ -21,7 +22,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *inputTextField;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
-@property (nonatomic)NSArray *array;
+@property (nonatomic)NSMutableArray *array;
 @property (nonatomic)NSString *dicWork;
 @property (nonatomic)NSDictionary *dicw;
 
@@ -92,7 +93,7 @@
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
     NSString *url = GETFINDPUBCOM_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *dictp = [NSMutableDictionary dictionary];
     /*
      findId	发现id	String
      types	类型	String,留言/点赞
@@ -102,15 +103,15 @@
      leixing	区别是物业还是发现	String,find/supervise
      */
     XWJAccount *account = [XWJAccount instance];
-    [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"findId"];
-    [dict setValue:types  forKey:@"types"];
-    [dict setValue:account.uid  forKey:@"personId"];
-    [dict setValue:leaveword  forKey:@"leaveWord"];
-    [dict setValue:[self.dic valueForKey:@"types"]  forKey:@"findType"];
-    [dict setValue:@"supervise" forKey:@"leixing"];
+    [dictp setValue:[self.dic valueForKey:@"id"]  forKey:@"findId"];
+    [dictp setValue:types  forKey:@"types"];
+    [dictp setValue:account.uid  forKey:@"personId"];
+    [dictp setValue:leaveword  forKey:@"leaveWord"];
+    [dictp setValue:[self.dic valueForKey:@"Types"]  forKey:@"findType"];
+    [dictp setValue:@"supervise" forKey:@"leixing"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:url parameters:dictp success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
@@ -120,10 +121,12 @@
             if ([res intValue] == 1) {
                 
                 NSString *errCode = [dict objectForKey:@"errorCode"];
-                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                alertview.delegate = self;
-            //    [alertview show];
-                
+//                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                alertview.delegate = self;
+//                [alertview show];
+
+                [ProgressHUD showSuccess:errCode];
+                [self getWuyeDetail];
 //                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
                  //   [self.navigationController popViewControllerAnimated:YES];
@@ -167,26 +170,37 @@
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
            // NSLog(@"dic------ %@",dic);
-            self.array = [dic objectForKey:@"comments"];
+            self.array = [NSMutableArray arrayWithArray:[dic objectForKey:@"comments"]];
+            
+            
+            [self.array sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                NSDictionary * d1 = (NSDictionary *)obj1;
+                NSDictionary * d2 = (NSDictionary *)obj2;
+                return [[d2 valueForKey:@"ReleaseTime"]compare:[d1 valueForKey:@"ReleaseTime"]];
+            }];
+            
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
             self.dicw = [dic objectForKey:@"work"];
             NSString *url = [[dic objectForKey:@"work"] valueForKey:@"photo"];
             NSArray *URLs = [url componentsSeparatedByString:@","];
             
             if(URLs&&URLs.count>0)
-                [self.imgView addSubview:({
-                    
-                    LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imgView.bounds.size.width,
-                                                                                            self.imgView.bounds.size.height)
-                                                
-                                                                        delegate:self
-                                                                       imageURLs:URLs
-                                                                placeholderImage:@"devAdv_default"
-                                                                   timerInterval:5.0f
-                                                   currentPageIndicatorTintColor:XWJGREENCOLOR
-                                                          pageIndicatorTintColor:[UIColor whiteColor]];
-                    bannerView;
-                })];
+                
+                if (!(self.imgView.subviews&&self.imgView.subviews.count>0)) {
+                    [self.imgView addSubview:({
+                        
+                        LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imgView.bounds.size.width,
+                                                                                                self.imgView.bounds.size.height)
+                                                    
+                                                                            delegate:self
+                                                                           imageURLs:URLs
+                                                                    placeholderImage:@"devAdv_default"
+                                                                       timerInterval:5.0f
+                                                       currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                              pageIndicatorTintColor:[UIColor whiteColor]];
+                        bannerView;
+                    })];
+                }
         //    NSLog(@"*****%@",self.dicWork);
             
             NSString *istalk = [NSString stringWithFormat:@"%@",[self.dicw objectForKey:@"iftalk"]];
@@ -291,7 +305,9 @@
 //    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
     cell.commenterLabel.text = ([dic valueForKey:@"NickName"]==[NSNull null])?@"小王":[dic valueForKey:@"NickName"];
     cell.timeLabel.text = [dic valueForKey:@"ReleaseTime"];
-    cell.contentLabel.text = [dic valueForKey:@"LeaveWord"];
+    NSString *leave  = [dic valueForKey:@"LeaveWord"];
+//    [leave ]
+    cell.contentLabel.text = leave;
 //    cell.contentLabel.backgroundColor = [UIColor redColor];
 //    cell.contentLabel.textColor = [UIColor blackColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

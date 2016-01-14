@@ -2233,7 +2233,7 @@
 				TargetAttributes = {
 					DAC4AF151BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = HB2432K9P2;
+						DevelopmentTeam = UAYEW27P4X;
 					};
 					DAC4AF2E1BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -2747,7 +2747,6 @@
 				);
 				INFOPLIST_FILE = XWJ/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2777,7 +2776,6 @@
 				);
 				INFOPLIST_FILE = XWJ/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

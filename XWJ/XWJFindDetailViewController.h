@@ -9,7 +9,7 @@
 #import "XWJBaseViewController.h"
 
 @interface XWJFindDetailViewController : XWJBaseViewController
-@property(nonatomic)NSArray *array;
+@property(nonatomic)NSMutableArray *array;
 @property NSMutableDictionary *dic;
 @property NSMutableArray *finddetail;
 @end

@@ -1235,10 +1235,10 @@
 			isa = PBXGroup;
 			children = (
 				212697041C47206600F5DF7D /* MyOrderDetailTableViewCell.h */,
-				212697051C47206600F5DF7D /* MyOrderDetailTableViewCell1.h */,
-				212697061C47206600F5DF7D /* MyOrderDetailTableViewCell2.h */,
 				212697071C47206600F5DF7D /* MyOrderDetailTableViewCell.m */,
+				212697051C47206600F5DF7D /* MyOrderDetailTableViewCell1.h */,
 				212697081C47206600F5DF7D /* MyOrderDetailTableViewCell1.m */,
+				212697061C47206600F5DF7D /* MyOrderDetailTableViewCell2.h */,
 				212697091C47206600F5DF7D /* MyOrderDetailTableViewCell2.m */,
 			);
 			path = "订单详情Cell";

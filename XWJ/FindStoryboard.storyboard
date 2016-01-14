@@ -620,7 +620,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afz-BQ-qEC">
                                 <rect key="frame" x="0.0" y="25" width="375" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TI0-pY-jdM">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TI0-pY-jdM">
                                         <rect key="frame" x="10" y="11" width="355" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>

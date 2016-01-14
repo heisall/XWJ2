@@ -123,7 +123,7 @@
                     model.orderId = temDic[@"order_id"];
                     model.seller_id = temDic[@"seller_id"];
                     model.goodsId = temDic[@"goods_id"];
-                    model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.1f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"plsj"]];
+                    model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.1f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"add_time"]];
                     [self.dataSourceArr addObject:model];
                 }
                 NSLog(@"我新创建的数据源------%@",self.dataSourceArr);

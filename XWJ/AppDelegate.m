@@ -29,6 +29,8 @@
 #import "UMSocialWechatHandler.h"
 //通知提示  主要是为了程序在前端的时候的提示
 #import "JKNotifier.h"
+//微信支付
+#import "WXApi.h"
 
 #define mobAppKey @"c647ba762dc0"
 #define mobAppSecret @"76e6d7422f5d958e9a882675d0ffbd29"
@@ -56,6 +58,8 @@
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:@"wx869e417c4c31b315" appSecret:@"5d7d1ace07d9a184814d85ede50ecd84" url:@"http://www.umeng.com/social"];
     
+    //微信支付  向微信注册
+    [WXApi registerApp:@"wxb4ba3c02aa476ea1" withDescription:@"demo 2.0"];
     
     [SMSSDK registerApp:mobAppKey withSecret:mobAppSecret];
     

@@ -91,9 +91,6 @@
     [self createTableView];
     
     [self createRequest];
-    
-    //向微信注册
-    [WXApi registerApp:@"wxd930ea5d5a258f4f" withDescription:@"demo 2.0"];
 }
 - (float)isIOS7{
     
@@ -532,7 +529,7 @@
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:requestAddress parameters:@{
                                              @"orderId":self.orderId,
-                                             @"status":@"40"
+                                             @"status":self.status
                                              }
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"---%@",responseObject);
@@ -546,14 +543,14 @@
 }
 
 //微信支付
-- (void)wxpay
-{
+- (void)wxpay {
+    /*********这些常量应该放到一个文件中  或者定义为全局静态变量  在这仅仅是为了懒***********/
     //商户号
     NSString *PARTNER_ID    = @"2088211414819706";
     //商户密钥
     NSString *PARTNER_KEY   = @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJ1NVSHqbNkEJXrI0/GIrpQ/yDml2uFDEXnNdADR6P8H8o3seUMHJM4m7kw7KxOlt2QSd37VEaHXRW1R2x6P65Kh995PRn3RZyRHqO1OAjxaL7Vzp7O6BsOKmh8/Pw4bxiydzSZT0e2YlA5f9jvFHZ4dUdEvyFc5H8+xiqPR0VZPAgMBAAECgYEAk8VYGlpdEqmgg+4xnI9oYYBhmjZCnqcgvanSNgr7tMlEhSsG537Ihplv91EGMJjW5T2r4AxNWhoe8ImbLOTKySXv4n4YUe4zAjS7H/OLhZXVYbAZK0Kgz4XRUON2MlW8s3wx0CtJFIkb2ajZEtmmLaRVAjQTyGTgi1NYEy/ih7ECQQDQSEHt+xTN4J1MaL77p6zzYxS/PrUzWLKxDzN69BKSemL4YGoCXqN4va3ka/Iqaz4YI7LeJ4a1ajbPQTqRIoRzAkEAwVcXMeewijhpKQ0dvHrfXYGKxL+AugH5+BW5m6nSfum70iCuhnP/Ru49zQDe3sLgpV+5CeidhC3zFS9UPvRLtQJBAJu56tFsMRndHr7KckDmFUHEivaShBhn8PLBUtRTOK+cIfNi4t/ysnbMGv/2VZGxrTOPPWUsWGO7jk9XjdqF3FECQBqA7dURhcns4b2W5rSnw2b2EyfVeLgG/VVc5QzJwulS8URk5ofX7u6yShaIQAUZgeIptRv+n1k3U1NcIZhftOECQDo7Lo/8/I8zUwH+T6bFV98EtiVYiiHcNFvErr/9McBRkATkiU8DUuHLxeWBfUVH9ixGUjOSCLOu6iZkHggDV4I=";
     //APPID
-    NSString *APPI_ID       = @"wx869e417c4c31b315";
+    NSString *APPI_ID       = @"wxb4ba3c02aa476ea1";
     //appsecret
     NSString *APP_SECRET	= @"5d7d1ace07d9a184814d85ede50ecd84";
     //支付密钥

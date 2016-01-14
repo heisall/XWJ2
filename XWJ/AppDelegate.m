@@ -27,6 +27,10 @@
 #import "UMSocial.h"
 //微信分享
 #import "UMSocialWechatHandler.h"
+//通知提示  主要是为了程序在前端的时候的提示
+#import "JKNotifier.h"
+//微信支付
+#import "WXApi.h"
 
 #define mobAppKey @"c647ba762dc0"
 #define mobAppSecret @"76e6d7422f5d958e9a882675d0ffbd29"
@@ -54,6 +58,8 @@
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:@"wx869e417c4c31b315" appSecret:@"5d7d1ace07d9a184814d85ede50ecd84" url:@"http://www.umeng.com/social"];
     
+    //微信支付  向微信注册
+    [WXApi registerApp:@"wx869e417c4c31b315" withDescription:@"demo 2.0"];
     
     [SMSSDK registerApp:mobAppKey withSecret:mobAppSecret];
     
@@ -182,6 +188,7 @@
                 
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
+
                 NSLog(@"sid %@",sid);
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
@@ -221,7 +228,9 @@
                     //                    bind->mode = HouseCity;
                     //                    [self.navigationController showViewController:bind sender:nil];
                 }else{
-                    
+                    //设置别名
+                    [XRQJpush setBieming:[XWJAccount instance].uid];
+                    NSLog(@"******别名*****%@",[XWJAccount instance].uid);
                     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
                     UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     window.rootViewController = tab;
@@ -319,12 +328,13 @@
     
     // 应用正处理前台状态下，不会收到推送消息，因此在此处需要额外处理一下
     if (application.applicationState == UIApplicationStateActive) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"收到推送消息"
-                                                        message:userInfo[@"aps"][@"alert"]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"取消"
-                                              otherButtonTitles:@"确定", nil];
-        [alert show];
+        [JKNotifier showNotifer:[NSString stringWithFormat:@"亲,您中了一千万！！！！!"]];
+        
+        [JKNotifier handleClickAction:^(NSString *name,NSString *detail, JKNotifier *notifier) {
+            [notifier dismiss];
+            NSLog(@"点击可在这里边处理一些事情");
+            
+        }];
     }
     return;
 }
@@ -332,6 +342,10 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     [XRQJpush showLocalNotificationAtFront:notification];
+    if (application.applicationState == UIApplicationStateActive) {
+        [JKNotifier showNotifer:notification.alertBody];
+        
+    }
     return;
 }
 

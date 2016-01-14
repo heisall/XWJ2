@@ -17,7 +17,10 @@
 #import "UITableViewCell+HYBMasonryAutoCellHeight.h"
 #import "EvaluationViewController.h"
 #import "UMSocial.h"
-@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate>
+
+#import "MyOrderDetailViewController.h"
+
+@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate,MyOrderDetailViewControllerDelegate>
 
 @property NSMutableArray *btn;
 @property NSMutableArray *cornerBtn;
@@ -32,9 +35,11 @@
 
 @implementation XWJMyOrderViewController
 @synthesize statusDic;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataSourceArr = [[NSMutableArray alloc] init];
+    self.orderArr = [[NSMutableArray alloc] init];
     self.navigationItem.title  = @"我的订单";
     //默认当前选中按钮是第0个
     [self addView];
@@ -42,7 +47,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCellHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"header"];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCellFooter" bundle:nil] forHeaderFooterViewReuseIdentifier:@"footer"];
     statusDic = [NSDictionary dictionaryWithObjectsAndKeys:@"待付款",@"11",@"待收货",@"30",@"待评价",@"40", nil];
-    self.status = [NSArray arrayWithObjects:@"",@"11",@"30",@"40", nil];
+    self.status = [NSArray arrayWithObjects:@"11",@"30",@"40", nil];
     
     self.tableView.delegate =self;
     self.tableView.dataSource =self;
@@ -52,6 +57,26 @@
         
         [self getOrderList:[self.status objectAtIndex:self.index]];
     }];    // Do any additional setup after loading the view.
+}
+#pragma mark - 评论代理实现
+- (void)sendBackCellNum:(NSInteger)cellNum{
+    OrderFinishModel* model = self.dataSourceArr[cellNum];
+    model.e_status = 1;
+    [_tableView reloadData];
+}
+#pragma mark - 确认收货代理实现
+- (void)makeSureOrder:(NSInteger)cellNum{
+    /*
+     *这个地方我处理了一下   因为之前的self.orderArr在请求数据完成的时候  赋值的方式被强制修改成了不可变数组
+     *我在这个地方把self.orderArr改成可变数组进行数据的删除  然后刷新列表
+     */
+    NSLog(@"-----删除%ld\n---%@",cellNum,self.orderArr);
+    NSMutableArray* tArr = [[NSMutableArray alloc] init];
+    [tArr addObjectsFromArray:self.orderArr];
+    [tArr removeObjectAtIndex:cellNum];
+    self.orderArr =  [[NSMutableArray alloc] init];
+    [self.orderArr addObjectsFromArray:tArr];
+    [_tableView reloadData];
 }
 -(void)getOrderList:(NSString *)status{
     NSString *url = GETORDER_URL;
@@ -81,11 +106,12 @@
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dict);
             self.orderArr = [dict objectForKey:@"orders"];
+            
             self.dic = [dict objectForKey:@"orderCount"];
             
             [self updateCount:self.dic];
             
-            if (3 == self.index) {
+            if (2 == self.index) {
                 self.dataSourceArr = [[NSMutableArray alloc] init];
                 for (NSDictionary* temDic in self.orderArr) {
                     OrderFinishModel* model = [[OrderFinishModel alloc] init];
@@ -94,7 +120,10 @@
                     NSLog(@"======头像地址====%@",model.headImageStr);
                     model.titleStr = temDic[@"goods_name"];
                     model.e_status = [temDic[@"e_status"] integerValue];
-                    model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.1f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"plsj"]];
+                    model.orderId = temDic[@"order_id"];
+                    model.seller_id = temDic[@"seller_id"];
+                    model.goodsId = temDic[@"goods_id"];
+                    model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.1f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"add_time"]];
                     [self.dataSourceArr addObject:model];
                 }
                 NSLog(@"我新创建的数据源------%@",self.dataSourceArr);
@@ -121,29 +150,29 @@
 }
 
 -(void)updateCount:(NSDictionary *)dict{
-    [self.cornerBtn[0] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"all_pay_num"]] forState:UIControlStateNormal];
+    //    [self.cornerBtn[0] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"all_pay_num"]] forState:UIControlStateNormal];
     
     
-    [self.cornerBtn[1] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_pay_num"]] forState:UIControlStateNormal];
-    [self.cornerBtn[2] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_receive_num"]] forState:UIControlStateNormal];
-    [self.cornerBtn[3] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_evaluation_num"]] forState:UIControlStateNormal];
+    [self.cornerBtn[0] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_pay_num"]] forState:UIControlStateNormal];
+    [self.cornerBtn[1] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_receive_num"]] forState:UIControlStateNormal];
+    [self.cornerBtn[2] setTitle:[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_evaluation_num"]] forState:UIControlStateNormal];
     
-    [self.cornerBtn[0] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"all_pay_num"]] isEqualToString:@"0"]];
-    [self.cornerBtn[1] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_pay_num"]] isEqualToString:@"0"]];
-    [self.cornerBtn[2] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_receive_num"]] isEqualToString:@"0"]];
-    [self.cornerBtn[3] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_evaluation_num"]] isEqualToString:@"0"]];
+    //    [self.cornerBtn[0] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"all_pay_num"]] isEqualToString:@"0"]];
+    [self.cornerBtn[0] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_pay_num"]] isEqualToString:@"0"]];
+    [self.cornerBtn[1] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_receive_num"]] isEqualToString:@"0"]];
+    [self.cornerBtn[2] setHidden:[[NSString stringWithFormat:@"%@",[dict objectForKey:@"no_evaluation_num"]] isEqualToString:@"0"]];
     
 }
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (3 == self.index) {
+    if (2 == self.index) {
         return 1;
     }
     return self.orderArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (3 == self.index) {
+    if (2 == self.index) {
         OrderFinishModel *model = nil;
         if (indexPath.row < self.dataSourceArr.count) {
             model = [self.dataSourceArr objectAtIndex:indexPath.row];
@@ -158,13 +187,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (3 == self.index) {
+    if (2 == self.index) {
         return 0;
     }
     return 40;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (3 == self.index) {
+    if (2 == self.index) {
         return 0;
     }
     return 60;
@@ -184,7 +213,7 @@
     //        header.imgVIew.image = image;
     //    }];
     
-    if (3 == self.index) {
+    if (2 == self.index) {
         return nil;
     }
     return header;
@@ -214,7 +243,7 @@
     footer.delBtn.layer.borderWidth = 1.0;
     footer.delBtn.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     
-    if (3 == self.index) {
+    if (2 == self.index) {
         return nil;
     }
     
@@ -222,7 +251,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (3 == self.index) {
+    if (2 == self.index) {
         return self.dataSourceArr.count;
     }
     if ([[self.orderArr objectAtIndex:section] objectForKey:@"detail"]!=[NSNull null]) {
@@ -242,52 +271,6 @@
     if (!cell) {
         cell = [[XWJOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    /*
-     "add_time" = "2016-01-05";
-     detail =             (
-     {
-     "goods_image" = "http://www.hisenseplus.com/ecmall/data/files/store_103/goods_195/small_201601041819554489.jpg";
-     "goods_name" = "\U78a7\U6f84\U6709\U673a\U6807\U51c6\U6cb9\U9ea6\U83dc500g";
-     "order_id" = 30;
-     price = 13;
-     quantity = 1;
-     },
-     {
-     "goods_image" = "http://www.hisenseplus.com/ecmall/data/files/store_103/goods_121/small_201601041822019120.jpg";
-     "goods_name" = "\U78a7\U6f84\U6709\U673a\U6807\U51c6\U5706\U8471\U82d7500g";
-     "order_id" = 30;
-     price = 13;
-     quantity = 1;
-     },
-     {
-     "goods_image" = "http://www.hisenseplus.com/ecmall/data/files/store_103/goods_181/small_201601041823017673.jpg";
-     "goods_name" = "\U78a7\U6f84\U6709\U673a\U6807\U51c6\U82b8\U8c46500g";
-     "order_id" = 30;
-     price = 16;
-     quantity = 1;
-     }
-     );
-     "evaluation_status" = 0;
-     "goods_amount" = 42;
-     "order_amount" = 42;
-     "order_id" = 30;
-     "order_sn" = 1452006628;
-     "payment_name" = "<null>";
-     "seller_name" = "\U9752\U5c9b\U9ebb\U5170\U78a7\U6f84\U751f\U6001\U519c\U573a";
-     "shipping_fee" = 0;
-     status = 11;
-     "store_logo" = "http://www.hisenseplus.com/ecmall/data/files/store_103/other/store_logo.jpg";
-     */
-    //    cell.label1.text = [self.tabledata ];
-    //    NSArray *arr = self.goodsArr;
-    
-    
-    //    cell..text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
-    //    cell.chakan.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"views"]];
-    //    cell.pricee.text = [NSString stringWithFormat:@"￥ %@",[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
-    //
-    //    if ([[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]!=[NSNull null]) {
-    //
     
     NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:indexPath.section] objectForKey:@"detail"];
     
@@ -299,7 +282,7 @@
     
     //        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]] ];
     //    }
-    if (3 == self.index) {
+    if (2 == self.index) {
         OrderFinishTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ID2"];
         if (!cell) {
             cell = [[OrderFinishTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ID2"];
@@ -325,6 +308,11 @@
     vc.headImageStr = model.headImageStr;
     vc.titleStr = model.titleStr;
     vc.priceAndTimeStr = model.priceAndTimeStr;
+    vc.orderId = model.orderId;
+    vc.storeId = model.seller_id;
+    vc.goodsId = model.goodsId;
+    vc.evaluationDelegate = self;
+    vc.commentNumSuccess = index;
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - Table view delegate
@@ -335,13 +323,31 @@
     //    //    list.dic = [self.goodsArr objectAtIndex:indexPath.row];
     //    list.goods_id = [[self.goodsArr objectAtIndex:indexPath.row] objectForKey:@"goods_id"];
     //    [self.navigationController showViewController:list sender:self];
-    if (3 == self.index) {
+    if (2 == self.index) {
+        UIImageView* temIV = [[UIImageView alloc] init];
+        
+        OrderFinishModel* model = self.dataSourceArr[indexPath.row];
+        [temIV sd_setImageWithURL:[NSURL URLWithString:model.headImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
         [UMSocialSnsService presentSnsIconSheetView:self
                                              appKey:@"56938a23e0f55aac1d001cb6"
-                                          shareText:@"友盟社会化分享让您快速实现分享等社会化功能，www.umeng.com/social"
-                                         shareImage:[UIImage imageNamed:@"icon.png"]
+                                          shareText:model.titleStr
+                                         shareImage:temIV.image
                                     shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
                                            delegate:self];
+    }else{
+        NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:indexPath.section] objectForKey:@"detail"];
+        MyOrderDetailViewController* vc = [[MyOrderDetailViewController alloc] init];
+        if (0 == self.index) {
+            vc.isDaishouhuo = @"0";
+            vc.status = @"11";
+        }else{
+            vc.isDaishouhuo = @"1";
+            vc.status = @"30";
+        }
+        vc.makeSureDelegate = self;
+        vc.makeUsreNum = indexPath.section;
+        vc.orderId = [[arr objectAtIndex:indexPath.row] objectForKey:@"order_id"];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 //实现回调方法（可选）：
@@ -366,11 +372,11 @@
 -(void)addView{
     self.btn = [NSMutableArray array];
     self.cornerBtn = [NSMutableArray array];
-    NSInteger count = 4;
+    NSInteger count = 3;
     CGFloat width = self.view.bounds.size.width/count;
     CGFloat height = 40;
     CGFloat btny = 66;
-    NSArray * title = [NSArray arrayWithObjects:@"全部订单",@"待付款",@"待收货",@"已完成", nil];
+    NSArray * title = [NSArray arrayWithObjects:@"待付款",@"待收货",@"已完成", nil];
     for (int i=0; i<count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(width*i, btny, width, height);

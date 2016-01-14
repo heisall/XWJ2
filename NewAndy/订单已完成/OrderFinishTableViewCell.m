@@ -41,7 +41,7 @@
     return self;
 }
 - (void)makeUI{
-    self.contentView.backgroundColor = [UIColor lightGrayColor];
+    self.contentView.backgroundColor = [self colorWithHexString:@"eeeeee"];
     
     self.whiteBgView = [[UIView alloc] init];
     [self.contentView addSubview:self.whiteBgView];
@@ -108,7 +108,7 @@
 }
 - (void)configueUI:(OrderFinishModel *)model{
     [self.headImagView sd_setImageWithURL:[NSURL URLWithString:model.headImageStr] placeholderImage:[UIImage imageNamed:@""]];
-
+    
     self.titleLable.text = model.titleStr;
     
     self.priceAndTimeLable.text = model.priceAndTimeStr;
@@ -120,13 +120,13 @@
         [self.evaluationBtn setTitle:@"已评价" forState:UIControlStateNormal];
     }else{
         self.evaluationBtn.userInteractionEnabled = YES;
-        self.evaluationBtn.backgroundColor = [UIColor greenColor];
+        self.evaluationBtn.backgroundColor = [self colorWithHexString:@"00adac"];
         [self.evaluationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.evaluationBtn setTitle:@"待评价" forState:UIControlStateNormal];
     }
 }
 #pragma mark - 颜色转换 IOS中十六进制的颜色转换为UIColor
-+ (UIColor *) colorWithHexString: (NSString *)color {
+- (UIColor *) colorWithHexString: (NSString *)color {
     NSString *cString = [[color stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
     // String should be 6 or 8 characters

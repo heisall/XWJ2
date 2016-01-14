@@ -124,13 +124,14 @@
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
+            self.commentTextView.text = @"请输入评论内容";
+
             if ([res intValue] == 1) {
                 
                 NSString *errCode = [dict objectForKey:@"errorCode"];
 //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 //                alertview.delegate = self;
 //                [alertview show];
-
                 [ProgressHUD showSuccess:errCode];
                 [self getWuyeDetail];
 //                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -146,7 +147,8 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
-        
+        self.commentTextView.text = @"请输入评论内容";
+
     }];
 }
 

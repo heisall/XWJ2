@@ -307,17 +307,33 @@
     NSString *urls = [self.dic objectForKey:@"Photo"]==[NSNull null]?@"":[self.dic objectForKey:@"Photo"];
 
         NSArray *url = [urls componentsSeparatedByString:@","];
+    
         [self.imageView addSubview:({
+            CGFloat time = 5.0f;
             
-            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,
-                                                                                    self.imageView.bounds.size.height)
+            if (url.count==1) {
+                time = MAXFLOAT;
+            }
+            
+            LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+                                                                                      self.imageView.bounds.size.height)
                                         
-                                                                delegate:self
-                                                               imageURLs:url
-                                                        placeholderImage:@"devAdv_default"
-                                                           timerInterval:5.0f
-                                           currentPageIndicatorTintColor:XWJGREENCOLOR
-                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+                                                                  delegate:self
+                                                                 imageURLs:url
+                                                          placeholderImage:nil
+                                                             timerInterval:time
+                                             currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                    pageIndicatorTintColor:[UIColor whiteColor]
+                                                                          :UIViewContentModeScaleAspectFit];
+//            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,
+//                                                                                    self.imageView.bounds.size.height)
+//                                        
+//                                                                delegate:self
+//                                                               imageURLs:url
+//                                                        placeholderImage:@"devAdv_default"
+//                                                           timerInterval:time
+//                                           currentPageIndicatorTintColor:XWJGREENCOLOR
+//                                                  pageIndicatorTintColor:[UIColor whiteColor]];
             bannerView;
         })];
 

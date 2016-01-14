@@ -83,17 +83,12 @@
 //    })];
     
     NSInteger count = self.work.count;
-<<<<<<< HEAD
     
     CGFloat height = self.view.bounds.size.width/2;
     CGFloat width = height/3*4;
     
     self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, height);
-=======
-    CGFloat width = self.view.bounds.size.width/4*3;
-    CGFloat height = width;
     self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, 0);
->>>>>>> 0730e7c4fff1672355d480e284c8dde6b3617c25
     for (int i=0; i<count; i++) {
         
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(i*(width+10), 0, width - 5, height)];

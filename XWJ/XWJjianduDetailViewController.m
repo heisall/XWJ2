@@ -103,7 +103,6 @@
 
 }
 - (IBAction)share:(UIButton *)sender {
-<<<<<<< HEAD
             UIImageView* temIV = [[UIImageView alloc] init];
     
             [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
@@ -125,11 +124,8 @@
         count++;
         [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
     }
-=======
-    NSInteger count = [sender.titleLabel.text integerValue];
-    count++;
-    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
->>>>>>> 0730e7c4fff1672355d480e284c8dde6b3617c25
+
+
 }
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
     NSString *url = GETFINDPUBCOM_URL;

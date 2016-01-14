@@ -259,6 +259,8 @@
 
 //    cell.headImg.tag =[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]];
     [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+    cell.headImg.layer.cornerRadius = cell.headImg.frame.size.width/2;
+    cell.headImg.layer.masksToBounds = YES;
     cell.nameLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Name"];
     cell.positionLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Position"];
     cell.photoLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Phone"];

@@ -27,6 +27,7 @@
 @property (nonatomic)NSDictionary *dicw;
 @property UILabel *headLabel;
 @property  CGRect bottomRect;
+@property CGPoint center;
 @end
 
 @implementation XWJjianduDetailViewController
@@ -44,7 +45,7 @@
     self.headLabel.textColor = XWJGREENCOLOR;
     self.headLabel.backgroundColor = self.backScroll.backgroundColor;
     self.headLabel.text = @"最新评论 ";
-    self.tableView.tableHeaderView  = self.headLabel;
+//    self.tableView.tableHeaderView  = self.headLabel;
     NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
     
     UIImage *image = [UIImage imageNamed:@"mor_icon_default"];
@@ -60,11 +61,17 @@
 //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
     
 }
+
 -(void)addDianJi{
 
 //    NSInteger count = [self.comBtn.titleLabel.text integerValue];
    // count++;
    // [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:  animated];
+    self.center = self.bottomView.center;
+
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -124,7 +131,7 @@
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
-            self.commentTextView.text = @"请输入评论内容";
+            [self cleanText];
 
             if ([res intValue] == 1) {
                 
@@ -132,7 +139,11 @@
 //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 //                alertview.delegate = self;
 //                [alertview show];
-                [ProgressHUD showSuccess:errCode];
+                if ([types isEqualToString:@"点赞"]) {
+                    [ProgressHUD showSuccess:@"点赞成功"];
+                }else
+                    [ProgressHUD showSuccess:@"评论成功"];
+                
                 [self getWuyeDetail];
 //                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
@@ -147,9 +158,13 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
-        self.commentTextView.text = @"请输入评论内容";
 
     }];
+}
+
+-(void)cleanText{
+//    self.commentTextView.text  =@"";
+//    self.commentTextView.text = @"请输入评论内容";
 }
 
 -(void)getWuyeDetail{
@@ -378,12 +393,18 @@
     lab.textColor = [UIColor whiteColor];
     [lab removeFromSuperview];
     NSDictionary* info = [aNotification userInfo];
+    self.commentTextView.text  = @"";
     //kbSize即為鍵盤尺寸 (有width, height)
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//得到鍵盤的高度
     NSLog(@"hight_hitht:%f",kbSize.height);
     
-    self.bottomRect = self.bottomView.frame ;
-    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height) -45, self.bottomRect.size.width, self.bottomRect.size.height);
+//    self.bottomRect = self.bottomView.frame ;
+//    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height) -45, self.bottomRect.size.width, self.bottomRect.size.height);
+    
+    self.bottomRect = self.bottomView.bounds;
+    
+//    self.bottomView.center = CGPointMake(self.center.x
+//                                         , self.center.y-kbSize.height);
     CGFloat keyboardhight;
     if(kbSize.height == 216)
     {
@@ -402,7 +423,9 @@
 //当键盘隐藏的时候
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
-    self.bottomView.frame = self.bottomRect;
+//    self.bottomView.frame = self.bottomRect;
+//    self.bottomView.bounds = self.bottomRect;
+    self.bottomView.center =self.center;
     [self.commentTextView resignFirstResponder];
     //do something
 }

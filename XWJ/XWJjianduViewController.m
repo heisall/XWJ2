@@ -85,7 +85,7 @@
     NSInteger count = self.work.count;
     CGFloat width = self.view.bounds.size.width/4*3;
     CGFloat height = width;
-    self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, height);
+    self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, 0);
     for (int i=0; i<count; i++) {
         
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(i*(width+10), 0, width - 5, height)];

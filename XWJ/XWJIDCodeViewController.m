@@ -42,6 +42,7 @@
     timeTick = 61;
     self.navigationItem.title = @"注册";
 
+    code  = -1;
 //    [self setNavigationBar];
     self.txtFieldIDCode.delegate = self;
     self.txtFieldPhoneNumber.delegate = self;

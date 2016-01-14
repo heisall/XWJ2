@@ -152,9 +152,9 @@
     NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
     NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
     
-    //    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-    //    self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
-    //    return 0;
+//        UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+//        self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
+//        return 0;
     if (uname&&pass) {
         [self loginUname:uname Pwd:pass];
     }else{

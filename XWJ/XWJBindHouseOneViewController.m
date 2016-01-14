@@ -11,6 +11,7 @@
 #import "XWJQXTableViewCell.h"
 #import "XWJCity.h"
 #import "XWJWebViewController.h"
+#import "ProgressHUD/ProgressHUD.h"
 @interface XWJBindHouseOneViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
 @property NSArray *typearray;
@@ -46,6 +47,8 @@
     if (!_agreeBtn.selected) {
         UIViewController *view = [self.storyboard instantiateViewControllerWithIdentifier:@"bindhouse2"];
         [self.navigationController showViewController:view sender:nil];
+    }else{
+        [ProgressHUD showError:@"请阅读用户许可协议，并同意后方可进入下一步"];
     }
 }
 

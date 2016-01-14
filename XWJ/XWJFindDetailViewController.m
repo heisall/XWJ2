@@ -12,8 +12,12 @@
 #import "LCBannerView.h"
 #import "XWJWebViewController.h"
 #import "UIImage+Category.h"
+<<<<<<< HEAD
 
 #import "UMSocial.h"
+=======
+#import "ProgressHUD/ProgressHUD.h"
+>>>>>>> 22ddb3b28ebc13460019f5f256452f2a82ed77e1
 #define KEY_HEADIMG @"headimg"
 #define KEY_TITLE @"title"
 #define KEY_TIME  @"time"
@@ -147,9 +151,15 @@
               
                 [self getFind:0];
                 NSString *errCode = [dict objectForKey:@"errorCode"];
-                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                alertview.delegate = self;
-                [alertview show];
+                
+                if ([types isEqualToString:@"点赞"]) {
+                    [ProgressHUD showSuccess:@"点赞成功"];
+                }else
+                    [ProgressHUD showSuccess:@"评论成功"];
+
+//                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                alertview.delegate = self;
+//                [alertview show];
                 self.textView.text = @"在此发表评论";
 //                [self.navigationController popViewControllerAnimated:NO];
 
@@ -181,6 +191,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
+    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
@@ -221,7 +232,7 @@
                  Types = "\U7559\U8a00";
                  */
                 
-                self.array = [NSArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
+                self.array = [NSMutableArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
                 self.dic = [NSMutableDictionary dictionaryWithDictionary:[(NSDictionary*)[dict objectForKey:@"data"] objectForKey:@"find"] ];
                 [self initView];
                 

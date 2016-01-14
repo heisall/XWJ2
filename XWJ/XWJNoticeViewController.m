@@ -55,6 +55,7 @@
         [self loadNewData];
         
     }];
+    [self loadNewData];
 
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
 //    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
@@ -115,7 +116,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden =YES;
-    [self loadNewData];
 
 }
 -(void)viewWillDisappear:(BOOL)animated{

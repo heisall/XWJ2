@@ -25,7 +25,7 @@
 @property (nonatomic)NSMutableArray *array;
 @property (nonatomic)NSString *dicWork;
 @property (nonatomic)NSDictionary *dicw;
-
+@property UILabel *headLabel;
 @property  CGRect bottomRect;
 @end
 
@@ -38,7 +38,13 @@
     self.commentTextView.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
+    self.headLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, SCREEN_SIZE.width-5, 40)];
+    self.headLabel.textColor = XWJGREENCOLOR;
+    self.headLabel.backgroundColor = self.backScroll.backgroundColor;
+    self.headLabel.text = @"最新评论 ";
+    self.tableView.tableHeaderView  = self.headLabel;
     NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
     
     UIImage *image = [UIImage imageNamed:@"mor_icon_default"];
@@ -173,6 +179,10 @@
             self.array = [NSMutableArray arrayWithArray:[dic objectForKey:@"comments"]];
             
             
+            if (self.array&&self.array.count>0) {
+                
+                self.headLabel.text = [NSString stringWithFormat:@"最新评论 (%ld)",self.array.count];
+            }
             [self.array sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 NSDictionary * d1 = (NSDictionary *)obj1;
                 NSDictionary * d2 = (NSDictionary *)obj2;
@@ -187,6 +197,13 @@
             if(URLs&&URLs.count>0)
                 
                 if (!(self.imgView.subviews&&self.imgView.subviews.count>0)) {
+                    
+                    
+                    CGFloat time = 5.0f;
+                    
+                    if (URLs.count==1) {
+                        time = MAXFLOAT;
+                    }
                     [self.imgView addSubview:({
                         
                         LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imgView.bounds.size.width,
@@ -195,7 +212,7 @@
                                                                             delegate:self
                                                                            imageURLs:URLs
                                                                     placeholderImage:@"devAdv_default"
-                                                                       timerInterval:5.0f
+                                                                       timerInterval:time
                                                        currentPageIndicatorTintColor:XWJGREENCOLOR
                                                               pageIndicatorTintColor:[UIColor whiteColor]];
                         bannerView;
@@ -277,7 +294,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10.0;
+    return 0.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

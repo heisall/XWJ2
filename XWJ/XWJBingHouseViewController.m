@@ -72,6 +72,7 @@
 
 //    self.array = [NSArray arrayWithObjects:@"房产正在我名下",@"我是业主家属",@"我是租客", nil];
     self.tableView.delegate = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.dataSource = self;
     NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:0];
     [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -175,8 +176,11 @@
     cell.imageView.highlightedImage = [UIImage imageNamed:@"jiaoseiconselect"];
     cell.textLabel.text = [[self.array objectAtIndex:indexPath.row] objectForKey:@"Memo"];
     cell.textLabel.textColor = XWJGRAYCOLOR;
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x
+                                                                           , cell.frame.origin.y, cell.frame.size.width, cell.frame.size.height-10)];
+    cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
     return cell;
 }
 

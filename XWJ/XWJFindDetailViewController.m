@@ -12,14 +12,7 @@
 #import "LCBannerView.h"
 #import "XWJWebViewController.h"
 #import "UIImage+Category.h"
-<<<<<<< HEAD
-
-
 #import "UMSocial.h"
-
-=======
-#import "UMSocial.h"
->>>>>>> 5150ff319ce8dce4740f3ee04e08f023650a69a9
 #import "ProgressHUD/ProgressHUD.h"
 
 #define KEY_HEADIMG @"headimg"

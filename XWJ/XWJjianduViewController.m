@@ -85,6 +85,8 @@
     NSInteger count = self.work.count;
     
     CGFloat height = self.view.bounds.size.width/2;
+//    CGFloat height = self.scrollview.bounds.size.height;
+
     CGFloat width = height/3*4;
     
     self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, height);

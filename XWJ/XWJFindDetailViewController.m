@@ -462,7 +462,7 @@
     self.bottomRect = self.bottomView.frame ;
 //    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height), self.bottomRect.size.width, self.bottomRect.size.height);
     
-    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-kbSize.height, self.bottomRect.size.width, self.bottomRect.size.height);
+//    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-kbSize.height, self.bottomRect.size.width, self.bottomRect.size.height);
 
     self.textView.text = @"";
     CGFloat keyboardhight;

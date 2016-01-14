@@ -114,6 +114,9 @@
 //订单删除
 #define DELEORDER  XWJBASEURL"order/delOrder"
 
+//确认收货  修改订单状态
+#define MAKESUREORDER  XWJBASEURL"order/changeOrderStatus"
+
 #define YEZHU_URL  XWJBASEURL"build/infoValidate"
 #define CHANGEFANGYUAN_URL  XWJBASEURL"build/changeDefault"
 

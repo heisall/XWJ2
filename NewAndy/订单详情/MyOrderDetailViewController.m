@@ -358,6 +358,7 @@
 #pragma mark - 确认收货响应
 - (void)makeSureClick{
     NSLog(@"确认收货");
+    [self createMakeSureRequest];
 }
 #pragma mark - 立即付款响应
 - (void)payClick{
@@ -490,22 +491,41 @@
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager GET:requestAddress parameters:@{
-                                            @"orderId":self.orderId,
-                                            }
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              if ([[responseObject objectForKey:@"data"] isKindOfClass:[NSNull class]]) {
-                  NSLog(@"没有返回信息");
-              }else{
-                  NSLog(@"---%@",responseObject);
-                  if ([[responseObject objectForKey:@"data"] intValue]) {
-                      [self.navigationController popViewControllerAnimated:YES];
-                  }
-              }
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"失败===%@", error);
-          }];
+                                             @"orderId":self.orderId,
+                                             }
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             if ([[responseObject objectForKey:@"data"] isKindOfClass:[NSNull class]]) {
+                 NSLog(@"没有返回信息");
+             }else{
+                 NSLog(@"---%@",responseObject);
+                 if ([[responseObject objectForKey:@"data"] intValue]) {
+                     [self.navigationController popViewControllerAnimated:YES];
+                 }
+             }
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"失败===%@", error);
+         }];
 }
-
+#pragma mark - 确认收货数据请求
+- (void)createMakeSureRequest{
+    NSLog(@"请求的参数----%@\n----%@\n-----%@",self.status,self.orderId,MAKESUREORDER);
+    NSString* requestAddress = MAKESUREORDER;
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:requestAddress parameters:@{
+                                             @"orderId":self.orderId,
+                                             @"status":@"40"
+                                             }
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"---%@",responseObject);
+             if ([[responseObject objectForKey:@"result"] intValue]) {
+                 [self.makeSureDelegate makeSureOrder:self.makeUsreNum];
+                 [self.navigationController popViewControllerAnimated:YES];
+             }
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"失败===%@", error);
+         }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

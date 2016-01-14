@@ -236,28 +236,24 @@
     NSString* requestAddress = PINGJIAORDER;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager POST:requestAddress parameters:@{
-                                              @"orderId":self.orderId,
-                                              @"storeId":self.storeId,
-                                              @"goodsId":self.goodsId,
-                                              @"star":self.star,
-                                              @"comment":self.comment
-                                              }
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              if ([[responseObject objectForKey:@"data"] isKindOfClass:[NSNull class]]) {
-                  NSLog(@"没有返回信息");
-              }else{
-                  
-                  if ([[responseObject objectForKey:@"result"] intValue]) {
-                      NSLog(@"评论请求成功---%@",responseObject);
-                      
-                      [self.evaluationDelegate sendBackCellNum:self.commentNumSuccess];
-                      [self.navigationController popViewControllerAnimated:YES];
-                  }
-              }
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"失败===%@", error);
-          }];
+    [manager PUT:requestAddress parameters:@{
+                                             @"orderId":self.orderId,
+                                             @"storeId":self.storeId,
+                                             @"goodsId":self.goodsId,
+                                             @"star":self.star,
+                                             @"comment":self.comment
+                                             }
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             if ([[responseObject objectForKey:@"result"] intValue]) {
+                 NSLog(@"评论请求成功---%@",responseObject);
+                 
+                 [self.evaluationDelegate sendBackCellNum:self.commentNumSuccess];
+                 [self.navigationController popViewControllerAnimated:YES];
+             }
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"失败===%@", error);
+         }];
 }
 /*
  #pragma mark - Navigation

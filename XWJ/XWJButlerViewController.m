@@ -19,6 +19,7 @@
 #import "XWJWebViewController.h"
 #import "XWJUtil.h"
 #import "XWJBindHouseTableViewController.h"
+#import "XWJMyHouseController.h"
 @implementation XWJButlerViewController
 
 -(void)viewDidLoad{
@@ -291,4 +292,8 @@
         NSLog(@"notice click");
     
 }
+
+
+
+
 @end

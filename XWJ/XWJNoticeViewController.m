@@ -100,7 +100,9 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
     // Dispose of any resources that can be recreated.
+    
 }
 
 #pragma mark - Table view data source
@@ -183,7 +185,6 @@
     [self.navigationController showViewController:acti sender:nil];
 
 }
-
 
 /*
 #pragma mark - Navigation

@@ -29,6 +29,7 @@
 }
 
 -(void)setNavigationBar2{
+    
     self.navigationItem.title = @"XX城";
     UIImage *image = [UIImage imageNamed:@"liebiao"];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

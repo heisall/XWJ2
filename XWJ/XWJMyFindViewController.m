@@ -198,6 +198,7 @@
 -(void)getFindInfoSuccess:(void (^)(id))success failure:(void (^)(NSError *))failure{
     //修改个人信息 url串；
     NSString *url = @"http://www.hisenseplus.com:8100/appPhone/rest/user/myFind";
+//    NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/myMsg";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *userid = [usr valueForKey:@"username"];
@@ -215,10 +216,11 @@
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if (success) {
+//            NSLog(@"dic==>%@",responseObject);
             NSDictionary *dic = responseObject;
-            NSLog(@"dic==>%@",dic);
+//            NSLog(@"dic==>%@",dic);
             NSArray *arr = [dic objectForKey:@"message"];
-            NSLog(@"arr:%@",arr);
+//            NSLog(@"arr:%@",arr);
             NSString *result = [dic valueForKey:@"result"];
             if ([result isEqualToString:@"1"]) {
 //                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"修改完成" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

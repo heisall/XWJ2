@@ -73,6 +73,9 @@
 		8E1327691C30E03B00D3EDB5 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E13275F1C30E03B00D3EDB5 /* JSONValueTransformer.m */; };
 		8E13276C1C311CB900D3EDB5 /* 图层-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E13276A1C311CB900D3EDB5 /* 图层-1@2x.png */; };
 		8E13276D1C311CB900D3EDB5 /* 图层-1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E13276B1C311CB900D3EDB5 /* 图层-1@3x.png */; };
+		8E82E5081C48C2DB008D418B /* XWJBingHouseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E5071C48C2DB008D418B /* XWJBingHouseViewController.xib */; };
+		8E82E50A1C48C3EC008D418B /* WuyeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */; };
+		8E82E50C1C48C444008D418B /* XWJLoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */; };
 		8EEB6E141C3134C9006F572D /* XWJMyFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */; };
 		8EEB6E151C3134C9006F572D /* XWJMyFindViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */; };
 		8EEB6E161C3134C9006F572D /* XWJMyFindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E131C3134C9006F572D /* XWJMyFindViewController.m */; };
@@ -124,7 +127,6 @@
 		A41255801C0F39D20042D8CC /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A41255701C0F39D20042D8CC /* UIView+WebCacheOperation.m */; };
 		A41255831C0F39EE0042D8CC /* LCBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A41255821C0F39EE0042D8CC /* LCBannerView.m */; };
 		A41255881C0F522E0042D8CC /* XWJjianduDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41255871C0F522E0042D8CC /* XWJjianduDetailViewController.m */; };
-		A412558C1C0F59120042D8CC /* WuyeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A412558B1C0F59120042D8CC /* WuyeStoryboard.storyboard */; };
 		A412558E1C0F595B0042D8CC /* LifeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A412558D1C0F595B0042D8CC /* LifeStoryboard.storyboard */; };
 		A41A1FE11C26522E002129DF /* XWJUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A41A1FE01C26522E002129DF /* XWJUtil.m */; };
 		A41A1FE61C267EBB002129DF /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A41A1FE31C267EBB002129DF /* ProgressHUD.bundle */; };
@@ -229,7 +231,6 @@
 		A467B0F91C0BE0FA00394B75 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A467B0F81C0BE0FA00394B75 /* MOBFoundation.framework */; };
 		A467B0FB1C0BE11300394B75 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A467B0FA1C0BE11300394B75 /* SMS_SDK.framework */; };
 		A48801791C09D2A400714F5B /* XWJBingHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48801771C09D2A400714F5B /* XWJBingHouseViewController.m */; };
-		A488017A1C09D2A400714F5B /* XWJBingHouseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48801781C09D2A400714F5B /* XWJBingHouseViewController.xib */; };
 		A488017F1C09F13300714F5B /* XWJHomeTabFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A488017E1C09F13300714F5B /* XWJHomeTabFactory.m */; };
 		A48801811C09F22700714F5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A48801801C09F22700714F5B /* UIKit.framework */; };
 		A48801851C09F41000714F5B /* ITabFactory.h in Sources */ = {isa = PBXBuildFile; fileRef = A48801841C09F41000714F5B /* ITabFactory.h */; };
@@ -335,7 +336,6 @@
 		DA20AE001BFB5687002032D1 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADFF1BFB5687002032D1 /* JavaScriptCore.framework */; };
 		DA20AE021BFB5694002032D1 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20AE011BFB5694002032D1 /* libstdc++.tbd */; };
 		DA8834731BFCB47F001B2862 /* XWJLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8834721BFCB47F001B2862 /* XWJLoginViewController.m */; };
-		DA8834751BFCB4A3001B2862 /* XWJLoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA8834741BFCB4A3001B2862 /* XWJLoginStoryboard.storyboard */; };
 		DAC4AF1C1BF0619700D66E76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC4AF1B1BF0619700D66E76 /* main.m */; };
 		DAC4AF1F1BF0619700D66E76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC4AF1E1BF0619700D66E76 /* AppDelegate.m */; };
 		DAC4AF221BF0619700D66E76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC4AF211BF0619700D66E76 /* ViewController.m */; };
@@ -525,6 +525,9 @@
 		8E13275F1C30E03B00D3EDB5 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
 		8E13276A1C311CB900D3EDB5 /* 图层-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图层-1@2x.png"; sourceTree = "<group>"; };
 		8E13276B1C311CB900D3EDB5 /* 图层-1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图层-1@3x.png"; sourceTree = "<group>"; };
+		8E82E5071C48C2DB008D418B /* XWJBingHouseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJBingHouseViewController.xib; sourceTree = "<group>"; };
+		8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WuyeStoryboard.storyboard; sourceTree = "<group>"; };
+		8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XWJLoginStoryboard.storyboard; sourceTree = "<group>"; };
 		8EEB6E0F1C3134C9006F572D /* XWJMyFindViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJMyFindViewCell.h; sourceTree = "<group>"; };
 		8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJMyFindViewCell.m; sourceTree = "<group>"; };
 		8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJMyFindViewCell.xib; sourceTree = "<group>"; };
@@ -620,7 +623,6 @@
 		A41255821C0F39EE0042D8CC /* LCBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCBannerView.m; sourceTree = "<group>"; };
 		A41255861C0F522E0042D8CC /* XWJjianduDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJjianduDetailViewController.h; sourceTree = "<group>"; };
 		A41255871C0F522E0042D8CC /* XWJjianduDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJjianduDetailViewController.m; sourceTree = "<group>"; };
-		A412558B1C0F59120042D8CC /* WuyeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WuyeStoryboard.storyboard; sourceTree = "<group>"; };
 		A412558D1C0F595B0042D8CC /* LifeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LifeStoryboard.storyboard; sourceTree = "<group>"; };
 		A41A1FDF1C26522E002129DF /* XWJUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJUtil.h; sourceTree = "<group>"; };
 		A41A1FE01C26522E002129DF /* XWJUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJUtil.m; sourceTree = "<group>"; };
@@ -791,7 +793,6 @@
 		A467B0FA1C0BE11300394B75 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
 		A48801761C09D2A400714F5B /* XWJBingHouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJBingHouseViewController.h; sourceTree = "<group>"; };
 		A48801771C09D2A400714F5B /* XWJBingHouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJBingHouseViewController.m; sourceTree = "<group>"; };
-		A48801781C09D2A400714F5B /* XWJBingHouseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJBingHouseViewController.xib; sourceTree = "<group>"; };
 		A488017D1C09F13300714F5B /* XWJHomeTabFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJHomeTabFactory.h; sourceTree = "<group>"; };
 		A488017E1C09F13300714F5B /* XWJHomeTabFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJHomeTabFactory.m; sourceTree = "<group>"; };
 		A48801801C09F22700714F5B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -968,7 +969,6 @@
 		DA20AE011BFB5694002032D1 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		DA8834711BFCB47F001B2862 /* XWJLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJLoginViewController.h; sourceTree = "<group>"; };
 		DA8834721BFCB47F001B2862 /* XWJLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJLoginViewController.m; sourceTree = "<group>"; };
-		DA8834741BFCB4A3001B2862 /* XWJLoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XWJLoginStoryboard.storyboard; sourceTree = "<group>"; };
 		DAC4AF161BF0619700D66E76 /* 信我家.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "信我家.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC4AF1A1BF0619700D66E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAC4AF1B1BF0619700D66E76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1429,7 +1429,7 @@
 				A4093EEA1C10ACEB00F2F324 /* UIPlaceHolderTextView.m */,
 				A412551E1C0F264E0042D8CC /* XWJjianduViewController.h */,
 				A412551F1C0F264E0042D8CC /* XWJjianduViewController.m */,
-				A412558B1C0F59120042D8CC /* WuyeStoryboard.storyboard */,
+				8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */,
 				A412554D1C0F38C70042D8CC /* WuyeTableViewCell.h */,
 				A412554E1C0F38C70042D8CC /* WuyeTableViewCell.m */,
 				A41255861C0F522E0042D8CC /* XWJjianduDetailViewController.h */,
@@ -2085,7 +2085,7 @@
 				A4F40BD61C098887006E2F19 /* XWJBindHouseTableViewController.m */,
 				A48801761C09D2A400714F5B /* XWJBingHouseViewController.h */,
 				A48801771C09D2A400714F5B /* XWJBingHouseViewController.m */,
-				A48801781C09D2A400714F5B /* XWJBingHouseViewController.xib */,
+				8E82E5071C48C2DB008D418B /* XWJBingHouseViewController.xib */,
 				A43C982E1C142D16006A61EE /* XWJBindHouseOneViewController.h */,
 				A43C982F1C142D16006A61EE /* XWJBindHouseOneViewController.m */,
 			);
@@ -2195,9 +2195,9 @@
 				A412552A1C0F2A080042D8CC /* UIImage+ImageOrientaion.m */,
 				DA8834711BFCB47F001B2862 /* XWJLoginViewController.h */,
 				DA8834721BFCB47F001B2862 /* XWJLoginViewController.m */,
+				8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */,
 				A4ED9BD51C036B1100142991 /* ResetPWDViewController.h */,
 				A4ED9BD61C036B1100142991 /* ResetPWDViewController.m */,
-				DA8834741BFCB4A3001B2862 /* XWJLoginStoryboard.storyboard */,
 				A4F40BCB1C08B1EB006E2F19 /* XWJIDCodeViewController.h */,
 				A4F40BCC1C08B1EB006E2F19 /* XWJIDCodeViewController.m */,
 				A4F40BCE1C08B5B4006E2F19 /* XWJResetPasswordViewController.h */,
@@ -2515,7 +2515,6 @@
 				8E13271C1C30DED000D3EDB5 /* XWJCollectionCell.xib in Resources */,
 				A4F5B79E1C2E8741009D177E /* XWJShanghuCell.xib in Resources */,
 				A4DC3C981C1C5230003D4D18 /* gztablecell.xib in Resources */,
-				A488017A1C09D2A400714F5B /* XWJBingHouseViewController.xib in Resources */,
 				EC95189F1C4540C400AEA7E5 /* Info.plist in Resources */,
 				A4F2571B1C2B59FF00B2EC58 /* XWJShuoTableCell.xib in Resources */,
 				DAC4AF271BF0619700D66E76 /* Images.xcassets in Resources */,
@@ -2554,7 +2553,6 @@
 				A44290D91C32D6B6008816B3 /* XWJHomeCollectionCell4.xib in Resources */,
 				A48801AC1C0AB2DE00714F5B /* backIcon@2x.png in Resources */,
 				A43C97F31C129C68006A61EE /* btn_back_imagePicker@2x.png in Resources */,
-				A412558C1C0F59120042D8CC /* WuyeStoryboard.storyboard in Resources */,
 				A49E77C41C40C09E001C7C30 /* XWJHouseInfoCell.xib in Resources */,
 				A43C97FA1C129C68006A61EE /* paizhao@2x.png in Resources */,
 				A43C97F51C129C68006A61EE /* checkbox_pic@2x.png in Resources */,
@@ -2563,6 +2561,7 @@
 				A43C97F41C129C68006A61EE /* checkbox_pic2@2x.png in Resources */,
 				A4DC3CAA1C1D0A67003D4D18 /* XWJShangchengStoryboard.storyboard in Resources */,
 				A4F40BCA1C08A44D006E2F19 /* nav_Back_Icon@2x.png in Resources */,
+				8E82E50A1C48C3EC008D418B /* WuyeStoryboard.storyboard in Resources */,
 				A43C97851C11CB5D006A61EE /* XWJFindCollectionCellView.xib in Resources */,
 				A4F14CEE1C3D45D600D4BFB0 /* XWJOrderCell.xib in Resources */,
 				A412550E1C0F22FC0042D8CC /* LICENSE in Resources */,
@@ -2577,11 +2576,13 @@
 				A4F14CEA1C3D45B600D4BFB0 /* XWJOrderCellHeader.xib in Resources */,
 				A42DA7D01C3830A500EF74C1 /* XWJPayWayView.xib in Resources */,
 				A43C97FF1C129C68006A61EE /* xiang.png in Resources */,
+				8E82E5081C48C2DB008D418B /* XWJBingHouseViewController.xib in Resources */,
 				EC9518AF1C4540C400AEA7E5 /* UMSCommentInputControlleriPad.xib in Resources */,
 				EC9518C41C4540CD00AEA7E5 /* PushConfig.plist in Resources */,
 				A43C97F71C129C68006A61EE /* checkbox_pic_non@2x.png in Resources */,
 				EC9518B31C4540C400AEA7E5 /* UMSnsAccountViewController.xib in Resources */,
 				A41A1FE61C267EBB002129DF /* ProgressHUD.bundle in Resources */,
+				8E82E50C1C48C444008D418B /* XWJLoginStoryboard.storyboard in Resources */,
 				212697521C4777CC00F5DF7D /* IQKeyboardManager.bundle in Resources */,
 				EC9518AB1C4540C400AEA7E5 /* UMSocialLocalizable.strings in Resources */,
 				A412554A1C0F33770042D8CC /* devAdv_white@2x.png in Resources */,
@@ -2589,7 +2590,6 @@
 				A43C97FD1C129C68006A61EE /* X.png in Resources */,
 				A48801DD1C0B7B1C00714F5B /* XWJHomeCollectionCell.xib in Resources */,
 				EC9518AD1C4540C400AEA7E5 /* UMSCommentDetailController.xib in Resources */,
-				DA8834751BFCB4A3001B2862 /* XWJLoginStoryboard.storyboard in Resources */,
 				A42DA7C31C37839F00EF74C1 /* XWJTuangouCell.xib in Resources */,
 				A4F14CEC1C3D45C700D4BFB0 /* XWJOrderCellFooter.xib in Resources */,
 			);

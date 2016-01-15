@@ -505,17 +505,13 @@
     NSString* requestAddress = DELEORDER;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager GET:requestAddress parameters:@{
+    [manager PUT:requestAddress parameters:@{
                                              @"orderId":self.orderId,
                                              }
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             if ([[responseObject objectForKey:@"data"] isKindOfClass:[NSNull class]]) {
-                 NSLog(@"没有返回信息");
-             }else{
-                 NSLog(@"---%@",responseObject);
-                 if ([[responseObject objectForKey:@"data"] intValue]) {
-                     [self.navigationController popViewControllerAnimated:YES];
-                 }
+             if ([[responseObject objectForKey:@"result"] intValue]) {
+                 [self.makeSureDelegate makeSureOrder:self.makeUsreNum];
+                 [self.navigationController popViewControllerAnimated:YES];
              }
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"失败===%@", error);

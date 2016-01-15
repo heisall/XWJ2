@@ -13,6 +13,8 @@
 
 - (void)makeSureOrder:(NSInteger)cellNum;
 
+- (void)deleOrder:(NSInteger)cellNum;
+
 @end
 @interface MyOrderDetailViewController : XWJBaseViewController
 @property(nonatomic,copy)NSString* isDaishouhuo;

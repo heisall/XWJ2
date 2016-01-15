@@ -2460,11 +2460,7 @@
 				TargetAttributes = {
 					DAC4AF151BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
-<<<<<<< HEAD
-						DevelopmentTeam = 7BFR74B47J;
-=======
 						DevelopmentTeam = UAYEW27P4X;
->>>>>>> 0203e240a5224fb902723f1ff3ad7535366948d6
 					};
 					DAC4AF2E1BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -2994,9 +2990,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ning zhang (J7U23VP8F7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ning zhang (J7U23VP8F7)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer: ning zhang (J7U23VP8F7)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3016,7 +3012,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ceb10aa2-e51f-4f5d-839c-017bb907adb0";
 			};
 			name = Debug;
 		};
@@ -3025,9 +3021,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ning zhang (J7U23VP8F7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ning zhang (J7U23VP8F7)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer: ning zhang (J7U23VP8F7)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3047,7 +3043,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ceb10aa2-e51f-4f5d-839c-017bb907adb0";
 			};
 			name = Release;
 		};

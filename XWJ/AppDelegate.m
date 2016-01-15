@@ -56,7 +56,7 @@
     [UMSocialData setAppKey:@"56938a23e0f55aac1d001cb6"];
     
     //设置微信AppId、appSecret，分享url
-    [UMSocialWechatHandler setWXAppId:@"wx869e417c4c31b315" appSecret:@"5d7d1ace07d9a184814d85ede50ecd84" url:@"http://www.umeng.com/social"];
+    [UMSocialWechatHandler setWXAppId:@"wx869e417c4c31b315" appSecret:@"f78e80ec755ab99be5a7b1e3565b5f37" url:@"http://www.umeng.com/social"];
     
     //微信支付  向微信注册
     [WXApi registerApp:@"wx869e417c4c31b315" withDescription:@"demo 2.0"];

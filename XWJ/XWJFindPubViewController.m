@@ -19,9 +19,10 @@
 #define IMAGE_WIDTH 80
 #define spacing 5
 #define TAG 100
-@interface XWJFindPubViewController ()<LGPhotoPickerViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface XWJFindPubViewController ()<LGPhotoPickerViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate>{
     UIView *backview;
     UIScrollView *helperView;
+    UIImageView *imgView;
 
 }
 @property(nonatomic)UIImagePickerController *picker;
@@ -30,7 +31,7 @@
 @property (nonatomic)UIBarButtonItem *rightBarItem;
 @property (nonatomic)NSMutableArray *imageArray;
 @property (weak, nonatomic) IBOutlet UIButton *typeBtn;
-
+@property(nonatomic,assign)NSInteger willDeleImage;
 @property NSInteger select;
 @end
 
@@ -39,7 +40,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     for (int i = 0; i<IMAGECOUNT; i++) {
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
+        imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
         imgView.tag = TAG+i;
         [self.imageScroll addSubview:imgView];
     }
@@ -251,9 +252,7 @@
             LGPhotoAssets *asset = [assets objectAtIndex:i];
             UIImageView *imageView = [self.imageScroll viewWithTag:imgtag+i+imgCount];
             imageView.image = asset.compressionImage;
-            
             NSData *data = UIImageJPEGRepresentation(imageView.image,0.4);
-            
             
             NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
             if (encodeResult) {
@@ -263,6 +262,16 @@
                 [self.imageArray addObject:data];
                 
             }
+            
+            UIButton* deleImageBtn = [[UIButton alloc] initWithFrame:imageView.frame];
+            [deleImageBtn addTarget:self action:@selector(deleImageBtn:) forControlEvents:UIControlEventTouchUpInside];
+            deleImageBtn.tag = 900 + i;
+            [deleImageBtn setTitle:@"删除" forState:UIControlStateNormal];
+            [deleImageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [deleImageBtn setBackgroundColor:[UIColor blackColor]];
+            deleImageBtn.alpha = 0.6;
+            deleImageBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+            [self.imageScroll addSubview:deleImageBtn];
         }
         
         self.imageScroll.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageArray.count, IMAGE_WIDTH);
@@ -270,7 +279,42 @@
     }
     
 }
-
+#pragma mark -删除图片响应
+- (void)deleImageBtn:(UIButton*)btn{
+    NSLog(@"=====删除第%ld个图片",btn.tag - 900);
+    self.willDeleImage = btn.tag - 900;
+    UIAlertView* al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定要删除该图片？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [al show];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (1 == buttonIndex) {
+        
+        if (self.imageArray.count) {
+            [self.imageArray removeObjectAtIndex:self.willDeleImage];
+            NSLog(@"剩下的数组----%ld",self.imageArray.count);
+            [self.imageScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            self.imageScroll.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageArray.count, IMAGE_WIDTH);
+            for (int i = 0; i<self.imageArray.count; i++) {
+                imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
+                NSData *_decodedImageData   = [[NSData alloc] initWithBase64Encoding:self.imageArray[i]];
+                UIImage *_decodedImage      = [UIImage imageWithData:_decodedImageData];
+                imgView.image = _decodedImage;
+                [self.imageScroll addSubview:imgView];
+                
+                
+                UIButton* deleImageBtn = [[UIButton alloc] initWithFrame:imgView.frame];
+                [deleImageBtn addTarget:self action:@selector(deleImageBtn:) forControlEvents:UIControlEventTouchUpInside];
+                deleImageBtn.tag = 900 + i;
+                [deleImageBtn setTitle:@"删除" forState:UIControlStateNormal];
+                [deleImageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [deleImageBtn setBackgroundColor:[UIColor blackColor]];
+                deleImageBtn.alpha = 0.6;
+                deleImageBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [self.imageScroll addSubview:deleImageBtn];
+            }
+        }
+    }
+}
 -(void)submit{
     
     if (!self.contentTextView.text.length>0) {

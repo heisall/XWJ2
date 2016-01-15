@@ -165,7 +165,6 @@
     //    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
     //    self.window.rootViewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"bindhouse2"];
     
-    
     return YES;
 }
 
@@ -189,7 +188,11 @@
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
 
+                //设置别名
+                [XRQJpush setBieming:sid];
+                NSLog(@"******别名*****%@",sid);
                 NSLog(@"sid %@",sid);
+                
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
                 [XWJAccount instance].password = pwd;
@@ -228,9 +231,6 @@
                     //                    bind->mode = HouseCity;
                     //                    [self.navigationController showViewController:bind sender:nil];
                 }else{
-                    //设置别名
-                    [XRQJpush setBieming:[XWJAccount instance].uid];
-                    NSLog(@"******别名*****%@",[XWJAccount instance].uid);
                     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
                     UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     window.rootViewController = tab;

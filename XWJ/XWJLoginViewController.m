@@ -208,9 +208,7 @@
                     //                    bind->mode = HouseCity;
                     //                    [self.navigationController showViewController:bind sender:nil];
                 }else{
-                    //设置别名
-                    [XRQJpush setBieming:[XWJAccount instance].uid];
-                    NSLog(@"******别名*****%@",[XWJAccount instance].uid);
+                   
                     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
 //                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     self.view.window.rootViewController = tab;
@@ -222,6 +220,9 @@
                 [alertview show];
             }
             
+            //设置别名
+            [XRQJpush setBieming:[XWJAccount instance].uid];
+            NSLog(@"******别名*****%@",[XWJAccount instance].uid);
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"log fail ");

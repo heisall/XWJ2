@@ -83,17 +83,23 @@
 //    })];
     
     NSInteger count = self.work.count;
-    CGFloat width = 2*self.view.bounds.size.width/3;
-    CGFloat height = self.adScrollView.bounds.size.height;
-    self.adScrollView.contentSize = CGSizeMake(width*(count)+60, height);
+    
+    CGFloat height = self.view.bounds.size.width/2;
+//    CGFloat height = self.scrollview.bounds.size.height;
+
+    CGFloat width = height/3*4;
+    
+    self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, height);
+    self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, 0);
     for (int i=0; i<count; i++) {
         
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(i*(width+10), 0, width, height-10)];
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(i*(width+10), 0, width - 5, height)];
         
-        UIImageView *im =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, backView.bounds.size.height)];
-        im.userInteractionEnabled = YES;
+        UIImageView *im =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width - 10, height - 10)];
+        [im setContentMode:UIViewContentModeScaleAspectFill];
+        im.clipsToBounds = YES;
         im.tag = i;
-        
+        im.userInteractionEnabled = YES;
         [im sd_setImageWithURL:[NSURL URLWithString:URLs[i]]placeholderImage:nil];
 
         UITapGestureRecognizer* singleRecognizer;
@@ -102,8 +108,9 @@
         singleRecognizer.numberOfTapsRequired = 1;
         [im addGestureRecognizer:singleRecognizer];
       
-        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(width-100,0, 100, 25)];
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(width - 10 - 60,0, 60, 16)];
         label.textColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:12];
         NSString *type = [[self.work objectAtIndex:i] valueForKey:@"Types"];
         label.text = type;
         label.textAlignment = NSTextAlignmentCenter;
@@ -115,23 +122,25 @@
             label.backgroundColor = XWJColor(255,44, 56);
         }
         
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, backView.bounds.size.height-60, width, 60)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, backView.frame.size.height-52, width - 10, 52 - 10)];
         view.backgroundColor = [UIColor blackColor];
         view.alpha = 0.7;
-        UILabel * label1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, width-20, 20)];
+        UILabel * label1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, width - 10 - 10, 12)];
         label1.textColor = [UIColor whiteColor];
         label1.text = [[self.work objectAtIndex:i] valueForKey:@"Content"];
-        label1.font = [UIFont systemFontOfSize:14.0];
-//        label1.
-        label1.lineBreakMode = NSLineBreakByWordWrapping;
-        UILabel * label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 100, 20)];
+        label1.font = [UIFont systemFontOfSize:12.0];
+        label1.lineBreakMode = NSLineBreakByTruncatingTail;
+        label1.numberOfLines = 1;
+
+        UILabel * label2 = [[UILabel alloc] initWithFrame:CGRectMake(5, 28, 100, 12)];
         label2.textColor = [UIColor whiteColor];
         label2.text = [[self.work objectAtIndex:i] valueForKey:@"ReleaseTime"];
-        label2.font = [UIFont systemFontOfSize:14.0];
-        UILabel * label3 = [[UILabel alloc] initWithFrame:CGRectMake(130, 30, 100, 20)];
+        label2.font = [UIFont systemFontOfSize:12];
+        UILabel * label3 = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 105, 28, 100, 12)];
         label3.textColor = [UIColor whiteColor];
+        label3.textAlignment = NSTextAlignmentRight;
         label3.text = [NSString stringWithFormat:@"点击:%@",[[self.work objectAtIndex:i] objectForKey:@"clicks"]];
-        label3.font = [UIFont systemFontOfSize:14.0];
+        label3.font = [UIFont systemFontOfSize:10];
         
         [view addSubview:label1];
         [view addSubview:label2];
@@ -255,6 +264,8 @@
 
 //    cell.headImg.tag =[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]];
     [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+    cell.headImg.layer.cornerRadius = cell.headImg.frame.size.width/2;
+    cell.headImg.layer.masksToBounds = YES;
     cell.nameLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Name"];
     cell.positionLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Position"];
     cell.photoLabel.text = [[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"Phone"];

@@ -197,9 +197,9 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //获取图片并编码；
-    UIImage * image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
     
-    NSInteger count = self.imageArray.count;
+    NSUInteger count = self.imageArray.count;
     
     if (count>6) {
         return;
@@ -242,7 +242,7 @@
     if (assets&&assets.count>0) {
         NSUInteger count = assets.count;
         
-        NSInteger imgCount = self.imageArray.count;
+        NSUInteger imgCount = self.imageArray.count;
         if (imgCount+count>6) {
             [ProgressHUD showError:@"最多上传六张图片"];
             return;

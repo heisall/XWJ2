@@ -14,6 +14,8 @@
 #import "XWJHeader.h"
 #import "XWJAccount.h"
 #import "XWJCity.h"
+//注册推送
+#import "XRQJpush.h"
 @interface XWJLoginViewController ()<XWJBindHouseDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *tFieldUserName;
@@ -177,6 +179,7 @@
                 [XWJAccount instance].name = [userDic valueForKey:@"NAME"];
                 [XWJAccount instance].Sex = [userDic valueForKey:@"sex"];
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
+                
                 /*
                  "A_id" = 4;
                  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";
@@ -205,7 +208,9 @@
                     //                    bind->mode = HouseCity;
                     //                    [self.navigationController showViewController:bind sender:nil];
                 }else{
-                    
+                    //设置别名
+                    [XRQJpush setBieming:[XWJAccount instance].uid];
+                    NSLog(@"******别名*****%@",[XWJAccount instance].uid);
                     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
 //                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     self.view.window.rootViewController = tab;

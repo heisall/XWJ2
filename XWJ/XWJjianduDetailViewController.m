@@ -11,21 +11,28 @@
 #import "UIPlaceHolderTextView.h"
 #import "XWJFindDetailTableViewCell.h"
 #import "XWJAccount.h"
+#import "ProgressHUD/ProgressHUD.h"
 #import "LCBannerView.h"
+
+#import "UMSocial.h"
+
 #define MYTV_MESSAGE_COMMANTS_FONT [UIFont boldSystemFontOfSize:14.0f] // 
 #define LONGIN_TEXTVIEW_SELECTED_BORDER_COLOR [UIColor colorWithRed:50/255.0 green:176/255.0 blue:178/255.0 alpha:1].CGColor // 用户名和密码框选中的时候边框颜色
 #define TEXT_VIEW_MIN_HEIGH 44
 
-@interface XWJjianduDetailViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface XWJjianduDetailViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITextField *inputTextField;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
-@property (nonatomic)NSArray *array;
+@property (nonatomic)NSMutableArray *array;
 @property (nonatomic)NSString *dicWork;
 @property (nonatomic)NSDictionary *dicw;
-
+@property UILabel *headLabel;
 @property  CGRect bottomRect;
+@property CGPoint center;
+@property(nonatomic,copy)NSString* shareImageStr;
+@property(nonatomic,copy)NSString* shareTitleStr;
 @end
 
 @implementation XWJjianduDetailViewController
@@ -37,7 +44,13 @@
     self.commentTextView.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
+    self.headLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, SCREEN_SIZE.width-5, 40)];
+    self.headLabel.textColor = XWJGREENCOLOR;
+    self.headLabel.backgroundColor = self.backScroll.backgroundColor;
+    self.headLabel.text = @"最新评论 ";
+//    self.tableView.tableHeaderView  = self.headLabel;
     NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
     
     UIImage *image = [UIImage imageNamed:@"mor_icon_default"];
@@ -53,11 +66,17 @@
 //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
     
 }
+
 -(void)addDianJi{
 
 //    NSInteger count = [self.comBtn.titleLabel.text integerValue];
    // count++;
    // [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:  animated];
+    self.center = self.bottomView.center;
+
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -79,20 +98,39 @@
     NSInteger count = [sender.titleLabel.text integerValue];
     count++;
     sender.enabled = NO;
-    [sender setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
     [self pubCommentLword:@"" type:@"点赞"];
 
 }
 - (IBAction)share:(UIButton *)sender {
-    NSInteger count = [sender.titleLabel.text integerValue];
-    count++;
-    [sender setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+            UIImageView* temIV = [[UIImageView alloc] init];
+    
+            [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
+            [UMSocialSnsService presentSnsIconSheetView:self
+                                                 appKey:@"56938a23e0f55aac1d001cb6"
+                                              shareText:self.shareTitleStr
+                                             shareImage:temIV.image
+                                        shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
+                                               delegate:self];
 }
+//实现回调方法（可选）：
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSInteger count = [self.shareBtn.titleLabel.text integerValue];
+        count++;
+        [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+    }
 
+
+}
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
     NSString *url = GETFINDPUBCOM_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *dictp = [NSMutableDictionary dictionary];
     /*
      findId	发现id	String
      types	类型	String,留言/点赞
@@ -102,28 +140,36 @@
      leixing	区别是物业还是发现	String,find/supervise
      */
     XWJAccount *account = [XWJAccount instance];
-    [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"findId"];
-    [dict setValue:types  forKey:@"types"];
-    [dict setValue:account.uid  forKey:@"personId"];
-    [dict setValue:leaveword  forKey:@"leaveWord"];
-    [dict setValue:[self.dic valueForKey:@"types"]  forKey:@"findType"];
-    [dict setValue:@"supervise" forKey:@"leixing"];
+    [dictp setValue:[self.dic valueForKey:@"id"]  forKey:@"findId"];
+    [dictp setValue:types  forKey:@"types"];
+    [dictp setValue:account.uid  forKey:@"personId"];
+    [dictp setValue:leaveword  forKey:@"leaveWord"];
+    [dictp setValue:[self.dic valueForKey:@"Types"]  forKey:@"findType"];
+    [dictp setValue:@"supervise" forKey:@"leixing"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:url parameters:dictp success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
+            [self cleanText];
+
             if ([res intValue] == 1) {
                 
                 NSString *errCode = [dict objectForKey:@"errorCode"];
-                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                alertview.delegate = self;
-            //    [alertview show];
+//                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                alertview.delegate = self;
+//                [alertview show];
+                if ([types isEqualToString:@"点赞"]) {
+                    [ProgressHUD showSuccess:@"点赞成功"];
+                }else{
+                    [ProgressHUD showSuccess:@"评论成功"];
                 
+                    [self getWuyeDetail];
+                }
 //                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
                  //   [self.navigationController popViewControllerAnimated:YES];
@@ -137,8 +183,13 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
-        
+
     }];
+}
+
+-(void)cleanText{
+//    self.commentTextView.text  =@"";
+//    self.commentTextView.text = @"请输入评论内容";
 }
 
 -(void)getWuyeDetail{
@@ -167,26 +218,50 @@
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
            // NSLog(@"dic------ %@",dic);
-            self.array = [dic objectForKey:@"comments"];
+            self.array = [NSMutableArray arrayWithArray:[dic objectForKey:@"comments"]];
+            
+            
+            if (self.array&&self.array.count>0) {
+                
+                self.headLabel.text = [NSString stringWithFormat:@"最新评论 (%ld)",(unsigned long)self.array.count];
+            }
+//            [self.array sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//                NSDictionary * d1 = (NSDictionary *)obj1;
+//                NSDictionary * d2 = (NSDictionary *)obj2;
+//                return [[d2 valueForKey:@"ReleaseTime"]compare:[d1 valueForKey:@"ReleaseTime"]];
+//            }];
+            
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
             self.dicw = [dic objectForKey:@"work"];
             NSString *url = [[dic objectForKey:@"work"] valueForKey:@"photo"];
             NSArray *URLs = [url componentsSeparatedByString:@","];
-            
+            self.shareImageStr = [URLs firstObject];
+            NSLog(@"-------%@",self.dicw[@"Content"]);
+            self.shareTitleStr = self.dicw[@"Content"];
             if(URLs&&URLs.count>0)
-                [self.imgView addSubview:({
+                
+                if (!(self.imgView.subviews&&self.imgView.subviews.count>0)) {
                     
-                    LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imgView.bounds.size.width,
-                                                                                            self.imgView.bounds.size.height)
-                                                
-                                                                        delegate:self
-                                                                       imageURLs:URLs
-                                                                placeholderImage:@"devAdv_default"
-                                                                   timerInterval:5.0f
-                                                   currentPageIndicatorTintColor:XWJGREENCOLOR
-                                                          pageIndicatorTintColor:[UIColor whiteColor]];
-                    bannerView;
-                })];
+                    
+                    CGFloat time = 5.0f;
+                    
+                    if (URLs.count==1) {
+                        time = MAXFLOAT;
+                    }
+                    [self.imgView addSubview:({
+                        
+                        LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imgView.bounds.size.width,
+                                                                                                self.imgView.bounds.size.height)
+                                                    
+                                                                            delegate:self
+                                                                           imageURLs:URLs
+                                                                    placeholderImage:@"devAdv_default"
+                                                                       timerInterval:time
+                                                       currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                              pageIndicatorTintColor:[UIColor whiteColor]];
+                        bannerView;
+                    })];
+                }
         //    NSLog(@"*****%@",self.dicWork);
             
             NSString *istalk = [NSString stringWithFormat:@"%@",[self.dicw objectForKey:@"iftalk"]];
@@ -263,7 +338,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10.0;
+    return 0.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -291,7 +366,9 @@
 //    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
     cell.commenterLabel.text = ([dic valueForKey:@"NickName"]==[NSNull null])?@"小王":[dic valueForKey:@"NickName"];
     cell.timeLabel.text = [dic valueForKey:@"ReleaseTime"];
-    cell.contentLabel.text = [dic valueForKey:@"LeaveWord"];
+    NSString *leave  = [dic valueForKey:@"LeaveWord"];
+//    [leave ]
+    cell.contentLabel.text = leave;
 //    cell.contentLabel.backgroundColor = [UIColor redColor];
 //    cell.contentLabel.textColor = [UIColor blackColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -343,12 +420,18 @@
     lab.textColor = [UIColor whiteColor];
     [lab removeFromSuperview];
     NSDictionary* info = [aNotification userInfo];
+    self.commentTextView.text  = @"";
     //kbSize即為鍵盤尺寸 (有width, height)
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//得到鍵盤的高度
     NSLog(@"hight_hitht:%f",kbSize.height);
     
-    self.bottomRect = self.bottomView.frame ;
-    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height) -45, self.bottomRect.size.width, self.bottomRect.size.height);
+//    self.bottomRect = self.bottomView.frame ;
+//    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height) -45, self.bottomRect.size.width, self.bottomRect.size.height);
+    
+    self.bottomRect = self.bottomView.bounds;
+    
+//    self.bottomView.center = CGPointMake(self.center.x
+//                                         , self.center.y-kbSize.height);
     CGFloat keyboardhight;
     if(kbSize.height == 216)
     {
@@ -367,7 +450,9 @@
 //当键盘隐藏的时候
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
-    self.bottomView.frame = self.bottomRect;
+//    self.bottomView.frame = self.bottomRect;
+//    self.bottomView.bounds = self.bottomRect;
+    self.bottomView.center =self.center;
     [self.commentTextView resignFirstResponder];
     //do something
 }

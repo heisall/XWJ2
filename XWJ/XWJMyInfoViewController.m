@@ -377,7 +377,7 @@ CGRect tableViewCGRect;
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //获取图片并编码；
-    UIImage * image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
     NSData *imageData = UIImageJPEGRepresentation(image, 1);// jpeg
     NSString *baseStr = [imageData base64Encoding];
     _imageStr = baseStr;

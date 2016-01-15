@@ -105,6 +105,18 @@
 //order
 #define GETORDER_URL  XWJBASEURL"order/myOrders"
 
+//订单详情接口
+#define MYORDERDETAIL  XWJBASEURL"order/orderDetails"
+
+//订单评价
+#define PINGJIAORDER  XWJBASEURL"order/evaluateGoods"
+
+//订单删除
+#define DELEORDER  XWJBASEURL"order/delOrder"
+
+//确认收货  修改订单状态
+#define MAKESUREORDER  XWJBASEURL"order/changeOrderStatus"
+
 #define YEZHU_URL  XWJBASEURL"build/infoValidate"
 #define CHANGEFANGYUAN_URL  XWJBASEURL"build/changeDefault"
 

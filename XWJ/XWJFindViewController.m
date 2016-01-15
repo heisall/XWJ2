@@ -18,7 +18,7 @@
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 2
 #define  SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define  CELL_HEIGHT 150.0
+#define  CELL_HEIGHT 200.0
 #define  vspacing 35
 
 @interface XWJFindViewController(){
@@ -187,7 +187,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
             NSArray * arr = [dic2 objectForKey:@"types"];
             
             NSMutableDictionary *quanbu = [NSMutableDictionary dictionary];
-            [quanbu setValue:@"全部" forKey:@"memo"];
+            [quanbu setValue:@"发现类别" forKey:@"memo"];
 //            [quanbu setValue:@"" forKey:@"DictValue"];
             
             [self.findlistArr removeAllObjects];

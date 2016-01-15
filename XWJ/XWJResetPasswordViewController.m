@@ -32,7 +32,13 @@
     [self.txtFieldPwd resignFirstResponder];
 //    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
 //    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self regist:self.user Pass:self.txtFieldPwd.text];
+    
+    if (self.txtFieldPwd.text.length>=6&&self.txtFieldPwd.text.length<=20) {
+        
+        [self regist:self.user Pass:self.txtFieldPwd.text];
+    }else{
+        [ProgressHUD showError:@"密码位数不正确！"];
+    }
     
 }
 

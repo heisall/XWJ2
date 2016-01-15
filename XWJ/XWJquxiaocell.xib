@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -12,19 +12,17 @@
             <rect key="frame" x="0.0" y="0.0" width="386" height="41"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="INC-21-gPe" id="kUS-S1-lZf">
-                <rect key="frame" x="0.0" y="0.0" width="386" height="40"/>
+                <rect key="frame" x="0.0" y="0.0" width="386" height="40.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="我同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dp-fh-K4x">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dp-fh-K4x">
                         <rect key="frame" x="59" y="12" width="45" height="18"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWy-nF-OaF">
                         <rect key="frame" x="118" y="14" width="91" height="13"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <state key="normal" title="许可及服务协议">
                             <color key="titleColor" red="0.99215686274509807" green="0.32549019607843138" blue="0.015686274509803921" alpha="1" colorSpace="calibratedRGB"/>
@@ -32,20 +30,17 @@
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Saa-so-pBR">
                         <rect key="frame" x="118" y="28" width="91" height="1"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.32549019610000002" blue="0.015686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="jWt-H8-8w8"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" tag="100" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="46" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08S-TS-JCa">
+                    <button opaque="NO" tag="100" contentMode="scaleToFill" placeholderIntrinsicWidth="46" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08S-TS-JCa">
                         <rect key="frame" x="8" y="6" width="46" height="30"/>
-                        <animations/>
                         <state key="normal" image="agree1"/>
                         <state key="selected" image="agree2"/>
                     </button>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="EWy-nF-OaF" firstAttribute="leading" secondItem="0Dp-fh-K4x" secondAttribute="trailing" constant="14" id="0bd-KQ-aeq"/>
                     <constraint firstItem="0Dp-fh-K4x" firstAttribute="centerY" secondItem="kUS-S1-lZf" secondAttribute="centerY" id="0iM-Dg-q2i"/>
@@ -60,7 +55,6 @@
                     <constraint firstItem="Saa-so-pBR" firstAttribute="leading" secondItem="EWy-nF-OaF" secondAttribute="leading" id="wJ7-ah-0mw"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="agreeBtn" destination="08S-TS-JCa" id="U6A-7z-aXh"/>
                 <outlet property="xieyiBtn" destination="EWy-nF-OaF" id="mqZ-gk-ot2"/>

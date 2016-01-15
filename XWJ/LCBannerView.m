@@ -181,15 +181,15 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
             }
             
             btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft ;
-            [btn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0)];
+            [btn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
             
             [btn setTitleColor:[UIColor colorWithRed:142.0/255.0 green:143.0/255.0 blue:145.0/255.0 alpha:1.0] forState:UIControlStateNormal];
 //            btn.clipsToBounds = YES;
-            btn.frame = CGRectMake(scrollW * i, 0, scrollW, scrollH);
+            btn.frame = CGRectMake(scrollW * i, 0, scrollW-10 , scrollH);
             btn.titleLabel.font = [UIFont systemFontOfSize:14];
-            btn.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            btn.titleLabel.numberOfLines = 2;
+            btn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+            btn.titleLabel.numberOfLines = 1;
             [btn setImage:[UIImage imageNamed:@"newMesIcon"] forState:UIControlStateNormal];
             [scrollView addSubview:btn];
             

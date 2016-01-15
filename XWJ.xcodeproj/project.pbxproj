@@ -7,6 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2126970A1C47206600F5DF7D /* MyOrderDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697071C47206600F5DF7D /* MyOrderDetailTableViewCell.m */; };
+		2126970B1C47206600F5DF7D /* MyOrderDetailTableViewCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697081C47206600F5DF7D /* MyOrderDetailTableViewCell1.m */; };
+		2126970C1C47206600F5DF7D /* MyOrderDetailTableViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697091C47206600F5DF7D /* MyOrderDetailTableViewCell2.m */; };
+		212697131C47212300F5DF7D /* MyOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697101C47212300F5DF7D /* MyOrderDetailModel.m */; };
+		212697141C47212300F5DF7D /* MyOrderDetailModel1.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697111C47212300F5DF7D /* MyOrderDetailModel1.m */; };
+		212697151C47212300F5DF7D /* MyOrderDetailModel2.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697121C47212300F5DF7D /* MyOrderDetailModel2.m */; };
+		212697451C4777CC00F5DF7D /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697241C4777CC00F5DF7D /* IQNSArray+Sort.m */; };
+		212697461C4777CC00F5DF7D /* IQUIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697261C4777CC00F5DF7D /* IQUIScrollView+Additions.m */; };
+		212697471C4777CC00F5DF7D /* IQUITextFieldView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697281C4777CC00F5DF7D /* IQUITextFieldView+Additions.m */; };
+		212697481C4777CC00F5DF7D /* IQUIView+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126972A1C4777CC00F5DF7D /* IQUIView+Hierarchy.m */; };
+		212697491C4777CC00F5DF7D /* IQUIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126972C1C4777CC00F5DF7D /* IQUIViewController+Additions.m */; };
+		2126974A1C4777CC00F5DF7D /* IQUIWindow+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126972E1C4777CC00F5DF7D /* IQUIWindow+Hierarchy.m */; };
+		2126974B1C4777CC00F5DF7D /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697331C4777CC00F5DF7D /* IQKeyboardManager.m */; };
+		2126974C1C4777CC00F5DF7D /* IQKeyboardReturnKeyHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697351C4777CC00F5DF7D /* IQKeyboardReturnKeyHandler.m */; };
+		2126974D1C4777CC00F5DF7D /* IQTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697381C4777CC00F5DF7D /* IQTextView.m */; };
+		2126974E1C4777CC00F5DF7D /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126973B1C4777CC00F5DF7D /* IQBarButtonItem.m */; };
+		2126974F1C4777CC00F5DF7D /* IQTitleBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126973D1C4777CC00F5DF7D /* IQTitleBarButtonItem.m */; };
+		212697501C4777CC00F5DF7D /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126973F1C4777CC00F5DF7D /* IQToolbar.m */; };
+		212697511C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697411C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m */; };
+		212697521C4777CC00F5DF7D /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 212697441C4777CC00F5DF7D /* IQKeyboardManager.bundle */; };
+		2126975E1C47823600F5DF7D /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 212697561C47823600F5DF7D /* payRequsestHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2126975F1C47823600F5DF7D /* TenpayUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 212697581C47823600F5DF7D /* TenpayUtil.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		212697601C47823600F5DF7D /* WXPayXRQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126975C1C47823600F5DF7D /* WXPayXRQViewController.m */; };
+		212697651C47863900F5DF7D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 212697611C47863900F5DF7D /* libWeChatSDK.a */; };
+		219CCB441C45DD8E00791D9E /* JKNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB401C45DD8E00791D9E /* JKNotifier.m */; };
+		219CCB451C45DD8E00791D9E /* JKNotifier_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */; };
+		219CCB461C45DD8E00791D9E /* JKNotifierBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB431C45DD8E00791D9E /* JKNotifierBar.m */; };
+		219CCB761C461CF200791D9E /* MyOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB751C461CF200791D9E /* MyOrderDetailViewController.m */; };
 		8E1327131C30DED000D3EDB5 /* FindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1326ED1C30DED000D3EDB5 /* FindModel.m */; };
 		8E1327141C30DED000D3EDB5 /* gexingqianmingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1326EF1C30DED000D3EDB5 /* gexingqianmingViewController.m */; };
 		8E1327151C30DED000D3EDB5 /* MineStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1326F01C30DED000D3EDB5 /* MineStoryboard.storyboard */; };
@@ -367,6 +395,65 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		212697041C47206600F5DF7D /* MyOrderDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailTableViewCell.h; sourceTree = "<group>"; };
+		212697051C47206600F5DF7D /* MyOrderDetailTableViewCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailTableViewCell1.h; sourceTree = "<group>"; };
+		212697061C47206600F5DF7D /* MyOrderDetailTableViewCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailTableViewCell2.h; sourceTree = "<group>"; };
+		212697071C47206600F5DF7D /* MyOrderDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailTableViewCell.m; sourceTree = "<group>"; };
+		212697081C47206600F5DF7D /* MyOrderDetailTableViewCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailTableViewCell1.m; sourceTree = "<group>"; };
+		212697091C47206600F5DF7D /* MyOrderDetailTableViewCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailTableViewCell2.m; sourceTree = "<group>"; };
+		2126970D1C47212300F5DF7D /* MyOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailModel.h; sourceTree = "<group>"; };
+		2126970E1C47212300F5DF7D /* MyOrderDetailModel1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailModel1.h; sourceTree = "<group>"; };
+		2126970F1C47212300F5DF7D /* MyOrderDetailModel2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailModel2.h; sourceTree = "<group>"; };
+		212697101C47212300F5DF7D /* MyOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailModel.m; sourceTree = "<group>"; };
+		212697111C47212300F5DF7D /* MyOrderDetailModel1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailModel1.m; sourceTree = "<group>"; };
+		212697121C47212300F5DF7D /* MyOrderDetailModel2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailModel2.m; sourceTree = "<group>"; };
+		212697231C4777CC00F5DF7D /* IQNSArray+Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQNSArray+Sort.h"; sourceTree = "<group>"; };
+		212697241C4777CC00F5DF7D /* IQNSArray+Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQNSArray+Sort.m"; sourceTree = "<group>"; };
+		212697251C4777CC00F5DF7D /* IQUIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIScrollView+Additions.h"; sourceTree = "<group>"; };
+		212697261C4777CC00F5DF7D /* IQUIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIScrollView+Additions.m"; sourceTree = "<group>"; };
+		212697271C4777CC00F5DF7D /* IQUITextFieldView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUITextFieldView+Additions.h"; sourceTree = "<group>"; };
+		212697281C4777CC00F5DF7D /* IQUITextFieldView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUITextFieldView+Additions.m"; sourceTree = "<group>"; };
+		212697291C4777CC00F5DF7D /* IQUIView+Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+Hierarchy.h"; sourceTree = "<group>"; };
+		2126972A1C4777CC00F5DF7D /* IQUIView+Hierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+Hierarchy.m"; sourceTree = "<group>"; };
+		2126972B1C4777CC00F5DF7D /* IQUIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIViewController+Additions.h"; sourceTree = "<group>"; };
+		2126972C1C4777CC00F5DF7D /* IQUIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIViewController+Additions.m"; sourceTree = "<group>"; };
+		2126972D1C4777CC00F5DF7D /* IQUIWindow+Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIWindow+Hierarchy.h"; sourceTree = "<group>"; };
+		2126972E1C4777CC00F5DF7D /* IQUIWindow+Hierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIWindow+Hierarchy.m"; sourceTree = "<group>"; };
+		212697301C4777CC00F5DF7D /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
+		212697311C4777CC00F5DF7D /* IQKeyboardManagerConstantsInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstantsInternal.h; sourceTree = "<group>"; };
+		212697321C4777CC00F5DF7D /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
+		212697331C4777CC00F5DF7D /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
+		212697341C4777CC00F5DF7D /* IQKeyboardReturnKeyHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardReturnKeyHandler.h; sourceTree = "<group>"; };
+		212697351C4777CC00F5DF7D /* IQKeyboardReturnKeyHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardReturnKeyHandler.m; sourceTree = "<group>"; };
+		212697371C4777CC00F5DF7D /* IQTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQTextView.h; sourceTree = "<group>"; };
+		212697381C4777CC00F5DF7D /* IQTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTextView.m; sourceTree = "<group>"; };
+		2126973A1C4777CC00F5DF7D /* IQBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQBarButtonItem.h; sourceTree = "<group>"; };
+		2126973B1C4777CC00F5DF7D /* IQBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQBarButtonItem.m; sourceTree = "<group>"; };
+		2126973C1C4777CC00F5DF7D /* IQTitleBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQTitleBarButtonItem.h; sourceTree = "<group>"; };
+		2126973D1C4777CC00F5DF7D /* IQTitleBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTitleBarButtonItem.m; sourceTree = "<group>"; };
+		2126973E1C4777CC00F5DF7D /* IQToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQToolbar.h; sourceTree = "<group>"; };
+		2126973F1C4777CC00F5DF7D /* IQToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQToolbar.m; sourceTree = "<group>"; };
+		212697401C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
+		212697411C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
+		212697421C4777CC00F5DF7D /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
+		212697441C4777CC00F5DF7D /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		212697551C47823600F5DF7D /* payRequsestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payRequsestHandler.h; sourceTree = "<group>"; };
+		212697561C47823600F5DF7D /* payRequsestHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = payRequsestHandler.mm; sourceTree = "<group>"; };
+		212697571C47823600F5DF7D /* TenpayUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenpayUtil.h; sourceTree = "<group>"; };
+		212697581C47823600F5DF7D /* TenpayUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TenpayUtil.mm; sourceTree = "<group>"; };
+		2126975B1C47823600F5DF7D /* WXPayXRQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPayXRQViewController.h; sourceTree = "<group>"; };
+		2126975C1C47823600F5DF7D /* WXPayXRQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXPayXRQViewController.m; sourceTree = "<group>"; };
+		212697611C47863900F5DF7D /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		212697621C47863900F5DF7D /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		212697631C47863900F5DF7D /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		212697641C47863900F5DF7D /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		219CCB3F1C45DD8E00791D9E /* JKNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNotifier.h; sourceTree = "<group>"; };
+		219CCB401C45DD8E00791D9E /* JKNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNotifier.m; sourceTree = "<group>"; };
+		219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JKNotifier_default_icon@2x.png"; sourceTree = "<group>"; };
+		219CCB421C45DD8E00791D9E /* JKNotifierBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNotifierBar.h; sourceTree = "<group>"; };
+		219CCB431C45DD8E00791D9E /* JKNotifierBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNotifierBar.m; sourceTree = "<group>"; };
+		219CCB741C461CF200791D9E /* MyOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailViewController.h; sourceTree = "<group>"; };
+		219CCB751C461CF200791D9E /* MyOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailViewController.m; sourceTree = "<group>"; };
 		8E1326EC1C30DED000D3EDB5 /* FindModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindModel.h; sourceTree = "<group>"; };
 		8E1326ED1C30DED000D3EDB5 /* FindModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindModel.m; sourceTree = "<group>"; };
 		8E1326EE1C30DED000D3EDB5 /* gexingqianmingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gexingqianmingViewController.h; sourceTree = "<group>"; };
@@ -995,6 +1082,7 @@
 				A43811061C244DFB001D2F29 /* libsqlite3.tbd in Frameworks */,
 				EC9518C31C4540CD00AEA7E5 /* libPushSDK.a in Frameworks */,
 				DA20AE021BFB5694002032D1 /* libstdc++.tbd in Frameworks */,
+				212697651C47863900F5DF7D /* libWeChatSDK.a in Frameworks */,
 				EC9518B61C4540C400AEA7E5 /* libSocialWechat.a in Frameworks */,
 				EC9518AC1C4540C400AEA7E5 /* libUMSocial_Sdk_4.4.a in Frameworks */,
 				DA20ADFC1BFB5674002032D1 /* libz.tbd in Frameworks */,
@@ -1013,6 +1101,149 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		212697211C4777CC00F5DF7D /* IQKeyBoardManager */ = {
+			isa = PBXGroup;
+			children = (
+				212697221C4777CC00F5DF7D /* Categories */,
+				2126972F1C4777CC00F5DF7D /* Constants */,
+				212697321C4777CC00F5DF7D /* IQKeyboardManager.h */,
+				212697331C4777CC00F5DF7D /* IQKeyboardManager.m */,
+				212697341C4777CC00F5DF7D /* IQKeyboardReturnKeyHandler.h */,
+				212697351C4777CC00F5DF7D /* IQKeyboardReturnKeyHandler.m */,
+				212697361C4777CC00F5DF7D /* IQTextView */,
+				212697391C4777CC00F5DF7D /* IQToolbar */,
+				212697421C4777CC00F5DF7D /* KeyboardManager.h */,
+				212697431C4777CC00F5DF7D /* Resources */,
+			);
+			path = IQKeyBoardManager;
+			sourceTree = "<group>";
+		};
+		212697221C4777CC00F5DF7D /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				212697231C4777CC00F5DF7D /* IQNSArray+Sort.h */,
+				212697241C4777CC00F5DF7D /* IQNSArray+Sort.m */,
+				212697251C4777CC00F5DF7D /* IQUIScrollView+Additions.h */,
+				212697261C4777CC00F5DF7D /* IQUIScrollView+Additions.m */,
+				212697271C4777CC00F5DF7D /* IQUITextFieldView+Additions.h */,
+				212697281C4777CC00F5DF7D /* IQUITextFieldView+Additions.m */,
+				212697291C4777CC00F5DF7D /* IQUIView+Hierarchy.h */,
+				2126972A1C4777CC00F5DF7D /* IQUIView+Hierarchy.m */,
+				2126972B1C4777CC00F5DF7D /* IQUIViewController+Additions.h */,
+				2126972C1C4777CC00F5DF7D /* IQUIViewController+Additions.m */,
+				2126972D1C4777CC00F5DF7D /* IQUIWindow+Hierarchy.h */,
+				2126972E1C4777CC00F5DF7D /* IQUIWindow+Hierarchy.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		2126972F1C4777CC00F5DF7D /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				212697301C4777CC00F5DF7D /* IQKeyboardManagerConstants.h */,
+				212697311C4777CC00F5DF7D /* IQKeyboardManagerConstantsInternal.h */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		212697361C4777CC00F5DF7D /* IQTextView */ = {
+			isa = PBXGroup;
+			children = (
+				212697371C4777CC00F5DF7D /* IQTextView.h */,
+				212697381C4777CC00F5DF7D /* IQTextView.m */,
+			);
+			path = IQTextView;
+			sourceTree = "<group>";
+		};
+		212697391C4777CC00F5DF7D /* IQToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				2126973A1C4777CC00F5DF7D /* IQBarButtonItem.h */,
+				2126973B1C4777CC00F5DF7D /* IQBarButtonItem.m */,
+				2126973C1C4777CC00F5DF7D /* IQTitleBarButtonItem.h */,
+				2126973D1C4777CC00F5DF7D /* IQTitleBarButtonItem.m */,
+				2126973E1C4777CC00F5DF7D /* IQToolbar.h */,
+				2126973F1C4777CC00F5DF7D /* IQToolbar.m */,
+				212697401C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.h */,
+				212697411C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m */,
+			);
+			path = IQToolbar;
+			sourceTree = "<group>";
+		};
+		212697431C4777CC00F5DF7D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				212697441C4777CC00F5DF7D /* IQKeyboardManager.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		212697531C47823600F5DF7D /* 微信_支付 */ = {
+			isa = PBXGroup;
+			children = (
+				212697611C47863900F5DF7D /* libWeChatSDK.a */,
+				212697621C47863900F5DF7D /* WechatAuthSDK.h */,
+				212697631C47863900F5DF7D /* WXApi.h */,
+				212697641C47863900F5DF7D /* WXApiObject.h */,
+				212697551C47823600F5DF7D /* payRequsestHandler.h */,
+				212697561C47823600F5DF7D /* payRequsestHandler.mm */,
+				212697571C47823600F5DF7D /* TenpayUtil.h */,
+				212697581C47823600F5DF7D /* TenpayUtil.mm */,
+				2126975B1C47823600F5DF7D /* WXPayXRQViewController.h */,
+				2126975C1C47823600F5DF7D /* WXPayXRQViewController.m */,
+			);
+			path = "微信_支付";
+			sourceTree = "<group>";
+		};
+		219CCB3E1C45DD8E00791D9E /* JKNotifier */ = {
+			isa = PBXGroup;
+			children = (
+				219CCB3F1C45DD8E00791D9E /* JKNotifier.h */,
+				219CCB401C45DD8E00791D9E /* JKNotifier.m */,
+				219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */,
+				219CCB421C45DD8E00791D9E /* JKNotifierBar.h */,
+				219CCB431C45DD8E00791D9E /* JKNotifierBar.m */,
+			);
+			path = JKNotifier;
+			sourceTree = "<group>";
+		};
+		219CCB5C1C461BBE00791D9E /* 订单详情 */ = {
+			isa = PBXGroup;
+			children = (
+				219CCB731C461C9100791D9E /* 订单详情Cell */,
+				219CCB721C461C7F00791D9E /* 订单详情Model */,
+				219CCB741C461CF200791D9E /* MyOrderDetailViewController.h */,
+				219CCB751C461CF200791D9E /* MyOrderDetailViewController.m */,
+			);
+			path = "订单详情";
+			sourceTree = "<group>";
+		};
+		219CCB721C461C7F00791D9E /* 订单详情Model */ = {
+			isa = PBXGroup;
+			children = (
+				2126970D1C47212300F5DF7D /* MyOrderDetailModel.h */,
+				2126970E1C47212300F5DF7D /* MyOrderDetailModel1.h */,
+				2126970F1C47212300F5DF7D /* MyOrderDetailModel2.h */,
+				212697101C47212300F5DF7D /* MyOrderDetailModel.m */,
+				212697111C47212300F5DF7D /* MyOrderDetailModel1.m */,
+				212697121C47212300F5DF7D /* MyOrderDetailModel2.m */,
+			);
+			path = "订单详情Model";
+			sourceTree = "<group>";
+		};
+		219CCB731C461C9100791D9E /* 订单详情Cell */ = {
+			isa = PBXGroup;
+			children = (
+				212697041C47206600F5DF7D /* MyOrderDetailTableViewCell.h */,
+				212697071C47206600F5DF7D /* MyOrderDetailTableViewCell.m */,
+				212697051C47206600F5DF7D /* MyOrderDetailTableViewCell1.h */,
+				212697081C47206600F5DF7D /* MyOrderDetailTableViewCell1.m */,
+				212697061C47206600F5DF7D /* MyOrderDetailTableViewCell2.h */,
+				212697091C47206600F5DF7D /* MyOrderDetailTableViewCell2.m */,
+			);
+			path = "订单详情Cell";
+			sourceTree = "<group>";
+		};
 		8E1327291C30DF3200D3EDB5 /* emotion status */ = {
 			isa = PBXGroup;
 			children = (
@@ -2020,13 +2251,15 @@
 		EC95184C1C4540C400AEA7E5 /* NewAndy */ = {
 			isa = PBXGroup;
 			children = (
+				212697531C47823600F5DF7D /* 微信_支付 */,
+				219CCB5C1C461BBE00791D9E /* 订单详情 */,
+				219CCB3E1C45DD8E00791D9E /* JKNotifier */,
 				EC9518BF1C4540CD00AEA7E5 /* JPushSDK */,
 				EC95184D1C4540C400AEA7E5 /* HYBMasonryAutoCellHeight */,
 				EC9518501C4540C400AEA7E5 /* Masonry */,
 				EC95186B1C4540C400AEA7E5 /* Push */,
 				EC95186E1C4540C400AEA7E5 /* UMSocial_Sdk_4.4 */,
 				EC9518891C4540C400AEA7E5 /* Wechat */,
-				EC95188F1C4540C400AEA7E5 /* 微信支付 */,
 				EC9518901C4540C400AEA7E5 /* 老师-星级2@2x.png */,
 				EC9518911C4540C400AEA7E5 /* 老师-星级@2x.png */,
 				EC9518921C4540C400AEA7E5 /* 订单已完成 */,
@@ -2143,13 +2376,6 @@
 			path = Wechat;
 			sourceTree = "<group>";
 		};
-		EC95188F1C4540C400AEA7E5 /* 微信支付 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "微信支付";
-			sourceTree = "<group>";
-		};
 		EC9518921C4540C400AEA7E5 /* 订单已完成 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2164,6 +2390,7 @@
 		EC9518971C4540C400AEA7E5 /* 订单评价 */ = {
 			isa = PBXGroup;
 			children = (
+				212697211C4777CC00F5DF7D /* IQKeyBoardManager */,
 				EC9518981C4540C400AEA7E5 /* EvaluationViewController.h */,
 				EC9518991C4540C400AEA7E5 /* EvaluationViewController.m */,
 				EC95189A1C4540C400AEA7E5 /* TQStarRatingView.h */,
@@ -2233,7 +2460,11 @@
 				TargetAttributes = {
 					DAC4AF151BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
+<<<<<<< HEAD
 						DevelopmentTeam = 7BFR74B47J;
+=======
+						DevelopmentTeam = UAYEW27P4X;
+>>>>>>> 0203e240a5224fb902723f1ff3ad7535366948d6
 					};
 					DAC4AF2E1BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -2294,6 +2525,7 @@
 				DAC4AF271BF0619700D66E76 /* Images.xcassets in Resources */,
 				A41255491C0F33770042D8CC /* devAdv_red@2x.png in Resources */,
 				A4DC3CA01C1C7593003D4D18 /* Images.xcassets in Resources */,
+				219CCB451C45DD8E00791D9E /* JKNotifier_default_icon@2x.png in Resources */,
 				A4462E661C2EE37F004361BB /* XWJSPDetail.xib in Resources */,
 				A43811181C24FFDD001D2F29 /* ShareSDK.bundle in Resources */,
 				A43C97FC1C129C68006A61EE /* shanguangdeng2@2x.png in Resources */,
@@ -2354,6 +2586,7 @@
 				A43C97F71C129C68006A61EE /* checkbox_pic_non@2x.png in Resources */,
 				EC9518B31C4540C400AEA7E5 /* UMSnsAccountViewController.xib in Resources */,
 				A41A1FE61C267EBB002129DF /* ProgressHUD.bundle in Resources */,
+				212697521C4777CC00F5DF7D /* IQKeyboardManager.bundle in Resources */,
 				EC9518AB1C4540C400AEA7E5 /* UMSocialLocalizable.strings in Resources */,
 				A412554A1C0F33770042D8CC /* devAdv_white@2x.png in Resources */,
 				A4F40B351C07670B006E2F19 /* seperate@2x.png in Resources */,
@@ -2384,9 +2617,11 @@
 				A4462E641C2EE365004361BB /* XWJSPDetailTableViewCell.m in Sources */,
 				A4CBC7691C3AA46600274040 /* MJRefreshAutoGifFooter.m in Sources */,
 				A4CBC76D1C3AA46600274040 /* MJRefreshBackNormalFooter.m in Sources */,
+				212697151C47212300F5DF7D /* MyOrderDetailModel2.m in Sources */,
 				8E1327641C30E03B00D3EDB5 /* NSArray+JSONModel.m in Sources */,
 				8E1327191C30DED000D3EDB5 /* xignquaihaoViewController.m in Sources */,
 				A41255781C0F39D20042D8CC /* SDWebImageDownloaderOperation.m in Sources */,
+				212697141C47212300F5DF7D /* MyOrderDetailModel1.m in Sources */,
 				EC9518BE1C4540C400AEA7E5 /* UITextView+placeholder.m in Sources */,
 				8E13271D1C30DED000D3EDB5 /* XWJMineViewController.m in Sources */,
 				DAC4AF221BF0619700D66E76 /* ViewController.m in Sources */,
@@ -2412,10 +2647,15 @@
 				EC9518A51C4540C400AEA7E5 /* MASViewConstraint.m in Sources */,
 				A41255831C0F39EE0042D8CC /* LCBannerView.m in Sources */,
 				8E1327681C30E03B00D3EDB5 /* JSONKeyMapper.m in Sources */,
+				212697461C4777CC00F5DF7D /* IQUIScrollView+Additions.m in Sources */,
 				A488017F1C09F13300714F5B /* XWJHomeTabFactory.m in Sources */,
 				A4CBC7641C3AA46600274040 /* MJRefreshAutoFooter.m in Sources */,
+				2126975E1C47823600F5DF7D /* payRequsestHandler.mm in Sources */,
 				A41255741C0F39D20042D8CC /* SDImageCache.m in Sources */,
 				EC9518BC1C4540C400AEA7E5 /* EvaluationViewController.m in Sources */,
+				2126975F1C47823600F5DF7D /* TenpayUtil.mm in Sources */,
+				212697481C4777CC00F5DF7D /* IQUIView+Hierarchy.m in Sources */,
+				212697451C4777CC00F5DF7D /* IQNSArray+Sort.m in Sources */,
 				A41255071C0F22FC0042D8CC /* AFHTTPSessionManager.m in Sources */,
 				A459474C1C2CB34D00DD8A2E /* XWJShangmenViewController.m in Sources */,
 				A4DC3CB41C1DFC8B003D4D18 /* XWJADViewController.m in Sources */,
@@ -2425,6 +2665,7 @@
 				A48801791C09D2A400714F5B /* XWJBingHouseViewController.m in Sources */,
 				8E1327451C30DFDB00D3EDB5 /* XWJZuShouViewController.m in Sources */,
 				A48801971C09FB4E00714F5B /* XWJFindViewController.m in Sources */,
+				2126974C1C4777CC00F5DF7D /* IQKeyboardReturnKeyHandler.m in Sources */,
 				A43C980F1C1313D0006A61EE /* XWJFindDetailViewController.m in Sources */,
 				A43C97AD1C1297E1006A61EE /* LGPhotoPickerImageView.m in Sources */,
 				EC9518BB1C4540C400AEA7E5 /* OrderFinishTableViewCell.m in Sources */,
@@ -2443,6 +2684,7 @@
 				A488018E1C09F94600714F5B /* XWJButlerTabFactory.m in Sources */,
 				A43C97A51C1297E1006A61EE /* LGPhotoPickerGroup.m in Sources */,
 				EC9518BA1C4540C400AEA7E5 /* OrderFinishModel.m in Sources */,
+				212697491C4777CC00F5DF7D /* IQUIViewController+Additions.m in Sources */,
 				A4F40BD31C08BE77006E2F19 /* XWJBaseViewController.m in Sources */,
 				8E1327251C30DED000D3EDB5 /* XWJMyInfoViewController.m in Sources */,
 				A41255091C0F22FC0042D8CC /* AFSecurityPolicy.m in Sources */,
@@ -2458,6 +2700,7 @@
 				A488019D1C09FBBB00714F5B /* XWJFindTabFactory.m in Sources */,
 				8E1327661C30E03B00D3EDB5 /* JSONHTTPClient.m in Sources */,
 				EC9518A11C4540C400AEA7E5 /* MASConstraint.m in Sources */,
+				2126974F1C4777CC00F5DF7D /* IQTitleBarButtonItem.m in Sources */,
 				EC9518A81C4540C400AEA7E5 /* View+MASAdditions.m in Sources */,
 				A4DC3CA11C1C7593003D4D18 /* RatingBar.m in Sources */,
 				A43811091C2457EA001D2F29 /* XWJHttpComm.m in Sources */,
@@ -2471,6 +2714,7 @@
 				A41A1FE11C26522E002129DF /* XWJUtil.m in Sources */,
 				A43C984B1C1516CC006A61EE /* XWJGuanjiaViewController.m in Sources */,
 				DAC4AF1C1BF0619700D66E76 /* main.m in Sources */,
+				212697601C47823600F5DF7D /* WXPayXRQViewController.m in Sources */,
 				A4CBC76A1C3AA46600274040 /* MJRefreshAutoNormalFooter.m in Sources */,
 				A45DCC061C446C4E001543CE /* XWJAddAdrController.m in Sources */,
 				8E13271A1C30DED000D3EDB5 /* xingbieViewController.m in Sources */,
@@ -2482,6 +2726,7 @@
 				A4F14D101C3EC5EF00D4BFB0 /* XWJSPinfoViewController.m in Sources */,
 				8E1327441C30DFDB00D3EDB5 /* TitleView.m in Sources */,
 				A45DCC031C446BC7001543CE /* XWJAddressController.m in Sources */,
+				2126974D1C4777CC00F5DF7D /* IQTextView.m in Sources */,
 				A41255791C0F39D20042D8CC /* SDWebImageManager.m in Sources */,
 				A43C97AA1C1297E1006A61EE /* LGPhotoPickerCollectionViewCell.m in Sources */,
 				A41255801C0F39D20042D8CC /* UIView+WebCacheOperation.m in Sources */,
@@ -2499,15 +2744,19 @@
 				A41255111C0F22FC0042D8CC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				8E1327141C30DED000D3EDB5 /* gexingqianmingViewController.m in Sources */,
 				A412557A1C0F39D20042D8CC /* SDWebImagePrefetcher.m in Sources */,
+				212697501C4777CC00F5DF7D /* IQToolbar.m in Sources */,
 				8E1327231C30DED000D3EDB5 /* XWJMyHouseController.m in Sources */,
 				A43C981B1C133914006A61EE /* XWJFindDetailTableViewCell.m in Sources */,
+				212697511C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				A48801881C09F80500714F5B /* XWJHomeViewController.m in Sources */,
 				8E1327601C30E03B00D3EDB5 /* JSONModel.m in Sources */,
 				A4DC3C811C1BDC63003D4D18 /* XWJCZViewController.m in Sources */,
 				A43811221C25C957001D2F29 /* XWJCZFDetailViewController.m in Sources */,
 				A4DC3C841C1C0D82003D4D18 /* XWJNewHouseDetailViewController.m in Sources */,
 				8E1327411C30DFDB00D3EDB5 /* chuzuTableViewCell.m in Sources */,
+				2126970C1C47206600F5DF7D /* MyOrderDetailTableViewCell2.m in Sources */,
 				A412557F1C0F39D20042D8CC /* UIImageView+WebCache.m in Sources */,
+				212697131C47212300F5DF7D /* MyOrderDetailModel.m in Sources */,
 				A4CBC7681C3AA46600274040 /* MJRefreshHeader.m in Sources */,
 				A412557B1C0F39D20042D8CC /* UIButton+WebCache.m in Sources */,
 				A4E28DFE1C30225000644909 /* XWJJiesuanViewController.m in Sources */,
@@ -2548,6 +2797,7 @@
 				A43C97C91C129A79006A61EE /* LGPhotoPickerBrowserPhoto.m in Sources */,
 				A48801941C09FB3800714F5B /* XWJLifeViewController.m in Sources */,
 				A43C97AB1C1297E1006A61EE /* LGPhotoPickerFooterCollectionReusableView.m in Sources */,
+				212697471C4777CC00F5DF7D /* IQUITextFieldView+Additions.m in Sources */,
 				A48801A61C0A16FF00714F5B /* XWJTabBarItem.m in Sources */,
 				A49DD4021C2F0E1D00DB1EC1 /* XWJCarViewController.m in Sources */,
 				A43C97D71C129B11006A61EE /* DACircularProgressView.m in Sources */,
@@ -2555,9 +2805,12 @@
 				A41255051C0F22FC0042D8CC /* AFHTTPRequestOperation.m in Sources */,
 				A41255151C0F22FC0042D8CC /* UIProgressView+AFNetworking.m in Sources */,
 				A412550B1C0F22FC0042D8CC /* AFURLRequestSerialization.m in Sources */,
+				219CCB761C461CF200791D9E /* MyOrderDetailViewController.m in Sources */,
+				219CCB441C45DD8E00791D9E /* JKNotifier.m in Sources */,
 				A438110F1C2462C4001D2F29 /* XWJHouseMapController.m in Sources */,
 				A41A1FEA1C26E236002129DF /* XWJWebViewController.m in Sources */,
 				EC95189E1C4540C400AEA7E5 /* UITableViewCell+HYBMasonryAutoCellHeight.m in Sources */,
+				2126970A1C47206600F5DF7D /* MyOrderDetailTableViewCell.m in Sources */,
 				A43C97A71C1297E1006A61EE /* LGPhotoPickerGroupViewController.m in Sources */,
 				A43C97A91C1297E1006A61EE /* LGPhotoPickerCollectionView.m in Sources */,
 				8E1327261C30DED000D3EDB5 /* XWJMyMessageController.m in Sources */,
@@ -2584,6 +2837,7 @@
 				8E1327611C30E03B00D3EDB5 /* JSONModelArray.m in Sources */,
 				A48801A31C09FDAD00714F5B /* XWJTabViewController.m in Sources */,
 				A43C97CF1C129A79006A61EE /* LGPhotoPickerBrowserPhotoView.m in Sources */,
+				2126970B1C47206600F5DF7D /* MyOrderDetailTableViewCell1.m in Sources */,
 				A4DC3CAE1C1D0FF9003D4D18 /* XWJCity.m in Sources */,
 				A43810C01C1EF491001D2F29 /* XWJBMViewController.m in Sources */,
 				8E1327671C30E03B00D3EDB5 /* JSONModel+networking.m in Sources */,
@@ -2591,6 +2845,9 @@
 				A4DC3C871C1C1133003D4D18 /* XWJNewHouseInfoViewController.m in Sources */,
 				A41255771C0F39D20042D8CC /* SDWebImageDownloader.m in Sources */,
 				A4F2571E1C2B5B4600B2EC58 /* XWJShuolistTableViewCell.m in Sources */,
+				2126974B1C4777CC00F5DF7D /* IQKeyboardManager.m in Sources */,
+				219CCB461C45DD8E00791D9E /* JKNotifierBar.m in Sources */,
+				2126974E1C4777CC00F5DF7D /* IQBarButtonItem.m in Sources */,
 				8E1327181C30DED000D3EDB5 /* qingganViewController.m in Sources */,
 				A4DC3C931C1C5096003D4D18 /* XWJGZaddViewController.m in Sources */,
 				A43C97CD1C129A79006A61EE /* LGPhotoPickerBrowserPhotoImageView.m in Sources */,
@@ -2603,6 +2860,7 @@
 				A412557C1C0F39D20042D8CC /* UIImage+GIF.m in Sources */,
 				EC9518AA1C4540C400AEA7E5 /* XRQJpush.m in Sources */,
 				A43928F41C30309000572F70 /* XWJJiesuanTableViewCell.m in Sources */,
+				2126974A1C4777CC00F5DF7D /* IQUIWindow+Hierarchy.m in Sources */,
 				A4CBC76E1C3AA46600274040 /* MJRefreshBackStateFooter.m in Sources */,
 				A43C97881C11EB2C006A61EE /* XWJFindPubViewController.m in Sources */,
 				A43C97CC1C129A79006A61EE /* LGImagePickerSelectView.m in Sources */,
@@ -2754,6 +3012,7 @@
 					"$(PROJECT_DIR)/NewAndy/UMSocial_Sdk_4.4",
 					"$(PROJECT_DIR)/NewAndy/Wechat",
 					"$(PROJECT_DIR)/NewAndy/JPushSDK",
+					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
@@ -2784,6 +3043,7 @@
 					"$(PROJECT_DIR)/NewAndy/UMSocial_Sdk_4.4",
 					"$(PROJECT_DIR)/NewAndy/Wechat",
 					"$(PROJECT_DIR)/NewAndy/JPushSDK",
+					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";

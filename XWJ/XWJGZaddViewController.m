@@ -95,9 +95,9 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //获取图片并编码；
-    UIImage * image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
 
-    NSInteger count = self.imageDatas.count;
+    NSUInteger count = self.imageDatas.count;
     
     if (count>6) {
         return;

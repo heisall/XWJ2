@@ -294,13 +294,20 @@
             NSLog(@"剩下的数组----%ld",self.imageArray.count);
             [self.imageScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
             self.imageScroll.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageArray.count, IMAGE_WIDTH);
-            for (int i = 0; i<self.imageArray.count; i++) {
+            
+            for (int i = 0; i<IMAGECOUNT; i++) {
                 imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
+                imgView.tag = TAG+i;
+                [self.imageScroll addSubview:imgView];
+            }
+            
+            for (int i = 0; i<self.imageArray.count; i++) {
+                imgView = [self.imageScroll viewWithTag:imgtag+i];
                 NSData *_decodedImageData   = [[NSData alloc] initWithBase64Encoding:self.imageArray[i]];
                 UIImage *_decodedImage      = [UIImage imageWithData:_decodedImageData];
                 imgView.image = _decodedImage;
-                [self.imageScroll addSubview:imgView];
-                
+//                [self.imageScroll addSubview:imgView];
+
                 
                 UIButton* deleImageBtn = [[UIButton alloc] initWithFrame:imgView.frame];
                 [deleImageBtn addTarget:self action:@selector(deleImageBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -308,8 +315,12 @@
                 [deleImageBtn setTitle:@"删除" forState:UIControlStateNormal];
                 [deleImageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [deleImageBtn setBackgroundColor:[UIColor blackColor]];
-                deleImageBtn.alpha = 0.6;
+                deleImageBtn.alpha = 0.3;
                 deleImageBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+
+//                [imgView addSubview:deleImageBtn];
+//                [self.imageScroll addSubview:imgView];
+
                 [self.imageScroll addSubview:deleImageBtn];
             }
         }

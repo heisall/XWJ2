@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QBK-Vh-Dcz">
-                                <rect key="frame" x="0.0" y="230" width="375" height="437"/>
+                                <rect key="frame" x="0.0" y="251.5" width="375" height="415.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="122" selectionStyle="default" indentationWidth="10" reuseIdentifier="wuyecell" rowHeight="122" id="pU2-ec-568" customClass="WuyeTableViewCell">
@@ -91,22 +91,27 @@
                                 </prototypes>
                             </tableView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyT-FX-nhW">
-                                <rect key="frame" x="0.0" y="28" width="375" height="162"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="183.5"/>
                                 <color key="backgroundColor" red="0.91764705882352937" green="0.92156862745098034" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                                 <rect key="contentStretch" x="0.0" y="0.10000000000000001" width="1" height="1"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="Ymb-WP-o0o"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Ymb-WP-o0o"/>
+                                    </mask>
+                                </variation>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qr-nw-Bxw">
-                                <rect key="frame" x="0.0" y="230" width="375" height="1"/>
+                                <rect key="frame" x="0.0" y="251.5" width="375" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="nl8-3L-mkq"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物业员工" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsQ-3z-6iq">
-                                <rect key="frame" x="24" y="201.5" width="68" height="20.5"/>
+                                <rect key="frame" x="24" y="223" width="68" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.58039215686274503" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -115,6 +120,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jjb-4h-UZe" firstAttribute="top" secondItem="QBK-Vh-Dcz" secondAttribute="bottom" id="4i2-LV-Nk2"/>
+                            <constraint firstItem="oyT-FX-nhW" firstAttribute="height" secondItem="I3p-q0-h6F" secondAttribute="height" multiplier="1.1:4" id="7od-Q8-kxa"/>
                             <constraint firstItem="oyT-FX-nhW" firstAttribute="top" secondItem="5c6-lm-gAY" secondAttribute="bottom" constant="8" id="8Ph-lC-gmW"/>
                             <constraint firstItem="oyT-FX-nhW" firstAttribute="width" secondItem="I3p-q0-h6F" secondAttribute="width" id="DBs-or-tRZ"/>
                             <constraint firstItem="8qr-nw-Bxw" firstAttribute="centerX" secondItem="I3p-q0-h6F" secondAttribute="centerX" id="FlN-Uw-Oef"/>

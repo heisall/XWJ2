@@ -173,17 +173,43 @@
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
-    
-    XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
-//    acti.actTitle.text = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
-//    acti.time.text = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_TIME];
-//    acti.url = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_URL];
-//    [acti.btn setTitle:[[self.array objectAtIndex:indexPath.row] valueForKey:KEY_CLICKCOUNT] forState:UIControlStateNormal];
-    acti.dic = [self.array objectAtIndex:indexPath.row];
-    acti.type = self.type;
-    [self.navigationController showViewController:acti sender:nil];
+    [self getDetailAD:indexPath.row];
 
+}
+
+
+-(void)getDetailAD:(NSInteger)index{
+    NSString *url = GETDETAILAD_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[[self.array objectAtIndex:index] valueForKey:@"id"]  forKey:@"id"];
+    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dict);
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
+            
+            XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
+            //    acti.actTitle.text = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
+            //    acti.time.text = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_TIME];
+            //    acti.url = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_URL];
+            //    [acti.btn setTitle:[[self.array objectAtIndex:indexPath.row] valueForKey:KEY_CLICKCOUNT] forState:UIControlStateNormal];
+            acti.dic = [dict objectForKey:@"data"];
+            acti.type = self.type;
+            [self.navigationController showViewController:acti sender:nil];
+            
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
 }
 
 /*

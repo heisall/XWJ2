@@ -445,9 +445,9 @@
             [alertview show];
         }];
     }else{
-        UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"请输入用户名和密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        alertview.delegate = self;
-        [alertview show];
+//        UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"请输入用户名和密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        alertview.delegate = self;
+//        [alertview show];
         //    if ([self.tFieldUserName.text isEqualToString:username]&&[self.tFieldPassWord.text isEqualToString:pwd]) {
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;

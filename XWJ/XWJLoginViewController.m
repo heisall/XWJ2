@@ -156,25 +156,26 @@
              sex = "<null>";
              */
             if ([result intValue]== 1) {
-                
-                NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
-                NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
-                //            [XWJAccount instance].uid = ;
-                if (![username isEqualToString:uname]) {
-                    [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"username"];
-                    [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
-                    //                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"bind"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                }else if(![pwd isEqualToString:pass]){
-                    [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
-                }
+
+                [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"username"];
+                [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
+//                NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
+//                NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
+//                //            [XWJAccount instance].uid = ;
+//                if (![username isEqualToString:uname]) {
+//
+//                    //                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"bind"];
+//                    [[NSUserDefaults standardUserDefaults] synchronize];
+//                }else if(![pwd isEqualToString:pass]){
+//                    [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
+//                }
                 
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
                 NSLog(@"sid %@",sid);
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
-                [XWJAccount instance].password = pass;
+                [XWJAccount instance].password = pwd;
                 [XWJAccount instance].NickName =[userDic valueForKey:@"NickName"];
                 [XWJAccount instance].name = [userDic valueForKey:@"NAME"];
                 [XWJAccount instance].Sex = [userDic valueForKey:@"sex"];

@@ -73,42 +73,22 @@
         NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
         [self.webView loadRequest:request];
     }
+    [self setBaoMingEnable];
+//    [self getDetailAD];
+}
+
+-(void)setBaoMingEnable{
+    NSString *isEnrollEnd = [NSString stringWithFormat:@"%@",[self.dic  objectForKey:@"IsEnrollEnd"]];
+    NSString *isAllowEnroll = [NSString stringWithFormat:@"%@",[self.dic  objectForKey:@"IsAllowEnroll"]];
+    NSString *canEnroll = [NSString stringWithFormat:@"%@",[self.dic  objectForKey:@"canEnroll"]];
     
-    [self getDetailAD];
+    if ([isEnrollEnd isEqualToString:@"0"]&&[isAllowEnroll isEqualToString:@"1"]&&[canEnroll isEqualToString:@"1"]) {
+        self.btn.enabled = YES;
+    }else
+        self.btn.enabled = NO;
 }
 
 
--(void)getDetailAD{
-    NSString *url = GETDETAILAD_URL;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
-    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
-    
-    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
-        
-        if(responseObject){
-            NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
-            NSString *isEnrollEnd = [NSString stringWithFormat:@"%@",[[dic objectForKey:@"data"] objectForKey:@"IsEnrollEnd"]];
-            NSString *isAllowEnroll = [NSString stringWithFormat:@"%@",[[dic objectForKey:@"data"] objectForKey:@"IsAllowEnroll"]];
-            NSString *canEnroll = [NSString stringWithFormat:@"%@",[[dic objectForKey:@"data"] objectForKey:@"canEnroll"]];
-            
-            if ([isEnrollEnd isEqualToString:@"0"]&&[isAllowEnroll isEqualToString:@"1"]&&[canEnroll isEqualToString:@"1"]) {
-                self.btn.enabled = YES;
-            }else
-                self.btn.enabled = NO;
-
-
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
-        
-    }];
-}
 
 -(void)yibaoming{
     self.btn.enabled = NO;

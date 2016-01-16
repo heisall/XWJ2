@@ -50,7 +50,7 @@
 //    self.tableView.delegate = self;
 //    self.tableView.dataSource = self;
 //    self.dataSource = [NSArray arrayWithObjects:@"二手市场",@"帮帮忙",@"个人商店", nil];
-    [self.dataSource removeObjectAtIndex:0];
+//    [self.dataSource removeObjectAtIndex:0];
     self.contentTextView.delegate = self;
     self.select = -1;
     self.imageArray = [NSMutableArray array];

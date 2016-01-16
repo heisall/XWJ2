@@ -24,6 +24,7 @@
 #import "XWJShuoListViewController.h"
 #import "XWJShangmenViewController.h"
 #import "XWJGroupViewController.h"
+#import "XWJShuoListViewController.h"
 #define  CELL_HEIGHT 150.0
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 1
@@ -40,6 +41,10 @@
 @property NSMutableArray *notices;
 @property NSMutableArray *shows ;
 @property NSMutableArray *shuoArr ;
+@property NSMutableArray *shanghuArr;
+@property NSMutableArray *shipinArr;
+@property NSMutableArray *jiazhuangArr;
+
 @end
 
 @implementation XWJHomeViewController
@@ -84,6 +89,8 @@ NSArray *footer;
 //    id = 7;
 //    "parent_id" = 1;
     self.shuoArr = [NSMutableArray arrayWithObjects:@{@"cateName":@"送水",@"id":@"5",@"parent_id":@"1"},@{@"cateName":@"家政",@"id":@"6",@"parent_id":@"1"},@{@"cateName":@"洗衣",@"id":@"7",@"parent_id":@"1"},@{@"cateName":@"鲜花",@"id":@"31",@"parent_id":@"1"},@{@"cateName":@"蛋糕",@"id":@"16",@"parent_id":@"1"}, nil];
+    
+    [self getGShuoAD];
     
 }
 - (IBAction)qiandao:(UIButton *)sender {
@@ -584,6 +591,39 @@ NSArray *footer;
 
 }
 
+-(void)getGShuoAD{
+    NSString *url = GETLIFEAD_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
+    
+    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
+    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            
+//            _selecttype = 1;
+            //            self.thumbArr = [dic objectForKey:@"jz"];
+//            self.array1 =  [dic objectForKey:@"sm"];
+            self.shanghuArr =  [dic objectForKey:@"sh"];
+            self.shipinArr =  [dic objectForKey:@"sp"];
+            self.jiazhuangArr =  [dic objectForKey:@"jz"];
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 -(void)shangchengclick:(UITapGestureRecognizer *)ges{
     
     UIView *view  = ges.view;
@@ -598,22 +638,32 @@ NSArray *footer;
             break;
         case 2:
         {
-            
+            XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
+            //            list.dic = [self.thumb objectAtIndex:index-1000];
+            list.dic = [self.shanghuArr objectAtIndex:0];
+            [self.navigationController showViewController:list sender:self];
         }
             break;
         case 3:
         {
-            
+            XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
+            //            list.dic = [self.thumb objectAtIndex:index-1000];
+            list.dic = [self.shipinArr objectAtIndex:0];
+            [self.navigationController showViewController:list sender:self];
         }
             break;
         case 4:
         {
-            
+            XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
+            //            list.dic = [self.thumb objectAtIndex:index-1000];
+            list.dic = [self.jiazhuangArr objectAtIndex:0];
+            [self.navigationController showViewController:list sender:self];
         }
             break;
         case 5:
         {
-            
+            [self.tabBarController setSelectedIndex:2];
+
         }
             break;
         default:

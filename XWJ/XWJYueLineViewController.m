@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title =@"在线预约";
+    self.phoneTextF.text = [XWJAccount instance].account;
     // Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -31,7 +32,13 @@
     self.tabBarController.tabBar.hidden = NO;
 }
 - (IBAction)y:(id)sender {
-    [self yuyue];
+    
+    if (self.phoneTextF.text.length>0 &&self.lianxirenTextF.text.length>0) {
+        
+        [self yuyue];
+    }else{
+        [ProgressHUD showError:@"请输入联系人和手机号！"];
+    }
 }
 
 -(void)yuyue{

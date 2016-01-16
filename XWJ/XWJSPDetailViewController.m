@@ -35,6 +35,7 @@
 @property UILabel *gouwucheLabel;
 @property NSMutableArray *btn;
 @property NSString * gouwuCheCounts;
+@property NSString *commentCount;
 @end
 
 #define PADDINGTOP 64
@@ -66,7 +67,7 @@
     
     tableView.dataSource =self;
     tableView.delegate = self;
-    
+    [tableView registerNib:[UINib nibWithNibName:@"XWJSPDetail" bundle:nil] forCellReuseIdentifier:@"cell"];
     UIImage *image = [UIImage imageNamed:@"shoucang"];
     UIImage *image2 = [UIImage imageNamed:@"quxiaoShoucang"];
 
@@ -219,7 +220,8 @@
     label.text  = @"商品评论";
     headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, (HEIGHT_VIEW2-20)/2, 150, 20)];
     headerLabel.textColor = [UIColor lightGrayColor];
-    headerLabel.text = @"(0人参与评论)";
+//    headerLabel.text = @"(0人参与评论)";
+    headerLabel.text = [NSString stringWithFormat:@"(%@人参与评论)",self.commentCount];
     headerLabel.font = [UIFont systemFontOfSize:14];
     
     UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -253,14 +255,13 @@
         cell = [[XWJSPDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     /*
-     "default_image" = "http://www.hisenseplus.com/ecmall/data/files/store_4/goods_32/small_201512191643527793.jpg";
-     "goods_id" = 3;
-     "goods_name" = "\U519c\U592b\U5c71\U6cc9\U5929\U7136\U5927\U6876\U6c341L";
-     "old_price" = 0;
-     price = 14;
-     sales = 0;
-     stock = 98;
-     views = 10;
+     anonymous = 0;
+     "buyer_name" = 18561927376;
+     comment = "     \U554a\U554a\U554a\n";
+     evaluation = 5;
+     "evaluation_time" = "2016-01-14";
+     "goods_id" = 71;
+     "rec_id" = 67;
      */
     //    cell.label1.text = [self.tabledata ];
     NSArray *arr = self.comments;
@@ -269,13 +270,17 @@
         cell.label1.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"buyer_name"];
         cell.label2.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"comment"];
         cell.timeLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"evaluation_time"];
-
+        
+        NSString *url;
         if ([[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]!=[NSNull null]) {
-            
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]] ];
+            url = [[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"];
         }
+        
+//        if (url) {
+        
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"headDefaultImg"]];
+//        }
     }
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -349,6 +354,7 @@
             
             self.goodsDic = [dic objectForKey:@"goods"];
             self.comments = [dic objectForKey:@"comments"];
+            self.commentCount = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count"]];
             self.gouwuCheCounts = [NSString stringWithFormat:@"%@",[dic objectForKey:@"counts"]];
             [self.tableView reloadData];
             self.tableView.contentSize = CGSizeMake(0, 100*self.goodsDic.count+150);
@@ -386,7 +392,7 @@
      */
     
 //    if(self.comments&&self.comments.count>0)
-    headerLabel.text = [NSString stringWithFormat:@"(%lu人参与评论)",(unsigned long)self.comments.count];
+    headerLabel.text = [NSString stringWithFormat:@"(%@人参与评论)",self.commentCount];
     youhuLabel.text = [NSString stringWithFormat:@"￥ %.1f",[[self.goodsDic valueForKey:@"price"]floatValue ]];
 
     shichangjiaLabel.text = [NSString stringWithFormat:@"市场价: ￥%.1f",[[self.goodsDic valueForKey:@"old_price"] floatValue] ];
@@ -419,10 +425,13 @@
             if (self.comments.count==0) {
                 tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             }else{
+//                headerLabel.text = [NSString stringWithFormat:@"(%ld人参与评论)" ,self.comments.count];
+
                 tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 40+self.comments.count*95+10);
             }
+            
             [tableView reloadData];
-            scrollView.contentSize  = CGSizeMake(0, HEIGHT_VIEW1+HEIGHT_VIEW3+view.frame.size.height);
+            scrollView.contentSize  = CGSizeMake(0, HEIGHT_VIEW1+100+tableView.frame.size.height);
         }
     }
     

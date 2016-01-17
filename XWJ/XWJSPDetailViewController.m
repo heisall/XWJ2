@@ -314,7 +314,8 @@
       
             if ([nu integerValue]== 1) {
                 int count = self.gouwuCheCounts.intValue;
-                gouwucheLabel.text = [NSString stringWithFormat:@"%d",count++];
+                count++;
+                gouwucheLabel.text = [NSString stringWithFormat:@"%d",count];
                 [ProgressHUD showSuccess:errCode];
             }else{
                 [ProgressHUD showError:errCode];

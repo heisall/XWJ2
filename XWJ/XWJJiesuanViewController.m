@@ -11,11 +11,12 @@
 #import "XWJJiesuanTableViewCell.h"
 #import "XWJAddressController.h"
 #import "XWJAccount.h"
+#import "ProgressHUD/ProgressHUD.h"
 @interface XWJJiesuanViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property NSArray *array;
 @property NSArray *payarray;
 @property NSArray *zhifuIconArr;
-@property NSDictionary *addressDic;
+//@property NSDictionary *addressDic;
 @end
 
 @implementation XWJJiesuanViewController
@@ -43,6 +44,7 @@
     //    self.payTableView.contentSize = CGSizeMake(0, 30+3*60);
     self.shangpinTableView.dataSource  = self;
     self.shangpinTableView.delegate = self;
+    self.shangpinTableView.frame = CGRectMake(0, self.shangpinTableView.frame.origin.y, self.shangpinTableView.frame.size.width, self.arr.count*90);
     [self getAddress];
 
 }
@@ -207,7 +209,7 @@
                 for (NSDictionary *dic in self.array) {
                     
                     if ([[NSString stringWithFormat:@"%@",[dic valueForKey:@"is_default"]] isEqualToString:@"1"]) {
-                        self.addressDic = dic;
+                        self.selectDic = dic;
                         self.buyerLabel.text = [dic objectForKey:@"consignee"];
                         self.addressLabel.text = [dic objectForKey:@"address"];
                         self.phoneLabel.text = [dic objectForKey:@"phone_tel"];
@@ -215,6 +217,14 @@
                         break;
                     }
                 }
+            }
+            
+            if (!self.selectDic&&self.array.count>0) {
+                self.selectDic = [self.array objectAtIndex:0];
+                self.buyerLabel.text = [self.selectDic objectForKey:@"consignee"];
+                self.addressLabel.text = [self.selectDic objectForKey:@"address"];
+                self.phoneLabel.text = [self.selectDic objectForKey:@"phone_tel"];
+                self.diquLabel.text = [self.selectDic objectForKey:@"region_name"];
             }
             
         }
@@ -226,6 +236,74 @@
 }
 
 - (IBAction)p:(id)sender {
+ 
+    
+    /*
+     storeId	用户登录账号	String
+     recIds	商铺id	String
+     postscript	留言内容	String
+     addrId	地址id	String
+     shippingId	配送方式id	String
+     shippingFee	运费	String
+     */
+    NSString *url = SAVEORDER_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    /*
+     "goods_id" = 71;
+     "goods_image" = "http://admin.hisenseplus.com/ecmall/data/files/store_77/goods_37/small_201512291700375318.png";
+     "goods_name" = "\U3010\U5b98\U65b9\U5305\U90ae\U3011\U65b0\U98de\U592953\U5ea6500\U6beb\U5347\U8305\U53f0+\U4e94\U661f53\U5ea6500\U6beb\U5347\U8d35\U5dde\U8305\U53f0\U9171\U9999";
+     price = 4384;
+     quantity = 2;
+     "rec_id" = 131;
+     "spec_id" = 71;
+     "store_id" = 77;
+     "store_name" = "\U4fe1\U6211\U5bb6\U5b98\U65b9\U56e2\U8d2d\U5e97";
+     */
+    
+    if (!self.selectDic) {
+        [ProgressHUD showError:@"请输入地址"];
+    }
+    
+    NSMutableArray * ridArr = [NSMutableArray array];
+    for (NSDictionary *d in self.arr) {
+        [ridArr addObject:[NSString stringWithFormat:@"%@",[d objectForKey:@"rec_id"]]];
+    }
+    
+    NSString *recids = [ridArr componentsJoinedByString:@","];
+    [dict setValue:[[self.arr objectAtIndex:0] valueForKey:@"store_id"] forKey:@"storeId"];
+    [dict setValue:recids forKey:@"recIds"];
+    [dict setValue:[self.selectDic objectForKey:@"addr_id"] forKey:@"addrId"];
+    
+    NSString *liuyan = [self.liuyanTextView.text isEqualToString:@"请留言"]?@"":self.liuyanTextView.text;
+    [dict setValue:liuyan forKey:@"postscript"];
+    [dict setValue:@"0" forKey:@"shippingId"];
+    [dict setValue:@"0" forKey:@"shippingFee"];
+    
+//    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *num = [dic objectForKey:@"result"];
+
+            if ([num intValue]== 1) {
+                [ProgressHUD showSuccess:errCode];
+                
+            }else
+                [ProgressHUD showError:errCode];
+
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

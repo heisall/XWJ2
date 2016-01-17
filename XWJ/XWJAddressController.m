@@ -22,7 +22,7 @@
     self.navigationItem.title = @"收货地址";
     tableview.delegate = self;
     tableview.dataSource = self;
-    [self getAddress];
+//    [self getAddress];
 }
 - (IBAction)add:(id)sender {
 }
@@ -30,6 +30,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+        [self getAddress];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

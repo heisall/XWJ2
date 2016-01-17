@@ -14,6 +14,9 @@
 #import "XWJSPDetailViewController.h"
 #import "XWJWebViewController.h"
 #import "XWJAccount.h"
+
+#import "TQStarRatingView.h"
+
 @interface XWJShuoListViewController()<LCBannerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property UIView *adView;
 @property NSMutableArray *tabledata;
@@ -23,6 +26,8 @@
 @property NSMutableArray *adArr;
 @property NSMutableArray *btn;
 @property UITableView *tableView;
+
+@property(nonatomic,retain)NSMutableArray* starArr;
 @end
 #define PADDINGTOP 22.0
 //#define BTN_WIDTH 100.0
@@ -37,8 +42,7 @@
     self.thumbArr = [NSMutableArray array];
     self.adArr = [NSMutableArray array];
     tabledata = [NSMutableArray array];
-
-    
+    self.starArr = [[NSMutableArray alloc] init];
 //    self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.navigationItem.title = @"商户列表";
@@ -150,6 +154,9 @@
             tabledata = [dic objectForKey:@"data"];
 
             groupBuy = [dic objectForKey:@"groupBuy"];
+            for (NSDictionary* dic in tabledata) {
+                [self.starArr addObject:dic[@"star"]];
+            }
             [self.tableView reloadData];
             self.tableView.hidden = NO;
             self.tableView.contentSize =CGSizeMake(0,self.tabledata.count*100+100+self.groupBuy.count*110);
@@ -275,10 +282,14 @@
          visits = 0;
          */
         //    cell.label1.text = [self.tabledata ];
+        
+        TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 70, 10) numberOfStar:[self.starArr[indexPath.row] intValue]];
+        [cell.xingView addSubview:starRatingView];
+        
         NSArray *arr = self.tabledata;
         
         cell.label1.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"sname"];
-        cell.label2.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"visits"]];
+//        cell.label2.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"visits"]];
         
         if ([[arr objectAtIndex:indexPath.row] objectForKey:@"logo"]!=[NSNull null]) {
             
@@ -316,6 +327,7 @@
                 }
             }
         }
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{

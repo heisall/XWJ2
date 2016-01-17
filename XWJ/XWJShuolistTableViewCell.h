@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *label1;
 @property (weak, nonatomic) IBOutlet UILabel *label2;
 @property (weak, nonatomic) IBOutlet UIView *tedeView;
+@property (weak, nonatomic) IBOutlet UIView *xingView;
 
 @end

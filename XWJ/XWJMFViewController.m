@@ -435,7 +435,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     UIImagePickerController * pick = [[UIImagePickerController alloc]init];
     pick.sourceType=type;
     pick.delegate=self;
-    pick.allowsEditing=self;
+    pick.allowsEditing=NO;
     [self presentViewController:pick animated:NO completion:nil];
     
 }

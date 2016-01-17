@@ -721,7 +721,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     switch (self.type) {
         case HOUSENEW:{
-            [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"xzst"]] placeholderImage:[UIImage imageNamed:@"xinfangbackImg"]];
+            [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"xzst"]] placeholderImage:[UIImage imageNamed:@"demo"]];
             
             NSString * qu = [NSString stringWithFormat:@"%@%@",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"cityName"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"cityName"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"quyu"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"quyu"]];
             NSString*money = [NSString stringWithFormat:@"%@元/平米",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"jiage"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"jiage"]];
@@ -739,7 +739,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             
             NSString * shi = [NSString stringWithFormat:@"%@室%@厅%@卫 %@平米",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Indoor"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_living"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Toilet"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingArea"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingArea"]];
 
-            NSString *money = [NSString stringWithFormat:@"%@万元",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"rent"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"rent"]];
+            NSString *money = [NSString stringWithFormat:@"%@万元",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"rent"]==[NSNull null]?@"0":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"rent"]];
             
             cell.label1.text = [NSString stringWithFormat:@"%@",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingInfo"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingInfo"]];
             cell.label2.text = shi;

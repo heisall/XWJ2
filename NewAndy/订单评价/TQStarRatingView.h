@@ -20,6 +20,8 @@
 
 - (id)initWithFrame:(CGRect)frame numberOfStar:(int)number;
 @property (nonatomic, readonly) int numberOfStar;
+@property (nonatomic, assign) BOOL isNOhua;
 @property (nonatomic, weak) id <StarRatingViewDelegate> delegate;
 
 @end
+

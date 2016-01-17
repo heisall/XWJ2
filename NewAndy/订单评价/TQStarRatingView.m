@@ -61,7 +61,7 @@
      }
                     completion:^(BOOL finished)
      {
-    
+         
      }];
 }
 
@@ -81,25 +81,27 @@
 
 - (void)changeStarForegroundViewWithPoint:(CGPoint)point
 {
-    CGPoint p = point;
-    
-    if (p.x < 0)
-    {
-        p.x = 0;
-    }
-    else if (p.x > self.frame.size.width)
-    {
-        p.x = self.frame.size.width;
-    }
-    
-    NSString * str = [NSString stringWithFormat:@"%0.2f",p.x / self.frame.size.width];
-    float score = [str floatValue];
-    p.x = score * self.frame.size.width;
-    self.starForegroundView.frame = CGRectMake(0, 0, p.x, self.frame.size.height);
-    
-    if(self.delegate && [self.delegate respondsToSelector:@selector(starRatingView: score:)])
-    {
-        [self.delegate starRatingView:self score:score];
+    if (!self.isNOhua) {
+        CGPoint p = point;
+        
+        if (p.x < 0)
+        {
+            p.x = 0;
+        }
+        else if (p.x > self.frame.size.width)
+        {
+            p.x = self.frame.size.width;
+        }
+        
+        NSString * str = [NSString stringWithFormat:@"%0.2f",p.x / self.frame.size.width];
+        float score = [str floatValue];
+        p.x = score * self.frame.size.width;
+        self.starForegroundView.frame = CGRectMake(0, 0, p.x, self.frame.size.height);
+        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(starRatingView: score:)])
+        {
+            [self.delegate starRatingView:self score:score];
+        }
     }
 }
 

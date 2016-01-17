@@ -28,8 +28,9 @@
 @property NSMutableArray *orderArr;
 @property NSDictionary *dic;
 @property NSDictionary *statusDic;
-@property NSInteger index;
+@property NSInteger index; // 0待付款 1代收货 2已完成
 @property NSArray *status;
+//@property NSInteger orderType;// 0待付款 1代收货 2已完成
 @property(nonatomic,copy)NSString* deleOrderId;
 @property(nonatomic,assign)NSInteger deleOrderNum;
 @property(nonatomic,retain)NSMutableArray* dataSourceArr;
@@ -254,6 +255,9 @@
     
     if (2 == self.index) {
         return nil;
+    }else if(1 == self.index){
+        footer.delBtn.hidden = YES;
+        [footer.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
     }
     
     return footer;

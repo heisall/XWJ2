@@ -85,8 +85,9 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             btn.titleLabel.font = [UIFont systemFontOfSize:15.0];
             [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
             btn.frame = CGRectMake(i*width, 0, width, 40);
+            btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
             [btn setImage:[UIImage imageNamed:@"xinfangarrow"] forState:UIControlStateNormal];
-            [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.bounds.size.width-20, 0, 0)];
+            [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.bounds.size.width-10, 0, 0)];
             btn.tag = i+1;
             [btn addTarget:self action:@selector(showSortView:) forControlEvents:UIControlEventTouchUpInside];
             [self.selectView addSubview:btn];
@@ -273,6 +274,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
         button.frame=CGRectMake(0, 40+40*i, helperView.frame.size.width, 40);
         UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 200, 40)];
         label.text= [[array objectAtIndex:i] valueForKey:@"dicValue"];
+        label.tag = 100;
         [button addSubview:label];
       
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(button.frame.size.width-20-10, 10, 20, 20)];
@@ -321,6 +323,12 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 
     NSInteger index = button.tag - 60001;
     NSLog(@"selcet id %ld",index);
+    
+    UIButton *btn = [self.selectView viewWithTag:self.stype+1];
+    UILabel *label = [button viewWithTag:100];
+    [btn setTitle:label.text forState:UIControlStateNormal];
+
+    NSLog(@"button.titleLabel.text %@",button.titleLabel.text);
     switch (self.stype) {
         case selecttypehuxing:
         {

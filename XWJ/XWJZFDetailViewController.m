@@ -259,7 +259,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.moneyLabel.text = [NSString stringWithFormat:@"%@万元",[self.datailDic objectForKey:@"rent"]];
     self.typeLabel.text = [NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]];
     self.sizeLabel.text = [NSString stringWithFormat:@"%.1fm²",[self.datailDic objectForKey:@"buildingArea"]==[NSNull null]?[@"0" floatValue]:[[self.datailDic valueForKey:@"buildingArea"] floatValue]];
-    self.zhuangxiuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
+    self.zhuangxiuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]==[NSNull null]?@"":[NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]]];
 //    self.priceLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];
     self.loucengLabel.text = [NSString stringWithFormat:@"%@/%@",[self.datailDic objectForKey:@"floors"],[self.datailDic objectForKey:@"floorCount"]];
 //    self.shoufuLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"renovationInfo"]];

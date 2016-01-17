@@ -79,12 +79,14 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZFCollectionCell" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJSupplementaryView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kheaderIdentifier];
     self.fyMiaoshu.delegate = self;
-
+    self.lpIndex = -1;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.navigationItem.title = @"我要卖房";
     [self get2hangFubFilter];
     self.scrollView.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+200);
+    
+    self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, SCREEN_SIZE.height+200);
     for (int i = 0; i<IMAGECOUNT; i++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
         imgView.tag = imgtag+i;
@@ -463,7 +465,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         [self.imageDatas addObject:encodeResult];
     }
     self.imgScrollView.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageDatas.count, IMAGE_WIDTH);
-    
+
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -542,8 +544,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
 - (IBAction)sure:(UIButton *)sender {
     
-//    [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
-
+//5.必填项：照片、楼座名称、户型、面积、价格、楼层、联系方式
     [ProgressHUD show:@"正在发布" Interaction:YES];
     NSString *url = GET2HANDFB_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -574,13 +575,36 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
      @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
      @property (weak, nonatomic) IBOutlet UILabel *xiaoquLabel;
      */
+    
+    if (self.lpIndex==-1) {
+        [ProgressHUD showError:@"请选择楼盘！"];
+        return;
+    }
     [dict setValue:[[self.lp objectAtIndex:self.lpIndex] objectForKey:@"dicKey"] forKey:@"buildingInfo"];
 //    [dict setValue:@"" forKey:@"area"];
+    
+    if (!self.shiTF.text.length>0||!self.tingTF.text.length>0||!self.weiTF.text.length>0) {
+        [ProgressHUD showError:@"请填写户型！"];
+        return;
+    }
     [dict setValue:self.shiTF.text forKey:@"house_Indoor"];
     [dict setValue:self.tingTF.text forKey:@"house_living"];
     [dict setValue:self.weiTF.text forKey:@"house_Toilet"];
     
+    if(!self.areaTF.text.length>0){
+        [ProgressHUD showError:@"请填写面积！"];
+        return;
+    }
     [dict setValue:[NSString stringWithFormat:@"%@",self.areaTF.text]forKey:@"buildingArea"];
+    
+    if(!self.jiage.text.length>0){
+        [ProgressHUD showError:@"请填写价格！"];
+        return;
+    }
+    if(!self.cengTF.text.length>0||!self.totalFloorTF.text.length>0){
+        [ProgressHUD showError:@"请填写楼层！"];
+        return;
+    }
     [dict setValue:self.jiage.text forKey:@"rent"];
     [dict setValue:self.cengTF.text  forKey:@"floors"];
     [dict setValue:self.totalFloorTF.text forKey:@"floorCount"];
@@ -604,11 +628,21 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:self.fyMiaoshu.text forKey:@"fangyuanmiaoshu"];
     [dict setValue:[[self.cx objectAtIndex:self.cxIndex] objectForKey:@"dicKey"] forKey:@"orientation"];
     [dict setValue:[[self.zx objectAtIndex:self.zxIndex] objectForKey:@"dicKey"] forKey:@"renovationInfo"];
+    
+    if(!self.phoneTF.text.length>0){
+        [ProgressHUD showError:@"请填写联系方式！"];
+        return;
+    }
     [dict setValue:self.phoneTF.text forKey:@"mobilePhone"];
 //
-    if (self.imageDatas) {
+    if (self.imageDatas&&self.imageDatas.count>0) {
         [dict setObject:self.imageDatas forKey:@"photo"];
+    }else{
+        [ProgressHUD showError:@"请选择图片！"];
+        return;
     }
+    
+    
     if ([XWJAccount instance].phone) {
         [dict setValue:[XWJAccount instance].phone forKey:@"addPerson"];
     }

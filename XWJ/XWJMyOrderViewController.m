@@ -20,7 +20,7 @@
 
 #import "MyOrderDetailViewController.h"
 
-@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate,MyOrderDetailViewControllerDelegate>
+@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate,MyOrderDetailViewControllerDelegate,XWJOrderTableViewCellDelegate>
 
 @property NSMutableArray *btn;
 @property NSMutableArray *cornerBtn;
@@ -30,6 +30,8 @@
 @property NSDictionary *statusDic;
 @property NSInteger index;
 @property NSArray *status;
+@property(nonatomic,copy)NSString* deleOrderId;
+@property(nonatomic,assign)NSInteger deleOrderNum;
 @property(nonatomic,retain)NSMutableArray* dataSourceArr;
 @end
 
@@ -57,6 +59,12 @@
         
         [self getOrderList:[self.status objectAtIndex:self.index]];
     }];    // Do any additional setup after loading the view.
+}
+#pragma mark - 订单列表删除订单
+- (void)delegateMyOrder:(NSInteger)index{
+    NSLog(@"----列表删除订单---%ld",index);
+    self.deleOrderNum = index;
+    [self createDeleOrderRequest];
 }
 #pragma mark - 评论代理实现
 - (void)sendBackCellNum:(NSInteger)cellNum{
@@ -235,7 +243,8 @@
         NSString *p = [NSString stringWithFormat:@"%@",[d objectForKey:@"price"]] ;
         num = num + n.floatValue*p.floatValue;
     }
-    
+    footer.delegateMyOrderDelegate = self;
+    footer.cellIndex  = section;
     footer.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",num];
     
     footer.delBtn.layer.masksToBounds = YES;
@@ -271,7 +280,6 @@
     if (!cell) {
         cell = [[XWJOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    
     NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:indexPath.section] objectForKey:@"detail"];
     
     cell.contentLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
@@ -421,6 +429,40 @@
     
     
 }
+
+#pragma mark - 删除订单数据请求
+- (void)createDeleOrderRequest{
+    NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:self.deleOrderNum] objectForKey:@"detail"];
+    for (NSDictionary* temDic in arr) {
+        self.deleOrderId = temDic[@"order_id"];
+    }
+    
+    NSLog(@"请求的参数----%@\n----%@",self.deleOrderId,DELEORDER);
+    NSString* requestAddress = DELEORDER;
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:requestAddress parameters:@{
+                                             @"orderId":self.deleOrderId,
+                                             }
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             if ([[responseObject objectForKey:@"result"] intValue]) {
+                 /*
+                  *这个地方我处理了一下   因为之前的self.orderArr在请求数据完成的时候  赋值的方式被强制修改成了不可变数组
+                  *我在这个地方把self.orderArr改成可变数组进行数据的删除  然后刷新列表
+                  */
+                 NSMutableArray* tArr = [[NSMutableArray alloc] init];
+                 [tArr addObjectsFromArray:self.orderArr];
+                 NSLog(@"-----请求删除---%ld",self.deleOrderNum);
+                 [tArr removeObjectAtIndex:self.deleOrderNum];
+                 self.orderArr =  [[NSMutableArray alloc] init];
+                 [self.orderArr addObjectsFromArray:tArr];
+                 [_tableView reloadData];
+             }
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"失败===%@", error);
+         }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

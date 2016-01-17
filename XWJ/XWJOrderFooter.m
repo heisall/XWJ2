@@ -9,6 +9,9 @@
 #import "XWJOrderFooter.h"
 
 @implementation XWJOrderFooter
+- (IBAction)deleMyOrder:(id)sender {
+    [self.delegateMyOrderDelegate delegateMyOrder:self.cellIndex];
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

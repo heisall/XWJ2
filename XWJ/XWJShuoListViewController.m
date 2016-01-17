@@ -284,8 +284,8 @@
         //    cell.label1.text = [self.tabledata ];
         
         TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 70, 10) numberOfStar:[self.starArr[indexPath.row] intValue]];
+        starRatingView.isNOhua = YES;
         [cell.xingView addSubview:starRatingView];
-        
         NSArray *arr = self.tabledata;
         
         cell.label1.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"sname"];

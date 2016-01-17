@@ -422,9 +422,9 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     btn.selected = !btn.selected;
     if (btn.selected) {
         
-        [_collectionSelect setObject:@"1" atIndexedSubscript:indexPath.section*+indexPath.row];
+        [_collectionSelect setObject:@"1" atIndexedSubscript:indexPath.section*5+indexPath.row];
     }else{
-        [_collectionSelect setObject:@"0" atIndexedSubscript:indexPath.section*+indexPath.row];
+        [_collectionSelect setObject:@"0" atIndexedSubscript:indexPath.section*5+indexPath.row];
         
     }
 }
@@ -658,7 +658,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     }
     
     [dict setValue:md forKey:@"supporting"];
-    [dict setValue:((UITextField *)[self.tableView viewWithTag:100]).text forKey:@"fangyuanmiaoshu"];
+    [dict setValue:((UITextField *)[self.tableView viewWithTag:100]).text forKey:@"description"];
 //
     [dict setValue:[[self.cx objectAtIndex:self.cxIndex] objectForKey:@"dicKey"] forKey:@"orientation"];
     [dict setValue:[[self.zx objectAtIndex:self.zxIndex] objectForKey:@"dicKey"] forKey:@"renovationInfo"];

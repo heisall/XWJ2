@@ -226,9 +226,9 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 //    [self.collectionSelect setValue:@"" forKey:@""];
     if (btn.selected) {
         
-        [_collectionSelect setObject:@"1" atIndexedSubscript:indexPath.section*+indexPath.row];
+        [_collectionSelect setObject:@"1" atIndexedSubscript:indexPath.section*5+indexPath.row];
     }else{
-        [_collectionSelect setObject:@"0" atIndexedSubscript:indexPath.section*+indexPath.row];
+        [_collectionSelect setObject:@"0" atIndexedSubscript:indexPath.section*5+indexPath.row];
 
     }
 //    self.collectionSelect[indexPath.section*5+indexPath.row];

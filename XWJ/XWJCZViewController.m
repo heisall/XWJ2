@@ -64,7 +64,7 @@
 #define imgtag 100
 #define IMAGECOUNT 6
 
-#define IMAGE_WIDTH 80
+#define IMAGE_WIDTH 60
 #define spacing 5
 
 static NSString *kcellIdentifier = @"collectionCellID";
@@ -439,7 +439,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     UIImagePickerController * pick = [[UIImagePickerController alloc]init];
     pick.sourceType=type;
     pick.delegate=self;
-    pick.allowsEditing=self;
+    pick.allowsEditing=NO;
     [self presentViewController:pick animated:NO completion:nil];
     
 }
@@ -578,7 +578,26 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 }
 
 - (IBAction)addImgae:(UIButton *)sender {
-    [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+//    [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+    
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"请选择" message:nil preferredStyle:0];
+    [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
+            [self LoadImageWith:UIImagePickerControllerSourceTypeCamera];
+        }
+        else
+        {
+            UIAlertView * a = [[UIAlertView alloc]initWithTitle:@"本机不支持" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [a show];
+        }
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 
 }
 - (IBAction)xuanxiaoqu:(UIButton *)sender {

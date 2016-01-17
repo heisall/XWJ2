@@ -741,7 +741,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
         }
             break;
         case HOUSE2:{
-            [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"xinfangbackImg"]];
+            [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
             
             NSString * qu = [NSString stringWithFormat:@"%@%@",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"city"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"city"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"area"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"area"]];
             
@@ -768,7 +768,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
              photo = "http://www.hisenseplus.com/HisenseUpload/loupan/20151213155016248.jpg";
              rent = 2300;
              */
-            [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"xinfangbackImg"]];
+            [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
             
             NSString * shi = [NSString stringWithFormat:@"%@室%@厅%@卫 %@m²",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Indoor"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Indoor"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_living"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_living"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Toilet"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Toilet"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingArea"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingArea"]];
             NSString *money = [NSString stringWithFormat:@"%@元/月",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"rent"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"rent"]];

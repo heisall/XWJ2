@@ -9,6 +9,7 @@
 #import "XWJCZFDetailViewController.h"
 #import "LCBannerView.h"
 #import "XWJAccount.h"
+#import "XWJWebViewController.h"
 #define  CELL_HEIGHT 30.0
 #define  COLLECTION_NUMSECTIONS 2
 #define  COLLECTION_NUMITEMS 5
@@ -45,12 +46,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
 @property (weak, nonatomic) IBOutlet UILabel *liulanLabel;
 @property NSMutableDictionary * datailDic;
+@property NSArray *URLs;
 @end
 
 @implementation XWJCZFDetailViewController
 static NSString *kcellIdentifier = @"collectionCellID";
 static NSString *kheaderIdentifier = @"headerIdentifier";
-
+@synthesize  URLs;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -218,21 +220,25 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
      };
      */
     
-    NSArray *URLs = @[@"http://admin.guoluke.com:80/userfiles/files/admin/201509181707000766.png",
-                      @"http://admin.guoluke.com:80/userfiles/files/admin/201509181707000766.png",
-                      @"http://img.guoluke.com/upload/201509091054250274.jpg"];
+//    NSArray *URLs = @[@"http://admin.guoluke.com:80/userfiles/files/admin/201509181707000766.png",
+//                      @"http://admin.guoluke.com:80/userfiles/files/admin/201509181707000766.png",
+//                      @"http://img.guoluke.com/upload/201509091054250274.jpg"];
     if ([self.datailDic objectForKey:@"photo"]!=[NSNull null]) {
         URLs = [[self.datailDic valueForKey:@"photo"] componentsSeparatedByString:@","];
     }
     [self.adView addSubview:({
         
+        float time = 3.0f;
+        if (URLs.count==1) {
+            time = MAXFLOAT;
+        }
         LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
                                                                                   self.adView.bounds.size.height)
                                     
                                                               delegate:self
                                                              imageURLs:URLs
                                                       placeholderImage:nil
-                                                         timerInterval:3.0f
+                                                         timerInterval:time
                                          currentPageIndicatorTintColor:XWJGREENCOLOR
                                                 pageIndicatorTintColor:[UIColor whiteColor]
                                                                       :UIViewContentModeScaleAspectFit];
@@ -281,7 +287,10 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 }
 
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
+    XWJWebViewController *web = [[XWJWebViewController alloc] init];
     
+    web.url = URLs[index];
+    [self.navigationController  showViewController:web sender:self];
 }
 
 -(void)dail:(NSString *)tel{

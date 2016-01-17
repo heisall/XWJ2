@@ -24,7 +24,6 @@
 }
 #define IMAGECOUNT 6
 
-#define IMAGE_WIDTH 80
 #define spacing 5
 @property (weak, nonatomic) IBOutlet UITextField *shiTF;
 @property (weak, nonatomic) IBOutlet UITextField *tingTF;
@@ -71,6 +70,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 @implementation XWJMFViewController
 #define  imgtag 100
 @synthesize controlView;
+//#define IMAGE_WIDTH 55
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -86,7 +86,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self get2hangFubFilter];
     self.scrollView.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+200);
     
-    self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, SCREEN_SIZE.height+200);
+    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, SCREEN_SIZE.height+200);
     for (int i = 0; i<IMAGECOUNT; i++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
         imgView.tag = imgtag+i;

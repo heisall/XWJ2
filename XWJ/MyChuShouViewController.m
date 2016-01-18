@@ -42,7 +42,7 @@
     //    NSString *passwordString = [self getMd5_16Bit_String:_pwdtext.text];
     NSString *uid = [XWJAccount instance].uid;
     parameters[@"pageindex"] = @"0";
-    parameters[@"countperpage"] = @"10";
+    parameters[@"countperpage"] = @"100";
     parameters[@"userid"] = uid;
     //     parameters[@"userid"] = [[NSUserDefaults standardUserDefaults] valueForKey:@"account"];
     //    NSLog(@"sdfasdfsdf%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Accout"]);

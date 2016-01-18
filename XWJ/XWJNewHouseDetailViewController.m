@@ -183,21 +183,21 @@
                          self.dic  = [resdic objectForKey:@"house"];
             [self.photos addObjectsFromArray:[resdic objectForKey:@"photo"] ];
             self.tableData = [NSMutableArray array];
-            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"kpsj"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"kpsj"]==[NSNull null]?@"":[self.dic objectForKey:@"kpsj"]]] ;
             [self.tableData addObject:[NSString  stringWithFormat:@"%@%@%@",[self.dic objectForKey:@"cityName"],[self.dic objectForKey:@"quyu"],[self.dic objectForKey:@"weiZhi"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zt"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"yhxx"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zt"]==[NSNull null]?@"":[self.dic objectForKey:@"zt"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"yhxx"]==[NSNull null]?@"":[self.dic objectForKey:@"yhxx"]]] ;
 //            特点、最新动态、周边配套和详细信息
-            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"td"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zxdt"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zbpt"]]] ;
-            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"xxxx"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"td"]==[NSNull null]?@"":[self.dic objectForKey:@"td"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zxdt"]==[NSNull null]?@"":[self.dic objectForKey:@"zxdt"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"zbpt"]==[NSNull null]?@"":[self.dic objectForKey:@"zbpt"]]] ;
+            [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"xxxx"]==[NSNull null]?@"":[self.dic objectForKey:@"xxxx"]]] ;
 
             
-            self.nameLabel.text = [self.dic objectForKey:@"lpmc"];
-            self.moneyLabel.text = [NSString stringWithFormat:@"开盘 %@",[self.dic objectForKey:@"jiage"]];
-            [self.locationBtn setTitle:[NSString  stringWithFormat:@"地址 %@%@%@",[self.dic objectForKey:@"cityName"],[self.dic objectForKey:@"quyu"],[self.dic objectForKey:@"weiZhi"]] forState:UIControlStateNormal];
-            [self.timeBtn setTitle:[self.dic objectForKey:@"kpsj"] forState:UIControlStateNormal];
+            self.nameLabel.text = [self.dic objectForKey:@"lpmc"]==[NSNull null]?@"":[self.dic objectForKey:@"lpmc"];
+            self.moneyLabel.text = [NSString stringWithFormat:@"开盘 %@",[self.dic objectForKey:@"jiage"]== [NSNull null ]?@"":[self.dic objectForKey:@"jiage"]];
+//            [self.locationBtn setTitle:[NSString  stringWithFormat:@"地址 %@%@%@",[self.dic objectForKey:@"cityName"],[self.dic objectForKey:@"quyu"],[self.dic objectForKey:@"weiZhi"]] forState:UIControlStateNormal];
+            [self.timeBtn setTitle:[self.dic objectForKey:@"kpsj"]==[NSNull null]?@"": [self.dic objectForKey:@"kpsj"]forState:UIControlStateNormal];
             
             NSString *houseurl;
             if ([self.dic valueForKey:@"zst"] != [NSNull null]) {
@@ -206,7 +206,7 @@
                 houseurl = @"";
             }
             
-            NSString *collect = [NSString stringWithFormat:@"%@",[self.dic objectForKey:@"isCollected"]];
+            NSString *collect = [NSString stringWithFormat:@"%@",[self.dic objectForKey:@"isCollected"]==[NSNull null]?@"":[self.dic objectForKey:@"isCollected"]];
 
             if ([collect isEqualToString:@"0"]) {
                 self.btnShouCang.selected = NO;

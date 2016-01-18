@@ -104,7 +104,7 @@
 
 //order
 #define GETORDER_URL  XWJBASEURL"order/myOrders"
-
+#define GETORDERCONFIRM_URL  XWJBASEURL"order/changeOrderStatus"
 //订单详情接口
 #define MYORDERDETAIL  XWJBASEURL"order/orderDetails"
 

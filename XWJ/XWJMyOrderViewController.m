@@ -44,13 +44,14 @@
     self.dataSourceArr = [[NSMutableArray alloc] init];
     self.orderArr = [[NSMutableArray alloc] init];
     self.navigationItem.title  = @"我的订单";
+    self.status = [NSArray arrayWithObjects:@"11",@"30",@"40", nil];
+    statusDic = [NSDictionary dictionaryWithObjectsAndKeys:@"待付款",@"11",@"待收货",@"30",@"待评价",@"40", nil];
+
     //默认当前选中按钮是第0个
     [self addView];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCellHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"header"];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCellFooter" bundle:nil] forHeaderFooterViewReuseIdentifier:@"footer"];
-    statusDic = [NSDictionary dictionaryWithObjectsAndKeys:@"待付款",@"11",@"待收货",@"30",@"待评价",@"40", nil];
-    self.status = [NSArray arrayWithObjects:@"11",@"30",@"40", nil];
     
     self.tableView.delegate =self;
     self.tableView.dataSource =self;
@@ -87,6 +88,54 @@
     [self.orderArr addObjectsFromArray:tArr];
     [_tableView reloadData];
 }
+
+-(void)confirmOrder:(NSString *)status :(NSString *)orderId{
+    
+    NSString *url = GETORDERCONFIRM_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+
+    [dict setValue:orderId forKey:@"orderId"];
+    [dict setValue:status forKey:@"status"];
+    
+    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
+    
+    //    [dict setValue:@"1" forKey:@"a_id"];
+    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    /*
+     pageindex	第几页	String,从0开始
+     countperpage	每页条数	String
+     cateId	商户分类	String
+     */
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dict);
+            NSString *res = [ NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
+//            self.orderArr = [dict objectForKey:@"orders"];
+            if ([res isEqualToString:@"1"]) {
+                
+                if ([status isEqualToString:@"30"]) {
+
+                    [self getOrderList:@"11"];
+                }else if([status isEqualToString:@"40"]){
+                    [self getOrderList:@"30"];
+                }
+            }
+
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 -(void)getOrderList:(NSString *)status{
     NSString *url = GETORDER_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -258,11 +307,39 @@
     }else if(1 == self.index){
         footer.delBtn.hidden = YES;
         [footer.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+        footer.payBtn.tag = section;
+        [footer.payBtn addTarget:self action:@selector(payClick:) forControlEvents:UIControlEventTouchUpInside];
+    }else if(0== self.index){
+        footer.delBtn.hidden = NO;
+        footer.delBtn.tag = section;
+        [footer.delBtn addTarget:self action:@selector(delClick:) forControlEvents:UIControlEventTouchUpInside
+         ];
+        [footer.payBtn addTarget:self action:@selector(payClick:) forControlEvents:UIControlEventTouchUpInside];
+        [footer.payBtn setTitle:@"立即付款" forState:UIControlStateNormal];
+        footer.payBtn.tag = section;
     }
     
     return footer;
 }
 
+-(void)delClick:(UIButton *)btn{
+    NSInteger index = btn.tag;
+    [self delegateMyOrder:index];
+}
+
+-(void)payClick:(UIButton *)btn{
+    
+    NSInteger index = btn.tag;
+    if(self.index==1){
+    //确认收货
+        NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:index] valueForKey:@"order_id"]] ;
+        [self confirmOrder:@"40" :oid];
+    }else if(self.index==0){
+        NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:index] valueForKey:@"order_id"]] ;
+        [self confirmOrder:@"30" :oid];
+    }
+    
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (2 == self.index) {
         return self.dataSourceArr.count;

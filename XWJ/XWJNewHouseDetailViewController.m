@@ -11,7 +11,11 @@
 #import "XWJAccount.h"
 #import "XWJHouseMapController.h"
 #import "XWJHouseInfoCell.h"
-@interface XWJNewHouseDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "LCBannerView.h"
+#import "XWJWebViewController.h"
+#import "UMSocial.h"
+
+@interface XWJNewHouseDetailViewController ()<UITableViewDataSource,UITableViewDelegate,LCBannerViewDelegate,UMSocialUIDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *backScrollView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -22,14 +26,20 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView *infoTableView;
 @property (nonatomic) NSMutableArray *tableData1;
+@property NSArray *URLs;
+@property (weak, nonatomic) IBOutlet UIButton *btnShouCang;
 
 @property (nonatomic) NSMutableArray *tableData;
 @property NSMutableArray *photos;
 @property NSMutableArray *buts;
 @property CGFloat height;
+
+@property(nonatomic,copy)NSString* shareImageStr;
+@property(nonatomic,copy)NSString* sharecontStr;
 @end
 
 @implementation XWJNewHouseDetailViewController
+@synthesize  URLs;
 
 #define TAG 100
 - (void)viewDidLoad {
@@ -43,7 +53,7 @@
     
 //    [self.tableData addObjectsFromArray:[NSArray arrayWithObjects:@"开盘 2015-5-1",@"地址 青岛市崂山区崂山路25号",@"状态 在售",@"优惠 交5000可98折 ", nil]];
 
-    
+    self.sharecontStr  = @"";
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 30)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 30)];
     label.textColor = XWJGREENCOLOR;
@@ -63,7 +73,30 @@
     self.tabBarController.tabBar.hidden = YES;
 
 }
+#pragma mark - 分享按钮响应
+- (IBAction)share:(id)sender {
+    NSLog(@"分享");
+    UIImageView* temIV = [[UIImageView alloc] init];
+    
+    [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"56938a23e0f55aac1d001cb6"
+                                      shareText:self.sharecontStr
+                                     shareImage:temIV.image
+                                shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
+                                       delegate:self];
+}
 
+#pragma mark - //实现回调方法（可选)
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+    }
+}
 -(void)viewWillDisappear:(BOOL)animated{
     self.tabBarController.tabBar.hidden = NO;
 }
@@ -82,12 +115,18 @@
         [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"lpId"];
         [dict setValue:@"1"  forKey:@"type"];
         [dict setValue: account.uid  forKey:@"userid"];
-    NSString *collect = [NSString stringWithFormat:@"%@",[self.dic objectForKey:@"isCollected"]];
-    if ([collect isEqualToString:@"0"]) {
+//    NSString *collect = [NSString stringWithFormat:@"%@",[self.dic objectForKey:@"isCollected"]];
+    
+    if (self.btnShouCang.selected) {
         [dict setValue:@"1" forKey:@"isCollect"];
     }else{
         [dict setValue:@"0" forKey:@"isCollect"];
     }
+//    if ([collect isEqualToString:@"0"]) {
+//        [dict setValue:@"1" forKey:@"isCollect"];
+//    }else{
+//        [dict setValue:@"0" forKey:@"isCollect"];
+//    }
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%s success ",__FUNCTION__);
@@ -117,6 +156,15 @@
         }];
     
 }
+
+
+- (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
+    XWJWebViewController *web = [[XWJWebViewController alloc] init];
+    
+    web.url = URLs[index];
+    [self.navigationController  showViewController:web sender:self];
+}
+
 -(void)getXinFangdetail{
     NSString *url = GETXINFANGDETAIL_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -158,7 +206,34 @@
                 houseurl = @"";
             }
             
-            [self.houseImg sd_setImageWithURL:[NSURL URLWithString:houseurl] placeholderImage:[UIImage imageNamed:@"newhouse"]];
+            NSString *collect = [NSString stringWithFormat:@"%@",[self.dic objectForKey:@"isCollected"]];
+
+            if ([collect isEqualToString:@"0"]) {
+                self.btnShouCang.selected = NO;
+            }else{
+                self.btnShouCang.selected = YES;
+            }
+            
+            URLs = [houseurl componentsSeparatedByString:@","];
+            [self.houseImg addSubview:({
+                
+                float time = 3.0f;
+                if (URLs.count==1) {
+                    time = MAXFLOAT;
+                }
+                LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+                                                                                          self.houseImg.bounds.size.height)
+                                            
+                                                                      delegate:self
+                                                                     imageURLs:URLs
+                                                              placeholderImage:nil
+                                                                 timerInterval:time
+                                                 currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                        pageIndicatorTintColor:[UIColor whiteColor]
+                                                                              :UIViewContentModeScaleAspectFit];
+                bannerView;
+            })];
+//            [self.houseImg sd_setImageWithURL:[NSURL URLWithString:houseurl] placeholderImage:[UIImage imageNamed:@"newhouse"]];
             
             self.infoTableView.frame = CGRectMake(self.infoTableView.frame.origin.x, self.infoTableView.frame.origin.y, self.infoTableView.frame.size.width, self.height);
 
@@ -281,6 +356,8 @@
     
 }
 - (IBAction)shoucang:(UIButton *)sender {
+    
+    sender.selected = !sender.selected;
     [self shouCang];
 }
 - (IBAction)ditu:(UIButton *)sender {

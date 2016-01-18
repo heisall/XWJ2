@@ -18,8 +18,7 @@
 #import "XWJAccount.h"
 #import "XWJWebViewController.h"
 #import "XWJUtil.h"
-#import "XWJBindHouseTableViewController.h"
-#import "XWJMyHouseController.h"
+
 @implementation XWJButlerViewController
 
 -(void)viewDidLoad{
@@ -28,6 +27,8 @@
     [self addView];
     
     [self getGuanjiaAD];
+    //订阅通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRoomNotification:) name:@"changeRoomNotification" object:nil];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"huname"]) {
 //        self.room.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"huname"];
 //    }
@@ -45,7 +46,12 @@
     }
 
 }
-
+//通知传过来的信息
+-(void)changeRoomNotification:(NSNotification *)notification
+{
+    NSDictionary *roomDictionary = [notification userInfo];
+    NSLog(@"\n%@",roomDictionary);
+}
 -(void)getGuanjiaAD{
     NSString *url = GETGUANJIAAD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

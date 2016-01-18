@@ -36,9 +36,17 @@ static NSString *kcellIdentifier = @"mymsgcell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        
+        [self downLoadData];
+        
+    }];
+    
     [self.view addSubview:_tableView];
 }
+
+
 
 -(void)downLoadData{
     NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/myMsg";
@@ -53,7 +61,7 @@ static NSString *kcellIdentifier = @"mymsgcell";
     [dict setValue:@"8"  forKey:@"countperpage"];
     [dict setValue:account.uid forKey:@"userid"];
     [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    
+         [self.tableView.mj_header endRefreshing];
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSArray *array  =[[NSArray alloc]init];
@@ -61,7 +69,8 @@ static NSString *kcellIdentifier = @"mymsgcell";
             NSLog(@"dic++++++ %@",array);
             for (NSMutableDictionary *d in array) {
                 [_subTitles addObject:[d objectForKey:@"title"]];
-                [_msgArr addObject:[d objectForKey:@"msg"]];
+//                [_msgArr addObject:[d objectForKey:@"msg"]];
+                [_msgArr addObject:@"mymsg1"];
                 [_sendTime addObject:[d objectForKey:@"sendTime"]];
                 [_titles addObject:@"有人评论了你的帖子"];
                 NSLog(@"dic++++++ %@",d);
@@ -75,6 +84,12 @@ static NSString *kcellIdentifier = @"mymsgcell";
     }];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+  //  self.tabBarController.tabBar.hidden =YES;
+    [self downLoadData];
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100;

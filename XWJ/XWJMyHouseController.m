@@ -62,17 +62,6 @@ static NSString *kcellIdentifier = @"cell";
     [self.view addSubview:_tableView];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    //    self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.width+60);
-    
-}
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    
-}
 
 -(void)bind{
     
@@ -220,9 +209,25 @@ static NSString *kcellIdentifier = @"cell";
 
     _guanjiaM = [NSString stringWithFormat:@"%@%@%@单元%@",[_titles objectAtIndex:indexPath.row],[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
     NSLog(@"%@",_guanjiaM);
+    
+    //发送通知
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:_guanjiaM forKey:@"room"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRoomNotification" object:nil userInfo:dict];
   
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    //    self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.width+60);
+    
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     NSInteger selectedIndex = 0;

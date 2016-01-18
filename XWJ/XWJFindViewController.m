@@ -455,6 +455,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 {
     
     NSLog(@"%ld row %ld",indexPath.section,indexPath.row);
+    
         XWJFindDetailViewController * con = [self.storyboard instantiateViewControllerWithIdentifier:@"findDetail"];
         con.finddetail = self.finddetailArr;
     con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];

@@ -96,6 +96,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self getZFFubFilter];
     self.navigationItem.title = @"我要出租";
     self.imageDatas = [NSMutableArray array];
+    self.lpIndex  = -1;
 }
 - (IBAction)changxiang:(id)sender {
     [self showSortView:sender];
@@ -637,13 +638,36 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
      private Integer clickCount;
      private Date addTime;
      */
+    
+//    必填项：照片、小区、户型、面积、租金、楼层、联系人、手机号
+    
+    if (self.lpIndex==-1) {
+        [ProgressHUD showError:@"请选择楼盘！"];
+        return;
+    }
     [dict setValue:[NSString stringWithFormat:@"%@",[[self.lp objectAtIndex:self.lpIndex] objectForKey:@"dicKey"]] forKey:@"buildingInfo"];
 //    [dict setValue:@"" forKey:@"area"];
+    
+    if (!self.shiTF.text.length>0||!self.tingTF.text.length>0||!self.weiTF.text.length>0) {
+        [ProgressHUD showError:@"请填写户型！"];
+        return;
+    }
     [dict setValue:self.shiTF.text forKey:@"house_Indoor"];
     [dict setValue:self.tingTF.text forKey:@"house_living"];
     [dict setValue:self.weiTF.text forKey:@"house_Toilet"];
     [dict setValue:self.niandaiTF.text forKey:@"niandai"];
+    
+    if(!self.mianjiTF.text.length>0){
+        [ProgressHUD showError:@"请填写面积！"];
+        return;
+    }
     [dict setValue:[NSString stringWithFormat:@"%@",self.mianjiTF.text] forKey:@"buildingArea"];
+    
+    if(!self.zujinTF.text.length>0){
+        [ProgressHUD showError:@"请填写租金！"];
+        return;
+    }
+
     [dict setValue:self.zujinTF.text forKey:@"rent"];
 ////    [dict setValue:@"" forKey:@"supporting"];
 //    
@@ -665,17 +689,42 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [dict setValue:[[self.lp objectAtIndex:self.lpIndex] objectForKey:@"dicKey"] forKey:@"buildingInfo"];
     [dict setValue:[[self.fu objectAtIndex:self.fuIndex] objectForKey:@"dicKey"] forKey:@"payMethod"];
 
+    
+    if(!((UITextField *)[self.tableView viewWithTag:102]).text .length>0){
+        [ProgressHUD showError:@"请填写手机号！"];
+        return;
+    }
     [dict setValue:((UITextField *)[self.tableView viewWithTag:102]).text forKey:@"mobilePhone"];
 //    private String floors;
 //    private String floorCount;
+    
+    
+    if(!self.jicengTF.text.length>0||!self.zongCengTF.text.length>0){
+        [ProgressHUD showError:@"请填写楼层！"];
+        return;
+    }
     [dict setValue:self.jicengTF.text forKey:@"floors"];
     [dict setValue:self.zongCengTF.text forKey:@"floorCount"];
 
+
+    //
+    if (self.imageDatas&&self.imageDatas.count>0) {
+        [dict setObject:self.imageDatas forKey:@"photo"];
+    }else{
+        [ProgressHUD showError:@"请选择图片！"];
+        return;
+    }
+    
     if (self.imageDatas) {
         [dict setObject:self.imageDatas forKey:@"photo"];
     }
     
     NSString *person = ((UITextField *)[self.tableView viewWithTag:101]).text;
+    
+    if(!person.length>0){
+        [ProgressHUD showError:@"请填写联系人！"];
+        return;
+    }
     if (person) {
         
         [dict setValue:person  forKey:@"addPerson"];

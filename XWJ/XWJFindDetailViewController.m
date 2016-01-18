@@ -234,8 +234,14 @@
                  */
                 
                 self.array = [NSMutableArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
-                self.dic = [NSMutableDictionary dictionaryWithDictionary:[(NSDictionary*)[dict objectForKey:@"data"] objectForKey:@"find"] ];
-                [self initView];
+                
+                
+                if([[dict objectForKey:@"data"] objectForKey:@"find"]!=[NSNull null]){
+                    
+                    self.dic = [NSMutableDictionary dictionaryWithDictionary:[(NSDictionary*)[dict objectForKey:@"data"] objectForKey:@"find"]];
+                    [self initView];
+                }
+                
                 
                 
 //                dispatch_async(dispatch_get_main_queue(), ^{

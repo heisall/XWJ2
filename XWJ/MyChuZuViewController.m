@@ -12,7 +12,10 @@
 #import "chuzuTableViewCell.h"
 #import "chuzuModel.h"
 #import "XWJAccount.h"
+#import "XWJCZFDetailViewController.h"
+#import "XWJZFTableViewCell.h"
 @interface MyChuZuViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property NSMutableArray *houseArr;
 
 @end
 
@@ -50,18 +53,18 @@
       //  NSLog(@"------%@",str);
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"出租数据%@",dict);
-        
+                 self.houseArr = [dict objectForKey:@"data"];
         NSArray *array = [dict objectForKey:@"data"];
-        for (NSDictionary *czDict in array) {
-            chuzuModel *czmodel = [[chuzuModel alloc]init];
-            [czmodel setValuesForKeysWithDictionary:czDict];
-            
-            [_dataSource addObject:czmodel];
-            // NSLog(@"-----%ld",_dataSource.count);
-            
-            [_tableV reloadData];
-           
-        }
+//        for (NSDictionary *czDict in array) {
+//            chuzuModel *czmodel = [[chuzuModel alloc]init];
+//            [czmodel setValuesForKeysWithDictionary:czDict];
+//            
+//            [_dataSource addObject:czmodel];
+//            // NSLog(@"-----%ld",_dataSource.count);
+//            
+//           
+//        }
+        [_tableV reloadData];
     
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -77,26 +80,65 @@
     _tableV.dataSource =self;
     [self.view addSubview:_tableV];
     
+    [_tableV registerNib:[UINib nibWithNibName:@"XWJZFTableCell" bundle:nil] forCellReuseIdentifier:@"zftablecell"];
+
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJZFStoryboard" bundle:nil];
+    XWJCZFDetailViewController *detail = [story instantiateViewControllerWithIdentifier:@"czfdatail"];
+    //        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    //        [dic setValue:@"" forKey:@""];
+    detail.dic = [self.houseArr objectAtIndex:indexPath.row];
+    detail.type = HOUSEZU;
+    [self.navigationController showViewController: detail sender:self];
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-        chuzuTableViewCell * cell  = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        if (!cell) {
-            cell = [[chuzuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        }
+//        chuzuTableViewCell * cell  = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+//        if (!cell) {
+//            cell = [[chuzuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//        }
+//    
+//        chuzuModel *chuzuM = [[chuzuModel alloc]init];
+//        chuzuM = _dataSource[indexPath.row];
+//    
+//        // NSLog(@"------%@",skM);
+//    
+//        [cell setCzModel:chuzuM];
+//    
+//        return cell;
     
-        chuzuModel *chuzuM = [[chuzuModel alloc]init];
-        chuzuM = _dataSource[indexPath.row];
+    XWJZFTableViewCell *cell;
     
-        // NSLog(@"------%@",skM);
+    cell = [tableView dequeueReusableCellWithIdentifier:@"zftablecell"];
+    if (!cell) {
+        cell = [[XWJZFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"zftablecell"];
+    }
     
-        [cell setCzModel:chuzuM];
+    [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
     
-        return cell;
+    NSString * shi = [NSString stringWithFormat:@"%@室%@厅%@卫 %@m²",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Indoor"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Indoor"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_living"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_living"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Toilet"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"house_Toilet"],[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingArea"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingArea"]];
+    NSString *money = [NSString stringWithFormat:@"%@元/月",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"rent"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"rent"]];
+    
+    
+    cell.label1.text = [NSString stringWithFormat:@"%@",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingInfo"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingInfo"]];
+    cell.label2.text = shi;
+    NSString * qu = [NSString stringWithFormat:@"%@",[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"area"]==[NSNull null]?@"":[[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"area"]];
+    cell.label3.text = qu;
+    //            cell.label3.text = [[self.houseArr objectAtIndex:indexPath.row] objectForKey:@"buildingArea"];
+    cell.label4.text = money;
+
+
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _dataSource.count;
+    return self.houseArr.count;
 
     
 }

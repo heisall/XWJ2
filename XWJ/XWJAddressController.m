@@ -81,7 +81,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    self.con.selectDic = [self.array objectAtIndex:indexPath.row] ;
+    if (self.con) {
+        self.con.selectDic = [self.array objectAtIndex:indexPath.row] ;
+    }
     [self.navigationController popViewControllerAnimated:NO];
 }
 

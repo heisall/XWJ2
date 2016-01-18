@@ -25,7 +25,7 @@
 #import "XWJMyOrderViewController.h"
 #import "XWJMFindViewController.h"
 #import "XWJFindViewController.h"
-
+#import "XWJAddressController.h"
 
 #define  CELL_HEIGHT 30.0
 #define  COLLECTION_NUMSECTIONS 2
@@ -205,6 +205,12 @@ NSArray *myImgs;
             XWJGuzhangViewController *gz2 = [guzhang instantiateInitialViewController];
             gz2.type = 2;
             [self.navigationController showViewController:gz2 sender:nil];
+        }
+        if(indexPath.row == 2){
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
+            XWJAddressController *addr = [story instantiateViewControllerWithIdentifier:@"address"];
+            addr.con =nil;
+            [self.navigationController pushViewController:addr animated:YES];
         }
 //                else{
 //                        UIViewController * con = [_mine objectAtIndex:indexPath.row];

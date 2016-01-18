@@ -8,6 +8,9 @@
 
 #import "XWJMyMessageController.h"
 #import "XWJAccount.h"
+#import "XWJFindDetailViewController.h"
+#import "XWJFindDetailTableViewCell.h"
+#import "qingganViewController.h"
 
 @interface XWJMyMessageController()<UITableViewDataSource,UITableViewDelegate>
 
@@ -22,7 +25,7 @@
 
 @implementation XWJMyMessageController
 
-static NSString *kcellIdentifier = @"mymsgcell";
+static NSString *kcellIdentifier = @"cell";
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -31,7 +34,8 @@ static NSString *kcellIdentifier = @"mymsgcell";
     self.titles = [[NSMutableArray alloc]init];
     self.sendTime = [[NSMutableArray alloc]init];
     self.subTitles = [[NSMutableArray alloc]init];
-    _msgArr = [NSMutableArray arrayWithObjects:@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3", nil];
+    self.msgArr = [[NSMutableArray alloc]init];
+//    _msgArr = [NSMutableArray arrayWithObjects:@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3", nil];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -70,10 +74,10 @@ static NSString *kcellIdentifier = @"mymsgcell";
             for (NSMutableDictionary *d in array) {
                 [_subTitles addObject:[d objectForKey:@"title"]];
 //                [_msgArr addObject:[d objectForKey:@"msg"]];
-                [_msgArr addObject:@"mymsg1"];
+                [_msgArr addObject:@"mymsg2"];
                 [_sendTime addObject:[d objectForKey:@"sendTime"]];
                 [_titles addObject:@"有人评论了你的帖子"];
-                NSLog(@"dic++++++ %@",d);
+     //           NSLog(@"dic++++++ %@",d);
             }
         }
         
@@ -98,13 +102,12 @@ static NSString *kcellIdentifier = @"mymsgcell";
     return self.titles.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell;
-    cell = [tableView dequeueReusableCellWithIdentifier:kcellIdentifier];
-    
+    cell = [tableView dequeueReusableCellWithIdentifier:@""];
+
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kcellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@""];
     }
     cell.textLabel.text = [_titles objectAtIndex:indexPath.row];
     cell.textLabel.textColor = XWJColor(27, 28, 29);
@@ -115,8 +118,20 @@ static NSString *kcellIdentifier = @"mymsgcell";
     cell.imageView.image = [UIImage imageNamed:[_msgArr objectAtIndex:indexPath.row]];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(tableView.bounds.size.width-120, 20, 120, 30)];
     label.textColor = XWJColor(200, 200, 200);
-    label.text = [_sendTime objectAtIndex:indexPath.row];;
+    label.text = [_sendTime objectAtIndex:indexPath.row];
     [cell.contentView addSubview:label];
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+//    NSLog(@"%ld row %ld",indexPath.section,indexPath.row);
+//    XWJFindDetailViewController * con = [self.storyboard instantiateViewControllerWithIdentifier:@"findDetail"];
+////    con.finddetail = self.finddetailArr;
+////    con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];
+//    [self.navigationController showViewController:con sender:nil];
+
+    qingganViewController *qigngan  = [[qingganViewController alloc]init];
+    [self.navigationController showViewController:qigngan sender:nil];
 }
 @end

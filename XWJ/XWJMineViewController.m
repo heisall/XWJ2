@@ -23,6 +23,9 @@
 #import "XWJMyMessageController.h"
 #import "XWJForgetPwdViewController.h"
 #import "XWJMyOrderViewController.h"
+#import "XWJMFindViewController.h"
+#import "XWJFindViewController.h"
+
 
 #define  CELL_HEIGHT 30.0
 #define  COLLECTION_NUMSECTIONS 2
@@ -41,13 +44,13 @@ NSArray *myImgs;
 //}
 -(void)viewDidLoad{
 
-    self.tableData = [NSArray arrayWithObjects:@"关于信我家",@"邀请家人",@"修改密码",@"版本检查",@"修改建议" ,@"退出登录" ,nil];
+    self.tableData = [NSArray arrayWithObjects:@"关于信我家",@"修改密码",@"版本检查",@"修改建议" ,@"退出登录" ,nil];
     self.tableview.dataSource = self;
     self.tableview.delegate = self;
     tableViewCellHeight = self.tableview.bounds.size.height/self.tableData.count;
 
-    myImgs = [NSArray arrayWithObjects:@"mine1",@"mine2",@"mine3",@"mine4",@"mine5",@"图层-1@2x",@"mine6",@"mine8", nil];
-    self.collectionData = [NSArray arrayWithObjects:@"我的消息",@"我的发现",@"我的租售",@"我的订单",@"我的报修",@"投诉表扬",@"收件地址",@"我的积分",nil];
+    myImgs = [NSArray arrayWithObjects:@"mine1",@"mine2",@"mine3",@"mine4",@"mine5",@"图层-1@2x",@"mine6",@"", nil];
+    self.collectionData = [NSArray arrayWithObjects:@"我的消息",@"我的发现",@"我的租售",@"我的订单",@"我的报修",@"投诉表扬",@"收件地址",@"",nil];
     self.collcitonView.dataSource = self;
     self.collcitonView.delegate = self;
     [self.collcitonView registerNib:[UINib nibWithNibName:@"XWJCollectionCell" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier];
@@ -299,18 +302,18 @@ NSArray *myImgs;
         XWJAboutViewController *about = [[XWJAboutViewController alloc]init];
         [self.navigationController pushViewController:about animated:YES];
     }
-    if (indexPath.row == 2) {
+    if (indexPath.row == 1) {
         
         UIStoryboard *changePassWord = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
         XWJForgetPwdViewController *forgotPassWord = [changePassWord instantiateViewControllerWithIdentifier:@"forget1"];
         [self.navigationController showViewController:forgotPassWord sender:nil];
     }
-    if (indexPath.row == 4) {
+    if (indexPath.row == 3) {
         
         XWJSuggestionController *sug = [[XWJSuggestionController alloc]init];
         [self.navigationController pushViewController:sug animated:YES];
     }
-    if (indexPath.row == 5) {
+    if (indexPath.row == 4) {
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"确定要退出登陆？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
         alertview.delegate = self;
         [alertview show];

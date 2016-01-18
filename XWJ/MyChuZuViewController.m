@@ -40,7 +40,7 @@
     //16位md5加密
     //    NSString *passwordString = [self getMd5_16Bit_String:_pwdtext.text];
     parameters[@"pageindex"] = @"0";
-    parameters[@"countperpage"] = @"1";
+    parameters[@"countperpage"] = @"10";
     NSString *uid = [XWJAccount instance].uid;
     parameters[@"userid"] = uid;
     

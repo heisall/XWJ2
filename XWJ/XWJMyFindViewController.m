@@ -207,9 +207,11 @@
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setObject:@"0" forKey:@"pageindex"];
-    [dict setObject:@"9" forKey:@"countperpage"];
-    [dict setObject:@"" forKey:@"userid"];
-    [dict setObject:@"" forKey:@"a_id"];
+    [dict setObject:@"20" forKey:@"countperpage"];
+    [dict setObject:[XWJAccount instance].uid  forKey:@"userid"];
+    [dict setObject:[XWJAccount instance].aid forKey:@"a_id"];
+//    [dict setObject:@""  forKey:@"userid"];
+//    [dict setObject:@"" forKey:@"a_id"];
     
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];

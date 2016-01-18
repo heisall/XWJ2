@@ -173,6 +173,7 @@
         XWJGZmiaoshuViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"guzhangmiaoxu"];
 //        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 //        [dic setValue:@"" forKey:@""];
+    detail.type = self.type;
     detail.detaildic  =  [NSMutableDictionary dictionaryWithDictionary:[self.guzhangArr objectAtIndex:indexPath.row]];
         [self.navigationController showViewController: detail sender:self];
 

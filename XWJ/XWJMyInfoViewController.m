@@ -13,6 +13,8 @@
 #import "qingganViewController.h"
 #import "xignquaihaoViewController.h"
 #import "gexingqianmingViewController.h"
+#import "ProgressHUD/ProgressHUD.h"
+
 
 #define  HEIGHT 85.0
 #define  NORMALHGIGHT 44.0
@@ -406,6 +408,7 @@ CGRect tableViewCGRect;
 
 //dict请求的数据体；  //key要改的字段的key； //obj要改的字段的obj；
 -(void)postInfoWithDic:(NSMutableDictionary *)dict FromKey:(NSString *)key object:(id)obj success:(void (^)(id))success failure:(void (^)(NSError *))failure{
+    [ProgressHUD showSuccess:@"正在修改"];
     //修改个人信息 url串；
     NSString *url = @"http://www.hisenseplus.com:8100/appPhone/rest/user/userInfoChange";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -428,8 +431,9 @@ CGRect tableViewCGRect;
             NSLog(@"dic==>%@",dic);
             NSString *result = [dic valueForKey:@"result"];
             if ([result isEqualToString:@"1"]) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"修改完成" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alert show];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"修改完成" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                [alert show];
+                [ProgressHUD dismiss];
                 success(responseObject);
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"修改失败" message:@"服务器请求异常，请稍后重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

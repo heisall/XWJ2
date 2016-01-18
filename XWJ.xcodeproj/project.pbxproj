@@ -76,6 +76,7 @@
 		8E82E5081C48C2DB008D418B /* XWJBingHouseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E5071C48C2DB008D418B /* XWJBingHouseViewController.xib */; };
 		8E82E50A1C48C3EC008D418B /* WuyeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */; };
 		8E82E50C1C48C444008D418B /* XWJLoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */; };
+		8EA86D4E1C4CBC0800A0C585 /* XWJMFindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA86D4D1C4CBC0800A0C585 /* XWJMFindViewController.m */; };
 		8EEB6E141C3134C9006F572D /* XWJMyFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */; };
 		8EEB6E151C3134C9006F572D /* XWJMyFindViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */; };
 		8EEB6E161C3134C9006F572D /* XWJMyFindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E131C3134C9006F572D /* XWJMyFindViewController.m */; };
@@ -528,6 +529,8 @@
 		8E82E5071C48C2DB008D418B /* XWJBingHouseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJBingHouseViewController.xib; sourceTree = "<group>"; };
 		8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WuyeStoryboard.storyboard; sourceTree = "<group>"; };
 		8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XWJLoginStoryboard.storyboard; sourceTree = "<group>"; };
+		8EA86D4C1C4CBC0800A0C585 /* XWJMFindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJMFindViewController.h; sourceTree = "<group>"; };
+		8EA86D4D1C4CBC0800A0C585 /* XWJMFindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJMFindViewController.m; sourceTree = "<group>"; };
 		8EEB6E0F1C3134C9006F572D /* XWJMyFindViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJMyFindViewCell.h; sourceTree = "<group>"; };
 		8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJMyFindViewCell.m; sourceTree = "<group>"; };
 		8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJMyFindViewCell.xib; sourceTree = "<group>"; };
@@ -1790,6 +1793,8 @@
 				8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */,
 				8EEB6E121C3134C9006F572D /* XWJMyFindViewController.h */,
 				8EEB6E131C3134C9006F572D /* XWJMyFindViewController.m */,
+				8EA86D4C1C4CBC0800A0C585 /* XWJMFindViewController.h */,
+				8EA86D4D1C4CBC0800A0C585 /* XWJMFindViewController.m */,
 				8E13270D1C30DED000D3EDB5 /* XWJMyMessageController.h */,
 				8E13270E1C30DED000D3EDB5 /* XWJMyMessageController.m */,
 				8E13270F1C30DED000D3EDB5 /* XWJMyZSViewController.h */,
@@ -2700,6 +2705,7 @@
 				EC9518A81C4540C400AEA7E5 /* View+MASAdditions.m in Sources */,
 				A4DC3CA11C1C7593003D4D18 /* RatingBar.m in Sources */,
 				A43811091C2457EA001D2F29 /* XWJHttpComm.m in Sources */,
+				8EA86D4E1C4CBC0800A0C585 /* XWJMFindViewController.m in Sources */,
 				A43928FA1C3039B500572F70 /* GKHpickerAddressView.m in Sources */,
 				8E1327131C30DED000D3EDB5 /* FindModel.m in Sources */,
 				A42DA7C91C37DD9000EF74C1 /* XWJGroupBuyTableViewCell.m in Sources */,

@@ -26,8 +26,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (self.type == 1) {
+        self.navigationItem.title = @"报修详情";
+    }else{
+        self.navigationItem.title = @"投诉详情";
+    }
     
-    self.navigationItem.title = @"报修详情";
     [self getGZDetail];
 
 }

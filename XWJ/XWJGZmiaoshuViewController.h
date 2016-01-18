@@ -12,4 +12,5 @@
 
 @property NSMutableDictionary *detaildic;
 @property NSString *gzid;
+@property NSInteger type;
 @end

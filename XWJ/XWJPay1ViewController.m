@@ -11,6 +11,7 @@
 #import "XWJAccount.h"
 @interface XWJPay1ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
+@property NSMutableArray *payListArr;
 
 @end
 
@@ -18,6 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self getZhangDan];
+    self.payListArr = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"物业账单";
     self.tabBarController.tabBar.hidden = YES;
@@ -27,7 +30,7 @@
     self.tableView.dataSource = self;
     
     self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户",@"", nil];
-    [self getZhangDan];
+    
 }
 
 -(void)getZhangDan{
@@ -62,19 +65,11 @@
             NSLog(@"%s success ",__FUNCTION__);
             
             if(responseObject){
-                NSDictionary *dic = (NSDictionary *)responseObject;
-                
-                //            NSMutableArray * array = [NSMutableArray array];
-                //            XWJCity *city  = [[XWJCity alloc] init];
-                
-                //            NSArray *arr  = [dic objectForKey:@"data"];
-                //            [self.houseArr removeAllObjects];
-                //            [self.houseArr addObjectsFromArray:arr];
-                //            [self.tableView reloadData];
-                NSLog(@"dic %@",dic);
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            self.payListArr = [dic objectForKey:@"data"];
+            [self.tableView reloadData];
+                NSLog(@"dic ++++%@",self.payListArr);
             }
-            
-            
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"%s fail %@",__FUNCTION__,error);
@@ -91,12 +86,6 @@
     return 1;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 30.0;
-//}
-//- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    return @"物业员工";
-//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100.0;
@@ -125,7 +114,8 @@
     
     cell.imageView.image = [UIImage imageNamed:@"wuyezhangdan1"];
     cell.imageView.highlightedImage = [UIImage imageNamed:@"wuyezhangdan2"];
-    cell.label1.text = @"2015.12";
+//    cell.label1.text = [self.payListArr[indexPath.row] objectForKey:@"t_date"];
+    cell.label1.text = @"2012.5";
     cell.label2.text = @"物业费";
     cell.label3.text = @"2000.10";
     cell.label4.text = @"水电费";
@@ -161,7 +151,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    //r Dispose of any resources that can be recreated.
 }
 
 /*

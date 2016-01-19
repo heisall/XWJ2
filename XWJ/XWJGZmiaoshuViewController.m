@@ -75,6 +75,8 @@
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%s success ",__FUNCTION__);
+            NSLog(@"%@", responseObject);
+            
             
             /*
              {"result":"1","data":{"id":20,"code":"1-20151214020","createtime":"12-14 13:10","miaoshu":"内容","zt":"未受理","hfzt":null,"xing":-1,"yytime":"12-14 13:10","yytime1":"1-1 shangwu","slname":null,"gbtime":null,"lwpgsj":null,"lwclr":null,"leixing":"维修"},"errorCode":null}

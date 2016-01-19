@@ -97,7 +97,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"index path %ld",(long)indexPath.row);
+//    NSLog(@"index path %ld",(long)indexPath.row);
     XWJGZTableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -127,10 +127,16 @@
     cell.finishLabel.text = [NSString stringWithFormat:@"%@",[[self.guzhangArr objectAtIndex:indexPath.row] objectForKey:@"zt"]];
     cell.pingjiaBtn.tag = TAG + indexPath.row;
     
-    
+
     NSString *xing = [NSString stringWithFormat:@"%@",[[self.guzhangArr objectAtIndex:indexPath.row] objectForKey:@"xing"]];
+    NSString *hfzt = [NSString stringWithFormat:@"%@",[[self.guzhangArr objectAtIndex:indexPath.row] objectForKey:@"hfzt"]];
     
-    if ([xing intValue]!=-1) {
+    if ([cell.finishLabel.text isEqualToString:@"未受理"] && [cell.finishLabel.text isEqualToString:@"待处理"]) {
+    
+        cell.pingjiaBtn.hidden = YES;
+    }else{
+        
+      if ([xing intValue]!= -1) {
         
 //        if (!cell.pingjiaBtn.hidden) {
             RatingBar * _bar = [[RatingBar alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-150, 0, 180, 30)];
@@ -144,12 +150,7 @@
         cell.pingjiaBtn.tag = indexPath.row+100;
         [cell.pingjiaBtn addTarget:self action:@selector(pingjia:) forControlEvents:UIControlEventTouchUpInside];
     }
-        // Configure the cell...
-    
-//    label1.text = @"海信湖岛世家";
-//    label2.text = @"3室2厅2卫 110平米";
-//    label3.text = @"青岛市四方区";
-//    label4.text = @"150万元";
+    }
     
  
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

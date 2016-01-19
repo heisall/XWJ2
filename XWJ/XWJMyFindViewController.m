@@ -10,6 +10,8 @@
 #import "XWJMyFindViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "XWJAccount.h"
+#import "qingganViewController.h"
+#import "XWJFindDetailViewController.h"
 
 
 #define  COLLECTION_NUMSECTIONS 3
@@ -21,6 +23,10 @@
 
 
 @interface XWJMyFindViewController ()<UITableViewDataSource , UITableViewDelegate>
+
+@property NSMutableArray *finddetailArr;
+@property NSMutableDictionary *dic;
+@property NSMutableArray *idArray;
 
 @end
 
@@ -244,7 +250,44 @@
     }];
     
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self downLoadFindData];
+}
+-(void)downLoadFindData{
+    NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/find/findDetail";
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    XWJAccount *account = [XWJAccount instance];
+    [dict setValue:_idArray  forKey:@"id"];
+    [dict setValue:account.uid forKey:@"userid"];
+    [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"dic***** %@",responseObject);
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSDictionary *dicc =[[NSDictionary alloc]init];
+            dicc = [dict objectForKey:@"data"];
+            self.dic = [dicc objectForKey:@"find"];
+            NSLog(@"dic*****%@",self.dic);
+            
+            UIStoryboard *find = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
+            XWJFindDetailViewController * con = [find instantiateViewControllerWithIdentifier:@"findDetail"];
+            //      con.finddetail = self.finddetailArr;
+            //       con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];
+            con.dic = _dic;
+            NSLog(@"****%@",con.dic);
+            [self.navigationController showViewController:con sender:nil];
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
 
 
 - (void)didReceiveMemoryWarning {

@@ -23,7 +23,6 @@
 #import "XWJMyMessageController.h"
 #import "XWJForgetPwdViewController.h"
 #import "XWJMyOrderViewController.h"
-#import "XWJMFindViewController.h"
 #import "XWJFindViewController.h"
 #import "XWJAddressController.h"
 

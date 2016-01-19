@@ -117,6 +117,11 @@
 //确认收货  修改订单状态
 #define MAKESUREORDER  XWJBASEURL"order/changeOrderStatus"
 
+//签到广告页面
+#define SIGNADD  XWJBASEURL"index/signIndex"
+//
+#define SIGNSUCC  XWJBASEURL"user/signIn"
+
 #define YEZHU_URL  XWJBASEURL"build/infoValidate"
 #define CHANGEFANGYUAN_URL  XWJBASEURL"build/changeDefault"
 

@@ -25,6 +25,8 @@
 #import "XWJShangmenViewController.h"
 #import "XWJGroupViewController.h"
 #import "XWJShuoListViewController.h"
+
+#import "SignViewController.h"
 #define  CELL_HEIGHT 150.0
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 1
@@ -44,7 +46,10 @@
 @property NSMutableArray *shanghuArr;
 @property NSMutableArray *shipinArr;
 @property NSMutableArray *jiazhuangArr;
-
+@property(nonatomic,copy)NSString* xiaoquid;
+@property(nonatomic,copy)NSString* accountid;
+@property(nonatomic,copy)NSString* nickName;
+@property(nonatomic,copy)NSString* headImage;
 @end
 
 @implementation XWJHomeViewController
@@ -96,6 +101,15 @@ NSArray *footer;
 - (IBAction)qiandao:(UIButton *)sender {
 }
 - (IBAction)jifen:(UIButton *)sender {
+}
+- (IBAction)signBtn:(id)sender {
+    NSLog(@"签到");
+    SignViewController* vc = [[SignViewController alloc] init];
+    vc.account = self.accountid;
+    vc.a_idStr = self.xiaoquid;
+    vc.nickName = self.nickName;
+    vc.headImageStr = self.headImage;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)msgClick:(UIButton *)sender{
@@ -200,6 +214,13 @@ NSArray *footer;
         [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
 //            [dict setValue:@"1" forKey:@"a_id"];
 
+    self.xiaoquid = [XWJAccount instance].aid;
+    self.accountid = [XWJAccount instance].account;
+    if (![[XWJAccount instance].phone isKindOfClass:[NSNull class]]) {
+        self.headImage = [XWJAccount instance].phone;
+    }
+    
+    self.nickName = [XWJAccount instance].NickName;
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

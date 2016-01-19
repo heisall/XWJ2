@@ -21,6 +21,8 @@
 @property NSMutableArray *sendTime;
 @property NSMutableArray *finddetailArr;
 @property NSMutableDictionary *dic;
+@property NSMutableArray *idArray;
+
 
 @end
 
@@ -37,6 +39,7 @@ static NSString *kcellIdentifier = @"cell";
     self.sendTime = [[NSMutableArray alloc]init];
     self.subTitles = [[NSMutableArray alloc]init];
     self.msgArr = [[NSMutableArray alloc]init];
+    self.idArray = [[NSMutableArray alloc]init];
 //    _msgArr = [NSMutableArray arrayWithObjects:@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3", nil];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -77,7 +80,9 @@ static NSString *kcellIdentifier = @"cell";
                 [_msgArr addObject:@"mymsg2"];
                 [_sendTime addObject:[d objectForKey:@"sendTime"]];
                 [_titles addObject:@"有人评论了你的帖子"];
- //               NSLog(@"dic++++++ %@",d);
+                [_idArray addObject:[d objectForKey:@"id"]];
+                
+               NSLog(@"dic++++++ %@",_idArray);
             }
         }
         
@@ -96,7 +101,7 @@ static NSString *kcellIdentifier = @"cell";
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     XWJAccount *account = [XWJAccount instance];
-    [dict setValue:@"88"  forKey:@"id"];
+    [dict setValue:_idArray  forKey:@"id"];
     [dict setValue:account.uid forKey:@"userid"];
     [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"dic***** %@",responseObject);
@@ -108,7 +113,7 @@ static NSString *kcellIdentifier = @"cell";
             self.dic = [dicc objectForKey:@"find"];
             NSLog(@"dic*****%@",self.dic);
             
-            UIStoryboard *find = [UIStoryboard storyboardWithName:@"" bundle:nil];
+            UIStoryboard *find = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
             XWJFindDetailViewController * con = [find instantiateViewControllerWithIdentifier:@"findDetail"];
             //      con.finddetail = self.finddetailArr;
             //       con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];

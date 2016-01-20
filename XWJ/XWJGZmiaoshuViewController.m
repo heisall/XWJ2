@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *shoujihao;
 
 @property (weak, nonatomic) IBOutlet UILabel *chuliRen;
+@property (weak, nonatomic) IBOutlet UIImageView *gzStartImageV;
+@property (weak, nonatomic) IBOutlet UIImageView *gzMidImageV;
+@property (weak, nonatomic) IBOutlet UIImageView *gzEndImageV;
 @end
 
 @implementation XWJGZmiaoshuViewController
@@ -93,7 +96,7 @@
                 //            [self.houseArr addObjectsFromArray:arr];
                 //            [self.tableView reloadData];
                 
-                NSLog(@"dic %@",dic);
+                NSLog(@"dic !!!!!!%@",dic);
                 [self updateView ];
             }
             
@@ -113,8 +116,27 @@
     self.timeLabel1.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime"]==[NSNull null]?@"":[self.detaildic objectForKey:@"yytime"]];
     self.timeLabel2.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime1"]==[NSNull null]?@"":[self.detaildic objectForKey:@"yytime1"]];
     self.timeLabel3.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"gbtime"]==[NSNull null]?@"":[self.detaildic objectForKey:@"gbtime"]];
-    
-}
+    UIButton *btn = (UIButton*)[self.view viewWithTag:1991];
+    self.gzStartImageV.image = [UIImage imageNamed:@"gzstart2"];
+    self.gzMidImageV.image = [UIImage imageNamed:@"gzmid"];
+    self.gzEndImageV.image = [UIImage imageNamed:@"gzend"];
+    btn.hidden = YES;
+        if ([self.detaildic objectForKey:@"lwpgsj"]==[NSNull null]) {
+            self.gzMidImageV.image = [UIImage imageNamed:@"gzmid"];
+            self.gzEndImageV.image = [UIImage imageNamed:@"gzend"];
+            btn.hidden = YES;
+        }else{
+            self.gzMidImageV.image = [UIImage imageNamed:@"gzmid2"];
+            if ([self.detaildic objectForKey:@"gbtime"]==[NSNull null]) {
+                self.gzEndImageV.image = [UIImage imageNamed:@"gzend"];
+                btn.hidden = YES;
+            }else{
+                self.gzEndImageV.image = [UIImage imageNamed:@"gzend2"];
+                btn.hidden = NO;
+            }
+        }
+    }
+
 
 - (IBAction)pingjia:(UIButton *)sender {
     

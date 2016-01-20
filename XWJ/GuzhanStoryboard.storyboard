@@ -276,6 +276,9 @@
                         <outlet property="chuliRen" destination="ecQ-jS-hlz" id="NP4-dD-kin"/>
                         <outlet property="connent" destination="e4B-fw-ANZ" id="8B7-Cj-qTD"/>
                         <outlet property="guzhangDanhao" destination="jby-EJ-baI" id="Ipj-lx-NFy"/>
+                        <outlet property="gzEndImageV" destination="1nV-EZ-Thu" id="Cjg-aS-XFK"/>
+                        <outlet property="gzMidImageV" destination="Hfu-eC-feM" id="vbc-Xb-6P2"/>
+                        <outlet property="gzStartImageV" destination="pyn-Lg-zmE" id="lQz-mS-G6Y"/>
                         <outlet property="jinchangScroll" destination="sBO-SZ-ZbY" id="LL2-aW-Uo2"/>
                         <outlet property="shoujihao" destination="nkr-YQ-gTh" id="f5w-zX-GaK"/>
                         <outlet property="timeLabel1" destination="EMu-Gp-MNe" id="faN-0v-wEl"/>
@@ -494,9 +497,9 @@
     </scenes>
     <resources>
         <image name="addImage" width="45" height="45"/>
-        <image name="gzend" width="16" height="57"/>
+        <image name="gzend" width="24" height="85"/>
         <image name="gzmid" width="24" height="85"/>
-        <image name="gzstart" width="24" height="81"/>
+        <image name="gzstart" width="16" height="54"/>
         <image name="pulldown" width="11" height="7"/>
         <image name="yuyuekanfang" width="82" height="27"/>
     </resources>

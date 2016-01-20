@@ -129,27 +129,24 @@
     
 
     NSString *xing = [NSString stringWithFormat:@"%@",[[self.guzhangArr objectAtIndex:indexPath.row] objectForKey:@"xing"]];
-    NSString *hfzt = [NSString stringWithFormat:@"%@",[[self.guzhangArr objectAtIndex:indexPath.row] objectForKey:@"hfzt"]];
     
-    if ([cell.finishLabel.text isEqualToString:@"未受理"] && [cell.finishLabel.text isEqualToString:@"待处理"]) {
-    
-        cell.pingjiaBtn.hidden = YES;
-    }else{
-        
-      if ([xing intValue]!= -1) {
-        
-//        if (!cell.pingjiaBtn.hidden) {
+    if ([cell.finishLabel.text isEqualToString:@"已关闭"]) {
+        if ([xing intValue]!= -1) {
+            
+            //   if (!cell.pingjiaBtn.hidden) {
             RatingBar * _bar = [[RatingBar alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-150, 0, 180, 30)];
             _bar.enable = NO;
             _bar.starNumber = [xing intValue];
             [cell.rateView addSubview:_bar];
             cell.pingjiaBtn.hidden = YES;
-//        }
-    }else{
-        cell.pingjiaBtn.hidden = NO;
-        cell.pingjiaBtn.tag = indexPath.row+100;
-        [cell.pingjiaBtn addTarget:self action:@selector(pingjia:) forControlEvents:UIControlEventTouchUpInside];
-    }
+            //        }
+        }else{
+            cell.pingjiaBtn.hidden = NO;
+            cell.pingjiaBtn.tag = indexPath.row+100;
+            [cell.pingjiaBtn addTarget:self action:@selector(pingjia:) forControlEvents:UIControlEventTouchUpInside];
+        }
+            }else{
+                cell.pingjiaBtn.hidden = YES;
     }
     
  

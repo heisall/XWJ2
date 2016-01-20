@@ -527,12 +527,16 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     if (tex) {
         [dict setValue:tex forKey:@"buildingInfo"];
     }
-    [dict setValue:[[self.quyu objectAtIndex:self.quyuIndex] objectForKey:@"dicKey"] forKey:@"district"];
+    
+    if (self.quyuIndex==0) {
+        
+    }else
+        [dict setValue:[[self.quyu objectAtIndex:self.quyuIndex] objectForKey:@"dicValue"] forKey:@"district"];
     [dict setValue:[[self.price objectAtIndex:self.priceIndex] objectForKey:@"dicKey"]  forKey:@"price"];
     [dict setValue:[[self.mianji objectAtIndex:self.mianjiIndex] objectForKey:@"dicKey"] forKey:@"square"];
     [dict setValue:[[self.huxing objectAtIndex:self.huxingIndex] objectForKey:@"dicKey"] forKey:@"style"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"20"  forKey:@"countperpage"];
+    [dict setValue:@"200"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -585,7 +589,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     [dict setValue:[[self.mianji objectAtIndex:self.mianjiIndex] objectForKey:@"dicKey"] forKey:@"fkfs"];
     [dict setValue:[[self.huxing objectAtIndex:self.huxingIndex] objectForKey:@"dicKey"] forKey:@"hx"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"20"  forKey:@"countperpage"];
+    [dict setValue:@"200"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

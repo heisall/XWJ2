@@ -52,6 +52,7 @@
     [self createRequest];
 }
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
 - (void)viewWillDisappear:(BOOL)animated{
@@ -165,9 +166,10 @@
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:requestAddress parameters:@{
-                                              @"a_id":self.a_idStr,
+                                              @"a_id":[NSString stringWithFormat:@"%@",self.a_idStr],
                                               }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"response %@",responseObject);
               if ([[responseObject objectForKey:@"data"] isKindOfClass:[NSNull class]]) {
                   NSLog(@"没有返回信息");
               }else{

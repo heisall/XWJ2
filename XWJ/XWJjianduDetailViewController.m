@@ -13,14 +13,14 @@
 #import "XWJAccount.h"
 #import "ProgressHUD/ProgressHUD.h"
 #import "LCBannerView.h"
-
+#import "XWJWebViewController.h"
 #import "UMSocial.h"
 
 #define MYTV_MESSAGE_COMMANTS_FONT [UIFont boldSystemFontOfSize:14.0f] // 
 #define LONGIN_TEXTVIEW_SELECTED_BORDER_COLOR [UIColor colorWithRed:50/255.0 green:176/255.0 blue:178/255.0 alpha:1].CGColor // 用户名和密码框选中的时候边框颜色
 #define TEXT_VIEW_MIN_HEIGH 44
 
-@interface XWJjianduDetailViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate>
+@interface XWJjianduDetailViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate,LCBannerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITextField *inputTextField;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
@@ -188,8 +188,28 @@
 }
 
 -(void)cleanText{
-//    self.commentTextView.text  =@"";
+    self.commentTextView.text  = @"";
 //    self.commentTextView.text = @"请输入评论内容";
+}
+
+-(void)imgclick{
+    XWJWebViewController * web = [[XWJWebViewController alloc] init];
+    NSString *urls = [self.dicw objectForKey:@"photo"]==[NSNull null]?@"":[self.dicw objectForKey:@"photo"];
+    
+    NSArray *url = [urls componentsSeparatedByString:@","];
+    web.url = [url objectAtIndex:0];
+    self.shareImageStr = [url firstObject];
+    [self.navigationController pushViewController:web animated:NO];
+}
+
+- (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index{
+    XWJWebViewController * web = [[XWJWebViewController alloc] init];
+    NSString *urls = [self.dicw objectForKey:@"photo"]==[NSNull null]?@"":[self.dicw objectForKey:@"photo"];
+    
+    NSArray *url = [urls componentsSeparatedByString:@","];
+    web.url = [url objectAtIndex:index];
+    self.shareImageStr = [url firstObject];
+    [self.navigationController pushViewController:web animated:NO];
 }
 
 -(void)getWuyeDetail{
@@ -240,6 +260,14 @@
             self.shareTitleStr = self.dicw[@"Content"];
             if(URLs&&URLs.count>0)
                 
+                if (URLs.count == 1) {
+                    [self.imgView sd_setImageWithURL:[NSURL URLWithString:[URLs lastObject]] placeholderImage:nil];
+                    UITapGestureRecognizer* singleRecognizer;
+                    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick)];
+                    //点击的次数
+                    singleRecognizer.numberOfTapsRequired = 1;
+                    [self.imgView addGestureRecognizer:singleRecognizer];
+                }else
                 if (!(self.imgView.subviews&&self.imgView.subviews.count>0)) {
                     
                     
@@ -274,8 +302,8 @@
                 [self.tableView reloadData];
                 self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
                 [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
-                self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+200);
             }
+            self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+200);
            // [self addDianJi];
         }
         

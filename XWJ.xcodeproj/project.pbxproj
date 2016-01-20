@@ -3102,7 +3102,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d1d463a6-0d63-4343-ad15-6e81cb7a0792";
 			};
 			name = Debug;
 		};
@@ -3133,7 +3133,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d1d463a6-0d63-4343-ad15-6e81cb7a0792";
 			};
 			name = Release;
 		};

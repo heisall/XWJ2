@@ -397,13 +397,14 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 {
     
     CGFloat width,height;
+    height = collectionCellWidth+60;
+    width = self.collectionView.frame.size.width;
+
     if (self.findlistArr.count ==1) {
-        return   CGSizeMake(collectionCellWidth/2, height);
+        return   CGSizeMake(collectionCellWidth, height);
 
     }
-    width = self.collectionView.frame.size.width;
     //    height = (self.collectionView.frame.size.height - HEADER_HEIGHT*COLLECTION_NUMSECTIONS)/3;
-    height = CELL_HEIGHT;
     return CGSizeMake(collectionCellWidth, height);
 }
 

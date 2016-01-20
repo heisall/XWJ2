@@ -191,7 +191,9 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     if (section == 0) {
         
-        CGSize size =  {self.view.bounds.size.width,30};
+        CGSize size={0,0};
+
+//        CGSize size =  {self.view.bounds.size.width,30};
         return size;
     }else{
         CGSize size={0,0};
@@ -420,6 +422,14 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
             for (int i= 0; i<self.collectionData.count; i++) {
                 [self.collectionSelect addObject:@"0"];
             }
+            
+            CGFloat height  ;
+            
+            height = (CELL_HEIGHT+20)*(self.collectionData.count/5+1);
+            
+            self.collectionView.frame = CGRectMake(0, self.collectionView.frame.origin.y, self.collectionView.size.width, height);
+            
+            [self.view setNeedsLayout];
             [self.collectionView reloadData];
             NSLog(@"dic %@",dic);
         }

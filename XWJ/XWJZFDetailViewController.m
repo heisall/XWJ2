@@ -236,6 +236,21 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     if ([self.datailDic objectForKey:@"photo"]!=[NSNull null]) {
         URLs = [[self.datailDic valueForKey:@"photo"] componentsSeparatedByString:@","];
     }
+    
+    if (URLs.count == 1) {
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.frame = self.adView.frame;
+        imageView.userInteractionEnabled = YES;
+        [self.adView addSubview:imageView];
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[URLs lastObject]] placeholderImage:nil];
+        UITapGestureRecognizer* singleRecognizer;
+        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick)];
+        //点击的次数
+        singleRecognizer.numberOfTapsRequired = 1;
+        [imageView addGestureRecognizer:singleRecognizer];
+    }else
     [self.adView addSubview:({
 
         float time = 3.0f;
@@ -293,6 +308,14 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
 //    self.datailDic;
     
+}
+-(void)imgclick{
+    XWJWebViewController * web = [[XWJWebViewController alloc] init];
+    NSString *urls = [self.datailDic objectForKey:@"photo"]==[NSNull null]?@"":[self.dic objectForKey:@"photo"];
+    
+    NSArray *url = [urls componentsSeparatedByString:@","];
+    web.url = [url objectAtIndex:0];
+    [self.navigationController pushViewController:web animated:NO];
 }
 
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {

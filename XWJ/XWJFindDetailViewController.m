@@ -42,6 +42,7 @@
 @property  CGRect bottomRect;
 @property(nonatomic,copy)NSString* shareImageStr;
 @property(nonatomic,copy)NSString* sharecontStr;
+@property(nonatomic,copy)NSString* shareUrl;
 @end
 
 @implementation XWJFindDetailViewController
@@ -56,12 +57,12 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-//    UIControl *controlView = [[UIControl alloc] initWithFrame:self.view.frame];
-//    [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view insertSubview:controlView atIndex:0];
-//    controlView.backgroundColor = [UIColor clearColor];
+    //    UIControl *controlView = [[UIControl alloc] initWithFrame:self.view.frame];
+    //    [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+    //    [self.view insertSubview:controlView atIndex:0];
+    //    controlView.backgroundColor = [UIColor clearColor];
     
-//    [self initView];
+    //    [self initView];
     NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
     
     UIImage *image = [UIImage imageNamed:@"mor_icon_default"];
@@ -72,8 +73,8 @@
     [self getFind:0];
     
     [self.phraseBtn addTarget:self action:@selector(phrase:) forControlEvents:UIControlEventTouchUpInside];
-//    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
-
+    //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
+    
 }
 #pragma mark - 分享按钮响应
 - (void)shareDetail:(id)sender{
@@ -87,6 +88,8 @@
                                      shareImage:temIV.image
                                 shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
                                        delegate:self];
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = self.shareUrl;
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.shareUrl;
 }
 #pragma mark - //实现回调方法（可选)
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
@@ -101,13 +104,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-//    self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.width+60);
-
+    //    self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.width+60);
+    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
-
+    
 }
 
 -(void)phrase:(UIButton *)sender{
@@ -137,9 +140,9 @@
     [dict setValue:leaveword  forKey:@"leaveWord"];
     [dict setValue:[self.dic valueForKey:@"types"]  forKey:@"findType"];
     [dict setValue:@"find" forKey:@"leixing"];
-
+    
     [self leaveEditMode];
-
+    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
@@ -149,7 +152,7 @@
             NSLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
-              
+                
                 [self getFind:0];
                 NSString *errCode = [dict objectForKey:@"errorCode"];
                 
@@ -157,13 +160,13 @@
                     [ProgressHUD showSuccess:@"点赞成功"];
                 }else
                     [ProgressHUD showSuccess:@"评论成功"];
-
-//                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//                alertview.delegate = self;
-//                [alertview show];
+                
+                //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                //                alertview.delegate = self;
+                //                [alertview show];
                 self.textView.text = @"在此发表评论";
-//                [self.navigationController popViewControllerAnimated:NO];
-
+                //                [self.navigationController popViewControllerAnimated:NO];
+                
                 
             }
             
@@ -186,6 +189,16 @@
     [self.navigationController pushViewController:web animated:NO];
 }
 
+-(void)imgclick{
+    XWJWebViewController * web = [[XWJWebViewController alloc] init];
+    NSString *urls = [self.dic objectForKey:@"Photo"]==[NSNull null]?@"":[self.dic objectForKey:@"Photo"];
+    
+    NSArray *url = [urls componentsSeparatedByString:@","];
+    web.url = [url objectAtIndex:0];
+    self.shareImageStr = [url firstObject];
+    [self.navigationController pushViewController:web animated:NO];
+}
+
 -(void)getFind:(NSInteger )index{
     
     NSString *url = GETFIND_URL;
@@ -193,6 +206,7 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
     [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
@@ -219,7 +233,10 @@
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
                 
-                
+                NSDictionary* temDic = responseObject[@"data"];
+                NSDictionary* temDic1 = temDic[@"find"];
+                NSLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
+                self.shareUrl =[NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=%@",temDic1[@"id"]];
                 /*
                  
                  "A_id" = 1;
@@ -244,19 +261,19 @@
                 
                 
                 
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                
-//                    self.tableView.frame = CGRectMake(0
-//                                                      , self.tableView.frame.origin.y, SCREEN_SIZE.width, 100*self.array.count);
-////                    [self.view setNeedsLayout];
-//                });
-//                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
-//                [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
-//                self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+200);
+                //                dispatch_async(dispatch_get_main_queue(), ^{
+                //
+                //                    self.tableView.frame = CGRectMake(0
+                //                                                      , self.tableView.frame.origin.y, SCREEN_SIZE.width, 100*self.array.count);
+                ////                    [self.view setNeedsLayout];
+                //                });
+                //                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
+                //                [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
+                //                self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+200);
                 self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
                 [self.tableView reloadData];
                 self.scrollView.contentSize = CGSizeMake(0,self.phraseBtn.frame.origin.y +60+100*self.array.count);
-
+                
             }
             
         }
@@ -271,23 +288,23 @@
     [self.textView resignFirstResponder];
 }
 -(void)initView{
-
+    
     NSString * zanCount = [self.dic objectForKey:@"ClickPraiseCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ClickPraiseCount"]];
     NSString *  leaveCount= [self.dic objectForKey:@"LeaveWordCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"LeaveWordCount"]];
     NSString * qqCount = [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ShareQQCount"]];
-//    NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"shareWXCount"]];
-
+    //    NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"shareWXCount"]];
+    
     [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
     [_CommentBtn setTitle:leaveCount forState:UIControlStateNormal];
-//    [_shareBtn setTitle:qqCount forState:UIControlStateNormal];
-//    [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
+    //    [_shareBtn setTitle:qqCount forState:UIControlStateNormal];
+    //    [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
     NSString * name = [self.dic objectForKey:@"NickName"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"NickName"]];
-
+    
     [_infoBtn setTitle:name forState:UIControlStateNormal];
     _timelabel.text = [self.dic objectForKey:@"ReleaseTime"];
     _titleLabel.text=[self.dic objectForKey:@"content"];
     self.sharecontStr = [self.dic objectForKey:@"content"];
-        _typeLabel.text = [self.dic objectForKey:@"Memo"];
+    _typeLabel.text = [self.dic objectForKey:@"Memo"];
     
     NSString *type = [self.dic objectForKey:@"Memo"];
     if ([type isEqualToString:@"社区分享"]) {
@@ -297,7 +314,7 @@
     }else{
         _typeLabel.backgroundColor = XWJColor(67, 164, 83);
     }
-
+    
     NSString * userP = [self.dic objectForKey:@"userP"]==[NSNull null]?nil:[self.dic objectForKey:@"userP"];
     if (userP) {
         [_infoBtn.imageView sd_setImageWithURL:[NSURL URLWithString:userP] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -312,45 +329,53 @@
             
         }];
     }
-
     
-//    [_infoBtn.imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
     
-
+    //    [_infoBtn.imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
+    
+    
     NSString *urls = [self.dic objectForKey:@"Photo"]==[NSNull null]?@"":[self.dic objectForKey:@"Photo"];
-
-        NSArray *url = [urls componentsSeparatedByString:@","];
     
-        [self.imageView addSubview:({
-            CGFloat time = 5.0f;
-            
-            if (url.count==1) {
-                time = MAXFLOAT;
-            }
-            
-            LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-                                                                                      self.imageView.bounds.size.height)
-                                        
-                                                                  delegate:self
-                                                                 imageURLs:url
-                                                          placeholderImage:nil
-                                                             timerInterval:time
-                                             currentPageIndicatorTintColor:XWJGREENCOLOR
-                                                    pageIndicatorTintColor:[UIColor whiteColor]
-                                                                          :UIViewContentModeScaleAspectFit];
-//            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,
-//                                                                                    self.imageView.bounds.size.height)
-//                                        
-//                                                                delegate:self
-//                                                               imageURLs:url
-//                                                        placeholderImage:@"devAdv_default"
-//                                                           timerInterval:time
-//                                           currentPageIndicatorTintColor:XWJGREENCOLOR
-//                                                  pageIndicatorTintColor:[UIColor whiteColor]];
-            bannerView;
-        })];
-
-//    [_imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
+    NSArray *url = [urls componentsSeparatedByString:@","];
+    
+    if (url.count == 1) {
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:[url lastObject]] placeholderImage:nil];
+        UITapGestureRecognizer* singleRecognizer;
+        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick)];
+        //点击的次数
+        singleRecognizer.numberOfTapsRequired = 1;
+        [self.imageView addGestureRecognizer:singleRecognizer];
+    }else
+    [self.imageView addSubview:({
+        CGFloat time = 5.0f;
+        
+        if (url.count==1) {
+            time = MAXFLOAT;
+        }
+        
+        LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+                                                                                  self.imageView.bounds.size.height)
+                                    
+                                                              delegate:self
+                                                             imageURLs:url
+                                                      placeholderImage:nil
+                                                         timerInterval:time
+                                         currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                pageIndicatorTintColor:[UIColor whiteColor]
+                                                                      :UIViewContentModeScaleAspectFit];
+        //            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,
+        //                                                                                    self.imageView.bounds.size.height)
+        //
+        //                                                                delegate:self
+        //                                                               imageURLs:url
+        //                                                        placeholderImage:@"devAdv_default"
+        //                                                           timerInterval:time
+        //                                           currentPageIndicatorTintColor:XWJGREENCOLOR
+        //                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+        bannerView;
+    })];
+    
+    //    [_imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
 }
 
 /*
@@ -412,26 +437,30 @@
      */
     
     
-    [cell.headImgView  sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [cell.headImgView  sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]] placeholderImage:[UIImage imageNamed:@"headDefaultImg"] options:SDWebImageDelayPlaceholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         CGFloat width=  cell.headImgView.bounds.size.height;
         cell.headImgView.layer.cornerRadius = width/2;
         cell.headImgView.layer.masksToBounds = YES;
+        if(image)
         [cell.headImgView  setImage:[image transformWidth:width height:width]];
- 
-
+        else{
+                UIImage * img = [UIImage imageNamed:@"headDefaultImg"] ;
+            [cell.headImgView  setImage:[img transformWidth:width height:width]];
+        }
+        
     }];
     
-//    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]]placeholderImage:[UIImage imageNamed:@"demo"]];
+    //    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"Photo"]==[NSNull null]?@"":[dic objectForKey:@"Photo"]]placeholderImage:[UIImage imageNamed:@"demo"]];
     cell.commenterLabel.text = [dic objectForKey:@"NickName"]==[NSNull null]?@" ":[dic objectForKey:@"NickName"];
     cell.timeLabel.text = [dic objectForKey:@"ReleaseTime"]==[NSNull null]?@" ":[dic objectForKey:@"ReleaseTime"];
     cell.contentLabel.text = [dic objectForKey:@"LeaveWord"]==[NSNull null]?@" ":[dic objectForKey:@"LeaveWord"];
     
-//    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
-//    cell.commenterLabel.text = [dic valueForKey:KEY_TITLE];
-//    cell.timeLabel.text = [dic valueForKey:KEY_TIME];
-//    cell.contentLabel.text = [dic valueForKey:KEY_CONTENT];
-
+    //    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
+    //    cell.commenterLabel.text = [dic valueForKey:KEY_TITLE];
+    //    cell.timeLabel.text = [dic valueForKey:KEY_TIME];
+    //    cell.contentLabel.text = [dic valueForKey:KEY_CONTENT];
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     //    [cell.dialBtn setImage:[] forState:<#(UIControlState)#>]
@@ -469,10 +498,10 @@
     NSLog(@"hight_hitht:%f",kbSize.height);
     
     self.bottomRect = self.bottomView.frame ;
-//    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height), self.bottomRect.size.width, self.bottomRect.size.height);
+    //    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height), self.bottomRect.size.width, self.bottomRect.size.height);
     
-//    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-kbSize.height, self.bottomRect.size.width, self.bottomRect.size.height);
-
+    //    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-kbSize.height, self.bottomRect.size.width, self.bottomRect.size.height);
+    
     self.textView.text = @"";
     CGFloat keyboardhight;
     if(kbSize.height == 216)
@@ -486,7 +515,7 @@
     [self beginAppearanceTransition:YES
                            animated:YES];
     //输入框位置动画加载
-//    [self beginMoveUpAnimation:keyboardhight];
+    //    [self beginMoveUpAnimation:keyboardhight];
 }
 
 //当键盘隐藏的时候
@@ -501,20 +530,20 @@
     [self.textView resignFirstResponder];
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-//    if (!controlView) {
-//        controlView        = [[UIControl alloc] initWithFrame:self.view.frame];
-//        [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-//        controlView.backgroundColor = [UIColor clearColor];
-//    }
-//    [self.view addSubview:controlView];
+    //    if (!controlView) {
+    //        controlView        = [[UIControl alloc] initWithFrame:self.view.frame];
+    //        [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+    //        controlView.backgroundColor = [UIColor clearColor];
+    //    }
+    //    [self.view addSubview:controlView];
     
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = CGRectMake(0, 0, 40, 40);
-//    [btn setTitle:@"完成" forState:UIControlStateNormal];
-//    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-//    [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
-//    self.navigationItem.rightBarButtonItem = done;
+    //    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    btn.frame = CGRectMake(0, 0, 40, 40);
+    //    [btn setTitle:@"完成" forState:UIControlStateNormal];
+    //    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    //    [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
+    //    UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    //    self.navigationItem.rightBarButtonItem = done;
 }
 
 
@@ -535,13 +564,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

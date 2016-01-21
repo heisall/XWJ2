@@ -34,7 +34,6 @@ static NSString *kcellIdentifier = @"cell";
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.navigationItem.title = @"我的消息";
-    [self downLoadData];
     self.titles = [[NSMutableArray alloc]init];
     self.sendTime = [[NSMutableArray alloc]init];
     self.subTitles = [[NSMutableArray alloc]init];
@@ -65,64 +64,27 @@ static NSString *kcellIdentifier = @"cell";
     XWJAccount *account = [XWJAccount instance];
     [dict setValue:account.aid  forKey:@"a_id"];
     [dict setValue:@"0"  forKey:@"pageindex"];
-    [dict setValue:@"8"  forKey:@"countperpage"];
+    [dict setValue:@"10"  forKey:@"countperpage"];
     [dict setValue:account.uid forKey:@"userid"];
     [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.tableView.mj_header endRefreshing];
+        
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSArray *array  =[[NSArray alloc]init];
             array = [dict objectForKey:@"data"];
-//           NSLog(@"dic++++++ %@",array);
+           NSLog(@"dic++++++ %@",array);
             for (NSMutableDictionary *d in array) {
                 [_subTitles addObject:[d objectForKey:@"title"]];
                 //                [_msgArr addObject:[d objectForKey:@"msg"]];
                 [_msgArr addObject:@"mymsg2"];
                 [_sendTime addObject:[d objectForKey:@"sendTime"]];
                 [_titles addObject:@"有人评论了你的帖子"];
-                [_idArray addObject:[d objectForKey:@"id"]];
-                
-               NSLog(@"dic++++++ %@",_idArray);
+                [_idArray addObject:[d objectForKey:@"fromid"]];
             }
+            NSLog(@"dic++++++ %@",_idArray);
         }
-        
+        [self.tableView.mj_header endRefreshing];
         [_tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
-        
-    }];
-}
-
--(void)downLoadFindData{
-    NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/find/findDetail";
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    XWJAccount *account = [XWJAccount instance];
-    [dict setValue:_idArray  forKey:@"id"];
-    [dict setValue:account.uid forKey:@"userid"];
-    [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"dic***** %@",responseObject);
-        
-        if(responseObject){
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            NSDictionary *dicc =[[NSDictionary alloc]init];
-            dicc = [dict objectForKey:@"data"];
-            self.dic = [dicc objectForKey:@"find"];
-            NSLog(@"dic*****%@",self.dic);
-            
-            UIStoryboard *find = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
-            XWJFindDetailViewController * con = [find instantiateViewControllerWithIdentifier:@"findDetail"];
-            //      con.finddetail = self.finddetailArr;
-            //       con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];
-            con.dic = _dic;
-            NSLog(@"****%@",con.dic);
-            [self.navigationController showViewController:con sender:nil];
-
-        }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
@@ -146,6 +108,7 @@ static NSString *kcellIdentifier = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell;
     cell = [tableView dequeueReusableCellWithIdentifier:@""];
+    cell = [tableView cellForRowAtIndexPath:indexPath];
 
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@""];
@@ -157,10 +120,11 @@ static NSString *kcellIdentifier = @"cell";
     cell.detailTextLabel.textColor = XWJColor(200, 200, 200);
     cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
     cell.imageView.image = [UIImage imageNamed:[_msgArr objectAtIndex:indexPath.row]];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(tableView.bounds.size.width-120, 20, 120, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(tableView.bounds.size.width-100, 20, 100, 30)];
     label.textColor = XWJColor(200, 200, 200);
     label.text = [_sendTime objectAtIndex:indexPath.row];
     [cell.contentView addSubview:label];
+    
     return cell;
 }
 

@@ -33,6 +33,8 @@
         self.navigationItem.title = @"报修详情";
     }else{
         self.navigationItem.title = @"投诉详情";
+        UILabel *label = (UILabel*)[self.view viewWithTag:1992];
+        label.text = @"投诉受理进程";
     }
     
     [self getGZDetail];
@@ -117,21 +119,21 @@
     self.timeLabel2.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime1"]==[NSNull null]?@"":[self.detaildic objectForKey:@"yytime1"]];
     self.timeLabel3.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"gbtime"]==[NSNull null]?@"":[self.detaildic objectForKey:@"gbtime"]];
     UIButton *btn = (UIButton*)[self.view viewWithTag:1991];
-    self.gzStartImageV.image = [UIImage imageNamed:@"gzstart2"];
-    self.gzMidImageV.image = [UIImage imageNamed:@"gzmid"];
-    self.gzEndImageV.image = [UIImage imageNamed:@"gzend"];
+    self.gzStartImageV.image = [UIImage imageNamed:@"tsstart1"];
+    self.gzMidImageV.image = [UIImage imageNamed:@"tsmid"];
+    self.gzEndImageV.image = [UIImage imageNamed:@"tsend"];
     btn.hidden = YES;
         if ([self.detaildic objectForKey:@"lwpgsj"]==[NSNull null]) {
-            self.gzMidImageV.image = [UIImage imageNamed:@"gzmid"];
-            self.gzEndImageV.image = [UIImage imageNamed:@"gzend"];
+            self.gzMidImageV.image = [UIImage imageNamed:@"tsmid"];
+            self.gzEndImageV.image = [UIImage imageNamed:@"tsend"];
             btn.hidden = YES;
         }else{
-            self.gzMidImageV.image = [UIImage imageNamed:@"gzmid2"];
+            self.gzMidImageV.image = [UIImage imageNamed:@"tsmid1"];
             if ([self.detaildic objectForKey:@"gbtime"]==[NSNull null]) {
-                self.gzEndImageV.image = [UIImage imageNamed:@"gzend"];
+                self.gzEndImageV.image = [UIImage imageNamed:@"tsend"];
                 btn.hidden = YES;
             }else{
-                self.gzEndImageV.image = [UIImage imageNamed:@"gzend2"];
+                self.gzEndImageV.image = [UIImage imageNamed:@"tsend1"];
                 btn.hidden = NO;
             }
         }

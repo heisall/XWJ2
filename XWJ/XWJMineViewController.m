@@ -25,6 +25,7 @@
 #import "XWJMyOrderViewController.h"
 #import "XWJFindViewController.h"
 #import "XWJAddressController.h"
+#import "XWJAccount.h"
 
 #define  CELL_HEIGHT 30.0
 #define  COLLECTION_NUMSECTIONS 2
@@ -32,6 +33,7 @@
 
 @interface XWJMineViewController()<UIAlertViewDelegate>
 @property NSArray *mine;
+@property NSDictionary *dicuser;
 
 @end
 @implementation XWJMineViewController
@@ -42,7 +44,9 @@ NSArray *myImgs;
 //    
 //}
 -(void)viewDidLoad{
-
+    
+    NSDictionary *dicuser = [[NSDictionary alloc]init];
+    [self downLoadData];
     self.tableData = [NSArray arrayWithObjects:@"关于信我家",@"修改密码",@"版本检查",@"修改建议" ,@"退出登录" ,nil];
     self.tableview.dataSource = self;
     self.tableview.delegate = self;
@@ -56,13 +60,55 @@ NSArray *myImgs;
 
     UIViewController *m1 = [[XWJMyMessageController alloc] init];
     UIViewController *m2 = [[XWJMyMessageController alloc] init];
-//    UIViewController *m3 = [[XWJMyMessageController alloc] init];
     UIViewController *m3 = [self.storyboard instantiateViewControllerWithIdentifier:@"zscontroller"];
     UIViewController *m4 = [[XWJGZaddViewController alloc]init];
     _mine = [NSArray arrayWithObjects:m1,m2,m3,m4,nil];
 //    XWJMyInfoViewController *info = [[XWJMyInfoViewController alloc] init];
 //    [self getPersonInfo];
+    
+//    给我的头的图片增加手势
+    UIImageView *imageV  = (UIImageView *)[self.view viewWithTag:1993];
+    imageV.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap =
+    [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(whenClickImage)];
+    [imageV addGestureRecognizer:singleTap];
+    self.scoreLabel.text = [self.dicuser objectForKey:@"jifen"];
+    
+    NSLog(@"%@",[XWJAccount instance].jifen);
+    
 }
+
+-(void)downLoadData{
+    
+    
+    NSString *url = LOGIN_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[XWJAccount instance].account forKey:@"account"];
+    [dict setValue:[XWJAccount instance].password forKey:@"password"];
+    
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        
+        self.dicuser = [[dic objectForKey:@"data"] objectForKey:@"user"];
+        [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
+        NSLog(@"%@",self.dicuser);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败");
+    }];
+}
+-(void)whenClickImage{
+
+    UIViewController *info = [[XWJMyInfoViewController alloc] init];
+    [self.navigationController showViewController:info sender:nil];
+    
+}
+
+
 -(void)getPersonInfo{
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *imgstr = [usr valueForKey:@"photo"];

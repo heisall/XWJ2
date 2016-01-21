@@ -82,8 +82,9 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.lpIndex = -1;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    self.collectionView.frame = CGRectMake(0, self.collectionView.frame.origin.y, self.collectionView.size.width, CELL_HEIGHT);
+
     self.navigationItem.title = @"我要卖房";
-    [self get2hangFubFilter];
     self.scrollView.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+200);
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, SCREEN_SIZE.height+200);
@@ -93,6 +94,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         [self.imgScrollView addSubview:imgView];
     }
     self.imageDatas = [NSMutableArray array];
+    [self get2hangFubFilter];
 
 //    [self.quedingBtn addTarget:self action:@selector(sure:) forControlEvents:UIControlEventTouchDragInside];
     // Do any additional setup after loading the view.
@@ -429,7 +431,6 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
             
             self.collectionView.frame = CGRectMake(0, self.collectionView.frame.origin.y, self.collectionView.size.width, height);
             
-            [self.view setNeedsLayout];
             [self.collectionView reloadData];
             NSLog(@"dic %@",dic);
         }

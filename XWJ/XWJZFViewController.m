@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 @property NSMutableArray *zufangprice;
 @property NSMutableArray *zufanghuxing;
 @property NSMutableArray *zufangfkfs;
-
+@property NSString * searchStr;
 @end
 
 @implementation XWJZFViewController
@@ -66,6 +66,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     [self.view.window addSubview:controlView];
     controlView.backgroundColor = [UIColor clearColor];
     
+
     if (self.type != HOUSENEW) {
     
         NSArray *array ;
@@ -171,14 +172,20 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             break;
         case HOUSE2:{
             
-            [self get2handfang:nil];
+            if (self.searchStr&&self.searchStr.length>0) {
+                [self get2handfang:self.searchStr];
+
+            }else
+                [self get2handfang:nil];
             
             
         }
             break;
         case HOUSEZU:{
-            
-            [self getZFang:nil];
+            if (self.searchStr&&self.searchStr.length>0) {
+                [self getZFang:self.searchStr];
+            }else
+                [self getZFang:nil];
         }
             break;
         default:
@@ -196,6 +203,8 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [self.searchbar resignFirstResponder];
+    self.searchbar.text = @"";
+    self.searchStr = @"";
     NSLog(@"");
 }// called when cancel button pressed
 
@@ -391,6 +400,8 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 
 -(void)doSearch:(UISearchBar *)ser{
     
+    
+    self.searchStr = ser.text;
     switch (self.type) {
         case HOUSENEW:{
             [self getXinFang:ser.text];

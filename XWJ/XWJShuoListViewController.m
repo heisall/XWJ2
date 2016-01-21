@@ -59,6 +59,16 @@
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
+
+-(void)imgclick{
+    
+        XWJWebViewController * web = [[XWJWebViewController alloc] init];
+        NSString *url  = [[self.adArr objectAtIndex:0] objectForKey:@"url"];
+        web.url = url;
+        [self.navigationController pushViewController:web animated:NO];
+    
+}
+
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index{
     XWJWebViewController *web = [[XWJWebViewController alloc] init];
     
@@ -68,7 +78,9 @@
 }
 
 -(void)addView{
-    adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
+//    adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
+    adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.width/2)];
+
     self.btn = [NSMutableArray array];
 
 
@@ -86,6 +98,7 @@
         [btn setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];
         [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateSelected];
         btn.tag = i+100;
+        btn.titleLabel.font  = [UIFont systemFontOfSize:14.0];
         [btn addTarget:self action:@selector(btnclick:) forControlEvents:UIControlEventTouchUpInside];
         [self.btn addObject:btn];
         [scroll addSubview:btn];
@@ -193,7 +206,22 @@
             for (NSDictionary *d in self.adArr) {
                 [URLs addObject:[d valueForKey:@"Photo"]];
             }
-            if(URLs&&URLs.count>0)
+            if(URLs&&URLs.count>0){
+                
+                if (URLs.count == 1) {
+                    
+                    UIImageView *imageView = [[UIImageView alloc] init];
+                    imageView.frame = CGRectMake(0, 0, self.adView.frame.size.width, self.adView.frame.size.height) ;
+                    [self.adView addSubview:imageView];
+                    imageView.userInteractionEnabled = YES;
+                    
+                    [imageView sd_setImageWithURL:[NSURL URLWithString:[URLs lastObject]] placeholderImage:nil];
+                    UITapGestureRecognizer* singleRecognizer;
+                    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick)];
+                    //点击的次数
+                    singleRecognizer.numberOfTapsRequired = 1;
+                    [imageView addGestureRecognizer:singleRecognizer];
+                }else
                 [self.adView addSubview:({
                     
                     LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
@@ -207,6 +235,7 @@
                                                           pageIndicatorTintColor:[UIColor whiteColor]];
                     bannerView;
                 })];
+            }
             UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
             back.frame = CGRectMake(10, 5, 30, 30);
             [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];

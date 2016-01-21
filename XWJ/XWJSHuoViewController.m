@@ -64,6 +64,7 @@
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 580, SCREEN_SIZE.width, SCREEN_SIZE.height)];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerNib:[UINib nibWithNibName:@"XWJTuangouCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
     [self.scroll addSubview:tableView];
 
@@ -141,7 +142,15 @@
     NSLog(@"notice click");
     
 }
+-(void)imgclick{
+    if ([[[self.adArr objectAtIndex:0] objectForKey:@"Types"] isEqualToString:@"外链"]) {
 
+        XWJWebViewController * web = [[XWJWebViewController alloc] init];
+        NSString *url  = [[self.adArr objectAtIndex:0] objectForKey:@"url"];
+        web.url = url;
+        [self.navigationController pushViewController:web animated:NO];
+    }
+}
 
 -(void)addView{
     self.adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
@@ -368,7 +377,23 @@
 //            }
             [self addTypeOneView:self.array1];
 
-            if(URLs&&URLs.count>0)
+            if(URLs&&URLs.count>0){
+                
+                if (URLs.count == 1) {
+                    
+                    UIImageView *imageView = [[UIImageView alloc] init];
+                    imageView.frame = CGRectMake(0, 0, self.adView.frame.size.width, self.adView.frame.size.height) ;
+                    [self.adView addSubview:imageView];
+                    imageView.userInteractionEnabled = YES;
+                    
+                    [imageView sd_setImageWithURL:[NSURL URLWithString:[URLs lastObject]] placeholderImage:nil];
+                    UITapGestureRecognizer* singleRecognizer;
+                    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick)];
+                    //点击的次数
+                    singleRecognizer.numberOfTapsRequired = 1;
+                    [imageView addGestureRecognizer:singleRecognizer];
+                }else
+                {
                 [self.adView addSubview:({
                     
                     LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
@@ -382,7 +407,8 @@
                                                           pageIndicatorTintColor:[UIColor whiteColor]];
                     bannerView;
                 })];
-            
+                }
+            }
         }
         
         
@@ -511,8 +537,8 @@
     NSString * url = [[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"];
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
     cell.contentLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
-    cell.price1Label.text = [NSString stringWithFormat:@"%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
-    cell.price2Label.text = [NSString stringWithFormat:@"%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"old_price"]];
+    cell.price1Label.text = [NSString stringWithFormat:@"￥%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
+    cell.price2Label.text = [NSString stringWithFormat:@"￥%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"old_price"]];
     [cell.dateBtn setTitle:[[arr objectAtIndex:indexPath.row] objectForKey:@"end_time"] forState:UIControlStateDisabled];
     //        [cell.qiangBtn setTitle:[[arr objectAtIndex:indexPath.row] objectForKey:@"end_time"] forState:UIControlStateNormal];
     cell.qiangBtn.tag = indexPath.row;

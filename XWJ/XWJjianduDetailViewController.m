@@ -139,6 +139,8 @@
      findType	发现类别	String
      leixing	区别是物业还是发现	String,find/supervise
      */
+    
+
     XWJAccount *account = [XWJAccount instance];
     [dictp setValue:[self.dic valueForKey:@"id"]  forKey:@"findId"];
     [dictp setValue:types  forKey:@"types"];
@@ -487,6 +489,11 @@
 
 - (IBAction)enroll:(id)sender {
     [self.commentTextView resignFirstResponder];
+    
+    if(!self.commentTextView.text.length>0){
+        [ProgressHUD showError:@"请输入评论内容！"];
+        return;
+    }
     [self pubCommentLword:self.commentTextView.text type:@"留言"];//    [self.navigationController popViewControllerAnimated:YES];
 }
 

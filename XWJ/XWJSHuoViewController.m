@@ -188,7 +188,7 @@
         [scroll addSubview:button];
     }
     ((UIButton*)self.btn[0]).selected=YES;
-    _typeContainView = [[UIView alloc] initWithFrame:CGRectMake(0, btny+60, SCREEN_SIZE.width, SCREEN_SIZE.height-btny)];
+    _typeContainView = [[UIView alloc] initWithFrame:CGRectMake(0, btny+40, SCREEN_SIZE.width, SCREEN_SIZE.height-btny)];
 //    _typeContainView.backgroundColor = [UIColor redColor];
     [scroll addSubview:_typeContainView];
     [scroll addSubview:self.adView];
@@ -196,7 +196,7 @@
 
 -(void)addTypeOneView:(NSArray*)arr{
     NSInteger hang = 4;
-    CGFloat paddingLeft =25;
+    CGFloat paddingLeft =35;
     CGFloat paddingTop = 100;
     NSInteger count = arr.count;
     CGFloat width = self.view.bounds.size.width/hang-10;
@@ -229,10 +229,10 @@
             singleRecognizer.numberOfTapsRequired = 1;
             [button addGestureRecognizer:singleRecognizer];
         
-            UILabel *label  = [[UILabel alloc] initWithFrame:CGRectMake((width+10)*(i%hang)+paddingLeft/2+(width-labelWidth)/2-3, paddingLeft+i/hang*paddingTop+height-20, labelWidth, 30)];
+            UILabel *label  = [[UILabel alloc] initWithFrame:CGRectMake((width+10)*(i%hang)+paddingLeft/2+(width-labelWidth)/2-5, paddingLeft+i/hang*paddingTop+height-25, labelWidth, 30)];
 
             label.text = [[arr objectAtIndex:i] valueForKey:@"cateName"];
-        label.font = [UIFont systemFontOfSize:14.0];
+        label.font = [UIFont systemFontOfSize:13.0];
             [self.typeContainView addSubview:label];
             [self.typeContainView addSubview:button];
 

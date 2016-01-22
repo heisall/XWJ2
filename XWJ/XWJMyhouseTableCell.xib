@@ -22,7 +22,7 @@
                         <color key="textColor" red="0.81568627449999997" green="0.81960784310000001" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" highlightedImage="minefangchan" translatesAutoresizingMaskIntoConstraints="NO" id="wKJ-F6-Eaj">
+                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="minefangchan" highlightedImage="minefangchan" translatesAutoresizingMaskIntoConstraints="NO" id="wKJ-F6-Eaj">
                         <rect key="frame" x="343" y="18" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="43B-nM-kyz"/>

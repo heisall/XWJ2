@@ -24,6 +24,7 @@
 @property NSMutableArray *danyuan;
 @property NSMutableArray *louhao;
 @property NSMutableArray *JURID;
+@property NSMutableArray *isDefault;
 @property NSString *guanjiaM;
 
 @end
@@ -45,7 +46,9 @@ static NSString *kcellIdentifier = @"cell";
     _danyuan =[[NSMutableArray alloc]init];
     _louhao =[[NSMutableArray alloc]init];
     _JURID =[[NSMutableArray alloc]init];
+    _isDefault =[[NSMutableArray alloc]init];
     _guanjiaM = [[NSString alloc]init];
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 50)];
     view.backgroundColor = XWJColor(235, 235, 234);
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -175,11 +178,12 @@ static NSString *kcellIdentifier = @"cell";
                 [_danyuan addObject:[d objectForKey:@"R_dy"]];
                 [_louhao addObject:[d objectForKey:@"R_id"]];
                 [_JURID addObject:[d objectForKey:@"JU_RID"]];
-                NSLog(@"%@",_JURID);
+                [_isDefault addObject:[d objectForKey:@"isDefault"]];
+                NSLog(@"%@",_isDefault);
 
             }
         }
-        
+
         [_tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
@@ -206,13 +210,30 @@ static NSString *kcellIdentifier = @"cell";
     
     title.text = [_titles objectAtIndex:indexPath.row];
     subtitle.text = [NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
-    
+    NSLog(@"%@",self.isDefault);
+//    if (self.isDefault[indexPath.row]) {
+        UIImageView *imageV = (UIImageView *)[self.view viewWithTag:3];
+//        imagev.image = [UIImage imageNamed:@"minefangchan"];
+//    }else{
+//        UIImageView *imagev = (UIImageView *)[self.view viewWithTag:3];
+//        imagev.image = [UIImage imageNamed:@""];
+//    }
+    NSLog(@"_isDefault:%@",_isDefault);
+    NSString *str= [NSString stringWithFormat:@"%@",_isDefault[indexPath.row]];
+    if ([str isEqualToString:@"1"]) {
+        imageV.hidden = NO;
+    }else{
+        imageV.hidden = YES;
+    }
+
+
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     //向服务器发送数据请求把房产信息传到服务器
     NSString *changeUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/build/changeDefault";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

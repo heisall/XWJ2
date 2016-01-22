@@ -54,11 +54,10 @@
 //        }else
 //            [dict setValue:@"投诉" forKey:@"type"];
     
-    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
-//        [dict setValue:@"1" forKey:@"a_id"];
+        [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
         [dict setValue:@"1" forKey:@"b_id"];
         [dict setValue:@"1" forKey:@"r_dy"];
-        [dict setValue:@"101" forKey:@"r_id"];
+        [dict setValue:@"202" forKey:@"r_id"];
     
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -66,6 +65,7 @@
             
             if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"+++==dic%@",dic);
             self.payListArr = [dic objectForKey:@"data"];
             [self.tableView reloadData];
                 NSLog(@"dic ++++%@",self.payListArr);

@@ -106,8 +106,9 @@ NSArray *myImgs;
 }
 -(void)whenClickImage{
 
-    UIViewController *info = [[XWJMyInfoViewController alloc] init];
-    [self.navigationController showViewController:info sender:nil];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineStoryboard" bundle:nil];
+    XWJMyInfoViewController *detail = [story instantiateViewControllerWithIdentifier:@"myInfoStory"];
+    [self.navigationController showViewController: detail sender:self];
     
 }
 

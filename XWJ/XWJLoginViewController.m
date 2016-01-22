@@ -180,6 +180,7 @@
                 [XWJAccount instance].name = [userDic valueForKey:@"NAME"];
                 [XWJAccount instance].Sex = [userDic valueForKey:@"sex"];
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
+                [XWJAccount instance].jifen = [userDic valueForKey:@"jifen"];
                 
                 /*
                  "A_id" = 4;

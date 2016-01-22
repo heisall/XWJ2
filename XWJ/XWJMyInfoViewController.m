@@ -70,8 +70,6 @@ CGRect tableViewCGRect;
     
     self.tableDetailData = [NSMutableArray arrayWithObjects:nicheng,xingbie,hunyin,aihao,qianming,nil];
   //  NSLog(@"%%%%%%%%%%%%%@",self.tableDetailData);
-    
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

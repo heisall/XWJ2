@@ -40,6 +40,7 @@
             NSDictionary *dic = (NSDictionary *)responseObject;
             
             NSNumber * result = [dic valueForKey:@"result"];
+            NSLog(@"%@",dic);
             
             /*
              Account = 15092245487;
@@ -85,6 +86,7 @@
                 [XWJAccount instance].name = [userDic valueForKey:@"NAME"];
                 [XWJAccount instance].Sex = [userDic valueForKey:@"sex"];
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
+                [XWJAccount instance].jifen = [userDic valueForKey:@"jifen"];
             
                 /*
                  "A_id" = 4;

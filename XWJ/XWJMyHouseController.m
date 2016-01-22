@@ -14,6 +14,7 @@
 #import "XWJBindHouseTableViewController.h"
 #import "XWJCity.h"
 #import "XWJAboutViewController.h"
+#import "XWJMyHouseCell.h"
 
 @interface XWJMyHouseController()<XWJBindHouseDelegate,UITableViewDataSource,UITableViewDelegate>{
 }
@@ -202,37 +203,41 @@ static NSString *kcellIdentifier = @"cell";
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell;
-    cell = [_tableView dequeueReusableCellWithIdentifier:kcellIdentifier forIndexPath:indexPath];
-    
-    UILabel *title = (UILabel *)[cell viewWithTag:1];
-    UILabel *subtitle = (UILabel *)[cell viewWithTag:2];
-    
-    title.text = [_titles objectAtIndex:indexPath.row];
-    subtitle.text = [NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
-    NSLog(@"%@",self.isDefault);
-//    if (self.isDefault[indexPath.row]) {
-        UIImageView *imageV = (UIImageView *)[self.view viewWithTag:3];
-//        imagev.image = [UIImage imageNamed:@"minefangchan"];
-//    }else{
-//        UIImageView *imagev = (UIImageView *)[self.view viewWithTag:3];
-//        imagev.image = [UIImage imageNamed:@""];
-//    }
+    //    UITableViewCell *cell;
+    //    cell = [_tableView dequeueReusableCellWithIdentifier:kcellIdentifier forIndexPath:indexPath];
+    XWJMyHouseCell *cell = [XWJMyHouseCell xwjMyHouseCellInitWithTableView:tableView];
+    //    UILabel *title = (UILabel *)[cell viewWithTag:1];
+    //    UILabel *subtitle = (UILabel *)[cell viewWithTag:2];
+    //
+    //    title.text = [_titles objectAtIndex:indexPath.row];
+    //    subtitle.text = [NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
+    //
+    //    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    cell.titleLabel.text = [_titles objectAtIndex:indexPath.row];
+    cell.DetailLabel.text =[NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
     NSLog(@"_isDefault:%@",_isDefault);
     NSString *str= [NSString stringWithFormat:@"%@",_isDefault[indexPath.row]];
     if ([str isEqualToString:@"1"]) {
-        imageV.hidden = NO;
+        cell.imageview.hidden = NO;
     }else{
-        imageV.hidden = YES;
+        cell.imageview.hidden = YES;
     }
-
-
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-    
     return cell;
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSArray *array = [tableView visibleCells];
+    for (XWJMyHouseCell *cell in array) {
+        if (cell.selected == YES) {
+            cell.imageview.hidden = NO;
+        }else{
+            cell.imageview.hidden = YES;
+        }
+    }
+    XWJMyHouseCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    //    UIImageView *image = cell.imageView;
+    cell.imageview.hidden = NO;
     
     //向服务器发送数据请求把房产信息传到服务器
     NSString *changeUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/build/changeDefault";

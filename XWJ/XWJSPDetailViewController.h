@@ -10,4 +10,5 @@
 
 @interface XWJSPDetailViewController : XWJBaseViewController
 @property NSString *goods_id;
+@property BOOL isFromJifen;
 @end

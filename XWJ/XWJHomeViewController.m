@@ -107,9 +107,25 @@ NSArray *footer;
     SignViewController* vc = [[SignViewController alloc] init];
     vc.account = self.accountid;
     vc.a_idStr = self.xiaoquid;
-    vc.nickName = self.nickName;
+    if ([self isBlankString:self.nickName]) {
+        vc.nickName = @"";
+    }else{
+        vc.nickName = self.nickName;
+    }
     vc.headImageStr = self.headImage;
     [self.navigationController pushViewController:vc animated:YES];
+}
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
 }
 
 -(void)msgClick:(UIButton *)sender{

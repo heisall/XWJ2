@@ -135,5 +135,8 @@
 #define XIEYI_URL @"http://ecmall.hisenseplus.com:88/index.php?app=article&act=content_only&article_id=7"
 #define AD_URL  XWJBASEURL"index/ads"
 
+//jifen
+#define GETJIFEN_URL  XWJBASEURL"order/scoreGoodsList"
+#define JIFENDUIHUAN_URL  XWJBASEURL"order/directBuy"
 
 #endif /* XWJUrl_h */

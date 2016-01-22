@@ -328,6 +328,8 @@
 		A4F5C17D1C0C86A800513CD9 /* XWJHomeViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F5C17C1C0C86A800513CD9 /* XWJHomeViewController2.m */; };
 		A4F5C19A1C0DC04300513CD9 /* XWJHomeCollectionCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F5C1991C0DC04300513CD9 /* XWJHomeCollectionCell2.xib */; };
 		A4F5C19C1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F5C19B1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib */; };
+		A4F6DA111C50F3CE00C7AD83 /* XWJJifenController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA101C50F3CE00C7AD83 /* XWJJifenController.m */; };
+		A4F6DA141C50FD5200C7AD83 /* XWJJifenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA131C50FD5200C7AD83 /* XWJJifenCell.m */; };
 		A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */; };
 		A4FD431B1C3952FB00A44E01 /* XWJquxiaocell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */; };
 		DA20ADFA1BFB565D002032D1 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADF91BFB565D002032D1 /* libicucore.tbd */; };
@@ -970,6 +972,10 @@
 		A4F5C17C1C0C86A800513CD9 /* XWJHomeViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJHomeViewController2.m; sourceTree = "<group>"; };
 		A4F5C1991C0DC04300513CD9 /* XWJHomeCollectionCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJHomeCollectionCell2.xib; sourceTree = "<group>"; };
 		A4F5C19B1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJHomeCollectionCell3.xib; sourceTree = "<group>"; };
+		A4F6DA0F1C50F3CE00C7AD83 /* XWJJifenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJJifenController.h; sourceTree = "<group>"; };
+		A4F6DA101C50F3CE00C7AD83 /* XWJJifenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJJifenController.m; sourceTree = "<group>"; };
+		A4F6DA121C50FD5200C7AD83 /* XWJJifenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJJifenCell.h; sourceTree = "<group>"; };
+		A4F6DA131C50FD5200C7AD83 /* XWJJifenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJJifenCell.m; sourceTree = "<group>"; };
 		A4FD43171C38E50700A44E01 /* XWJGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJGroupViewController.h; sourceTree = "<group>"; };
 		A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJGroupViewController.m; sourceTree = "<group>"; };
 		A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJquxiaocell.xib; sourceTree = "<group>"; };
@@ -1885,6 +1891,10 @@
 				A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */,
 				A4CBC7771C3B31EC00274040 /* XWJQXTableViewCell.h */,
 				A4CBC7781C3B31EC00274040 /* XWJQXTableViewCell.m */,
+				A4F6DA0F1C50F3CE00C7AD83 /* XWJJifenController.h */,
+				A4F6DA101C50F3CE00C7AD83 /* XWJJifenController.m */,
+				A4F6DA121C50FD5200C7AD83 /* XWJJifenCell.h */,
+				A4F6DA131C50FD5200C7AD83 /* XWJJifenCell.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -2690,6 +2700,7 @@
 			files = (
 				A4CBC7701C3AA46600274040 /* MJRefreshNormalHeader.m in Sources */,
 				A4462E641C2EE365004361BB /* XWJSPDetailTableViewCell.m in Sources */,
+				A4F6DA141C50FD5200C7AD83 /* XWJJifenCell.m in Sources */,
 				A4CBC7691C3AA46600274040 /* MJRefreshAutoGifFooter.m in Sources */,
 				A4CBC76D1C3AA46600274040 /* MJRefreshBackNormalFooter.m in Sources */,
 				212697151C47212300F5DF7D /* MyOrderDetailModel2.m in Sources */,
@@ -2878,6 +2889,7 @@
 				8E13272C1C30DF6A00D3EDB5 /* EmoAndHobbyStatus.m in Sources */,
 				A43C98531C15CC15006A61EE /* XWJForgetPwd2ViewController.m in Sources */,
 				A41255201C0F264E0042D8CC /* XWJjianduViewController.m in Sources */,
+				A4F6DA111C50F3CE00C7AD83 /* XWJJifenController.m in Sources */,
 				A43C97C91C129A79006A61EE /* LGPhotoPickerBrowserPhoto.m in Sources */,
 				A48801941C09FB3800714F5B /* XWJLifeViewController.m in Sources */,
 				A43C97AB1C1297E1006A61EE /* LGPhotoPickerFooterCollectionReusableView.m in Sources */,

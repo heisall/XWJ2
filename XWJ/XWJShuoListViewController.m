@@ -31,7 +31,7 @@
 @end
 #define PADDINGTOP 22.0
 //#define BTN_WIDTH 100.0
-#define BTN_WIDTH  SCREEN_SIZE.width/4
+#define BTN_WIDTH  SCREEN_SIZE.width/5
 #define BTN_HEIGHT 50.0
 
 @implementation XWJShuoListViewController
@@ -265,7 +265,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        return 95;
+        return 110;
     }
     return 110;
 }

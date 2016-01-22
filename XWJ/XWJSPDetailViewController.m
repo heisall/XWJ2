@@ -168,7 +168,7 @@
     titleLabel.font = [UIFont systemFontOfSize:15];
     titleLabel.textAlignment  = NSTextAlignmentCenter;
     titleLabel.alpha = 0.6;
-    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 300)];
+    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, adView.frame.origin.y+adView.bounds.size.height, 100, 30)];
     label.font = [UIFont systemFontOfSize:15];
     youhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.size.width, adView.frame.origin.y+adView.bounds.size.height, SCREEN_SIZE.width, 30)];
@@ -394,11 +394,16 @@
     
 //    if(self.comments&&self.comments.count>0)
     headerLabel.text = [NSString stringWithFormat:@"(%@人参与评论)",self.commentCount];
-    youhuLabel.text = [NSString stringWithFormat:@"￥ %.1f",[[self.goodsDic valueForKey:@"price"]floatValue ]];
+    
+    if(self.isFromJifen)
+        youhuLabel.text = [NSString stringWithFormat:@"%.1f积分",[[self.goodsDic valueForKey:@"price"]floatValue ]];
+    else
+        youhuLabel.text = [NSString stringWithFormat:@"￥ %.1f",[[self.goodsDic valueForKey:@"price"]floatValue ]];
 
     shichangjiaLabel.text = [NSString stringWithFormat:@"市场价: ￥%.1f",[[self.goodsDic valueForKey:@"old_price"] floatValue] ];
     xiaoliangLabel.text = [NSString stringWithFormat:@"销量：%@",[self.goodsDic objectForKey:@"sales"]];
     titleLabel.text = [self.goodsDic objectForKey:@"goods_name"];
+    
     
     [self addBottomBtn];
     NSString * prop = [self.goodsDic objectForKey:@"description"]==[NSNull null]?nil:[self.goodsDic objectForKey:@"description"] ;
@@ -466,7 +471,69 @@
 -(void)viewWillDisappear:(BOOL)animated{
     self.tabBarController.tabBar.hidden = NO;
 }
+
+-(void)duihuan{
+    NSString *url = JIFENDUIHUAN_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    NSMutableArray * ridArr = [NSMutableArray array];
+
+    
+    [dict setValue:[XWJAccount instance].account forKey:@"account"];
+    [dict setValue:[self.goodsDic valueForKey:@"goods_id"] forKey:@"goodsId"];
+    [dict setValue:@"1" forKey:@"quantity"];
+
+    [dict setValue:@"" forKey:@"postscript"];
+    [dict setValue:@"0" forKey:@"shippingId"];
+    [dict setValue:@"0" forKey:@"shippingFee"];
+    
+    //    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *num = [dic objectForKey:@"result"];
+            
+            if ([num intValue]== 1) {
+                [ProgressHUD showSuccess:errCode];
+                
+            }else
+                [ProgressHUD showError:errCode];
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 -(void)addBottomBtn{
+    
+    if (self.isFromJifen) {
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        
+       CGFloat width = self.view.bounds.size.width;
+        CGFloat height = 60;
+        button.frame = CGRectMake(0, SCREEN_SIZE.height-height, width, height);
+
+        [button setTitle:@"立即兑换" forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:15];
+        [button setBackgroundColor:XWJGREENCOLOR];
+        [button setTitleColor:XWJGREENCOLOR forState:UIControlStateSelected];
+        [button addTarget:self action:@selector(toJiesuan) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:button];
+
+        return;
+    }
+    
     self.btn = [NSMutableArray array];
 
     NSString *type = [self.goodsDic objectForKey:@"order_type"];
@@ -586,20 +653,24 @@
 //        UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
 //        XWJYueLineViewController *view = [car instantiateViewControllerWithIdentifier:@"yuyueline"];
 //        [self.navigationController showViewController:view sender:nil];
-        XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];
-        con.price = [NSString stringWithFormat:@"%.1f",[[self.goodsDic valueForKey:@"price"] floatValue]];
-        
-        NSMutableDictionary *dic  = [NSMutableDictionary dictionaryWithDictionary:self.goodsDic];
-        [dic setValue:[self.goodsDic valueForKey:@"default_image"] forKey:@"goods_image"];
-        [dic setValue:@"1" forKey:@"quantity"];
-        con.arr = [NSArray arrayWithObject:dic];
-        [self.navigationController showViewController:con sender:nil];
+        [self toJiesuan];
     }else if([butn.titleLabel.text isEqualToString:@"购物车"]){
         UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
         [self.navigationController showViewController:[car instantiateInitialViewController] sender:self];
     }
     
 }
+-(void)toJiesuan{
+    XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];
+    con.price = [NSString stringWithFormat:@"%.1f",[[self.goodsDic valueForKey:@"price"] floatValue]];
+    
+    NSMutableDictionary *dic  = [NSMutableDictionary dictionaryWithDictionary:self.goodsDic];
+    [dic setValue:[self.goodsDic valueForKey:@"default_image"] forKey:@"goods_image"];
+    [dic setValue:@"1" forKey:@"quantity"];
+    con.arr = [NSArray arrayWithObject:dic];
+    [self.navigationController showViewController:con sender:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

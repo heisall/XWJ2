@@ -114,10 +114,10 @@
     CGFloat height  = 60.0;
     for (int i =0; i<count; i++) {
         UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(i%2*width,i/2*(height+5) , width, height)];
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(1,1 , height-1, height-1)];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(1,1 , height-11, height-11)];
         img.tag = 1000+i;
         img.userInteractionEnabled = YES;
-        UILabel * label  =  [[UILabel alloc] initWithFrame:CGRectMake(width-60, 15, 60, 30)];
+        UILabel * label  =  [[UILabel alloc] initWithFrame:CGRectMake(width-70, 10, 60, 30)];
         [img sd_setImageWithURL:[NSURL URLWithString:[[self.thumb objectAtIndex:i] valueForKey:@"thumb"]]];
         label.text = [[self.thumb objectAtIndex:i] valueForKey:@"cateName"];
         

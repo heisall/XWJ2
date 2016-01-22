@@ -15,6 +15,7 @@
 #define PADDINGTOP 22.0
 #define BTN_WIDTH 100.0
 #define BTN_HEIGHT 50.0
+#define  mercellheight 110.0
 @interface XWJMerDetailListController()<UITableViewDataSource,UITableViewDelegate,LCBannerViewDelegate>{
     UIView *backview;
     UIScrollView *helperView;
@@ -92,7 +93,7 @@
     return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 95;
+    return mercellheight;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -204,8 +205,8 @@
             
             self.tableView.frame  =CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y
                                             , self.tableView.frame
-                                              .size.width, 100*self.goodsArr.count);
-            self.scroll.contentSize = CGSizeMake(0, 100*self.goodsArr.count+150);
+                                              .size.width, mercellheight*self.goodsArr.count);
+            self.scroll.contentSize = CGSizeMake(0, mercellheight*self.goodsArr.count+150);
 //            self.adArr = [dic objectForKey:@"ad"];
 //            self.thumb = [dic objectForKey:@"thumb"];
             NSMutableArray *URLs = [NSMutableArray array];

@@ -15,6 +15,8 @@
 #import "XWJGroupBuyTableViewCell.h"
 #import "XWJAccount.h"
 #import "XWJCity.h"
+#import "XWJGroupViewController.h"
+#import "XWJWebViewController.h"
 #define PADDINGTOP 64.0
 @interface XWJSHuoViewController()<LCBannerViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     CGFloat typeBtnheight;
@@ -82,7 +84,8 @@
 //    [btn setTitle:@"购物车" forState:UIControlStateNormal];
     [btn setImage:image forState:UIControlStateNormal];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
-    self.navigationItem.leftBarButtonItem = barButtonItem;
+//    self.navigationItem.leftBarButtonItem = barButtonItem;
+//    self.navigationItem.leftBarButtonItem = barButtonItem;
 
     UIImage *image1 = [UIImage imageNamed:@"homemes"];
     UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -211,7 +214,7 @@
             button.frame = CGRectMake((width+10)*(i%hang)+paddingLeft/2, paddingLeft+i/hang*paddingTop, width-paddingLeft, height-paddingLeft);
             button.tag = 1000+i;
             button.userInteractionEnabled = YES;
-            
+        button.contentMode = UIViewContentModeCenter;
             NSString *url;
             if ([[arr objectAtIndex:i] valueForKey:@"thumb"] != [NSNull null]) {
                 url = [[arr objectAtIndex:i] valueForKey:@"thumb"];
@@ -236,13 +239,14 @@
     }
     
     CGFloat img_width = self.view.bounds.size.width/2;
-    CGFloat img_height = 90;
+    CGFloat img_height = 70;
     
 //    if (self.adleftArr.count>0&&self.adrightArr.count>0) {
     
+    UIButton * but ;
         for (int i=0; i<2; i++) {
             
-            UIImageView *button = [[UIImageView alloc] init];
+            UIButton *button = [[UIButton alloc] init];
             
             button.frame = CGRectMake((img_width+1)*(i), 2*height+40+self.typeContainView.frame.origin.y+paddingLeft+i/hang*paddingTop, img_width, img_height);
             button.tag = 1000+i;
@@ -251,23 +255,61 @@
             NSString *url ;
             if (i==0) {
                 if (self.adleftArr &&self.adleftArr.count>0) {
-                    
                     url = [NSString stringWithFormat:@"%@",[[self.adleftArr objectAtIndex:0]objectForKey:@"Photo"]];
                 }
             }else
                 if (self.adrightArr&&self.adrightArr.count>0) {
-                    
                     url = [NSString stringWithFormat:@"%@",[[self.adrightArr objectAtIndex:0]objectForKey:@"Photo"]];
                 }
             
-            [button sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
+//            [button sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
             UITapGestureRecognizer* singleRecognizer;
             singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgesingleTap:)];
             //点击的次数
             singleRecognizer.numberOfTapsRequired = 1;
             [button addGestureRecognizer:singleRecognizer];
+            but =button;
+            if(i==0){
+                [button setTitle:@"社区团购" forState:UIControlStateNormal];
+                [button setBackgroundColor:XWJColor(252, 150, 146)];
+            }
+            else{
+                [button setTitle:@"商城优惠" forState:UIControlStateNormal];
+                [button setBackgroundColor:XWJColor(144, 167, 237)];
+
+            }
             [self.scroll addSubview:button];
         }
+    UIButton *but2;
+    for (int i=0; i<2; i++) {
+        UIButton *button = [[UIButton alloc] init];
+        button.frame = CGRectMake((img_width+1)*(i),1+but.frame.origin.y+but.frame.size.height, img_width, img_height);
+        button.tag = 1002+i;
+        button.userInteractionEnabled = YES;
+        UITapGestureRecognizer* singleRecognizer;
+        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgesingleTap:)];
+        //点击的次数
+        singleRecognizer.numberOfTapsRequired = 1;
+        [button addGestureRecognizer:singleRecognizer];
+        
+        but2 =button;
+
+        if(i==0){
+            [button setTitle:@"海信广场" forState:UIControlStateNormal];
+            [button setBackgroundColor:XWJColor(83, 190, 187)];
+
+        }
+        else{
+            [button setTitle:@"海信商城" forState:UIControlStateNormal];
+            [button setBackgroundColor:XWJColor(252, 177, 133)];
+
+        }
+        [self.scroll addSubview:button];
+    }
+    
+    tableView.frame = CGRectMake(tableView.frame.origin.x, but2.frame.origin.y+but2.frame.size.height, tableView.frame.size.width, self.groupBuy.count*110);
+
+    
 //    }
 }
 
@@ -277,9 +319,36 @@
 //        return;
     NSInteger tag =     image.view.tag-1000;
     
+    switch (tag) {
+        case 0:
+        {
+            XWJGroupViewController *group  = [[XWJGroupViewController alloc] init];
+            [self.navigationController showViewController:group sender:nil];
+        }
+            break;
+        case 1:
+        {
+            XWJWebViewController * web = [[XWJWebViewController alloc] init];
+            web.url = @"";
+            [self.navigationController pushViewController:web animated:NO];
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+    /*
     XWJWebViewController *web  = [[XWJWebViewController alloc]init];
     if (tag==0) {
-        
         if (self.adleftArr.count>0) {
             
             web.url = [[self.adleftArr objectAtIndex:0]objectForKey:@"url"];
@@ -293,6 +362,7 @@
             return;
     }
     [self.navigationController showViewController:web sender:nil];
+     */
 }
 -(void)singleTap:(UITapGestureRecognizer *)image{
     NSInteger index = image.view.tag;

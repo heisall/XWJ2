@@ -47,7 +47,7 @@
     self.shangpinTableView.frame = CGRectMake(0, self.shangpinTableView.frame.origin.y, self.shangpinTableView.frame.size.width, self.arr.count*90);
     self.tableConstraint.constant = self.arr.count*90;
     
-    self.scrollView.contentSize = CGSizeMake(0, self.shangpinTableView.frame.origin.y+self.tableConstraint.constant);
+    self.scrollView.contentSize = CGSizeMake(0, self.shangpinTableView.frame.origin.y);
     [self getAddress];
 
 }

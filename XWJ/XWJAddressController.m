@@ -9,6 +9,7 @@
 #import "XWJAddressController.h"
 #import "XWJAccount.h"
 #import "XWJAddresCell.h"
+#import "ProgressHUD.h"
 @interface XWJAddressController()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property NSMutableArray *array;
@@ -130,6 +131,7 @@
             if ([num intValue]== 1) {
                 //                NSMutableArray * arr ;
                 
+//                [ProgressHUD showSuccess:<#(NSString *)#>];
 //                self.array = [dic objectForKey:@"data"];
 //                [tableview reloadData];
                 

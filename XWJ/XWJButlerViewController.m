@@ -28,7 +28,7 @@
     
     [self getGuanjiaAD];
     //订阅通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRoomNotification:) name:@"changeRoomNotification" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRoomNotification:) name:@"changeRoomNotification" object:nil];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"huname"]) {
 //        self.room.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"huname"];
 //    }
@@ -39,19 +39,19 @@
     }else
     if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
         for (NSDictionary *dic in [XWJAccount instance].array ) {
-            if ([[dic valueForKey:@"isDefault" ] integerValue]== 1) {
+            if ([[dic valueForKey:@"isDefault"] integerValue]== 1) {
                 self.room.text = [NSString stringWithFormat:@"%@",[dic valueForKey:@"A_name"]];
             }
         }
     }
 
 }
-//通知传过来的信息
--(void)changeRoomNotification:(NSNotification *)notification
-{
-    NSDictionary *roomDictionary = [notification userInfo];
-    NSLog(@"\n%@",roomDictionary);
-}
+////通知传过来的信息
+//-(void)changeRoomNotification:(NSNotification *)notification
+//{
+//    NSDictionary *roomDictionary = [notification userInfo];
+//    NSLog(@"\n%@",roomDictionary);
+//}
 -(void)getGuanjiaAD{
     NSString *url = GETGUANJIAAD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -228,7 +228,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //    self.navigationItem.title = @"管家";
-    
+    [self getGuanjiaAD];
     
     if([XWJAccount instance].isYouke){
         self.navigationItem.title = [NSString stringWithFormat:@"%@",[[XWJCity instance].district valueForKey:@"a_name"]];

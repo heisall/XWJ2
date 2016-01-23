@@ -14,6 +14,7 @@
 #import "XWJBindHouseTableViewController.h"
 #import "XWJCity.h"
 #import "XWJAboutViewController.h"
+#import "XWJMyHouseCell.h"
 
 @interface XWJMyHouseController()<XWJBindHouseDelegate,UITableViewDataSource,UITableViewDelegate>{
 }
@@ -23,6 +24,8 @@
 @property NSMutableArray *subTitles;
 @property NSMutableArray *danyuan;
 @property NSMutableArray *louhao;
+@property NSMutableArray *JURID;
+@property NSMutableArray *isDefault;
 @property NSString *guanjiaM;
 
 @end
@@ -43,7 +46,10 @@ static NSString *kcellIdentifier = @"cell";
     _subTitles =[[NSMutableArray alloc]init];
     _danyuan =[[NSMutableArray alloc]init];
     _louhao =[[NSMutableArray alloc]init];
+    _JURID =[[NSMutableArray alloc]init];
+    _isDefault =[[NSMutableArray alloc]init];
     _guanjiaM = [[NSString alloc]init];
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 50)];
     view.backgroundColor = XWJColor(235, 235, 234);
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -172,9 +178,13 @@ static NSString *kcellIdentifier = @"cell";
                 [_titles addObject:[d objectForKey:@"A_name"]];
                 [_danyuan addObject:[d objectForKey:@"R_dy"]];
                 [_louhao addObject:[d objectForKey:@"R_id"]];
+                [_JURID addObject:[d objectForKey:@"JU_RID"]];
+                [_isDefault addObject:[d objectForKey:@"isDefault"]];
+                NSLog(@"%@",_isDefault);
+
             }
         }
-        
+
         [_tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
@@ -193,29 +203,81 @@ static NSString *kcellIdentifier = @"cell";
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell;
-    cell = [_tableView dequeueReusableCellWithIdentifier:kcellIdentifier forIndexPath:indexPath];
-    
-    UILabel *title = (UILabel *)[cell viewWithTag:1];
-    UILabel *subtitle = (UILabel *)[cell viewWithTag:2];
-    
-    title.text = [_titles objectAtIndex:indexPath.row];
-    subtitle.text = [NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
-
+    //    UITableViewCell *cell;
+    //    cell = [_tableView dequeueReusableCellWithIdentifier:kcellIdentifier forIndexPath:indexPath];
+    XWJMyHouseCell *cell = [XWJMyHouseCell xwjMyHouseCellInitWithTableView:tableView];
+    //    UILabel *title = (UILabel *)[cell viewWithTag:1];
+    //    UILabel *subtitle = (UILabel *)[cell viewWithTag:2];
+    //
+    //    title.text = [_titles objectAtIndex:indexPath.row];
+    //    subtitle.text = [NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
+    //
+    //    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    cell.titleLabel.text = [_titles objectAtIndex:indexPath.row];
+    cell.DetailLabel.text =[NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
+    NSLog(@"_isDefault:%@",_isDefault);
+    NSString *str= [NSString stringWithFormat:@"%@",_isDefault[indexPath.row]];
+    if ([str isEqualToString:@"1"]) {
+        cell.imageview.hidden = NO;
+    }else{
+        cell.imageview.hidden = YES;
+    }
     return cell;
+
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSArray *array = [tableView visibleCells];
+    for (XWJMyHouseCell *cell in array) {
+        if (cell.selected == YES) {
+            cell.imageview.hidden = NO;
+        }else{
+            cell.imageview.hidden = YES;
+        }
+    }
+    XWJMyHouseCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    //    UIImageView *image = cell.imageView;
+    cell.imageview.hidden = NO;
+    
+    //向服务器发送数据请求把房产信息传到服务器
+    NSString *changeUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/build/changeDefault";
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    
+    NSMutableDictionary *housedict = [NSMutableDictionary dictionary];
+    
+    XWJAccount *account = [XWJAccount instance];
+    [housedict setValue:account.uid forKey:@"userid"];
+    [housedict setValue:self.JURID[indexPath.row] forKey:@"JU_RID"];
+    //    NSLog(@"哈哈哈%@",self.JURID[indexPath.row]);
+    [manager POST:changeUrl parameters:housedict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@",responseObject);
+        if(responseObject){
+            
+        }
+      //  [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+
+   
+
+
+}
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    _guanjiaM = [NSString stringWithFormat:@"%@%@%@单元%@",[_titles objectAtIndex:indexPath.row],[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
-    NSLog(@"%@",_guanjiaM);
+//    _guanjiaM = [NSString stringWithFormat:@"%@%@%@单元%@",[_titles objectAtIndex:indexPath.row],[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
+//
+//    NSLog(@"++++%@",self.JURID[indexPath.row]);
+//    //发送通知
+//    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+//    [dict setObject:_guanjiaM forKey:@"room"];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRoomNotification" object:nil userInfo:dict];
+//
     
-    //发送通知
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:_guanjiaM forKey:@"room"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRoomNotification" object:nil userInfo:dict];
-  
 }
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -230,13 +292,13 @@ static NSString *kcellIdentifier = @"cell";
 }
 -(void)viewDidAppear:(BOOL)animated
 {
-    NSInteger selectedIndex = 0;
-    
-    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-    
-    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    
-    [super viewDidAppear:animated];
+//    NSInteger selectedIndex = 0;
+//    
+//    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+//    
+//    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//    
+//    [super viewDidAppear:animated];
 }
 
 @end

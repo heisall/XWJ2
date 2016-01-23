@@ -12,6 +12,7 @@
 @interface XWJPay1ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
 @property NSMutableArray *payListArr;
+@property NSMutableArray *roomDic;
 
 @end
 
@@ -19,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self headAD];
     [self getZhangDan];
     self.payListArr = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view.
@@ -26,11 +28,52 @@
     self.tabBarController.tabBar.hidden = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     self.tableView.dataSource = self;
     
     self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户",@"", nil];
     
+}
+-(void)headAD{
+    NSString *url = GETGUANJIAAD_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    /*
+     a_id	小区a_id	String
+     userid	用户id	String
+     */
+    
+    //    [dict setValue:[XWJCity instance].aid  forKey:@"a_id"];
+    //    [dict setValue:@"1"  forKey:@"a_id"];
+    //    NSString *userid = [XWJAccount in];
+    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
+    
+    //    [dict setValue:@"1" forKey:@"a_id"];
+    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
+    
+    [dict setValue:[NSString stringWithFormat:@"%@",[XWJAccount instance].uid] forKey:@"userid"];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic哈哈哈 %@",dic);
+            
+            self.roomDic = [dic objectForKey:@"room"];
+            
+//            if([XWJAccount instance].isYouke){
+//                self.room.text  = @"";
+//            }else{
+//               self.room.text = [NSString stringWithFormat:@"%@%@号楼%@单元%@",[self.roomDic objectForKey:@"A_name"]==[NSNull null]?@"":[self.roomDic objectForKey:@"A_name"],[self.roomDic objectForKey:@"b_id"]==[NSNull null]?@"":[self.roomDic objectForKey:@"b_id"],[self.roomDic objectForKey:@"r_dy"]==[NSNull null]?@"":[self.roomDic objectForKey:@"r_dy"],[self.roomDic objectForKey:@"r_id"]==[NSNull null]?@"":[self.roomDic objectForKey:@"r_id"]];
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
 }
 
 -(void)getZhangDan{
@@ -54,11 +97,10 @@
 //        }else
 //            [dict setValue:@"投诉" forKey:@"type"];
     
-    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
-//        [dict setValue:@"1" forKey:@"a_id"];
+        [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
         [dict setValue:@"1" forKey:@"b_id"];
         [dict setValue:@"1" forKey:@"r_dy"];
-        [dict setValue:@"101" forKey:@"r_id"];
+        [dict setValue:@"202" forKey:@"r_id"];
     
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -66,6 +108,7 @@
             
             if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"+++==dic%@",dic);
             self.payListArr = [dic objectForKey:@"data"];
             [self.tableView reloadData];
                 NSLog(@"dic ++++%@",self.payListArr);

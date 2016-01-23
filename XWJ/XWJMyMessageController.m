@@ -137,7 +137,7 @@ static NSString *kcellIdentifier = @"cell";
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     XWJAccount *account = [XWJAccount instance];
-    [dict setValue:@"90"  forKey:@"id"];
+    [dict setValue:@"87"  forKey:@"id"];
     NSLog(@"%@",_idArray[indexPath.row]);
     [dict setValue:account.uid forKey:@"userid"];
     [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

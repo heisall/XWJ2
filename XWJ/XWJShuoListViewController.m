@@ -85,6 +85,7 @@
 
 
     UIScrollView *scroll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, PADDINGTOP+adView.bounds.size.height,BTN_WIDTH, SCREEN_SIZE.height-PADDINGTOP-adView.bounds.size.height)];
+    BOOL isFind = FALSE;
     for (int i =0; i<self.thumbArr.count; i++) {
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0,  i*(BTN_HEIGHT+1), BTN_WIDTH, BTN_HEIGHT);
@@ -103,9 +104,15 @@
         [self.btn addObject:btn];
         [scroll addSubview:btn];
         if ([[self.dic valueForKey:@"id"] integerValue]==[[[self.thumbArr objectAtIndex:i] valueForKey:@"id"] integerValue]) {
+            isFind = TRUE;
             [self btnclick:btn];
         }
     }
+    
+    if (!isFind) {
+        [self btnclick:[self.btn objectAtIndex:0]];
+    }
+    
     scroll.contentSize = CGSizeMake(BTN_WIDTH, self.thumbArr.count*(BTN_HEIGHT+1)+100);
     scroll.showsHorizontalScrollIndicator = NO;
     scroll.showsVerticalScrollIndicator = NO;
@@ -312,7 +319,7 @@
          */
         //    cell.label1.text = [self.tabledata ];
         
-        TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 70, 10) numberOfStar:[self.starArr[indexPath.row] intValue]];
+        TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 70, 15) numberOfStar:[self.starArr[indexPath.row] intValue]];
         starRatingView.isNOhua = YES;
         [cell.xingView addSubview:starRatingView];
         NSArray *arr = self.tabledata;
@@ -333,7 +340,11 @@
         //    NSString *prop = @"有点甜,杭州的,中央特供";
         cell.tedeView.hidden = YES;
         if (prop&&![prop isEqualToString:@""]) {
-            NSArray *teseArr = [prop componentsSeparatedByString:@","];
+            NSArray *teseArr;
+            if([prop rangeOfString:@","].length>0)
+                teseArr = [prop componentsSeparatedByString:@","];
+            else
+             teseArr = [prop componentsSeparatedByString:@"，"];
             if (teseArr&&teseArr.count>0) {
                 cell.tedeView.hidden = NO;
                 CGFloat wid = 34.0;

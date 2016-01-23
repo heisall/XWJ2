@@ -10,4 +10,5 @@
 
 @interface XWJMerDetailListController : XWJBaseViewController
 @property NSDictionary *dic;
+@property NSString *storeid;
 @end

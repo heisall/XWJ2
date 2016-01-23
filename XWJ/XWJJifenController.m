@@ -9,6 +9,7 @@
 #import "XWJJifenController.h"
 #import "XWJJifenCell.h"
 #import "XWJSPDetailViewController.h"
+#import "XWJAccount.h"
 @interface XWJJifenController()<UITableViewDataSource,UITableViewDelegate>
 @property NSArray *array;
 @property (weak, nonatomic) IBOutlet UIButton *allBtn;
@@ -16,8 +17,8 @@
 @end
 @implementation XWJJifenController
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+-(void)viewDidLoad{
+    [super viewDidLoad];
     self.navigationItem.title  = @"积分兑换";
     self.tableView.delegate = self;
     self.tableView.dataSource =self;
@@ -62,7 +63,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 230;
+    return 275;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -119,7 +120,8 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 
     //        [dict setValue:@"1"  forKey:@"a_id"];
-    [dict setValue:type  forKey:@"types"];
+    [dict setValue:[XWJAccount instance].account forKey:@"account"];
+    [dict setValue:type  forKey:@"type"];
     [dict setValue:@"0" forKey:@"pageindex"];
     [dict setValue:@"100"  forKey:@"countperpage"];
     

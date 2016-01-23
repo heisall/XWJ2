@@ -26,7 +26,7 @@
     self.navigationItem.title = @"用户结算";
     // Do any additional setup after loading the view.
     
-    self.scrollView.contentSize = CGSizeMake(0, 1000);
+//    self.scrollView.contentSize = CGSizeMake(0, 1000);
 //    self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户", nil];
     self.payarray = [NSArray arrayWithObjects:@"货到付款",@"微信支付", nil];
     self.zhifuIconArr = [NSArray arrayWithObjects:@"",@"zhifuweixin", nil];
@@ -36,7 +36,7 @@
     [self.payTableView registerNib:[UINib nibWithNibName:@"XWJPayWayView" bundle:nil] forCellReuseIdentifier:@"paycell"];
 
     float money =  [self.price floatValue]+8.0;
-    self.totalLabel.text = [NSString stringWithFormat:@"￥ %.1f",[self.price floatValue]];
+    self.totalLabel.text = self.price;
     self.payTableView.dataSource  = self;
     self.payTableView.delegate = self;
     NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:0];
@@ -45,6 +45,9 @@
     self.shangpinTableView.dataSource  = self;
     self.shangpinTableView.delegate = self;
     self.shangpinTableView.frame = CGRectMake(0, self.shangpinTableView.frame.origin.y, self.shangpinTableView.frame.size.width, self.arr.count*90);
+    self.tableConstraint.constant = self.arr.count*90;
+    
+    self.scrollView.contentSize = CGSizeMake(0, self.shangpinTableView.frame.origin.y+self.tableConstraint.constant);
     [self getAddress];
 
 }

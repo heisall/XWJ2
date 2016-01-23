@@ -17,6 +17,7 @@
 #import "XWJCity.h"
 #import "XWJGroupViewController.h"
 #import "XWJWebViewController.h"
+#import "XWJYouhuiController.h"
 #define PADDINGTOP 64.0
 @interface XWJSHuoViewController()<LCBannerViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     CGFloat typeBtnheight;
@@ -32,10 +33,11 @@
 @property NSMutableArray *adrightArr;
 @property NSMutableArray *groupBuy;
 
-
+@property NSMutableArray *hengView;
 @property NSMutableArray *thumbArr;
 
 @property NSMutableArray *btn;
+
 @property UIView * typeContainView;
 @property UIView *adView;
 @property UIScrollView *scroll;
@@ -84,7 +86,7 @@
 //    [btn setTitle:@"购物车" forState:UIControlStateNormal];
     [btn setImage:image forState:UIControlStateNormal];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
-//    self.navigationItem.leftBarButtonItem = barButtonItem;
+    self.navigationItem.leftBarButtonItem = nil;
 //    self.navigationItem.leftBarButtonItem = barButtonItem;
 
     UIImage *image1 = [UIImage imageNamed:@"homemes"];
@@ -159,6 +161,7 @@
     self.adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
     
     self.btn = [NSMutableArray array];
+    self.hengView = [NSMutableArray array];
     NSInteger count = 4;
     CGFloat width = self.view.bounds.size.width/4;
     CGFloat height = 50;
@@ -170,12 +173,20 @@
         button.tag = i;
         
         [button setTitle:[title objectAtIndex:i] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
+//        [button setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
         [button setBackgroundImage:[UIImage imageNamed:@"shuonormal"] forState:UIControlStateNormal];
         
         [button setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];
         [button setTitleColor:XWJGREENCOLOR forState:UIControlStateSelected];
         
+        UIView * hView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 2)];
+        hView.backgroundColor = XWJGREENCOLOR;
+        hView.tag = i;
+        
+        if (i==0) {
+            hView.hidden = NO;
+        }else
+            hView.hidden = YES;
         //        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         //        button.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         ////        button.titleLabel.font = [UIFont systemFontOfSize:14.0];
@@ -184,7 +195,10 @@
         //        button.backgroundColor = [UIColor whiteColor];
         
         [button addTarget:self action:@selector(typeclick:) forControlEvents:UIControlEventTouchUpInside];
+        [button addSubview:hView];
         [self.btn addObject:button];
+        [self.hengView addObject:hView];
+        
         [scroll addSubview:button];
     }
     ((UIButton*)self.btn[0]).selected=YES;
@@ -192,6 +206,16 @@
 //    _typeContainView.backgroundColor = [UIColor redColor];
     [scroll addSubview:_typeContainView];
     [scroll addSubview:self.adView];
+}
+
+-(void)showHeng:(NSInteger)index{
+    for (UIView *view in self.hengView) {
+        
+        if (view.tag == index) {
+            view.hidden = NO;
+        }else
+            view.hidden = YES;
+    }
 }
 
 -(void)addTypeOneView:(NSArray*)arr{
@@ -328,9 +352,13 @@
             break;
         case 1:
         {
-            XWJWebViewController * web = [[XWJWebViewController alloc] init];
-            web.url = @"";
-            [self.navigationController pushViewController:web animated:NO];
+            XWJYouhuiController *you = [[XWJYouhuiController alloc] init];
+            [self.navigationController pushViewController:you animated:NO];
+
+//            [self getYouHui];
+//            XWJWebViewController * web = [[XWJWebViewController alloc] init];
+//            web.url = @"";
+//            [self.navigationController pushViewController:web animated:NO];
         }
             break;
         case 2:
@@ -388,6 +416,33 @@
     XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
     list.dic = [array objectAtIndex:index-1000];
     [self.navigationController showViewController:list sender:self];
+}
+
+-(void)getYouHui{
+    NSString *url = GETYOUHUI_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    /*
+     pageindex	第几页	String,从0开始
+     countperpage	每页条数	String
+     cateId	商户分类	String
+     */
+    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
 }
 
 -(void)getGShuoAD{
@@ -532,6 +587,8 @@
         b.selected = NO;
     }
     butn.selected = !butn.selected;
+    
+    [self showHeng:index];
     _selecttype = index+1;
     
     for (UIView * v in self.typeContainView.subviews) {

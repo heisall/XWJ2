@@ -31,7 +31,7 @@
         view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, HEIGHT_VIEW2*imgs.count);
         for (int i =0; i<imgs.count; i++) {
 
-            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(40,HEIGHT_VIEW2*i, SCREEN_SIZE.width-4-80, HEIGHT_VIEW2)];
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0,HEIGHT_VIEW2*i, SCREEN_SIZE.width, HEIGHT_VIEW2)];
             img.contentMode  = UIViewContentModeRedraw;
             [img sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:i]]placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 //                img.frame = CGRectMake(img.frame.origin.x, img.frame.origin.y, image.size.width, image.size.height);

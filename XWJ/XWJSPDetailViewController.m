@@ -17,6 +17,7 @@
 #import "XWJSPGuigeViewController.h"
 #import "XWJSPinfoViewController.h"
 #import "XWJJiesuanViewController.h"
+#import "XWJSPCommentController.h"
 @interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property UIScrollView *scrollView;
 
@@ -24,6 +25,7 @@
 @property UILabel *youhuLabel;
 @property UILabel *shichangjiaLabel;
 @property UILabel *xiaoliangLabel;
+@property UILabel *contentLabel;
 @property UIView *adView;
 @property UIImageView *shangpinImg;
 @property UITableView *tableView;
@@ -39,7 +41,7 @@
 @end
 
 #define PADDINGTOP 64
-#define HEIGHT_VIEW1 400
+#define HEIGHT_VIEW1 (SCREEN_SIZE.width+60)
 //#define HEIGHT_VIEW2 400
 #define HEIGHT_VIEW3 250
 #define HEIGHT_VIEW2 40
@@ -49,7 +51,7 @@
 
 @implementation XWJSPDetailViewController
 @synthesize scrollView,titleLabel,youhuLabel,shichangjiaLabel,xiaoliangLabel,adView,dianpuBtn;
-@synthesize shangpinImg,tableView,headerLabel,gouwucheLabel;
+@synthesize shangpinImg,tableView,headerLabel,gouwucheLabel,contentLabel;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -152,8 +154,11 @@
             [self.navigationController pushViewController:view animated:NO];
         }
             break;
-        case 2:
-            ;
+        case 2:{
+            XWJSPCommentController *comment = [[XWJSPCommentController alloc ]init];
+            comment.comments = self.comments;
+            [self.navigationController pushViewController:comment animated:NO];
+        }
             break;
         default:
             break;
@@ -162,19 +167,22 @@
 
 -(void)addView{
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
-    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 300-25, SCREEN_SIZE.width, 25)];
+    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width-60)];
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, adView.frame.origin.y+adView.frame.size.height-25, SCREEN_SIZE.width, 25)];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.backgroundColor = [UIColor darkGrayColor];
     titleLabel.font = [UIFont systemFontOfSize:15];
     titleLabel.textAlignment  = NSTextAlignmentCenter;
     titleLabel.alpha = 0.6;
-    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, adView.frame.origin.y+adView.bounds.size.height, 100, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, adView.frame.origin.y+adView.frame.size.height, 100, 30)];
     label.font = [UIFont systemFontOfSize:15];
     youhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.size.width, adView.frame.origin.y+adView.bounds.size.height, SCREEN_SIZE.width, 30)];
     shichangjiaLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, label.frame.origin.y+label.bounds.size.height, 120, 30)];
     xiaoliangLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-80,adView.frame.origin.y+adView.bounds.size.height, 80, 30)];
     
+    contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, shichangjiaLabel.frame.origin.y+shichangjiaLabel.frame.size.height, SCREEN_SIZE.width-20, 60)];
+    contentLabel.font = [UIFont systemFontOfSize:14];
+    contentLabel.numberOfLines = 3;
     shichangjiaLabel.font = [UIFont systemFontOfSize:14.0];
     xiaoliangLabel.font = [UIFont systemFontOfSize:14.0];
     
@@ -191,6 +199,7 @@
     [view addSubview:youhuLabel];
     [view addSubview:shichangjiaLabel];
     [view addSubview:xiaoliangLabel];
+    [view addSubview:contentLabel];
     [view addSubview:adView];
 //    [view addSubview:dianpuBtn];
     [view addSubview:titleLabel];
@@ -242,6 +251,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if(self.comments.count>5)
+        return 5;
     return self.comments.count;
 }
 
@@ -403,8 +414,16 @@
     shichangjiaLabel.text = [NSString stringWithFormat:@"市场价: ￥%.1f",[[self.goodsDic valueForKey:@"old_price"] floatValue] ];
     xiaoliangLabel.text = [NSString stringWithFormat:@"销量：%@",[self.goodsDic objectForKey:@"sales"]];
     titleLabel.text = [self.goodsDic objectForKey:@"goods_name"];
+//    simple_desc
     
-    
+    CGSize size = CGSizeMake(contentLabel.frame.size.width, CGFLOAT_MAX);
+    NSString * desc = [self.goodsDic objectForKey:@"simple_desc"]==[NSNull null]?@"":[self.goodsDic objectForKey:@"simple_desc"];
+    //计算文字所占区域
+    CGSize labelSize = [desc boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : contentLabel.font} context:nil].size;
+
+    contentLabel.frame = CGRectMake(contentLabel.frame.origin.x
+                                    , contentLabel.frame.origin.y, contentLabel.frame.size.width, labelSize.height);
+    contentLabel.text = desc;
     [self addBottomBtn];
     NSString * prop = [self.goodsDic objectForKey:@"description"]==[NSNull null]?nil:[self.goodsDic objectForKey:@"description"] ;
     
@@ -567,7 +586,7 @@
 //
 //            }else
                 width = self.view.bounds.size.width/count;
-            CGFloat height = 60;
+            CGFloat height = 45;
             
             for (int i=0; i<count; i++) {
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -580,7 +599,7 @@
                 button.tag = i;
                 [button setTitle:[title objectAtIndex:i] forState:UIControlStateNormal];
 
-                
+                UIImageView *imgView;
                 if ([[title objectAtIndex:i] isEqualToString:@""]) {
                     
                     UIImage *buttonImage = [UIImage imageNamed:@"gouwuche_small"];
@@ -588,11 +607,13 @@
 //                    buttonImage = [buttonImage stretchableImageWithLeftCapWidth:0 topCapHeight:floorf(buttonImage.size.height)];
 //                    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
                     
-                    UIImageView *imgView =  [[UIImageView alloc] initWithFrame:CGRectMake((button.bounds.size.width-buttonImage.size.width)/2, 2, buttonImage.size.width, buttonImage.size.height)];
+                     imgView =  [[UIImageView alloc] initWithFrame:CGRectMake((button.bounds.size.width-buttonImage.size.width)/2,0 , buttonImage.size.width-2, buttonImage.size.height-2)];
                     imgView.image = buttonImage;
                     [button addSubview:imgView];
 //                    button.contentMode = UIViewContentModeCenter;
-                }
+                    button.titleLabel.font = [UIFont systemFontOfSize:11];
+
+                }else
                 button.titleLabel.font = [UIFont systemFontOfSize:15];
                 
                 if ([[title objectAtIndex:i] isEqualToString:@""]) {
@@ -601,8 +622,9 @@
 //                    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
                     [button setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
                     
-                    gouwucheLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 20)];
-                    gouwucheLabel.textAlignment = NSTextAlignmentRight;
+                    gouwucheLabel = [[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width, 0, 30, 20)];
+                    gouwucheLabel.textAlignment = NSTextAlignmentLeft;
+                    gouwucheLabel.font = [UIFont systemFontOfSize:12.0];
 //                    label.text  =@"12";
                     if (self.gouwuCheCounts&&![self.gouwuCheCounts isEqualToString:@"0"]) {
                         
@@ -611,6 +633,7 @@
                     gouwucheLabel.textColor = [UIColor redColor];
                     gouwucheLabel.tag = 100;
                     [button addSubview:gouwucheLabel];
+                    button.backgroundColor = XWJColor(251, 251, 251);
                     [button setTitle:@"购物车" forState:UIControlStateNormal];
                 }else
                     [button setBackgroundColor:XWJGREENCOLOR];

@@ -154,7 +154,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 //    [dict setValue:@"1" forKey:@"store_id"];
-    [dict setValue:[self.dic objectForKey:@"id"] forKey:@"store_id"];
+    if (self.storeid) {
+        [dict setValue:self.storeid forKey:@"store_id"];
+//        [dict setValue:@"103" forKey:@"store_id"];
+    }else
+        [dict setValue:[self.dic objectForKey:@"id"] forKey:@"store_id"];
     switch (type) {
         case 0:
             [dict setValue:@"0" forKey:@"zx"];
@@ -200,17 +204,26 @@
             self.store = [dic objectForKey:@"store"];
             self.cates = [NSMutableArray arrayWithArray:[dic objectForKey:@"cates"]];
             NSDictionary *di = [NSDictionary dictionaryWithObjectsAndKeys:@"全部",@"cate_name",@"",@"cate_id", nil];
-            [self.cates insertObject:di atIndex:0];
-            [self.tableView reloadData];
-            
-            self.tableView.frame  =CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y
-                                            , self.tableView.frame
-                                              .size.width, mercellheight*self.goodsArr.count);
-            self.scroll.contentSize = CGSizeMake(0, mercellheight*self.goodsArr.count+150);
+            if (self.cates.count>0) {
+                
+                [self.cates insertObject:di atIndex:0];
+            }
+            if (self.goodsArr.count>0) {
+        
+                [self.tableView reloadData];
+                
+                self.tableView.frame  =CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y
+                                                  , self.tableView.frame
+                                                  .size.width, mercellheight*self.goodsArr.count);
+                self.scroll.contentSize = CGSizeMake(0, mercellheight*self.goodsArr.count+150);
+            }
 //            self.adArr = [dic objectForKey:@"ad"];
 //            self.thumb = [dic objectForKey:@"thumb"];
             NSMutableArray *URLs = [NSMutableArray array];
          
+            if (!self.store.count>0) {
+                return ;
+            }
             if ([self.store valueForKey:@"store_banner"] ==[NSNull null]){
                 return;
             }

@@ -27,6 +27,8 @@
 #import "XWJShuoListViewController.h"
 
 #import "SignViewController.h"
+#import "XWJMerDetailListController.h"
+
 #define  CELL_HEIGHT 150.0
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 1
@@ -42,6 +44,7 @@
 @property (nonatomic)NSInteger section;
 @property NSMutableArray *notices;
 @property NSMutableArray *shows ;
+@property NSMutableArray *shopad;
 @property NSMutableArray *shuoArr ;
 @property NSMutableArray *shanghuArr;
 @property NSMutableArray *shipinArr;
@@ -248,6 +251,7 @@ NSArray *footer;
             
             self.notices = [dic objectForKey:@"notices"];
             self.shows = [dic objectForKey:@"topad"];
+            self.shopad  = [dic objectForKey:@"shopad"];
             
             NSMutableArray *titls = [NSMutableArray array];
             for (NSDictionary *dic in self.notices) {
@@ -699,7 +703,14 @@ NSArray *footer;
             break;
         case 5:
         {
-            [self.tabBarController setSelectedIndex:2];
+            
+            
+            XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
+            list.dic  = [self.shopad objectAtIndex:0];
+            list.storeid = [[self.shopad objectAtIndex:0] valueForKey:@"ID"];
+            [self.navigationController showViewController:list sender:self];
+            
+//            [self.tabBarController setSelectedIndex:2];
 
         }
             break;

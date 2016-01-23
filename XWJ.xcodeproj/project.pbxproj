@@ -330,6 +330,8 @@
 		A4F5C19C1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F5C19B1C0DE4BC00513CD9 /* XWJHomeCollectionCell3.xib */; };
 		A4F6DA111C50F3CE00C7AD83 /* XWJJifenController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA101C50F3CE00C7AD83 /* XWJJifenController.m */; };
 		A4F6DA141C50FD5200C7AD83 /* XWJJifenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA131C50FD5200C7AD83 /* XWJJifenCell.m */; };
+		A4F6DA171C5347F000C7AD83 /* XWJYouhuiController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA161C5347F000C7AD83 /* XWJYouhuiController.m */; };
+		A4F6DA1A1C53601200C7AD83 /* XWJSPCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA191C53601200C7AD83 /* XWJSPCommentController.m */; };
 		A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */; };
 		A4FD431B1C3952FB00A44E01 /* XWJquxiaocell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */; };
 		DA20ADFA1BFB565D002032D1 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADF91BFB565D002032D1 /* libicucore.tbd */; };
@@ -976,6 +978,10 @@
 		A4F6DA101C50F3CE00C7AD83 /* XWJJifenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJJifenController.m; sourceTree = "<group>"; };
 		A4F6DA121C50FD5200C7AD83 /* XWJJifenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJJifenCell.h; sourceTree = "<group>"; };
 		A4F6DA131C50FD5200C7AD83 /* XWJJifenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJJifenCell.m; sourceTree = "<group>"; };
+		A4F6DA151C5347F000C7AD83 /* XWJYouhuiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJYouhuiController.h; sourceTree = "<group>"; };
+		A4F6DA161C5347F000C7AD83 /* XWJYouhuiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJYouhuiController.m; sourceTree = "<group>"; };
+		A4F6DA181C53601200C7AD83 /* XWJSPCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSPCommentController.h; sourceTree = "<group>"; };
+		A4F6DA191C53601200C7AD83 /* XWJSPCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSPCommentController.m; sourceTree = "<group>"; };
 		A4FD43171C38E50700A44E01 /* XWJGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJGroupViewController.h; sourceTree = "<group>"; };
 		A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJGroupViewController.m; sourceTree = "<group>"; };
 		A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJquxiaocell.xib; sourceTree = "<group>"; };
@@ -2106,6 +2112,10 @@
 				A45DCC051C446C4E001543CE /* XWJAddAdrController.m */,
 				A45DCC071C447A0D001543CE /* XWJAddresCell.h */,
 				A45DCC081C447A0D001543CE /* XWJAddresCell.m */,
+				A4F6DA151C5347F000C7AD83 /* XWJYouhuiController.h */,
+				A4F6DA161C5347F000C7AD83 /* XWJYouhuiController.m */,
+				A4F6DA181C53601200C7AD83 /* XWJSPCommentController.h */,
+				A4F6DA191C53601200C7AD83 /* XWJSPCommentController.m */,
 			);
 			name = shangcheng;
 			sourceTree = "<group>";
@@ -2714,6 +2724,7 @@
 				DAC4AF221BF0619700D66E76 /* ViewController.m in Sources */,
 				A4ED9BD71C036B1100142991 /* ResetPWDViewController.m in Sources */,
 				ECDFB6991C4E8A9E00163B8F /* WaiLianViewController.m in Sources */,
+				A4F6DA171C5347F000C7AD83 /* XWJYouhuiController.m in Sources */,
 				A43C98301C142D16006A61EE /* XWJBindHouseOneViewController.m in Sources */,
 				A4CBC7761C3AA46600274040 /* UIView+MJExtension.m in Sources */,
 				A4CBC7661C3AA46600274040 /* MJRefreshComponent.m in Sources */,
@@ -2915,6 +2926,7 @@
 				ECDFB6961C4E6F7E00163B8F /* UIView+SDExtension.m in Sources */,
 				A4F5B7A11C2E8B3C009D177E /* XWJShangHuTableViewCell.m in Sources */,
 				A48801A01C09FBD100714F5B /* XWJMindTabFactory.m in Sources */,
+				A4F6DA1A1C53601200C7AD83 /* XWJSPCommentController.m in Sources */,
 				A41255881C0F522E0042D8CC /* XWJjianduDetailViewController.m in Sources */,
 				8E13273E1C30DFDB00D3EDB5 /* chushouModel.m in Sources */,
 				A43C97AC1C1297E1006A61EE /* LGPhotoPickerGroupTableViewCell.m in Sources */,

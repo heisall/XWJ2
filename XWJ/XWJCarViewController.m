@@ -76,7 +76,9 @@
 
     [self getCarList];
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return carListArr.count;
@@ -113,7 +115,8 @@
     {
         NSMutableArray *arr = [[self.carListArr objectAtIndex:indexPath.section] objectForKey:@"data"];
 
-        [self addCarDic:[arr objectAtIndex:indexPath.row] :@"0"];
+        [self delCar:[[arr objectAtIndex:indexPath.row] valueForKey: @"rec_id"]];
+//        [self addCarDic:[arr objectAtIndex:indexPath.row] :@"0"];
         [arr removeObjectAtIndex:[indexPath row]];  //删除数组里的数据
    [table deleteRowsAtIndexPaths:[NSArray arrayWithObject: indexPath]                         withRowAnimation:UITableViewRowAnimationFade];
 
@@ -131,19 +134,29 @@
         
     }
     numLabel.text  = [NSString stringWithFormat:@"%lu",selection.count];
-    priceLabel.text = [NSString stringWithFormat:@"%.3f",total];
+    priceLabel.text = [NSString stringWithFormat:@"￥%.1f",total];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [selection addObject:indexPath];
-    
+    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
+    if (oneCell.accessoryType == UITableViewCellAccessoryNone) {
+        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else
+        oneCell.accessoryType = UITableViewCellAccessoryNone;
     [self countTotal];
     NSLog(@"didSelectRowAtIndexPath %@",selection);
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)table didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     [selection removeObject:indexPath];
+    
+    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
+//    if (oneCell.accessoryType == UITableViewCellAccessoryNone) {
+//        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
+//    } else
+        oneCell.accessoryType = UITableViewCellAccessoryNone;
     NSLog(@"didDeselectRowAtIndexPath %@",selection);
     [self countTotal];
 }
@@ -178,7 +191,7 @@
 
     }
     
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -267,6 +280,33 @@
 
 }
 
+-(void)delCar:(NSString * )rids{
+    NSString *url = DELCAR_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    [dict setValue:rids forKey:@"recIds"];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *num = [dic objectForKey:@"result"];
+            
+            if ([num intValue]== 1) {
+                [ProgressHUD showError:@"删除成功！"];
+            }
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 -(void)getCarList{
 
         NSString *url = GETCARLIST_URL;
@@ -331,8 +371,15 @@
                     }
                     
                     [tableView reloadData];
-
-
+                    
+                    if (self.carListArr.count>0) {
+                        NSMutableArray *arr0 = [[self.carListArr objectAtIndex:0] objectForKey:@"data"];
+                        for (int i=0; i<arr0.count; i++) {
+                            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                            [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+                            [self tableView:tableView didSelectRowAtIndexPath:indexPath];
+                        }
+                    }
 //                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 //                        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 
@@ -358,9 +405,21 @@
 }
 
 -(void)edit{
-    
     [tableView setEditing:!tableView.editing animated:YES];
+    if (tableView.editing) {
+        if (self.carListArr.count>0) {
+            NSMutableArray *arr0 = [self.carListArr objectAtIndex:0] ;
+            for (int i=0; i<arr0.count; i++) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                //            [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+                [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
+            }
+        }
+    }
+    
     [selection removeAllObjects];
+//    [self tableView:tableView didDeselectRowAtIndexPath:[tableView indexPathForSelectedRow]];
+//    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     [self countTotal];
 }
 

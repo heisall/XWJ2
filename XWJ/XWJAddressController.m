@@ -11,7 +11,7 @@
 #import "XWJAddresCell.h"
 @interface XWJAddressController()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property NSArray *array;
+@property NSMutableArray *array;
 //@property UITableView *tableView;
 @end
 @implementation XWJAddressController
@@ -27,11 +27,23 @@
 - (IBAction)add:(id)sender {
 }
 
+-(void)edit{
+    [tableview setEditing:!tableview.editing animated:YES];
+  
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-        [self getAddress];
-
+    [self getAddress];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 80, 30);
+    [btn setTitle:@"编辑" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(edit) forControlEvents:UIControlEventTouchUpInside];
+    //    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -86,9 +98,47 @@
     }
     [self.navigationController popViewControllerAnimated:NO];
 }
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *)table commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        NSMutableArray *arr = self.array;
+        [arr removeObjectAtIndex:[indexPath row]];  //删除数组里的数据
+        [table deleteRowsAtIndexPaths:[NSArray arrayWithObject: indexPath]                         withRowAnimation:UITableViewRowAnimationFade];
     
+        NSString *aid = [[self.array objectAtIndex:indexPath.row] objectForKey:@"addr_id"];
+        [self delAddress:aid];
+    }
+}
+
+-(void)delAddress:(NSString * )addId{
+    NSString *url = DELADDRESS_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setValue:@"1" forKey:@"store_id"];
+    [dict setValue:addId  forKey:@"addr_id"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *num = [dic objectForKey:@"result"];
+            if ([num intValue]== 1) {
+                //                NSMutableArray * arr ;
+                
+//                self.array = [dic objectForKey:@"data"];
+//                [tableview reloadData];
+                
+            }
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -121,6 +171,8 @@
     
     if([[NSString stringWithFormat:@"%@",[[self.array objectAtIndex:indexPath.row] objectForKey:@"is_default"]]isEqualToString:@"1" ])
         cell.label5.text = @"[默认]";
+    else
+        cell.label5.text = @"";
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -155,7 +207,7 @@
             if ([num intValue]== 1) {
 //                NSMutableArray * arr ;
                 
-                self.array = [dic objectForKey:@"data"];
+                self.array = [NSMutableArray arrayWithArray:[dic objectForKey:@"data"]];
                 [tableview reloadData];
 
             }

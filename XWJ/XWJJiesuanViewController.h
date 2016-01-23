@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *diquLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableConstraint;
 
 @property (weak, nonatomic) IBOutlet UITableView *payTableView;
 @property (weak, nonatomic) IBOutlet UITableView *shangpinTableView;

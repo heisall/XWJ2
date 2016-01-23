@@ -10,7 +10,7 @@
 
 @interface XWJAddAdrController : XWJBaseViewController
 @property (weak, nonatomic) IBOutlet UITextField *phoneTf;
-@property (weak, nonatomic) IBOutlet UITextField *cityTf;
+//@property (weak, nonatomic) IBOutlet UITextField *cityTf;
 @property (weak, nonatomic) IBOutlet UITextField *addressTf;
 @property (weak, nonatomic) IBOutlet UIButton *doneBtn;
 

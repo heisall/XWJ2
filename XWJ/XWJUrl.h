@@ -26,6 +26,8 @@
 #define REGISTER_URL  XWJBASEURL"user/register"
 #define RESETPWD_URL  XWJBASEURL"user/resetPass"
 
+
+#define GETYOUHUI_URL  XWJBASEURL"order/favourable"
 //dingdand
 #define ADDORDER_URL  XWJBASEURL"order/addOrder"
 #define SAVEORDER_URL  XWJBASEURL"order/saveOrder"
@@ -35,8 +37,10 @@
 #define GETCARLIST_URL  XWJBASEURL"order/cartList"
 #define CLEANCAR_URL  XWJBASEURL"order/cleanCart"
 #define GETGOODORDER_URL  XWJBASEURL"order/bookOnLine"
-
+#define DELCAR_URL  XWJBASEURL"order/beachDelete"
 #define GETADDRESS_URL  XWJBASEURL"order/manegerAddress"
+#define DELADDRESS_URL  XWJBASEURL"order/delAddress"
+
 #define GETADDRESSLIST_URL  XWJBASEURL"order/addressList"
 
 //life

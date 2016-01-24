@@ -414,7 +414,11 @@
     }
     
     XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
-    list.dic = [array objectAtIndex:index-1000];
+    NSDictionary *dic = [array objectAtIndex:index-1000];
+    if ([[dic objectForKey:@"cateName"] isEqualToString:@"更多"]) {
+        list.dic = [array objectAtIndex:0];
+    }else
+        list.dic = [array objectAtIndex:index-1000];
     [self.navigationController showViewController:list sender:self];
 }
 

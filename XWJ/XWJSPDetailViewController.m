@@ -75,15 +75,15 @@
 
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    [btn addTarget:self action:@selector(shoucang) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(shoucang:) forControlEvents:UIControlEventTouchUpInside];
     [btn setBackgroundImage:image forState:UIControlStateNormal];
     [btn setBackgroundImage:image2 forState:UIControlStateSelected];
 
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = barButtonItem;
 }
--(void)shoucang{
-    
+-(void)shoucang:(UIButton *)btn{
+    btn.selected = !btn.selected;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -155,9 +155,11 @@
         }
             break;
         case 2:{
-            XWJSPCommentController *comment = [[XWJSPCommentController alloc ]init];
-            comment.comments = self.comments;
-            [self.navigationController pushViewController:comment animated:NO];
+//            if (self.comments.count>0) {
+                XWJSPCommentController *comment = [[XWJSPCommentController alloc ]init];
+                comment.comments = self.comments;
+                [self.navigationController pushViewController:comment animated:NO];
+//            }
         }
             break;
         default:
@@ -297,6 +299,13 @@
 }
 
 -(void)addCar{
+    
+    NSString *stock =  [self.goodsDic objectForKey:@"stock"];
+    
+    if (![stock intValue]>0) {
+        [ProgressHUD showError:@"库存不足！"];
+        return;
+    }
     NSString *url = ADDCAR_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -491,47 +500,6 @@
     self.tabBarController.tabBar.hidden = NO;
 }
 
--(void)duihuan{
-    NSString *url = JIFENDUIHUAN_URL;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    NSMutableArray * ridArr = [NSMutableArray array];
-
-    
-    [dict setValue:[XWJAccount instance].account forKey:@"account"];
-    [dict setValue:[self.goodsDic valueForKey:@"goods_id"] forKey:@"goodsId"];
-    [dict setValue:@"1" forKey:@"quantity"];
-
-    [dict setValue:@"" forKey:@"postscript"];
-    [dict setValue:@"0" forKey:@"shippingId"];
-    [dict setValue:@"0" forKey:@"shippingFee"];
-    
-    //    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
-    
-    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
-        
-        if(responseObject){
-            NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
-            NSString *errCode = [dic objectForKey:@"errorCode"];
-            NSNumber *num = [dic objectForKey:@"result"];
-            
-            if ([num intValue]== 1) {
-                [ProgressHUD showSuccess:errCode];
-                
-            }else
-                [ProgressHUD showError:errCode];
-            
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
-        
-    }];
-}
-
 -(void)addBottomBtn{
     
     if (self.isFromJifen) {
@@ -684,13 +652,21 @@
     
 }
 -(void)toJiesuan{
+    NSString *stock =  [self.goodsDic objectForKey:@"stock"];
+    
+    if (![stock intValue]>0) {
+        [ProgressHUD showError:@"库存不足！"];
+        return;
+    }
+    
     XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];
-    con.price = [NSString stringWithFormat:@"%.1f",[[self.goodsDic valueForKey:@"price"] floatValue]];
+    con.price = [NSString stringWithFormat:@"%.2f",[[self.goodsDic valueForKey:@"price"] floatValue]];
     
     NSMutableDictionary *dic  = [NSMutableDictionary dictionaryWithDictionary:self.goodsDic];
     [dic setValue:[self.goodsDic valueForKey:@"default_image"] forKey:@"goods_image"];
     [dic setValue:@"1" forKey:@"quantity"];
     con.arr = [NSArray arrayWithObject:dic];
+    con.isFromJiFen = self.isFromJifen;
     [self.navigationController showViewController:con sender:nil];
 }
 

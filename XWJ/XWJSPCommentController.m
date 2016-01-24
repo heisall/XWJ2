@@ -18,10 +18,12 @@
     [super viewDidLoad];
     self.navigationItem.title = @"商品评论";
     tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
-    tableView.dataSource = self;
-    tableView.delegate = self;
+    [tableView registerNib:[UINib nibWithNibName:@"XWJSPDetail" bundle:nil] forCellReuseIdentifier:@"cell"];
+
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:tableView];
+    tableView.dataSource = self;
+    tableView.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -43,14 +45,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if(self.comments.count>5)
-        return 5;
+//    if(self.comments.count>5)
+//        return 5;
     return self.comments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)taView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"index path %ld",(long)indexPath.row);
+//    NSLog(@"index path %ld",(long)indexPath.row);
     XWJSPDetailTableViewCell *cell;
     
     cell = [taView dequeueReusableCellWithIdentifier:@"cell"];

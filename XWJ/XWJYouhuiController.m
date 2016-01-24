@@ -8,7 +8,7 @@
 
 #import "XWJYouhuiController.h"
 #import "XWJAccount.h"
-
+#import "XWJWebViewController.h"
 @interface XWJYouhuiController(){
     CGFloat height ;
 }
@@ -64,10 +64,24 @@
         NSString *url =   [dic objectForKey:@"Photo"];
         
         UIImageView * iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, i*(height+5), self.scrollView.bounds.size.width, height)];
+        iv.userInteractionEnabled = YES;
+        UITapGestureRecognizer* singleRecognizer;
+        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+        //点击的次数
+        singleRecognizer.numberOfTapsRequired = 1;
+        [iv addGestureRecognizer:singleRecognizer];
         [iv sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
         [scrollView addSubview:iv];
     }
     scrollView.contentSize  = CGSizeMake(0, ads.count*(height+5)+62);
+}
+
+-(void)singleTap:(UITapGestureRecognizer *)btn{
+    NSInteger index = btn.view.tag;
+    
+    XWJWebViewController *web = [[XWJWebViewController alloc] init];
+    web.url  = [[ads objectAtIndex:index] objectForKey:@"url"];
+    [self.navigationController pushViewController:web animated:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

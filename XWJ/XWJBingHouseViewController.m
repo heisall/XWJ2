@@ -400,6 +400,8 @@
                 [XWJAccount instance].name = [userDic valueForKey:@"NAME"];
                 [XWJAccount instance].Sex = [userDic valueForKey:@"sex"];
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
+                [XWJAccount instance].jifen = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"jifen"]];
+
                 /*
                  "A_id" = 4;
                  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";

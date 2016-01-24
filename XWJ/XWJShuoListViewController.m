@@ -347,23 +347,42 @@
              teseArr = [prop componentsSeparatedByString:@"，"];
             if (teseArr&&teseArr.count>0) {
                 cell.tedeView.hidden = NO;
-                CGFloat wid = 34.0;
+                CGFloat wid = 0.0;
+                
                 for (int i =0; i<teseArr.count; i++) {
                     
                     UIView *view = [cell.tedeView viewWithTag:100+i];
+                    UIFont* theFont = [UIFont systemFontOfSize:8];
+
                     if (view) {
                         [(UIButton *)view setTitle:[teseArr objectAtIndex:i] forState:UIControlStateNormal];
                         
                     }else{
-                        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(1+i*wid, 0, wid, 20)];
+                        
+                        
+                        CGSize size = CGSizeMake(CGFLOAT_MAX,view.frame.size.height);
+                        
+                        //计算文字所占区域
+                        CGSize labelSize = [[teseArr objectAtIndex:i] boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : theFont} context:nil].size;
+                        //                    CGSize sizeName = [[teseArr objectAtIndex:i] sizeWithFont:theFont
+                        //                                          constrainedToSize:CGSizeMake(MAXFLOAT, 0.0)
+                        //                                              lineBreakMode:NSLineBreakByWordWrapping];
+                        view.frame = CGRectMake(view.frame.origin.x, view.frame
+                                                .origin.y,labelSize.width, view.frame.size.height);
+                        
+                        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(1+wid, 0, labelSize.width, 20)];
                         [btn setBackgroundImage:[UIImage imageNamed:@"kuang" ] forState:UIControlStateNormal];
                         //                btn.enabled = NO;
-                        btn.titleLabel.font = [UIFont systemFontOfSize:8];
+                        btn.titleLabel.font = theFont;
                         [btn setTitle:[teseArr objectAtIndex:i] forState:UIControlStateNormal];
                         [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
                         btn.tag  = 100+i;
                         [cell.tedeView addSubview:btn];
+                        wid = wid+labelSize.width;
+
                     }
+
+ 
                 }
             }
         }

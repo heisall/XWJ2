@@ -15,12 +15,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *diquLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *payTabelCon;
 
 @property (weak, nonatomic) IBOutlet UITableView *payTableView;
 @property (weak, nonatomic) IBOutlet UITableView *shangpinTableView;
 @property (weak, nonatomic) IBOutlet UILabel *yunfeiLabel;
 @property (weak, nonatomic) IBOutlet UITextView *liuyanTextView;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+@property BOOL isFromJiFen;
 @property NSArray *arr;
 @property NSString *price;
 @property NSDictionary *selectDic;

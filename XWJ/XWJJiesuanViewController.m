@@ -29,6 +29,11 @@
 //    self.scrollView.contentSize = CGSizeMake(0, 1000);
 //    self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户", nil];
     self.payarray = [NSArray arrayWithObjects:@"货到付款",@"微信支付", nil];
+   
+    if(self.isFromJiFen){
+        self.payarray = [NSArray arrayWithObjects:@"积分兑换", nil];
+        self.payTabelCon.constant = 70.0;
+    }
     self.zhifuIconArr = [NSArray arrayWithObjects:@"",@"zhifuweixin", nil];
     
     [self.shangpinTableView registerNib:[UINib nibWithNibName:@"XWJJiesuanCell" bundle:nil] forCellReuseIdentifier:@"cell"];
@@ -36,7 +41,10 @@
     [self.payTableView registerNib:[UINib nibWithNibName:@"XWJPayWayView" bundle:nil] forCellReuseIdentifier:@"paycell"];
 
     float money =  [self.price floatValue]+8.0;
-    self.totalLabel.text = self.price;
+    
+    if (self.isFromJiFen) {
+        self.totalLabel.text = [NSString stringWithFormat:@"%@积分",self.price];
+    }
     self.payTableView.dataSource  = self;
     self.payTableView.delegate = self;
     NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:0];
@@ -118,6 +126,8 @@
         }
         cell.imageView.image = [UIImage imageNamed:self.zhifuIconArr[indexPath.row]];
         cell.textLabel.text = self.payarray[indexPath.row];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         return cell;
     }
     
@@ -141,7 +151,7 @@
     NSString *url = [[self.arr objectAtIndex:indexPath.row] objectForKey:@"goods_image"];
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url]];
     cell.title.text = [[self.arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
-    cell.price.text = [NSString stringWithFormat:@"%.1f",[[[self.arr objectAtIndex:indexPath.row] objectForKey:@"price"] floatValue]];
+    cell.price.text = [NSString stringWithFormat:@"%.2f",[[[self.arr objectAtIndex:indexPath.row] objectForKey:@"price"] floatValue]];
     cell.numLabel.text = [NSString stringWithFormat:@"x%@",[[self.arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -240,8 +250,63 @@
     
 }
 
+-(void)duihuan{
+    
+    /*
+     字段名	说明	类型及范围
+     goodsId	订单的order_id	String
+     quantity	第几页	String,从0开始
+     postcript	每页条数	String
+     addrId	地址id	String
+     shippingId	付款方式id	String
+     shippingFee	运费	String
+     备注：
+     */
+    NSString *url = JIFENDUIHUAN_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+//    NSMutableArray * ridArr = [NSMutableArray array];
+    
+    
+    [dict setValue:[XWJAccount instance].account forKey:@"account"];
+    [dict setValue:[NSString stringWithFormat:@"%@",[[self.arr objectAtIndex:0] valueForKey:@"goods_id"]] forKey:@"goodsId"];
+    [dict setValue:[NSString stringWithFormat:@"%@",[self.selectDic objectForKey:@"addr_id"]]forKey:@"addrId"];
+    [dict setValue:@"1" forKey:@"quantity"];
+    NSString *liuyan = [self.liuyanTextView.text isEqualToString:@"请留言"]?@"":self.liuyanTextView.text;
+    [dict setValue:liuyan forKey:@"postscript"];
+    [dict setValue:@"0" forKey:@"shippingId"];
+    [dict setValue:@"0" forKey:@"shippingFee"];
+    
+    //    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *num = [dic objectForKey:@"result"];
+            
+            if ([num intValue]== 1) {
+                [ProgressHUD showSuccess:errCode];
+            }else
+                [ProgressHUD showError:errCode];
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 - (IBAction)p:(id)sender {
  
+    if (self.isFromJiFen) {
+        [self duihuan];
+    }else{
     
     /*
      storeId	用户登录账号	String
@@ -309,6 +374,7 @@
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

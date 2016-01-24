@@ -134,7 +134,7 @@
         
     }
     numLabel.text  = [NSString stringWithFormat:@"%lu",selection.count];
-    priceLabel.text = [NSString stringWithFormat:@"￥%.1f",total];
+    priceLabel.text = [NSString stringWithFormat:@"￥%.2f",total];
 }
 
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -176,7 +176,7 @@
     
     if(arr&&arr.count>0){
         cell.title.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
-        cell.price.text = [NSString stringWithFormat:@"%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]];
+        cell.price.text = [NSString stringWithFormat:@"%.2f",[[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]floatValue]];
 
         if ([[arr objectAtIndex:indexPath.row] objectForKey:@"goods_image"]!=[NSNull null]) {
 
@@ -223,6 +223,7 @@
             NSNumber *nu = [dic objectForKey:@"result"];
             
             if ([nu integerValue]== 1) {
+                [self countTotal];
 //                [ProgressHUD showSuccess:errCode];
             }else{
 //                [ProgressHUD showError:errCode];

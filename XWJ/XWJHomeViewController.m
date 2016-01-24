@@ -28,7 +28,7 @@
 
 #import "SignViewController.h"
 #import "XWJMerDetailListController.h"
-
+#import "XWJSPDetailViewController.h"
 #define  CELL_HEIGHT 150.0
 #define  COLLECTION_NUMSECTIONS 3
 #define  COLLECTION_NUMITEMS 1
@@ -665,6 +665,40 @@ NSArray *footer;
     }];
 }
 
+-(void)toWuye:(NSString *)type :(NSString *)sid{
+    NSString *url = GETDETAILAD_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:sid  forKey:@"id"];
+    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dict);
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
+            
+            XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
+            //    acti.actTitle.text = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
+            //    acti.time.text = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_TIME];
+            //    acti.url = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_URL];
+            //    [acti.btn setTitle:[[self.array objectAtIndex:indexPath.row] valueForKey:KEY_CLICKCOUNT] forState:UIControlStateNormal];
+            acti.dic = [dict objectForKey:@"data"];
+            acti.type = type;
+            [self.navigationController showViewController:acti sender:nil];
+            
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 -(void)shangchengclick:(UITapGestureRecognizer *)ges{
     
     UIView *view  = ges.view;
@@ -695,6 +729,7 @@ NSArray *footer;
             break;
         case 4:
         {
+            
             XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
             //            list.dic = [self.thumb objectAtIndex:index-1000];
             list.dic = [self.jiazhuangArr objectAtIndex:0];
@@ -703,13 +738,39 @@ NSArray *footer;
             break;
         case 5:
         {
+//            url：物业通知 1 社区活动：2 商户:3 商品：4
+            NSString *url  = [[self.shopad objectAtIndex:0] valueForKey:@"url"];
             
-            
-            XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
-            list.dic  = [self.shopad objectAtIndex:0];
-            list.storeid = [[self.shopad objectAtIndex:0] valueForKey:@"ID"];
-            [self.navigationController showViewController:list sender:self];
-            
+            switch (url.intValue) {
+                case 1:
+                {
+                    [self toWuye:@"0" :[[self.shopad objectAtIndex:0] valueForKey:@"ID"]];
+                }
+                    break;
+                case 2:
+                {
+                    [self toWuye:@"1" :[[self.shopad objectAtIndex:0] valueForKey:@"ID"]];
+                }
+                    break;
+                case 3:
+                {
+                    XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
+                    list.dic  = [self.shopad objectAtIndex:0];
+                    list.storeid = [[self.shopad objectAtIndex:0] valueForKey:@"Content"];
+                    [self.navigationController showViewController:list sender:self];
+                }
+                    break;
+                case 4:
+                {
+                    XWJSPDetailViewController *list= [[XWJSPDetailViewController alloc] init];
+                    //    list.dic = [self.goodsArr objectAtIndex:indexPath.row];
+                    list.goods_id = [[self.shopad objectAtIndex:0] valueForKey:@"ID"];
+                    [self.navigationController showViewController:list sender:self];
+                }
+                    break;
+                default:
+                    break;
+            }
 //            [self.tabBarController setSelectedIndex:2];
 
         }

@@ -103,7 +103,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"index path %ld",(long)indexPath.row);
+//    NSLog(@"index path %ld",(long)indexPath.row);
     XWJShangHuTableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -155,7 +155,7 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 //    [dict setValue:@"1" forKey:@"store_id"];
     if (self.storeid) {
-        [dict setValue:self.storeid forKey:@"store_id"];
+        [dict setValue:[NSString stringWithFormat:@"%@",self.storeid]forKey:@"store_id"];
 //        [dict setValue:@"103" forKey:@"store_id"];
     }else
         [dict setValue:[self.dic objectForKey:@"id"] forKey:@"store_id"];
@@ -172,7 +172,7 @@
         default:
             break;
     }
-    [ProgressHUD show:@""];
+//    [ProgressHUD show:@""];
     if (self.lpIndex !=0) {
 
         [dict setValue:[[self.cates objectAtIndex:self.lpIndex] objectForKey:@"cate_id"] forKey:@"cateId"];
@@ -215,7 +215,7 @@
                 self.tableView.frame  =CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y
                                                   , self.tableView.frame
                                                   .size.width, mercellheight*self.goodsArr.count);
-                self.scroll.contentSize = CGSizeMake(0, mercellheight*self.goodsArr.count+150);
+                self.scroll.contentSize = CGSizeMake(0, mercellheight*self.goodsArr.count+200);
             }
 //            self.adArr = [dic objectForKey:@"ad"];
 //            self.thumb = [dic objectForKey:@"thumb"];
@@ -224,10 +224,14 @@
             if (!self.store.count>0) {
                 return ;
             }
+            
+            NSString *url;
             if ([self.store valueForKey:@"store_banner"] ==[NSNull null]){
-                return;
+                url = @"";
+            }else{
+                url = [self.store valueForKey:@"store_banner"];
             }
-            [URLs addObject:[self.store valueForKey:@"store_banner"]];
+            [URLs addObject:url];
             
 //            [self addView];
 //            if(URLs&&URLs.count>0)
@@ -248,7 +252,7 @@
 
             UIImageView *logoImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,                                                                                           self.adView.bounds.size.height)];
             logoImgV.contentMode  = UIViewContentModeRedraw;
-            [logoImgV sd_setImageWithURL:[NSURL URLWithString:[self.store valueForKey:@"store_banner"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+            [logoImgV sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
             UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
             back.frame = CGRectMake(10, 5, 30, 30);
             [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];

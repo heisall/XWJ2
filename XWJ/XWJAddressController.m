@@ -103,12 +103,13 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
+        
+        NSString *aid = [[self.array objectAtIndex:indexPath.row] objectForKey:@"addr_id"];
+        [self delAddress:aid];
         NSMutableArray *arr = self.array;
         [arr removeObjectAtIndex:[indexPath row]];  //删除数组里的数据
         [table deleteRowsAtIndexPaths:[NSArray arrayWithObject: indexPath]                         withRowAnimation:UITableViewRowAnimationFade];
-    
-        NSString *aid = [[self.array objectAtIndex:indexPath.row] objectForKey:@"addr_id"];
-        [self delAddress:aid];
+
     }
 }
 

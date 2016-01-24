@@ -145,7 +145,7 @@
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mZ-fh-qQ1">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mZ-fh-qQ1">
                                                 <rect key="frame" x="327" y="25" width="30" height="30"/>
                                                 <state key="normal" image="next"/>
                                                 <connections>
@@ -294,6 +294,7 @@
                         <outlet property="buyerLabel" destination="GKz-2l-Mh2" id="78X-dz-A6m"/>
                         <outlet property="diquLabel" destination="38Z-Hp-FT0" id="oH6-WX-vks"/>
                         <outlet property="liuyanTextView" destination="5hd-e6-VIL" id="2c5-2k-75K"/>
+                        <outlet property="payTabelCon" destination="ppw-68-eW9" id="E8r-Yo-i47"/>
                         <outlet property="payTableView" destination="Ks8-KY-0Dy" id="lXV-mP-xmk"/>
                         <outlet property="phoneLabel" destination="uHV-R0-VsG" id="Eqy-1N-lgR"/>
                         <outlet property="scrollView" destination="MlG-dg-zvd" id="Azu-Nx-HZf"/>

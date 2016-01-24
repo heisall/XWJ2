@@ -93,7 +93,7 @@
         
 
         
-        [btn setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
+//        [btn setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
         [btn setBackgroundImage:[UIImage imageNamed:@"shuonormal"] forState:UIControlStateNormal];
         
         [btn setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];

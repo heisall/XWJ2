@@ -53,15 +53,16 @@
     
     scrollV.pagingEnabled = YES;
     scrollV.bounces = YES;
-    scrollV.contentOffset = CGPointMake(2*320, 0);
-    scrollV.contentSize = CGSizeMake(self.imageArray.count *80, v.bounds.size.height);
+    scrollV.contentOffset = CGPointMake(0, 0);
+    scrollV.contentSize = CGSizeMake(self.imageArray.count *85+1000, v.bounds.size.height);
 
     [v addSubview:scrollV];
     
-    for (int i=0; i<4; i++) {
+    for (int i=0; i<7; i++) {
         UIImageView *imageV = [[UIImageView alloc]init];
-        imageV.frame = CGRectMake(80*i, 0, 80, v.bounds.size.height);
-        [imageV setImageWithURL:[self.detaildic objectForKey:@"fj"]];
+        imageV.frame = CGRectMake(85*i, 0, 80, v.bounds.size.height);
+        
+        [imageV sd_setImageWithURL:[NSURL URLWithString:[self.detaildic objectForKey:@"fj"]]placeholderImage:nil];
    //     NSLog(@"//////%@",self.detaildic);
         [scrollV addSubview:imageV];
     }

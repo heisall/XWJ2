@@ -14,11 +14,17 @@
 #import "xignquaihaoViewController.h"
 #import "gexingqianmingViewController.h"
 #import "ProgressHUD/ProgressHUD.h"
+#import "XWJAccount.h"
 
 
 #define  HEIGHT 85.0
 #define  NORMALHGIGHT 44.0
 @interface XWJMyInfoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
+
+@property NSMutableDictionary *infoDic;
+
+
 @end
 
 @implementation XWJMyInfoViewController{
@@ -29,6 +35,7 @@
     NSString *_imageStr;
     NSString *_photo;
     NSMutableDictionary *_dict;
+    UIImage * _image;
     
 }
 CGRect tableViewCGRect;
@@ -37,35 +44,39 @@ CGRect tableViewCGRect;
     [super viewDidLoad];
   //  self.navigationController.navigationBar.hidden = NO;
     // Do any additional setup after loading the view.
+    [self downLoadInfo];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.myView.bounds.size.height) style:UITableViewStylePlain];
 
     self.tableData = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"情感状况",@"兴趣爱好",@"个性签名" ,nil];
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *nicheng = [usr valueForKey:@"nicheng"];
     if (!nicheng) {
-        nicheng = @"未设定";
+        nicheng = [self.infoDic objectForKey:@"NickName"];
     }
-     NSString *xingbie = [usr valueForKey:@"xingbie"];
+    NSString *xingbie = [usr valueForKey:@"xingbie"];
     if (!xingbie) {
-        xingbie = @"未设定";
+        xingbie = [self.infoDic objectForKey:@"sex"];
     }
-     NSString *hunyin = [usr valueForKey:@"hunyin"];
+    NSString *hunyin = [usr valueForKey:@"hunyin"];
     if (!hunyin) {
-        hunyin = @"未设定";
+        hunyin = [self.infoDic objectForKey:@"qgzk"];
     }
-     NSString *aihao = [usr valueForKey:@"aihao"];
+    NSString *aihao = [usr valueForKey:@"aihao"];
     if (!aihao) {
-        aihao = @"未设定";
+        aihao = [self.infoDic objectForKey:@"xqah"];
     }
     NSString *qianming = [usr valueForKey:@"qianming"];
     if (!qianming) {
-        qianming = @"未填写";
+        qianming = [self.infoDic objectForKey:@"gxqm"];
     }
     NSString *phonto = [usr valueForKey:@"photo"];
     if (!phonto) {
         phonto = @"";
     }
     _photo = phonto;
+    
+    
+
     
     
     self.tableDetailData = [NSMutableArray arrayWithObjects:nicheng,xingbie,hunyin,aihao,qianming,nil];
@@ -82,6 +93,31 @@ CGRect tableViewCGRect;
 //-(void)viewWillAppear:(BOOL)animated{
 //    [super viewWillAppear:animated];
 //}
+
+-(void)downLoadInfo{
+    
+    NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/getUserInfo";
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    XWJAccount *account = [XWJAccount instance];
+    [dict setValue:account.uid  forKey:@"id"];
+    [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            self.infoDic  = [dict objectForKey:@"data"];
+            NSLog(@"dic++++++ %@",self.infoDic);
+        }
+        [_tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+    
+}
 
 - (IBAction)done:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -186,6 +222,7 @@ CGRect tableViewCGRect;
             NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:imgBase64 options:0];
             UIImage *img = [UIImage imageWithData:nsdataFromBase64String];
             [button setBackgroundImage:img forState:UIControlStateNormal];
+            
         }
         button.layer.cornerRadius = 30;
         button.layer.masksToBounds = YES;

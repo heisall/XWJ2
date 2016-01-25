@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self headAD];
+    [self headAD];
 //    [self getZhangDan];
     
     [self getGuanjiaAD ];
@@ -33,6 +33,8 @@
     self.tableView.dataSource = self;
     self.tableView.dataSource = self;
     self.listUnpayBtn.selected = YES;
+  //  listUnpayBtn.selected = YES;
+
     self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户",@"", nil];
     
 }

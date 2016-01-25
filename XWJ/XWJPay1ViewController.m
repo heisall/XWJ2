@@ -9,6 +9,7 @@
 #import "XWJPay1ViewController.h"
 #import "XWJPay1TableViewCell.h"
 #import "XWJAccount.h"
+
 @interface XWJPay1ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
 @property NSMutableArray *payListArr;
@@ -20,8 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self headAD];
-    [self getZhangDan];
+//    [self headAD];
+//    [self getZhangDan];
+    
+    [self getGuanjiaAD ];
     self.payListArr = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"物业账单";
@@ -76,6 +79,55 @@
     }];
 }
 
+-(void)getGuanjiaAD{
+    NSString *url = GETGUANJIAAD_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    /*
+     a_id	小区a_id	String
+     userid	用户id	String
+     */
+    
+    //    [dict setValue:[XWJCity instance].aid  forKey:@"a_id"];
+    //    [dict setValue:@"1"  forKey:@"a_id"];
+    //    NSString *userid = [XWJAccount in];
+    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
+    
+    //    [dict setValue:@"1" forKey:@"a_id"];
+    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
+    
+    [dict setValue:[NSString stringWithFormat:@"%@",[XWJAccount instance].uid] forKey:@"userid"];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            
+            
+            self.roomDic = [dic objectForKey:@"room"];
+            
+            if([XWJAccount instance].isYouke){
+
+            }else{
+//                NSString *str = [NSString stringWithFormat:@"%@%@号楼%@单元%@",[self.roomDic objectForKey:@"A_name"]==[NSNull null]?@"":[self.roomDic objectForKey:@"A_name"],[self.roomDic objectForKey:@"b_id"]==[NSNull null]?@"":[self.roomDic objectForKey:@"b_id"],[self.roomDic objectForKey:@"r_dy"]==[NSNull null]?@"":[self.roomDic objectForKey:@"r_dy"],[self.roomDic objectForKey:@"r_id"]==[NSNull null]?@"":[self.roomDic objectForKey:@"r_id"]];
+                
+                [self getZhangDan];
+            }
+            
+    
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 -(void)getZhangDan{
     /*
      a_id	小区a_id
@@ -98,9 +150,14 @@
 //            [dict setValue:@"投诉" forKey:@"type"];
     
         [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
-        [dict setValue:@"1" forKey:@"b_id"];
-        [dict setValue:@"1" forKey:@"r_dy"];
-        [dict setValue:@"202" forKey:@"r_id"];
+    
+            NSString * bid =[self.roomDic valueForKey:@"b_id"]==[NSNull null]?@"":[self.roomDic valueForKey:@"b_id"];
+    NSString *rdy=
+    [self.roomDic valueForKey:@"r_dy"]==[NSNull null]?@"":[self.roomDic valueForKey:@"r_dy"];
+    NSString *rid= [self.roomDic valueForKey:@"r_id"]==[NSNull null]?@"":[self.roomDic valueForKey:@"r_id"];
+        [dict setValue:bid forKey:@"b_id"];
+        [dict setValue:rdy forKey:@"r_dy"];
+        [dict setValue:rid forKey:@"r_id"];
     
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -131,13 +188,13 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100.0;
+    return 80.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
 //    if (section == 0) {
-        return self.array.count;
+        return self.payListArr.count/3;
 //    }
 //    return 1;
 }
@@ -158,11 +215,34 @@
     cell.imageView.image = [UIImage imageNamed:@"wuyezhangdan1"];
     cell.imageView.highlightedImage = [UIImage imageNamed:@"wuyezhangdan2"];
 //    cell.label1.text = [self.payListArr[indexPath.row] objectForKey:@"t_date"];
-    cell.label1.text = @"2012.5";
-    cell.label2.text = @"物业费";
-    cell.label3.text = @"2000.10";
-    cell.label4.text = @"水电费";
-    cell.label5.text = @"1999.10";
+//    cell.label1.text = @"2012.5";
+//    cell.label2.text = @"物业费";
+//    cell.label3.text = @"2000.10";
+//    cell.label4.text = @"水电费";
+//    cell.label5.text = @"1999.10";
+//    cell.label6.text = @"1999.10";
+//    cell.label7.text = @"1999.10";
+
+    /*
+     "a_id" = 1;
+     "b_id" = 4;
+     "r_dy" = 2;
+     "r_id" = 1101;
+     "t_date" = 201507;
+     "t_item" = "\U4f4f\U5b85\U7269\U4e1a\U670d\U52a1\U8d39";
+     "t_lastdate" = "2015-07-01";
+     "t_money" = "256.6";
+     "t_sign" = 1;
+     "t_thisdate" = "2015-07-31";
+     */
+    cell.label1.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3] valueForKey:@"t_date"]];
+    cell.label2.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3] valueForKey:@"t_item"]];
+    cell.label3.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3] valueForKey:@"t_money"]];
+    cell.label4.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+1] valueForKey:@"t_item"]];
+    cell.label5.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+1] valueForKey:@"t_money"]];
+    cell.label6.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+2] valueForKey:@"t_item"]];
+    cell.label7.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+2] valueForKey:@"t_money"]];
+    
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;

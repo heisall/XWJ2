@@ -15,6 +15,7 @@
 #import "XWJCity.h"
 #import "XWJAboutViewController.h"
 #import "XWJMyHouseCell.h"
+#import "XWJTabViewController.h"
 
 @interface XWJMyHouseController()<XWJBindHouseDelegate,UITableViewDataSource,UITableViewDelegate>{
 }
@@ -261,20 +262,38 @@ static NSString *kcellIdentifier = @"cell";
         
     }];
 
-   
+    [self login];
+}
 
+-(void)login{
+
+    NSString *url = LOGIN_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[XWJAccount instance].account forKey:@"account"];
+    [dict setValue:[XWJAccount instance].password forKey:@"password"];
+    
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        NSLog(@"dic%@",dic);
+       
+        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+        self.view.window.rootViewController = tab;
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+      
+    }];
 
 }
+
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-//    _guanjiaM = [NSString stringWithFormat:@"%@%@%@单元%@",[_titles objectAtIndex:indexPath.row],[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
-//
-//    NSLog(@"++++%@",self.JURID[indexPath.row]);
-//    //发送通知
-//    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-//    [dict setObject:_guanjiaM forKey:@"room"];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRoomNotification" object:nil userInfo:dict];
-//
     
 }
 
@@ -292,13 +311,7 @@ static NSString *kcellIdentifier = @"cell";
 }
 -(void)viewDidAppear:(BOOL)animated
 {
-//    NSInteger selectedIndex = 0;
-//    
-//    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-//    
-//    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-//    
-//    [super viewDidAppear:animated];
+
 }
 
 @end

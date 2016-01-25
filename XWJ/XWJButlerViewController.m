@@ -122,11 +122,12 @@
 }
 
 -(void)addView{
-    for (int i=0; i<7; i++) {
+    for (int i=0; i<8; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"guanjia%d",i+1]] forState:UIControlStateNormal];
         btn.frame = CGRectMake((SCREEN_SIZE.width/4+1)*(i%4), self.room.frame.origin.y+self.room.bounds.size.height+60 + ((int)(i/4))*(SCREEN_SIZE.width/4+1), SCREEN_SIZE.width/4 , SCREEN_SIZE.width/4 );
         btn.tag = i;
+        NSLog(@"btn %@",btn);
 //        btn.backgroundColor = XWJColor(124, 197, 193);
         [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
         btn.backgroundColor = [UIColor whiteColor];
@@ -151,7 +152,9 @@
 }
 
 -(void)initData{
-    self.titles = [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"故障报修",@"投诉表扬", @"物业账单",@"物业监督",@"房屋租赁",nil];
+    
+//    物业通知、社区活动、物业监督、物业报修、物业投诉、物业账单、海信地产、二手房源
+    self.titles = [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉", @"物业账单",@"海信地产",@"二手房源",nil];
 
     
     UIStoryboard * HomeStoryboard = [UIStoryboard storyboardWithName:@"HomeStoryboard" bundle:nil];
@@ -177,7 +180,10 @@
     
     XWJGuzhangViewController *gz2 = [guzhang instantiateInitialViewController];
     gz2.type = 2;
-    self.vConlers = [NSArray arrayWithObjects:notice,notice2,gz,gz2,pay,wu,zf,nil];
+    
+    XWJZFViewController *secondF = [story instantiateInitialViewController];
+    secondF.type = 1;
+    self.vConlers = [NSArray arrayWithObjects:notice,notice2,wu,gz,gz2,pay,zf,secondF,nil];
 }
 
 -(void)btnclick:(UIButton *)btn{

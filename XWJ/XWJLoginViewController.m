@@ -181,7 +181,8 @@
                 [XWJAccount instance].Sex = [userDic valueForKey:@"sex"];
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
                 [XWJAccount instance].jifen = [userDic valueForKey:@"jifen"];
-                
+                [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"Photo"]];
+
                 /*
                  "A_id" = 4;
                  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";

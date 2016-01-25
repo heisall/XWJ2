@@ -14,11 +14,12 @@
 @property NSArray *array;
 @property NSMutableArray *payListArr;
 @property NSMutableDictionary *roomDic;
+@property NSMutableArray *selection;
 
 @end
 
 @implementation XWJPay1ViewController
-
+@synthesize selection;
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self headAD];
@@ -32,15 +33,16 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.dataSource = self;
-<<<<<<< HEAD
-//    listUnpayBtn.selected = YES;
-=======
-    self.listUnpayBtn.selected = YES;
-  //  listUnpayBtn.selected = YES;
 
->>>>>>> f740198677218416265d609ec2dc7f33750e7c02
+    self.listUnpayBtn.selected = YES;
+
+    selection = [NSMutableArray array];
     self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户",@"", nil];
-    
+    self.userImageView.layer.cornerRadius = self.userImageView.bounds.size.width/2;
+    self.userImageView.layer.masksToBounds = YES;
+    if([XWJAccount instance].headPhoto){
+        [self.userImageView sd_setImageWithURL:[NSURL URLWithString:[XWJAccount instance].headPhoto] placeholderImage:[UIImage imageNamed:@"headDefaultImg"]];
+    }
 }
 -(void)headAD{
     NSString *url = GETGUANJIAAD_URL;
@@ -93,7 +95,7 @@
             }else{
                 self.zoneLabel.text = [self.roomDic objectForKey:@"A_name"];
                 self.doorLabel.text = [NSString stringWithFormat:@"%@号楼%@单元%@",[self.roomDic objectForKey:@"b_id"],[self.roomDic objectForKey:@"r_dy"],[self.roomDic objectForKey:@"r_id"]];
- //               self.userImageView
+//                [self.userImageView set]
                 [self getZhangDan];
             }
         }
@@ -237,23 +239,63 @@
 }
 - (IBAction)quanXuan:(UIButton *)sender {
     sender.selected = !sender.selected;
+    
+    NSInteger count = self.payListArr.count/3;
+    for (int i=0; i<count; i++) {
+        
+        if (sender.selected) {
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+        }else{
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+            [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+            [self tableView:self.tableView didDeselectRowAtIndexPath:indexPath];
+        }
+    }
 }
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)countPrice{
     
-    
-    if(indexPath.section == 0){
+    float total= 0;
+    for (NSIndexPath *path in selection) {
         
-//        NSArray *controllers = self.navigationController.viewControllers;
-//        UIViewController *controller = [controllers objectAtIndex:indexPath.row+1];
-//        [self.navigationController popToViewController:controller animated:YES];
+
+        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row] ;
+        NSDictionary *dic2  = [self.payListArr objectAtIndex:path.row+1] ;
+        NSDictionary *dic3  = [self.payListArr objectAtIndex:path.row+2] ;
+        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue] +[[dic3  objectForKey:@"t_money"] floatValue];
         
     }
-    //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MineStoryboard" bundle:nil];
-    //        [self.navigationController showViewController:[storyboard instantiateViewControllerWithIdentifier:@"suggestStory"] sender:nil];
+    self.totalLabel.text = [NSString stringWithFormat:@"￥%.2f",total];
+}
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    [selection addObject:indexPath];
+    //    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
+    //    if (oneCell.accessoryType == UITableViewCellAccessoryNone) {
+    //        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    //    } else
+    //        oneCell.accessoryType = UITableViewCellAccessoryNone;
+    [self countPrice];
+    NSLog(@"didSelectRowAtIndexPath %@",selection);
+}
+
+- (void)tableView:(UITableView *)table didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [selection removeObject:indexPath];
+    
+    //    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
+    //    if (oneCell.accessoryType == UITableViewCellAccessoryNone) {
+    //        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    //    } else
+    //        oneCell.accessoryType = UITableViewCellAccessoryNone;
+    NSLog(@"didDeselectRowAtIndexPath %@",selection);
+    [self countPrice];
 }
 
 - (void)didReceiveMemoryWarning {

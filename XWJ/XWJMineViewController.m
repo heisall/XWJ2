@@ -100,7 +100,8 @@ NSArray *myImgs;
         [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
         NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
          self.scoreLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"jifen"] ];
-        
+        [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[dic valueForKey:@"Photo"]];
+
         [self.tableview reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

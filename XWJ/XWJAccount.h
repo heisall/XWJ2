@@ -23,6 +23,7 @@
 @property NSString *intrest;
 @property NSString *qianming;
 @property NSString *aid;
+@property NSString *headPhoto;
 @property BOOL isYouke;
 /*
  "A_id" = 4;

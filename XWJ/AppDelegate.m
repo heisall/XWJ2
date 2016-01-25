@@ -56,10 +56,10 @@
     [UMSocialData setAppKey:@"56938a23e0f55aac1d001cb6"];
     
     //设置微信AppId、appSecret，分享url
-    [UMSocialWechatHandler setWXAppId:@"wx869e417c4c31b315" appSecret:@"f78e80ec755ab99be5a7b1e3565b5f37" url:@"http://www.umeng.com/social"];
+    [UMSocialWechatHandler setWXAppId:@"wx706df433748af20c" appSecret:@"f78e80ec755ab99be5a7b1e3565b5f37" url:@""];
     
     //微信支付  向微信注册
-    [WXApi registerApp:@"wx869e417c4c31b315" withDescription:@"demo 2.0"];
+    [WXApi registerApp:@"wx706df433748af20c" withDescription:@"demo 2.0"];
     
     [SMSSDK registerApp:mobAppKey withSecret:mobAppSecret];
     
@@ -201,6 +201,7 @@
                 [XWJAccount instance].Sex = [userDic valueForKey:@"sex"];
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
                 [XWJAccount instance].jifen = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"jifen"]];
+                [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"Photo"]];
                 /*
                  "A_id" = 4;
                  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";

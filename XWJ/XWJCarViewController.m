@@ -87,16 +87,29 @@
 //    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 //}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 30;
+    return 40;
 }
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 30)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, SCREEN_SIZE.width, 20)];
-    label.textColor = XWJGREENCOLOR;
-    label.text  = [[carListArr objectAtIndex:section] objectForKey:@"type"];
-    [view addSubview:label];
-    return view;
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    [footer.textLabel setTextColor:XWJGREENCOLOR];
+    footer.textLabel.font = [UIFont fontWithName:@"Arial" size:14.0];
+    footer.backgroundColor =  [UIColor lightGrayColor];
 }
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return [[carListArr objectAtIndex:section] objectForKey:@"type"];
+}
+
+//- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, 30)];
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, SCREEN_SIZE.width, 20)];
+//    label.textColor = XWJGREENCOLOR;
+//    label.text  = [[carListArr objectAtIndex:section] objectForKey:@"type"];
+//    [view addSubview:label];
+//    return view;
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 95;
@@ -140,11 +153,11 @@
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [selection addObject:indexPath];
-    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
-    if (oneCell.accessoryType == UITableViewCellAccessoryNone) {
-        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else
-        oneCell.accessoryType = UITableViewCellAccessoryNone;
+//    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
+//    if (oneCell.accessoryType == UITableViewCellAccessoryNone) {
+//        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
+//    } else
+//        oneCell.accessoryType = UITableViewCellAccessoryNone;
     [self countTotal];
     NSLog(@"didSelectRowAtIndexPath %@",selection);
 }
@@ -152,11 +165,11 @@
 - (void)tableView:(UITableView *)table didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     [selection removeObject:indexPath];
     
-    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
+//    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
 //    if (oneCell.accessoryType == UITableViewCellAccessoryNone) {
 //        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
 //    } else
-        oneCell.accessoryType = UITableViewCellAccessoryNone;
+//        oneCell.accessoryType = UITableViewCellAccessoryNone;
     NSLog(@"didDeselectRowAtIndexPath %@",selection);
     [self countTotal];
 }
@@ -191,7 +204,9 @@
 
     }
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.imageView.image = [UIImage imageNamed:@"agree2"];
+    cell.imageView.highlightedImage = [UIImage imageNamed:@"agree1"];
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     return cell;
 }
 
@@ -434,7 +449,7 @@
             }
         
             if (dic.allKeys.count>1) {
-                [ProgressHUD showError:@"不支持多商户同时结算"];
+                [ProgressHUD showError:@"小二一次暂且处理一个商户，您得分批结算"];
             }else{
                 
                 NSMutableArray *arr = [NSMutableArray array];

@@ -36,6 +36,8 @@
 
 @property(nonatomic,copy)NSString* shareImageStr;
 @property(nonatomic,copy)NSString* sharecontStr;
+@property(nonatomic,copy)NSString* shareUrl;
+
 @end
 
 @implementation XWJNewHouseDetailViewController
@@ -85,6 +87,11 @@
                                      shareImage:temIV.image
                                 shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
                                        delegate:self];
+    
+        [UMSocialData defaultData].extConfig.wechatSessionData.title = @"海信地产，值得信赖";
+
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=";
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=";
 }
 
 #pragma mark - //实现回调方法（可选)
@@ -195,6 +202,7 @@
 
             
             self.nameLabel.text = [self.dic objectForKey:@"lpmc"]==[NSNull null]?@"":[self.dic objectForKey:@"lpmc"];
+            self.sharecontStr = self.nameLabel.text;
             self.moneyLabel.text = [NSString stringWithFormat:@"开盘 %@",[self.dic objectForKey:@"jiage"]== [NSNull null ]?@"":[self.dic objectForKey:@"jiage"]];
 //            [self.locationBtn setTitle:[NSString  stringWithFormat:@"地址 %@%@%@",[self.dic objectForKey:@"cityName"],[self.dic objectForKey:@"quyu"],[self.dic objectForKey:@"weiZhi"]] forState:UIControlStateNormal];
             [self.timeBtn setTitle:[self.dic objectForKey:@"kpsj"]==[NSNull null]?@"": [self.dic objectForKey:@"kpsj"]forState:UIControlStateNormal];
@@ -221,6 +229,7 @@
                 if (URLs.count==1) {
                     time = MAXFLOAT;
                 }
+                self.shareImageStr = [URLs objectAtIndex:0];
                 LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
                                                                                           self.houseImg.bounds.size.height)
                                             

@@ -110,14 +110,17 @@
 -(void)addView{
     
     NSInteger count = self.thumb.count;
-    CGFloat width  = SCREEN_SIZE.width/2-10;
+    CGFloat width  = SCREEN_SIZE.width/2;
     CGFloat height  = 60.0;
+    CGFloat imgHeigth = 45.0;
     for (int i =0; i<count; i++) {
-        UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(i%2*width,i/2*(height+5) , width, height)];
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(1,1 , height-13, height-13)];
+        UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(i%2*(width+1),i/2*(height+1) , width, height)];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(20,(height-imgHeigth)/2 , imgHeigth, imgHeigth)];
+        
+        view.tag =1000+i;
         img.tag = 1000+i;
         img.userInteractionEnabled = YES;
-        UILabel * label  =  [[UILabel alloc] initWithFrame:CGRectMake(width-70, 10, 60, 30)];
+        UILabel * label  =  [[UILabel alloc] initWithFrame:CGRectMake(width-70,(height-30)/2, 60, 30)];
         [img sd_setImageWithURL:[NSURL URLWithString:[[self.thumb objectAtIndex:i] valueForKey:@"thumb"]==[NSNull null]?@"":[[self.thumb objectAtIndex:i] valueForKey:@"thumb"]]];
         label.text = [[self.thumb objectAtIndex:i] valueForKey:@"cateName"];
         label.userInteractionEnabled  = YES;
@@ -126,10 +129,12 @@
         singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
         //点击的次数
         singleRecognizer.numberOfTapsRequired = 1;
-        [img addGestureRecognizer:singleRecognizer];
-        [label addGestureRecognizer:singleRecognizer];
+        view.userInteractionEnabled = YES;
+        [view addGestureRecognizer:singleRecognizer];
+//        [label addGestureRecognizer:singleRecognizer];
         [view addSubview:img];
         [view addSubview:label];
+        view.backgroundColor = [UIColor whiteColor];
         [scroll addSubview:view];
         scroll.contentSize = CGSizeMake(0, height
                                         *(count/2+1)+PADDINGBOTTOM);

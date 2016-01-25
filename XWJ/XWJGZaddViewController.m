@@ -28,7 +28,10 @@
 
 @end
 
-@implementation XWJGZaddViewController
+@implementation XWJGZaddViewController{
+
+    UILabel *_label;
+}
 #define imgtag 100
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,9 +47,21 @@
         imgView.tag = imgtag+i;
         [self.scrollView addSubview:imgView];
     }
+    [self registerForKeyboardNotifications];
     self.lp = [NSMutableArray arrayWithObjects:@"随时上门",@"上午",@"下午",@"晚上", nil];
     self.imageDatas = [NSMutableArray array];
     self.guzhangTV.delegate  = self;
+    [self createLabel];
+}
+
+-(void)createLabel{
+    
+    UITextView *view = (UITextView *)[self.view viewWithTag:1994];
+    _label = [[UILabel alloc]init];
+    _label.enabled = YES;
+    _label.text = @"很高兴为您服务，请输入";
+    _label.frame = CGRectMake(10, 0, 200, 30);
+    [view addSubview:_label];
 }
 - (IBAction)addImage:(UIButton *)sender {
     
@@ -80,6 +95,35 @@
         return NO;
     }
     return YES;
+}
+
+- (void)registerForKeyboardNotifications
+{
+    //使用NSNotificationCenter 鍵盤出現時
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWasShown:)
+     
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    //使用NSNotificationCenter 鍵盤隐藏時
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWillBeHidden:)
+     
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+    
+}
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    
+    [_label setHidden:YES];
+}
+//当键盘隐藏的时候
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    
 }
 -(void)LoadImageWith:(UIImagePickerControllerSourceType)type
 {

@@ -106,12 +106,6 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    NSString *jifen = [XWJAccount instance].jifen ;
-    if ([jifen intValue]<[[[self.array objectAtIndex:indexPath.row] valueForKey:@"price"] intValue]) {
-        [ProgressHUD showError:@"您的积分不足，可以坚持签到获取更多积分再来"];
-        return;
-    }
     
     XWJSPDetailViewController *list= [[XWJSPDetailViewController alloc] init];
     //    list.dic = [self.goodsArr objectAtIndex:indexPath.row];

@@ -32,7 +32,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.dataSource = self;
-    listUnpayBtn.selected = YES;
+    self.listUnpayBtn.selected = YES;
     self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户",@"", nil];
     
 }
@@ -250,9 +250,11 @@
 - (IBAction)qubuZD:(id)sender {
     UIButton *btn = (UIButton *)sender;
     btn.selected = !btn.selected;
+    self.listUnpayBtn.selected = !btn.selected;
 }
 - (IBAction)weijiao:(UIButton *)sender {
     sender.selected = !sender.selected;
+    self.listAllBtn.selected = !sender.selected;
 }
 - (IBAction)quanXuan:(UIButton *)sender {
     sender.selected = !sender.selected;

@@ -120,14 +120,14 @@
         UILabel * label  =  [[UILabel alloc] initWithFrame:CGRectMake(width-70, 10, 60, 30)];
         [img sd_setImageWithURL:[NSURL URLWithString:[[self.thumb objectAtIndex:i] valueForKey:@"thumb"]==[NSNull null]?@"":[[self.thumb objectAtIndex:i] valueForKey:@"thumb"]]];
         label.text = [[self.thumb objectAtIndex:i] valueForKey:@"cateName"];
-        
-        
+        label.userInteractionEnabled  = YES;
+        label.tag = 1000+i;
         UITapGestureRecognizer* singleRecognizer;
         singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
         //点击的次数
         singleRecognizer.numberOfTapsRequired = 1;
         [img addGestureRecognizer:singleRecognizer];
-        
+        [label addGestureRecognizer:singleRecognizer];
         [view addSubview:img];
         [view addSubview:label];
         [scroll addSubview:view];

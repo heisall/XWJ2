@@ -659,6 +659,12 @@
         return;
     }
     
+    NSString *jifen = [XWJAccount instance].jifen ;
+    if ([jifen intValue]<[[self.goodsDic valueForKey:@"price"] intValue]) {
+        [ProgressHUD showError:@"您的积分不足，可以坚持签到获取更多积分再来"];
+        return;
+    }
+    
     XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];
     con.price = [NSString stringWithFormat:@"%.2f",[[self.goodsDic valueForKey:@"price"] floatValue]];
     

@@ -2567,7 +2567,7 @@
 				TargetAttributes = {
 					DAC4AF151BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = UAYEW27P4X;
+						DevelopmentTeam = 7BFR74B47J;
 					};
 					DAC4AF2E1BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -3136,7 +3136,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
-				PROVISIONING_PROFILE = "d1d463a6-0d63-4343-ad15-6e81cb7a0792";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3167,7 +3167,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
-				PROVISIONING_PROFILE = "d1d463a6-0d63-4343-ad15-6e81cb7a0792";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

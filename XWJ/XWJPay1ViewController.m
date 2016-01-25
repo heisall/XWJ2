@@ -40,6 +40,17 @@
 
 
     self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户",@"", nil];
+    NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
+    NSString *imgBase64 = [usr valueForKey:@"photo"];
+    //判断有没有图片；
+    if (imgBase64) {
+        NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:imgBase64 options:0];
+        UIImage *img = [UIImage imageWithData:nsdataFromBase64String];
+        self.userImageView.layer.masksToBounds = YES;
+        self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width/2;
+        self.userImageView.contentMode =UIViewContentModeScaleToFill;
+        self.userImageView.image = img;
+    }
     
 }
 -(void)headAD{
@@ -58,8 +69,6 @@
             NSLog(@"dic哈哈哈 %@",dic);
             
             self.roomDic = [dic objectForKey:@"room"];
-            
-            
         }
         
         

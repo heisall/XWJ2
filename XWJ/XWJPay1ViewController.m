@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self headAD];
+    [self headAD];
 //    [self getZhangDan];
     
     [self getGuanjiaAD ];

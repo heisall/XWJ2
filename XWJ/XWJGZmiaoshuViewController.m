@@ -9,7 +9,7 @@
 #import "XWJGZmiaoshuViewController.h"
 #import "XWJGZJudgeViewController.h"
 #import "ProgressHUD.h"
-@interface XWJGZmiaoshuViewController ()
+@interface XWJGZmiaoshuViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *guzhangDanhao;
 @property (weak, nonatomic) IBOutlet UILabel *connent;
 @property (weak, nonatomic) IBOutlet UIScrollView *jinchangScroll;
@@ -22,12 +22,15 @@
 @property (weak, nonatomic) IBOutlet UIImageView *gzStartImageV;
 @property (weak, nonatomic) IBOutlet UIImageView *gzMidImageV;
 @property (weak, nonatomic) IBOutlet UIImageView *gzEndImageV;
+
+@property NSMutableArray *imageArray;
 @end
 
 @implementation XWJGZmiaoshuViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.imageArray = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view.
     if (self.type == 1) {
         self.navigationItem.title = @"报修详情";
@@ -39,6 +42,32 @@
     
     [self getGZDetail];
 
+}
+-(void)createScrollV{
+
+    UIView *v = (UIView *)[self.view viewWithTag:1995];
+    UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 24, v.bounds.size.height)];
+    scrollV.backgroundColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.93 alpha:1];
+   // scrollV.backgroundColor = [UIColor lightGrayColor];
+    scrollV.delegate = self;
+    
+    scrollV.pagingEnabled = YES;
+    scrollV.bounces = YES;
+    scrollV.contentOffset = CGPointMake(0, 0);
+    scrollV.contentSize = CGSizeMake(self.imageArray.count *85+1000, v.bounds.size.height);
+
+    [v addSubview:scrollV];
+    
+    for (int i=0; i<7; i++) {
+        UIImageView *imageV = [[UIImageView alloc]init];
+        imageV.frame = CGRectMake(85*i, 0, 80, v.bounds.size.height);
+        
+        [imageV sd_setImageWithURL:[NSURL URLWithString:[self.detaildic objectForKey:@"fj"]]placeholderImage:nil];
+   //     NSLog(@"//////%@",self.detaildic);
+        [scrollV addSubview:imageV];
+    }
+
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -88,18 +117,14 @@
              */
             if(responseObject){
                 NSDictionary *dic = (NSDictionary *)responseObject;
-                
-                self.detaildic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"data"]];
-                //            NSMutableArray * array = [NSMutableArray array];
-                //            XWJCity *city  = [[XWJCity alloc] init];
-                
-                //            NSArray *arr  = [dic objectForKey:@"data"];
-                //            [self.houseArr removeAllObjects];
-                //            [self.houseArr addObjectsFromArray:arr];
-                //            [self.tableView reloadData];
-                
                 NSLog(@"dic !!!!!!%@",dic);
+                self.detaildic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"data"]];
+                
+                
+                
+                NSLog(@"dic !!!!!!%@",[self.detaildic objectForKey:@"fj"]);
                 [self updateView ];
+                [self createScrollV];
             }
             
             

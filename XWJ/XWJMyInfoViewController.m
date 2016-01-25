@@ -75,10 +75,6 @@ CGRect tableViewCGRect;
     }
     _photo = phonto;
     
-    
-
-    
-    
     self.tableDetailData = [NSMutableArray arrayWithObjects:nicheng,xingbie,hunyin,aihao,qianming,nil];
   //  NSLog(@"%%%%%%%%%%%%%@",self.tableDetailData);
     self.tableView.dataSource = self;
@@ -415,7 +411,7 @@ CGRect tableViewCGRect;
 {
     //获取图片并编码；
     UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    NSData *imageData = UIImageJPEGRepresentation(image, 1);// jpeg
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);// jpeg
     NSString *baseStr = [imageData base64Encoding];
     _imageStr = baseStr;
     //请求成功后显示图片，并添加到缓存池中；

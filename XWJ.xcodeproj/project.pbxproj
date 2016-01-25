@@ -2562,6 +2562,9 @@
 		DAC4AF0E1BF0619700D66E76 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					1995,
+				);
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Paul;
 				TargetAttributes = {

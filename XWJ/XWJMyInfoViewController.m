@@ -227,7 +227,9 @@ CGRect tableViewCGRect;
         [cell.imageView addSubview:button];
 
     }else{
-        cell.detailTextLabel.text = self.tableDetailData[(indexPath.section-1)*4 + indexPath.row];
+        if (self.tableDetailData.count>0) {
+            cell.detailTextLabel.text = self.tableDetailData[(indexPath.section-1)*4 + indexPath.row];
+        }
     }
     
     UIView *footerview = [[UIView alloc] initWithFrame:CGRectMake(0, tableViewCellHeight, self.view.bounds.size.width,1)];

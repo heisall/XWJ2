@@ -135,13 +135,22 @@
         btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
         NSLog(@"btn %@",[XWJUtil deviceString]);
-        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 Plus"]) {
-            
-            [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 30, 0, 0)];
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(90, -25, 0, 0)];
-        }else{
+//        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 Plus"]) {
+//            
+//            [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 30, 0, 0)];
+//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(90, -25, 0, 0)];
+//        }else{
+//            [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
+//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];
+//            
+//        }
+        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 5s"]) {
             [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];
+            
+        }else{
+            [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 25, 0, 0)];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(70, -25, 0, 0)];
             
         }
     
@@ -188,34 +197,31 @@
 }
 
 -(void)btnclick:(UIButton *)btn{
-    [self.navigationController showViewController:[self.vConlers objectAtIndex:btn.tag] sender:nil];
+    
 
-//       if ([XWJAccount instance].isYouke&&((sender.tag-TAG == 3)||(sender.tag - TAG == 5)||(sender.tag - TAG == 4))) {
-//    //
-//    //        XWJCity *city = [XWJCity instance];
-//    //
-//    //        [city getCity:^(NSArray *arr) {
-//    //
-//    //            NSLog(@"arr %@",arr);
-//    //            NSMutableArray *arr2 = [NSMutableArray array];
-//    //
-//    //            for (NSDictionary *dic in arr) {
-//    //                [arr2 addObject:[dic valueForKey:@"CityName"]];
-//    //            }
-//    //        }];
-//       UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"您还没有绑定房间，请绑定后使用。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        alertview.delegate = self;
-//       [alertview show];
-//    
-//    
-//      }else{
-//    //        if(sender.tag -TAG >1)
-//    //            return;
-//    
-//    
-//    [self.navigationController showViewController:[jump objectAtIndex:sender.tag-TAG] sender:nil];
-//    
-//      }
+       if ([XWJAccount instance].isYouke&&((btn.tag == 3)||(btn.tag  == 5)||(btn.tag == 4))) {
+    //
+    //        XWJCity *city = [XWJCity instance];
+    //
+    //        [city getCity:^(NSArray *arr) {
+    //
+    //            NSLog(@"arr %@",arr);
+    //            NSMutableArray *arr2 = [NSMutableArray array];
+    //
+    //            for (NSDictionary *dic in arr) {
+    //                [arr2 addObject:[dic valueForKey:@"CityName"]];
+    //            }
+    //        }];
+       UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"您还没有绑定房间，请绑定后使用。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alertview.delegate = self;
+       [alertview show];
+    
+    
+      }else{
+    
+    [self.navigationController showViewController:[self.vConlers objectAtIndex:btn.tag] sender:nil];
+    
+      }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

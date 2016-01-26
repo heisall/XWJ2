@@ -73,6 +73,11 @@ static NSString *kcellIdentifier = @"cell";
             NSArray *array  =[[NSArray alloc]init];
             array = [dict objectForKey:@"data"];
            NSLog(@"dic++++++ %@",array);
+            
+            [_subTitles removeAllObjects];
+            [_msgArr removeAllObjects];
+            [_titles removeAllObjects];
+            [_idArray removeAllObjects];
             for (NSMutableDictionary *d in array) {
                 [_subTitles addObject:[d objectForKey:@"title"]];
                 //                [_msgArr addObject:[d objectForKey:@"msg"]];

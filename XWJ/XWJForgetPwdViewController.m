@@ -25,7 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"找回密码";
+    if ([self.getpassWord isEqualToString:@"1"]) {
+        self.navigationItem.title = @"修改密码";
+    }else{
+    
+        self.navigationItem.title = @"找回密码";
+    }
     code = -1;
     timeTick = 61;
 

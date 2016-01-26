@@ -127,23 +127,24 @@
         [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"guanjia%d",i+1]] forState:UIControlStateNormal];
         btn.frame = CGRectMake((SCREEN_SIZE.width/4+1)*(i%4), self.room.frame.origin.y+self.room.bounds.size.height+60 + ((int)(i/4))*(SCREEN_SIZE.width/4+1), SCREEN_SIZE.width/4 , SCREEN_SIZE.width/4 );
         btn.tag = i;
-        NSLog(@"btn %@",btn);
+   //     NSLog(@"btn %@",btn);
 //        btn.backgroundColor = XWJColor(124, 197, 193);
         [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
         btn.backgroundColor = [UIColor whiteColor];
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-        
-        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 plus"]) {
+        NSLog(@"btn %@",[XWJUtil deviceString]);
+        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 Plus"]) {
             
-            [btn setImageEdgeInsets:UIEdgeInsetsMake(15, 25, 0, 0)];
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(70, -28, 0, 0)];
+            [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 30, 0, 0)];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(90, -25, 0, 0)];
         }else{
             [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];
+            
         }
-        
+    
 //        btn.al
         [btn setTitle:self.titles[i] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(btnclick:) forControlEvents:UIControlEventTouchUpInside];

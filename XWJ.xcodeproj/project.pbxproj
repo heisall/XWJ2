@@ -2570,7 +2570,7 @@
 				TargetAttributes = {
 					DAC4AF151BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 7BFR74B47J;
+						DevelopmentTeam = 2F2RB2927X;
 					};
 					DAC4AF2E1BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -3119,7 +3119,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer: 13176888155@163.com (235B6AP2D2)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3137,7 +3137,7 @@
 					"$(PROJECT_DIR)/NewAndy/JPushSDK",
 					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hisense.xwj-c";
 				PRODUCT_NAME = "信我家";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3149,8 +3149,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 13176888155@163.com (235B6AP2D2)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer: 13176888155@163.com (235B6AP2D2)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3168,7 +3168,7 @@
 					"$(PROJECT_DIR)/NewAndy/JPushSDK",
 					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hisense.xwj-c";
 				PRODUCT_NAME = "信我家";
 				PROVISIONING_PROFILE = "";
 			};

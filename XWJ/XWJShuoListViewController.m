@@ -443,9 +443,20 @@
 //    }
     
     if (indexPath.section==0) {
-        XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
-        list.dic = [self.tabledata objectAtIndex:indexPath.row];
-        [self.navigationController showViewController:list sender:self];
+//        address里面存着url
+//        sgrade=4
+        
+        NSDictionary *dic = [self.tabledata objectAtIndex:indexPath.row];
+        if ([dic objectForKey:@"sgrade"]&&[[NSString stringWithFormat:@"%@",[dic objectForKey:@"sgrade"]] isEqualToString:@"4"]) {
+            XWJWebViewController *web= [[XWJWebViewController alloc] init];
+            web.url= [dic objectForKey:@"address"];
+            [self.navigationController showViewController:web sender:self];
+
+        }else{
+            XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
+            list.dic = [self.tabledata objectAtIndex:indexPath.row];
+            [self.navigationController showViewController:list sender:self];
+        }
     }else{
         XWJSPDetailViewController *list= [[XWJSPDetailViewController alloc] init];
         //    list.dic = [self.goodsArr objectAtIndex:indexPath.row];

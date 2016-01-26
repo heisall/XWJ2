@@ -375,7 +375,7 @@
             
             self.goodsDic = [dic objectForKey:@"goods"];
             self.comments = [dic objectForKey:@"comments"];
-            self.commentCount = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count"]];
+            self.commentCount = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count"]==[NSNull null]?@"0":[dic objectForKey:@"count"]];
             self.gouwuCheCounts = [NSString stringWithFormat:@"%@",[dic objectForKey:@"counts"]];
             [self.tableView reloadData];
             self.tableView.contentSize = CGSizeMake(0, 100*self.goodsDic.count+150);

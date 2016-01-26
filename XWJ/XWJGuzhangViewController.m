@@ -37,6 +37,13 @@
     }
     self.guzhangArr = [NSMutableArray array];
 //    [self getGuzhang];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        
+        [self getGuzhang];
+        
+    }];
+
     [self setNavRightItem];
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -219,6 +226,7 @@
             [self.guzhangArr removeAllObjects];
             [self.guzhangArr addObjectsFromArray:arr];
             [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
         }
         
         

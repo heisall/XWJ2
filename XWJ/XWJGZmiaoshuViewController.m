@@ -9,6 +9,7 @@
 #import "XWJGZmiaoshuViewController.h"
 #import "XWJGZJudgeViewController.h"
 #import "ProgressHUD.h"
+#import "XWJWebViewController.h"
 @interface XWJGZmiaoshuViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *guzhangDanhao;
 @property (weak, nonatomic) IBOutlet UILabel *connent;
@@ -44,31 +45,48 @@
 
 }
 -(void)createScrollV{
-
+    
     UIView *v = (UIView *)[self.view viewWithTag:1995];
     UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 24, v.bounds.size.height)];
     scrollV.backgroundColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.93 alpha:1];
-   // scrollV.backgroundColor = [UIColor lightGrayColor];
+    // scrollV.backgroundColor = [UIColor lightGrayColor];
     scrollV.delegate = self;
     
     scrollV.pagingEnabled = YES;
     scrollV.bounces = YES;
     scrollV.contentOffset = CGPointMake(0, 0);
     scrollV.contentSize = CGSizeMake(self.imageArray.count *85+1000, v.bounds.size.height);
-
+    
     [v addSubview:scrollV];
     
-    for (int i=0; i<7; i++) {
+    for (int i=0; i<1; i++) {
         UIImageView *imageV = [[UIImageView alloc]init];
         imageV.frame = CGRectMake(85*i, 0, 80, v.bounds.size.height);
         
         [imageV sd_setImageWithURL:[NSURL URLWithString:[self.detaildic objectForKey:@"fj"]]placeholderImage:nil];
-   //     NSLog(@"//////%@",self.detaildic);
+        //     NSLog(@"//////%@",self.detaildic);
+        UITapGestureRecognizer* singleRecognizer;
+        imageV.userInteractionEnabled = YES;
+        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick)];
+        //点击的次数
+        singleRecognizer.numberOfTapsRequired = 1;
+        [imageV addGestureRecognizer:singleRecognizer];
         [scrollV addSubview:imageV];
     }
+}
+
+-(void)imgclick{
+    XWJWebViewController * web = [[XWJWebViewController alloc] init];
+    NSString *urls = [self.detaildic objectForKey:@"fj"]==[NSNull null]?@"":[self.detaildic objectForKey:@"fj"];
+    
+    NSArray *url = [urls componentsSeparatedByString:@","];
+    web.url = [url objectAtIndex:0];
+    //   self.shareImageStr = [url firstObject];
+    [self.navigationController pushViewController:web animated:NO];
+}
 
     
-}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

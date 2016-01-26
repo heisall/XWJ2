@@ -170,14 +170,35 @@
             self.gzMidImageV.image = [UIImage imageNamed:@"tsmid"];
             self.gzEndImageV.image = [UIImage imageNamed:@"tsend"];
             btn.hidden = YES;
+            UILabel *label  = (UILabel*)[self.view viewWithTag:1996];
+            label.hidden = YES;
+            UILabel *label1  = (UILabel*)[self.view viewWithTag:1997];
+            label1.hidden = YES;
+            UILabel *label2  = (UILabel*)[self.view viewWithTag:1998];
+            label2.hidden = YES;
         }else{
             self.gzMidImageV.image = [UIImage imageNamed:@"tsmid1"];
             if ([self.detaildic objectForKey:@"gbtime"]==[NSNull null]) {
                 self.gzEndImageV.image = [UIImage imageNamed:@"tsend"];
                 btn.hidden = YES;
+                UILabel *label  = (UILabel*)[self.view viewWithTag:1996];
+                label.hidden = NO;
+                UILabel *label1  = (UILabel*)[self.view viewWithTag:1997];
+                label1.hidden = YES;
+                UILabel *label2  = (UILabel*)[self.view viewWithTag:1998];
+                label2.hidden = YES;
+
+               
             }else{
                 self.gzEndImageV.image = [UIImage imageNamed:@"tsend1"];
                 btn.hidden = NO;
+                UILabel *label  = (UILabel*)[self.view viewWithTag:1996];
+                label.hidden = NO;
+                UILabel *label1  = (UILabel*)[self.view viewWithTag:1997];
+                label1.hidden = NO;
+                UILabel *label2  = (UILabel*)[self.view viewWithTag:1998];
+                label2.hidden = NO;
+
             }
         }
     }

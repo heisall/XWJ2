@@ -74,7 +74,6 @@ CGRect tableViewCGRect;
         phonto = @"";
     }
     _photo = phonto;
-    
     self.tableDetailData = [NSMutableArray arrayWithObjects:nicheng,xingbie,hunyin,aihao,qianming,nil];
   //  NSLog(@"%%%%%%%%%%%%%@",self.tableDetailData);
     self.tableView.dataSource = self;

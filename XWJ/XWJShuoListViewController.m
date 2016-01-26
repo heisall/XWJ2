@@ -171,15 +171,17 @@
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dic);
-            tabledata = [dic objectForKey:@"data"];
+            tabledata = [dic objectForKey:@"data"]==[NSNull null]?nil:[dic objectForKey:@"data"];
 
-            groupBuy = [dic objectForKey:@"groupBuy"];
-            for (NSDictionary* dic in tabledata) {
-                [self.starArr addObject:dic[@"star"]];
+            groupBuy = [dic objectForKey:@"groupBuy"]==[NSNull null]?nil:[dic objectForKey:@"groupBuy"];
+            if(tabledata&&tabledata.count>0){
+                for (NSDictionary* dic in tabledata) {
+                    [self.starArr addObject:dic[@"star"]];
+                }
+                [self.tableView reloadData];
+                self.tableView.hidden = NO;
+                self.tableView.contentSize =CGSizeMake(0,self.tabledata.count*100+100+self.groupBuy.count*110);
             }
-            [self.tableView reloadData];
-            self.tableView.hidden = NO;
-            self.tableView.contentSize =CGSizeMake(0,self.tabledata.count*100+100+self.groupBuy.count*110);
         }
         
         

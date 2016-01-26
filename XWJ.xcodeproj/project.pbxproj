@@ -228,6 +228,7 @@
 		A45DCC031C446BC7001543CE /* XWJAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45DCC021C446BC7001543CE /* XWJAddressController.m */; };
 		A45DCC061C446C4E001543CE /* XWJAddAdrController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45DCC051C446C4E001543CE /* XWJAddAdrController.m */; };
 		A45DCC091C447A0D001543CE /* XWJAddresCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45DCC081C447A0D001543CE /* XWJAddresCell.m */; };
+		A4623E781C5799DA007A8F3C /* XWJSplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4623E771C5799DA007A8F3C /* XWJSplashController.m */; };
 		A46320721C00D6990062AA24 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46320701C00D6990062AA24 /* AddressBook.framework */; };
 		A46320731C00D6990062AA24 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46320711C00D6990062AA24 /* AddressBookUI.framework */; };
 		A467B0F91C0BE0FA00394B75 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A467B0F81C0BE0FA00394B75 /* MOBFoundation.framework */; };
@@ -807,6 +808,8 @@
 		A45DCC051C446C4E001543CE /* XWJAddAdrController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJAddAdrController.m; sourceTree = "<group>"; };
 		A45DCC071C447A0D001543CE /* XWJAddresCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJAddresCell.h; sourceTree = "<group>"; };
 		A45DCC081C447A0D001543CE /* XWJAddresCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJAddresCell.m; sourceTree = "<group>"; };
+		A4623E761C5799DA007A8F3C /* XWJSplashController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSplashController.h; sourceTree = "<group>"; };
+		A4623E771C5799DA007A8F3C /* XWJSplashController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSplashController.m; sourceTree = "<group>"; };
 		A46320701C00D6990062AA24 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		A46320711C00D6990062AA24 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		A467B0F81C0BE0FA00394B75 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
@@ -2278,6 +2281,8 @@
 				A43C98581C15E07D006A61EE /* XWJAccount.m */,
 				A43811071C2457EA001D2F29 /* XWJHttpComm.h */,
 				A43811081C2457EA001D2F29 /* XWJHttpComm.m */,
+				A4623E761C5799DA007A8F3C /* XWJSplashController.h */,
+				A4623E771C5799DA007A8F3C /* XWJSplashController.m */,
 			);
 			path = XWJ;
 			sourceTree = "<group>";
@@ -2906,6 +2911,7 @@
 				A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */,
 				A49E77C21C40C064001C7C30 /* XWJHouseInfoCell.m in Sources */,
 				8E1327431C30DFDB00D3EDB5 /* MyChuZuViewController.m in Sources */,
+				A4623E781C5799DA007A8F3C /* XWJSplashController.m in Sources */,
 				A4DC3C8D1C1C505B003D4D18 /* XWJGuzhangViewController.m in Sources */,
 				A41255721C0F39D20042D8CC /* README.md in Sources */,
 				EC9518A01C4540C400AEA7E5 /* MASCompositeConstraint.m in Sources */,
@@ -3137,7 +3143,7 @@
 					"$(PROJECT_DIR)/NewAndy/JPushSDK",
 					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hisense.xwj-c";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3168,7 +3174,7 @@
 					"$(PROJECT_DIR)/NewAndy/JPushSDK",
 					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hisense.xwj-c";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
 				PROVISIONING_PROFILE = "";
 			};

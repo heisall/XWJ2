@@ -90,8 +90,8 @@
     
         [UMSocialData defaultData].extConfig.wechatSessionData.title = @"海信地产，值得信赖";
 
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=";
-    [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=";
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat: @"http://admin.hisenseplus.com/win/t_cm_roomhuxing.aspx?id=%@",[self.dic valueForKey:@"id"]];
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url =[NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_roomhuxing.aspx?id=%@",[self.dic valueForKey:@"id"]];
 }
 
 #pragma mark - //实现回调方法（可选)

@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "XWJAccount.h"
 #import "XWJTabViewController.h"
+#import "XWJSplashController.h"
 ////腾讯开放平台（对应QQ和QQ空间）SDK头文件
 //#import <TencentOpenAPI/TencentOAuth.h>
 //#import <TencentOpenAPI/QQApiInterface.h>
@@ -152,16 +153,22 @@
     NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
     NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
     
+    BOOL islaunched = [[NSUserDefaults standardUserDefaults] boolForKey:@"isLaunched"];
+
 //        UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
 //        self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
-//        return 0;
+    
+    if (!islaunched) {
+        UIViewController *view = [[XWJSplashController alloc] init];
+        self.window.rootViewController = view;
+    }else{
     if (uname&&pass) {
         [self loginUname:uname Pwd:pass];
     }else{
         [self toLoginController];
         
     }
-    
+    }
     //    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
     //    self.window.rootViewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"bindhouse2"];
     

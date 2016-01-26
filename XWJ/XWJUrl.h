@@ -11,8 +11,8 @@
 
 
 #define MESSAGE_CONTENT @"【信我家】您的信我家验证码为：%d，感谢您的使用！"
-#define YUYUEMESSAGE_CONTENT @"《信我家》预约信息：预约产品：%@，%@，%@."
-#define GOUMAIMESSAGE_CONTENT @"《信我家》您有一个订单，请尽快处理！"
+#define YUYUEMESSAGE_CONTENT @"【信我家】预约信息：预约产品：%@,%@,%@"
+#define GOUMAIMESSAGE_CONTENT @"【信我家】您有一个订单，请尽快处理！"
 
 
 //#define XWJBASEURL @"http://115.28.48.166:8100/appPhone/"
@@ -41,6 +41,7 @@
 #define GETADDRESS_URL  XWJBASEURL"order/manegerAddress"
 #define DELADDRESS_URL  XWJBASEURL"order/delAddress"
 
+#define APPOINTMENT_URL  XWJBASEURL"life/appointment"
 #define GETADDRESSLIST_URL  XWJBASEURL"order/addressList"
 
 //life

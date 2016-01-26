@@ -365,6 +365,7 @@ NSArray *myImgs;
         
         UIStoryboard *changePassWord = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
         XWJForgetPwdViewController *forgotPassWord = [changePassWord instantiateViewControllerWithIdentifier:@"forget1"];
+        forgotPassWord.getpassWord =@"1";
         [self.navigationController showViewController:forgotPassWord sender:nil];
     }
     if (indexPath.row == 2) {

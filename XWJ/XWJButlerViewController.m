@@ -127,23 +127,33 @@
         [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"guanjia%d",i+1]] forState:UIControlStateNormal];
         btn.frame = CGRectMake((SCREEN_SIZE.width/4+1)*(i%4), self.room.frame.origin.y+self.room.bounds.size.height+60 + ((int)(i/4))*(SCREEN_SIZE.width/4+1), SCREEN_SIZE.width/4 , SCREEN_SIZE.width/4 );
         btn.tag = i;
-        NSLog(@"btn %@",btn);
+   //     NSLog(@"btn %@",btn);
 //        btn.backgroundColor = XWJColor(124, 197, 193);
         [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
         btn.backgroundColor = [UIColor whiteColor];
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-        
-        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 plus"]) {
-            
-            [btn setImageEdgeInsets:UIEdgeInsetsMake(15, 25, 0, 0)];
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(70, -28, 0, 0)];
-        }else{
+        NSLog(@"btn %@",[XWJUtil deviceString]);
+//        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 Plus"]) {
+//            
+//            [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 30, 0, 0)];
+//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(90, -25, 0, 0)];
+//        }else{
+//            [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
+//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];
+//            
+//        }
+        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 5s"]) {
             [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];
+            
+        }else{
+            [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 25, 0, 0)];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(70, -25, 0, 0)];
+            
         }
-        
+    
 //        btn.al
         [btn setTitle:self.titles[i] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(btnclick:) forControlEvents:UIControlEventTouchUpInside];
@@ -187,34 +197,31 @@
 }
 
 -(void)btnclick:(UIButton *)btn{
-    [self.navigationController showViewController:[self.vConlers objectAtIndex:btn.tag] sender:nil];
+    
 
-//       if ([XWJAccount instance].isYouke&&((sender.tag-TAG == 3)||(sender.tag - TAG == 5)||(sender.tag - TAG == 4))) {
-//    //
-//    //        XWJCity *city = [XWJCity instance];
-//    //
-//    //        [city getCity:^(NSArray *arr) {
-//    //
-//    //            NSLog(@"arr %@",arr);
-//    //            NSMutableArray *arr2 = [NSMutableArray array];
-//    //
-//    //            for (NSDictionary *dic in arr) {
-//    //                [arr2 addObject:[dic valueForKey:@"CityName"]];
-//    //            }
-//    //        }];
-//       UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"您还没有绑定房间，请绑定后使用。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        alertview.delegate = self;
-//       [alertview show];
-//    
-//    
-//      }else{
-//    //        if(sender.tag -TAG >1)
-//    //            return;
-//    
-//    
-//    [self.navigationController showViewController:[jump objectAtIndex:sender.tag-TAG] sender:nil];
-//    
-//      }
+       if ([XWJAccount instance].isYouke&&((btn.tag == 3)||(btn.tag  == 5)||(btn.tag == 4))) {
+    //
+    //        XWJCity *city = [XWJCity instance];
+    //
+    //        [city getCity:^(NSArray *arr) {
+    //
+    //            NSLog(@"arr %@",arr);
+    //            NSMutableArray *arr2 = [NSMutableArray array];
+    //
+    //            for (NSDictionary *dic in arr) {
+    //                [arr2 addObject:[dic valueForKey:@"CityName"]];
+    //            }
+    //        }];
+       UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"您还没有绑定房间，请绑定后使用。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alertview.delegate = self;
+       [alertview show];
+    
+    
+      }else{
+    
+    [self.navigationController showViewController:[self.vConlers objectAtIndex:btn.tag] sender:nil];
+    
+      }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

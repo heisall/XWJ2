@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *codeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *submitBtn;
 @property (weak, nonatomic) IBOutlet UILabel *numlabel;
+@property (nonatomic,strong)NSString *getpassWord;
 
 @end

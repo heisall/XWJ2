@@ -2570,7 +2570,7 @@
 				TargetAttributes = {
 					DAC4AF151BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = UAYEW27P4X;
+						DevelopmentTeam = 7BFR74B47J;
 					};
 					DAC4AF2E1BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -3137,7 +3137,7 @@
 					"$(PROJECT_DIR)/NewAndy/JPushSDK",
 					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hisense.xwj-c";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3168,7 +3168,7 @@
 					"$(PROJECT_DIR)/NewAndy/JPushSDK",
 					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hisense.xwj-c";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
 				PROVISIONING_PROFILE = "";
 			};

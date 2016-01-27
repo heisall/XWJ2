@@ -75,31 +75,34 @@ CGRect tableViewCGRect;
             NSLog(@"dict:%@",dict);
             NSString *nickname = [dicts objectForKey:@"NickName"];
             NSLog(@"==>%@",nickname);
-            if (!nickname) {
+            if ([nickname isEqual:[NSNull null]]) {
                 nickname = @"";
             }
             NSString *sex = dicts[@"sex"];
-            if (!sex) {
+            if ([sex isEqual:[NSNull null]]) {
                 sex = @"";
             }
             NSString *qgzk = dicts[@"qgzk"];
-            if ([qgzk isEqual:[NSNull null]]) {
-                qgzk = @"";
+            if ([qgzk isEqual:[NSNull null]]){
+                qgzk = @"未婚";
             }
             NSString *xqah = dicts[@"xqah"];
-            if (!xqah) {
+            if ([xqah isEqual:[NSNull null]]) {
                 xqah = @"";
             }
             NSString *gxqm = dicts[@"gxqm"];
-            if (!gxqm) {
+            if ([gxqm isEqual:[NSNull null]]) {
                 gxqm = @"";
             }
             self.tableDetailData = [NSMutableArray arrayWithObjects:nickname,sex,qgzk,xqah,gxqm,nil];
             NSLog(@"？？？？dic++++++ %@",self.tableDetailData);
             imageStr = dicts[@"Photo"];
-            NSData *imagedata = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageStr]];
-            _imageStr = [imagedata base64Encoding];
-            _photo = _imageStr;
+            if (![imageStr isEqual:[NSNull null]]) {
+                NSData *imagedata = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageStr]];
+                _imageStr = [imagedata base64Encoding];
+            }else{
+                imageStr = @"";
+            };
             
         }
         [_tableView reloadData];
@@ -204,7 +207,7 @@ CGRect tableViewCGRect;
         //85.5-20 =60
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 13, 60, 60)];
         [cell.contentView addSubview:imageView];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:imageStr]placeholderImage:[UIImage imageNamed:@"mor_icon_default"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:imageStr]placeholderImage:[UIImage imageNamed:@"demo"]];
         
         
         imageView.layer.masksToBounds = YES;

@@ -57,7 +57,6 @@ CGRect tableViewCGRect;
     self.tableView.bounces = FALSE;
     self.navigationItem.title = @"个人信息";
     [self.myView addSubview:self.tableView];
-    
 }
 -(void)downLoadInfo{
     
@@ -98,6 +97,10 @@ CGRect tableViewCGRect;
             self.tableDetailData = [NSMutableArray arrayWithObjects:nickname,sex,qgzk,xqah,gxqm,nil];
             NSLog(@"？？？？dic++++++ %@",self.tableDetailData);
             imageStr = dicts[@"Photo"];
+            NSData *imagedata = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageStr]];
+            _imageStr = [imagedata base64Encoding];
+            _photo = _imageStr;
+            
         }
         [_tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -138,10 +141,6 @@ CGRect tableViewCGRect;
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.0;
 }
-
-//- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    return nil
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
@@ -194,32 +193,34 @@ CGRect tableViewCGRect;
     headerview.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
-        cell.imageView.image = [UIImage imageNamed:@"mor_icon_default"];
-        cell.imageView.frame = CGRectMake(300, 0, 50, 50);
-        
-        //从偏好设置中获取图片；
+        //        cell.imageView.image = [UIImage imageNamed:@"mor_icon_default"];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imageStr]placeholderImage:[UIImage imageNamed:@"mor_icon_default"]];
+        //        NSLog(@"==>imageStr%@",imageStr);
+        //        cell.imageView.frame = CGRectMake(300, 0, 50, 50);
+        //        cell.imageView.backgroundColor = [UIColor orangeColor];
+        //       从偏好设置中获取图片；
         NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
         NSString *imgBase64 = [usr valueForKey:@"photo"];
-  //      NSLog(@"%@",imgBase64);
         button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,60)];
         //        //判断有没有图片；
         
-        if (!imageStr) {
-            [button setBackgroundImage:[UIImage imageNamed:@"avatar180"] forState:UIControlStateNormal];
-        }else{
-            NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:imageStr options:0];
-            UIImage *img = [UIImage imageWithData:nsdataFromBase64String];
-            [button setBackgroundImage:img forState:UIControlStateNormal];
-            //            [button setBackgroundImage:[UIImage imageNamed:@"avatar180"] forState:UIControlStateNormal];
-            
-        }
-        button.layer.cornerRadius = 30;
-        button.layer.masksToBounds = YES;
         
-        [button addTarget:self  action:@selector(onButtonClick1) forControlEvents:UIControlEventTouchUpInside];
-        [cell.imageView addSubview:button];
-        _photo = @"";
-        
+        //        if (imgBase64) {
+        //            NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:imgBase64 options:0];
+        //            cell.imageView.contentMode = 0;
+        //            cell.imageView.image = [UIImage imageWithData:nsdataFromBase64String];
+        //        }
+        //        else{
+        //            NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:imgBase64 options:0];
+        //            UIImage *img = [UIImage imageWithData:nsdataFromBase64String];
+        //            [button setBackgroundImage:img forState:UIControlStateNormal];
+        //        }
+        //        [button sd_setBackgroundImageWithURL:[NSURL URLWithString:imageStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar180"]];
+        //        button.layer.cornerRadius = 30;
+        //        button.layer.masksToBounds = YES;
+        //
+        //        [button addTarget:self  action:@selector(onButtonClick1) forControlEvents:UIControlEventTouchUpInside];
+        //        [cell.imageView addSubview:button];
     }else{
         //  if (self.tableDetailData.count == 5) {
         cell.detailTextLabel.text = self.tableDetailData[(indexPath.section-1)*4 + indexPath.row];
@@ -242,6 +243,10 @@ CGRect tableViewCGRect;
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *account = [usr valueForKey:@"username"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    _photo = [usr objectForKey:@"photo"];
+    if (!_photo) {
+        _photo = @"";
+    }
     
     [dic setValue:self.tableDetailData[0] forKey:@"nickName"];
     [dic setValue:self.tableDetailData[1] forKey:@"sex"];
@@ -414,9 +419,7 @@ CGRect tableViewCGRect;
         NSLog(@"成功%@",s);
         NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
         [usr setObject:baseStr forKey:@"photo"];
-        NSLog(@"qqqq%@",baseStr);
-        [button setImage:image forState:UIControlStateNormal];
-        
+        [self downLoadInfo];
     } failure:^(NSError *error){
         NSLog(@"%@",error);
     }];

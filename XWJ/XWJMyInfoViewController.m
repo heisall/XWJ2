@@ -15,6 +15,9 @@
 #import "gexingqianmingViewController.h"
 #import "ProgressHUD/ProgressHUD.h"
 #import "XWJAccount.h"
+#import "UIImageView+WebCache.h"
+#import "SDWebImage/SDWebImage/UIButton+WebCache.h"
+
 
 
 #define  HEIGHT 85.0
@@ -28,7 +31,7 @@
 @end
 
 @implementation XWJMyInfoViewController{
-
+    
     UIButton *button;
     NSString *_str;
     NSArray *_arrayNiCheng;
@@ -36,46 +39,17 @@
     NSString *_photo;
     NSMutableDictionary *_dict;
     UIImage * _image;
+    NSString *imageStr;
     
 }
 CGRect tableViewCGRect;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  //  self.navigationController.navigationBar.hidden = NO;
-    // Do any additional setup after loading the view.
-    [self downLoadInfo];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.myView.bounds.size.height) style:UITableViewStylePlain];
-
     self.tableData = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"情感状况",@"兴趣爱好",@"个性签名" ,nil];
-    NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
-    NSString *nicheng = [usr valueForKey:@"nicheng"];
-    if (!nicheng) {
-        nicheng = [self.infoDic objectForKey:@"NickName"];
-    }
-    NSString *xingbie = [usr valueForKey:@"xingbie"];
-    if (!xingbie) {
-        xingbie = [self.infoDic objectForKey:@"sex"];
-    }
-    NSString *hunyin = [usr valueForKey:@"hunyin"];
-    if (!hunyin) {
-        hunyin = [self.infoDic objectForKey:@"qgzk"];
-    }
-    NSString *aihao = [usr valueForKey:@"aihao"];
-    if (!aihao) {
-        aihao = [self.infoDic objectForKey:@"xqah"];
-    }
-    NSString *qianming = [usr valueForKey:@"qianming"];
-    if (!qianming) {
-        qianming = [self.infoDic objectForKey:@"gxqm"];
-    }
-    NSString *phonto = [usr valueForKey:@"photo"];
-    if (!phonto) {
-        phonto = @"";
-    }
-    _photo = phonto;
-    self.tableDetailData = [NSMutableArray arrayWithObjects:nicheng,xingbie,hunyin,aihao,qianming,nil];
-  //  NSLog(@"%%%%%%%%%%%%%@",self.tableDetailData);
+    self.tableDetailData = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
+    [self downLoadInfo];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -83,12 +57,8 @@ CGRect tableViewCGRect;
     self.tableView.bounces = FALSE;
     self.navigationItem.title = @"个人信息";
     [self.myView addSubview:self.tableView];
-//    tableViewCGRect = self.tableView.frame ;
+    
 }
-//-(void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//}
-
 -(void)downLoadInfo{
     
     NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/getUserInfo";
@@ -100,11 +70,34 @@ CGRect tableViewCGRect;
     XWJAccount *account = [XWJAccount instance];
     [dict setValue:account.uid  forKey:@"id"];
     [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            self.infoDic  = [dict objectForKey:@"data"];
-            NSLog(@"dic++++++ %@",self.infoDic);
+            NSDictionary *dicts = [dict objectForKey:@"data"];
+            NSLog(@"dict:%@",dict);
+            NSString *nickname = [dicts objectForKey:@"NickName"];
+            NSLog(@"==>%@",nickname);
+            if (!nickname) {
+                nickname = @"";
+            }
+            NSString *sex = dicts[@"sex"];
+            if (!sex) {
+                sex = @"";
+            }
+            NSString *qgzk = dicts[@"qgzk"];
+            if ([qgzk isEqual:[NSNull null]]) {
+                qgzk = @"";
+            }
+            NSString *xqah = dicts[@"xqah"];
+            if (!xqah) {
+                xqah = @"";
+            }
+            NSString *gxqm = dicts[@"gxqm"];
+            if (!gxqm) {
+                gxqm = @"";
+            }
+            self.tableDetailData = [NSMutableArray arrayWithObjects:nickname,sex,qgzk,xqah,gxqm,nil];
+            NSLog(@"？？？？dic++++++ %@",self.tableDetailData);
+            imageStr = dicts[@"Photo"];
         }
         [_tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -113,7 +106,6 @@ CGRect tableViewCGRect;
     }];
     
 }
-
 - (IBAction)done:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -135,7 +127,7 @@ CGRect tableViewCGRect;
     }else{
         tableViewCellHeight = NORMALHGIGHT;
     }
-//    NSLog(@"seciton %ld row %ld",(long)indexPath.section,(long)indexPath.row);
+    //    NSLog(@"seciton %ld row %ld",(long)indexPath.section,(long)indexPath.row);
     return tableViewCellHeight;
 }
 
@@ -181,8 +173,8 @@ CGRect tableViewCGRect;
             break;
         default:
             break;
-    } 
-
+    }
+    
     
     UITableViewCell *cell;
     
@@ -191,32 +183,34 @@ CGRect tableViewCGRect;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     }
     
-    // Configure the cell...
-   
-
+    
+    
     cell.textLabel.text = self.tableData[index];
     cell.textLabel.textColor = XWJGRAYCOLOR;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-
+    
     UIView *headerview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width,1)];
     headerview.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
         cell.imageView.image = [UIImage imageNamed:@"mor_icon_default"];
         cell.imageView.frame = CGRectMake(300, 0, 50, 50);
+        
         //从偏好设置中获取图片；
         NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
         NSString *imgBase64 = [usr valueForKey:@"photo"];
+  //      NSLog(@"%@",imgBase64);
         button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,60)];
+        //        //判断有没有图片；
         
-        //判断有没有图片；
-        if (!imgBase64) {
-           [button setBackgroundImage:[UIImage imageNamed:@"avatar180"] forState:UIControlStateNormal];
+        if (!imageStr) {
+            [button setBackgroundImage:[UIImage imageNamed:@"avatar180"] forState:UIControlStateNormal];
         }else{
-            NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:imgBase64 options:0];
+            NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:imageStr options:0];
             UIImage *img = [UIImage imageWithData:nsdataFromBase64String];
             [button setBackgroundImage:img forState:UIControlStateNormal];
+            //            [button setBackgroundImage:[UIImage imageNamed:@"avatar180"] forState:UIControlStateNormal];
             
         }
         button.layer.cornerRadius = 30;
@@ -224,18 +218,14 @@ CGRect tableViewCGRect;
         
         [button addTarget:self  action:@selector(onButtonClick1) forControlEvents:UIControlEventTouchUpInside];
         [cell.imageView addSubview:button];
-
+        _photo = @"";
+        
     }else{
-
-        if (self.tableDetailData.count>0) {
-            cell.detailTextLabel.text = self.tableDetailData[(indexPath.section-1)*4 + indexPath.row];
-        }
-
-      //  if (self.tableDetailData.count == 5) {
-//        }else{
-//            cell.detailTextLabel.text = @"";
-//        }
-
+        //  if (self.tableDetailData.count == 5) {
+        cell.detailTextLabel.text = self.tableDetailData[(indexPath.section-1)*4 + indexPath.row];
+        //        }else{
+        //            cell.detailTextLabel.text = @"";
+        //        }
     }
     
     UIView *footerview = [[UIView alloc] initWithFrame:CGRectMake(0, tableViewCellHeight, self.view.bounds.size.width,1)];
@@ -252,7 +242,7 @@ CGRect tableViewCGRect;
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *account = [usr valueForKey:@"username"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-   
+    
     [dic setValue:self.tableDetailData[0] forKey:@"nickName"];
     [dic setValue:self.tableDetailData[1] forKey:@"sex"];
     [dic setValue:self.tableDetailData[2] forKey:@"qgzk"];
@@ -290,11 +280,7 @@ CGRect tableViewCGRect;
                     [self.tableDetailData replaceObjectAtIndex:0 withObject:str];
                     [usr setObject:str forKey:@"nicheng"];
                     NSLog(@".....%@",str);
-                    
-//                    if (self.sendNickName) {
-//                        self.sendNickName(str);
-//                    }
-                    
+                    NSLog(@"==>%@",self.tableDetailData);
                     [self.tableView reloadData];
                 } failure:^(NSError *error){
                     NSLog(@"%@",error);
@@ -318,7 +304,7 @@ CGRect tableViewCGRect;
                 } failure:^(NSError *error){
                     NSLog(@"%@",error);
                 }];
-
+                
             };
             
             [self.navigationController pushViewController:sex animated:YES ];
@@ -326,37 +312,37 @@ CGRect tableViewCGRect;
         if (indexPath.row == 2) {
             qingganViewController *qinggan = [[qingganViewController alloc]init];
             
-                        qinggan.returnStrBlock = ^(NSString * str){
-            
-                            [self postInfoWithDic:dic FromKey:@"qgzk" object:(id)str success:^(id s) {
-                                //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
-                                NSLog(@"成功%@",s);
-                                [self.tableDetailData replaceObjectAtIndex:2 withObject:str];
-                                [usr setObject:str forKey:@"hunyin"];
-                                [self.tableView reloadData];
-                            } failure:^(NSError *error){
-                                NSLog(@"%@",error);
-                            }];
-                        };
+            qinggan.returnStrBlock = ^(NSString * str){
+                
+                [self postInfoWithDic:dic FromKey:@"qgzk" object:(id)str success:^(id s) {
+                    //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
+                    NSLog(@"成功%@",s);
+                    [self.tableDetailData replaceObjectAtIndex:2 withObject:str];
+                    [usr setObject:str forKey:@"hunyin"];
+                    [self.tableView reloadData];
+                } failure:^(NSError *error){
+                    NSLog(@"%@",error);
+                }];
+            };
             
             [self.navigationController pushViewController:qinggan animated:YES ];
         }
         if (indexPath.row == 3) {
             xignquaihaoViewController *xingquaihao = [[xignquaihaoViewController alloc]init];
             
-                        xingquaihao.returnStrBlock = ^(NSString * str){
-            
-                            [self postInfoWithDic:dic FromKey:@"xqah" object:(id)str success:^(id s) {
-                                //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
-                                NSLog(@"成功%@",s);
-                                [self.tableDetailData replaceObjectAtIndex:3 withObject:str];
-                                [usr setObject:str forKey:@"aihao"];
-                                [self.tableView reloadData];
-                            } failure:^(NSError *error){
-                                NSLog(@"%@",error);
-                            }];
-
-                        };
+            xingquaihao.returnStrBlock = ^(NSString * str){
+                
+                [self postInfoWithDic:dic FromKey:@"xqah" object:(id)str success:^(id s) {
+                    //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
+                    NSLog(@"成功%@",s);
+                    [self.tableDetailData replaceObjectAtIndex:3 withObject:str];
+                    [usr setObject:str forKey:@"aihao"];
+                    [self.tableView reloadData];
+                } failure:^(NSError *error){
+                    NSLog(@"%@",error);
+                }];
+                
+            };
             
             [self.navigationController pushViewController:xingquaihao animated:YES ];
         }
@@ -376,7 +362,7 @@ CGRect tableViewCGRect;
             } failure:^(NSError *error){
                 NSLog(@"%@",error);
             }];
-
+            
         };
         [self.navigationController pushViewController:gexing animated:YES];
     }
@@ -385,7 +371,7 @@ CGRect tableViewCGRect;
 
 
 -(void)onButtonClick1{
-
+    
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"请选择" message:nil preferredStyle:0];
     [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -403,7 +389,7 @@ CGRect tableViewCGRect;
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
-
+    
 }
 -(void)LoadImageWith:(UIImagePickerControllerSourceType)type
 {
@@ -423,20 +409,19 @@ CGRect tableViewCGRect;
     NSString *baseStr = [imageData base64Encoding];
     _imageStr = baseStr;
     //请求成功后显示图片，并添加到缓存池中；
+    _photo = baseStr;
     [self postInfoWithDic:_dict FromKey:@"photo" object:(id)baseStr success:^(id s) {
-        NSLog(@"成功");
+        NSLog(@"成功%@",s);
         NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
         [usr setObject:baseStr forKey:@"photo"];
-        
-//        if(self.sendImageStr){
-//            self.sendImageStr(baseStr);}
+        NSLog(@"qqqq%@",baseStr);
         [button setImage:image forState:UIControlStateNormal];
-
+        
     } failure:^(NSError *error){
         NSLog(@"%@",error);
     }];
     //返回；
-     //  cell.imageView.image = [UIImage imageNamed:@"mor_icon_default"];
+    //  cell.imageView.image = [UIImage imageNamed:@"mor_icon_default"];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -470,8 +455,8 @@ CGRect tableViewCGRect;
             NSLog(@"dic==>%@",dic);
             NSString *result = [dic valueForKey:@"result"];
             if ([result isEqualToString:@"1"]) {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"修改完成" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//                [alert show];
+                //                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"修改完成" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                //                [alert show];
                 [ProgressHUD dismiss];
                 success(responseObject);
             }else{

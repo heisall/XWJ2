@@ -28,7 +28,7 @@
     //    UITextField * textField = (UITextField *)[self.view viewWithTag:1];
     //textF.placeholder = @"请修改建议";
     //    //    设置文本的字体类型和大小
-    textv.font = [UIFont italicSystemFontOfSize:15];
+    //textv.font = [UIFont italicSystemFontOfSize:15];
     //    //    设置字体颜色(默认为黑色)
     //    textField.textColor = [UIColor redColor];
     

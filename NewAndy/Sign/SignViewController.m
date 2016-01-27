@@ -131,7 +131,7 @@
     nameLable.text = self.nickName;
     [cell addSubview:nameLable];
     
-    UIButton* signBtn = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH/2 - 80, CGRectGetMaxY(nameLable.frame) + 10, 160, 30)];
+    UIButton* signBtn = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH/2 - 130, CGRectGetMaxY(nameLable.frame) + 50, 260, 50)];
     [signBtn addTarget:self action:@selector(signBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [signBtn setTitle:self.btnTitleStr forState:UIControlStateNormal];
     [signBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

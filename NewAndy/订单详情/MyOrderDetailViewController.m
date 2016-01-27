@@ -100,7 +100,14 @@
     [self createTableView];
     
     [self createRequest];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popview) name:@"refreshorder" object:nil];
+
 }
+
+-(void)popview{
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
 - (float)isIOS7{
     
     float height;
@@ -377,6 +384,11 @@
         return headView;
     }
     return nil;
+}
+
+-(void)viewDidUnload{
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:@"refreshorder"];
 }
 #pragma mark - 确认收货响应
 - (void)makeSureClick{

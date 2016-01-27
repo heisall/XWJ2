@@ -394,6 +394,8 @@
     
     
     /*
+     @heIsAll 商品详情顶部的图片，使用字段goods_img_small，点击后的图片显示使用字段goods_img
+
      goods =     {
      "default_image" = "http://www.hisenseplus.com/ecmall/data/files/store_4/goods_106/small_201512191645061221.jpg";
      "goods_id" = 4;
@@ -416,11 +418,11 @@
     headerLabel.text = [NSString stringWithFormat:@"(%@人参与评论)",self.commentCount];
     
     if(self.isFromJifen)
-        youhuLabel.text = [NSString stringWithFormat:@"%.1f积分",[[self.goodsDic valueForKey:@"price"]floatValue ]];
+        youhuLabel.text = [NSString stringWithFormat:@"%.2f积分",[[self.goodsDic valueForKey:@"price"]floatValue ]];
     else
-        youhuLabel.text = [NSString stringWithFormat:@"￥ %.1f",[[self.goodsDic valueForKey:@"price"]floatValue ]];
+        youhuLabel.text = [NSString stringWithFormat:@"￥ %.2f",[[self.goodsDic valueForKey:@"price"]floatValue ]];
 
-    shichangjiaLabel.text = [NSString stringWithFormat:@"市场价: ￥%.1f",[[self.goodsDic valueForKey:@"old_price"] floatValue] ];
+    shichangjiaLabel.text = [NSString stringWithFormat:@"市场价: ￥%.2f",[[self.goodsDic valueForKey:@"old_price"] floatValue] ];
     xiaoliangLabel.text = [NSString stringWithFormat:@"销量：%@",[self.goodsDic objectForKey:@"sales"]];
     titleLabel.text = [self.goodsDic objectForKey:@"goods_name"];
 //    simple_desc

@@ -398,12 +398,73 @@
     return [WXApi handleOpenURL:url delegate:self];
 }
 
+-(void)confirmOrder:(NSString *)status :(NSString *)orderId{
+    
+    NSString *url = GETORDERCONFIRM_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict setValue:orderId forKey:@"orderId"];
+    [dict setValue:status forKey:@"status"];
+    
+    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
+    
+    //    [dict setValue:@"1" forKey:@"a_id"];
+    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    /*
+     pageindex	第几页	String,从0开始
+     countperpage	每页条数	String
+     cateId	商户分类	String
+     */
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dict);
+            NSString *res = [ NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
+            //            self.orderArr = [dict objectForKey:@"orders"];
+            if ([res isEqualToString:@"1"]) {
+    
+            }
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
 - (void)onResp:(BaseResp *)resp
 {
     if ([resp isKindOfClass:[PayResp class]]) {
         
         NSString *strTitle = [NSString stringWithFormat:@"支付结果"];
-        NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+        
+        NSString *strMsg;
+        
+        switch (resp.errCode) {
+            case 0:{
+                strMsg = @"支付成功";
+                NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
+                [self confirmOrder:@"30" :orderid];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshorder" object:self userInfo:nil];
+
+//                [NSUserDefaults standardUserDefaults];
+            }
+                break;
+            case -1:
+                strMsg = @"用户取消";
+                 break;
+            default:
+                strMsg = @"支付失败";
+                break;
+        }
+  
+//         = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle
                                                         message:strMsg

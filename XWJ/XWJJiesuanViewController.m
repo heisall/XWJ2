@@ -49,7 +49,7 @@
 
     self.payTableView.dataSource  = self;
     self.payTableView.delegate = self;
-    NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath *path=[NSIndexPath indexPathForItem:1 inSection:0];
     [self.payTableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
     //    self.payTableView.contentSize = CGSizeMake(0, 30+3*60);
     self.shangpinTableView.dataSource  = self;

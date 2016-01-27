@@ -225,6 +225,7 @@
                 return ;
             }
             
+ 
             NSString *url;
             if ([self.store valueForKey:@"store_banner"] ==[NSNull null]){
                 url = @"";

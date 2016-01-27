@@ -634,6 +634,7 @@
 {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
     [footer.textLabel setTextColor:XWJGREENCOLOR];
+    footer.textLabel.font = [UIFont fontWithName:@"Arial" size:14.0];
 }
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     //    if(section ==1){

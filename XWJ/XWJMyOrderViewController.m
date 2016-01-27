@@ -81,6 +81,12 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     }];    // Do any additional setup after loading the view.
     
     [WXApi registerApp:@"wx706df433748af20c" withDescription:@"demo 2.0"];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(get30Pay) name:@"refreshorder" object:nil];
+
+//    [[NSNotificationCenter defaultCenter] addObserver:(nonnull id) selector:<#(nonnull SEL)#> name:<#(nullable NSString *)#> object:(nullable id):@"refreshorder" object:self userInfo:nil];
+
 }
 #pragma mark - 订单列表删除订单
 - (void)delegateMyOrder:(NSInteger)index{
@@ -362,6 +368,13 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     
 }
 
+-(void)get30Pay{
+//    [[NSUserDefaults standardUserDefaults] setValue:orderid forKey:@"orderid"];
+//        NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
+//        [self confirmOrder:@"30" :orderid];
+    [self getOrderList:@"11"];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (2 == self.index) {
         return self.dataSourceArr.count;
@@ -410,6 +423,10 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+-(void)viewDidUnload{
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:@"refreshorder"];
 }
 #pragma mark - 评论代理实现
 - (void)pinglun:(NSInteger)index{
@@ -589,6 +606,8 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                   self.appid = dict[@"appid"];
                   self.parterid = dict[@"mch_id"];
                   [self getWeChatPay];
+                  [[NSUserDefaults standardUserDefaults] setValue:orderid forKey:@"orderid"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"失败===%@", error);

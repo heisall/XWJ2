@@ -153,10 +153,10 @@
 //            [btn setTitleEdgeInsets:UIEdgeInsetsMake(70, -25, 0, 0)];
 //            
 //        }
+    
         if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 plus"]) {
-            
             [btn setImageEdgeInsets:UIEdgeInsetsMake(15, 25, 0, 0)];
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(70, -28, 0, 0)];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(90, -28, 0, 0)];
         }else{
             [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];

@@ -206,15 +206,12 @@ CGRect tableViewCGRect;
         [cell.contentView addSubview:imageView];
         [imageView sd_setImageWithURL:[NSURL URLWithString:imageStr]placeholderImage:[UIImage imageNamed:@"mor_icon_default"]];
         
-        //        NSLog(@"%f===%f",cell.imageView.frame.size.width,cell.imageView.frame.size.height);
+        
         imageView.layer.masksToBounds = YES;
         imageView.layer.cornerRadius = 30;
     }else{
-        //  if (self.tableDetailData.count == 5) {
+        
         cell.detailTextLabel.text = self.tableDetailData[(indexPath.section-1)*4 + indexPath.row];
-        //        }else{
-        //            cell.detailTextLabel.text = @"";
-        //        }
     }
     
     UIView *footerview = [[UIView alloc] initWithFrame:CGRectMake(0, tableViewCellHeight, self.view.bounds.size.width,1)];

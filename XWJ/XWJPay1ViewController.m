@@ -24,6 +24,7 @@
     [super viewDidLoad];
 //    [self headAD];
 //    [self getZhangDan];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [self getGuanjiaAD ];
     self.payListArr = [[NSMutableArray alloc]init];
@@ -203,9 +204,23 @@
     // Configure the cell...
 //    cell.headImageView.image = [UIImage imageNamed:@"xinfangbackImg"];
     
+
     
 //    cell.imageView.image = [UIImage imageNamed:@"wuyezhangdan1"];
 //    cell.imageView.highlightedImage = [UIImage imageNamed:@"wuyezhangdan2"];
+
+  ////重要标记下面两行
+//    cell.imageView.image = [UIImage imageNamed:@"wuyezhangdan1"];
+//    cell.imageView.highlightedImage = [UIImage imageNamed:@"wuyezhangdan2"];
+//    cell.label1.text = [self.payListArr[indexPath.row] objectForKey:@"t_date"];
+//    cell.label1.text = @"2012.5";
+//    cell.label2.text = @"物业费";
+//    cell.label3.text = @"2000.10";
+//    cell.label4.text = @"水电费";
+//    cell.label5.text = @"1999.10";
+//    cell.label6.text = @"1999.10";
+//    cell.label7.text = @"1999.10";
+
 
     /*
      "a_id" = 1;

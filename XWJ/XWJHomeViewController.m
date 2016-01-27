@@ -80,6 +80,7 @@ NSArray *footer;
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJHomeCollectionCell3" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier1];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJHomeCollectionCell4" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier4];
+    
 
     self.shows = [NSMutableArray array];
     self.notices = [NSMutableArray array];

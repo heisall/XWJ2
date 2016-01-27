@@ -27,6 +27,7 @@
 #import "XWJAddressController.h"
 #import "XWJAccount.h"
 
+
 #define  CELL_HEIGHT 30.0
 #define  COLLECTION_NUMSECTIONS 2
 #define  COLLECTION_NUMITEMS 4

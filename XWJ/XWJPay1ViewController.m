@@ -95,11 +95,12 @@
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            NSLog(@"dic********rr %@",dic);
             
             
             self.roomDic = [dic objectForKey:@"room"];
              NSLog(@"dic %@",self.roomDic);
+//            [self.userImageView sd_setImageWithURL:[NSURL URLWithString:[self.dicuser objectForKey:@"Photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
             if([XWJAccount instance].isYouke){
 
             }else{

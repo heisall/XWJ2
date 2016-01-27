@@ -20,6 +20,9 @@
 
 #import "MyOrderDetailViewController.h"
 
+#import "ReturnIP.h"
+#import "WXApi.h"
+#import "CommonUtil.h"
 @interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate,MyOrderDetailViewControllerDelegate,XWJOrderTableViewCellDelegate>
 
 @property NSMutableArray *btn;
@@ -34,19 +37,34 @@
 @property(nonatomic,copy)NSString* deleOrderId;
 @property(nonatomic,assign)NSInteger deleOrderNum;
 @property(nonatomic,retain)NSMutableArray* dataSourceArr;
+
+
+
+@property(nonatomic,copy)NSString* ipStr;
+@property(nonatomic,copy)NSString* prePayIdStr;
+@property(nonatomic,copy)NSString* myNoncestr;
+@property(nonatomic,copy)NSString* apikeystr;
+@property(nonatomic,copy)NSString* appid;
+@property(nonatomic,copy)NSString* parterid;
 @end
+
+/** 获取prePayId的url, 这是官方给的接口 */
+NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedorder";
 
 @implementation XWJMyOrderViewController
 @synthesize statusDic;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.ipStr = [ReturnIP deviceIPAdress];
+    
     self.dataSourceArr = [[NSMutableArray alloc] init];
     self.orderArr = [[NSMutableArray alloc] init];
     self.navigationItem.title  = @"我的订单";
     self.status = [NSArray arrayWithObjects:@"11",@"30",@"40", nil];
     statusDic = [NSDictionary dictionaryWithObjectsAndKeys:@"待付款",@"11",@"待收货",@"30",@"待评价",@"40", nil];
-
+    
     //默认当前选中按钮是第0个
     [self addView];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCell" bundle:nil] forCellReuseIdentifier:@"cell"];
@@ -61,6 +79,8 @@
         
         [self getOrderList:[self.status objectAtIndex:self.index]];
     }];    // Do any additional setup after loading the view.
+    
+    [WXApi registerApp:@"wx706df433748af20c" withDescription:@"demo 2.0"];
 }
 #pragma mark - 订单列表删除订单
 - (void)delegateMyOrder:(NSInteger)index{
@@ -94,7 +114,7 @@
     NSString *url = GETORDERCONFIRM_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-
+    
     [dict setValue:orderId forKey:@"orderId"];
     [dict setValue:status forKey:@"status"];
     
@@ -116,17 +136,17 @@
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dict);
             NSString *res = [ NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
-//            self.orderArr = [dict objectForKey:@"orders"];
+            //            self.orderArr = [dict objectForKey:@"orders"];
             if ([res isEqualToString:@"1"]) {
                 
                 if ([status isEqualToString:@"30"]) {
-
+                    
                     [self getOrderList:@"11"];
                 }else if([status isEqualToString:@"40"]){
                     [self getOrderList:@"30"];
                 }
             }
-
+            
         }
         
         
@@ -331,15 +351,17 @@
     
     NSInteger index = btn.tag;
     if(self.index==1){
-    //确认收货
+        //确认收货
         NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:index] valueForKey:@"order_id"]] ;
         [self confirmOrder:@"40" :oid];
     }else if(self.index==0){
         NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:index] valueForKey:@"order_id"]] ;
-        [self confirmOrder:@"30" :oid];
+        //        [self confirmOrder:@"30" :oid];
+        [self createPayRequest:oid];
     }
     
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (2 == self.index) {
         return self.dataSourceArr.count;
@@ -408,16 +430,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (2 == self.index) {
-//        UIImageView* temIV = [[UIImageView alloc] init];
-//        
-//        OrderFinishModel* model = self.dataSourceArr[indexPath.row];
-//        [temIV sd_setImageWithURL:[NSURL URLWithString:model.headImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
-//        [UMSocialSnsService presentSnsIconSheetView:self
-//                                             appKey:@"56938a23e0f55aac1d001cb6"
-//                                          shareText:model.titleStr
-//                                         shareImage:temIV.image
-//                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
-//                                           delegate:self];
+        //        UIImageView* temIV = [[UIImageView alloc] init];
+        //
+        //        OrderFinishModel* model = self.dataSourceArr[indexPath.row];
+        //        [temIV sd_setImageWithURL:[NSURL URLWithString:model.headImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
+        //        [UMSocialSnsService presentSnsIconSheetView:self
+        //                                             appKey:@"56938a23e0f55aac1d001cb6"
+        //                                          shareText:model.titleStr
+        //                                         shareImage:temIV.image
+        //                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
+        //                                           delegate:self];
+        
     }else{
         NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:indexPath.section] objectForKey:@"detail"];
         MyOrderDetailViewController* vc = [[MyOrderDetailViewController alloc] init];
@@ -542,6 +565,129 @@
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"失败===%@", error);
          }];
+}
+
+
+#pragma mark - 数据请求
+- (void)createPayRequest:(NSString*)orderid{
+    NSLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
+    NSString* requestAddress = GETPAYINFO;
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:requestAddress parameters:@{
+                                              @"orderId":orderid,
+                                              @"ip":self.ipStr
+                                              }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"成功-----%@",responseObject);
+              if ([responseObject[@"result"] intValue]) {
+                  NSDictionary* dict = responseObject[@"data"];
+                  self.prePayIdStr = dict[@"prepay_id"];
+                  NSLog(@"-----预订单----%@",self.prePayIdStr);
+                  self.myNoncestr = dict[@"nonce_str"];
+                  self.apikeystr = dict[@"apiKey"];
+                  self.appid = dict[@"appid"];
+                  self.parterid = dict[@"mch_id"];
+                  [self getWeChatPay];
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"失败===%@", error);
+          }];
+}
+
+
+// 调起微信支付，传进来商品名称和价格
+- (void)getWeChatPay{
+    NSString *prePayid;
+    prePayid = self.prePayIdStr;
+    //---------------------------获取prePayId结束------------------------------
+    
+    if(prePayid){
+        NSString *timeStamp = [self genTimeStamp];
+        // 调起微信支付
+        PayReq *request = [[PayReq alloc] init];
+        request.partnerId = self.parterid;
+        request.prepayId = prePayid;
+        request.package = @"Sign=WXPay";
+        request.nonceStr = self.myNoncestr;
+        request.timeStamp = [timeStamp intValue];
+        
+        // 这里要注意key里的值一定要填对， 微信官方给的参数名是错误的，不是第二个字母大写
+        NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
+        [signParams setObject: self.appid               forKey:@"appid"];
+        [signParams setObject: self.parterid           forKey:@"partnerid"];
+        [signParams setObject: request.nonceStr      forKey:@"noncestr"];
+        [signParams setObject: request.package       forKey:@"package"];
+        [signParams setObject: timeStamp             forKey:@"timestamp"];
+        [signParams setObject: request.prepayId      forKey:@"prepayid"];
+        //生成签名
+        NSString *sign  = [self genSign:signParams];
+        //添加签名
+        request.sign = sign;
+        [WXApi sendReq:request];
+    } else{
+        NSLog(@"*************7*********获取prePayId失败！");
+    }
+}
+#pragma mark - 生成各种参数
+
+- (NSString *)genTimeStamp
+{
+    return [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+}
+
+/**
+ * 注意：商户系统内部的订单号,32个字符内、可包含字母,确保在商户系统唯一
+ */
+- (NSString *)genNonceStr
+{
+    return [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]];
+}
+
+/**
+ * 建议 traceid 字段包含用户信息及订单信息，方便后续对订单状态的查询和跟踪
+ */
+- (NSString *)genTraceId
+{
+    return [NSString stringWithFormat:@"myt_%@", [self genTimeStamp]];
+}
+
+- (NSString *)genOutTradNo
+{
+    return [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]];
+}
+
+#pragma mark - 签名
+/** 签名 */
+- (NSString *)genSign:(NSDictionary *)signParams
+{
+    // 排序, 因为微信规定 ---> 参数名ASCII码从小到大排序
+    NSArray *keys = [signParams allKeys];
+    NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2 options:NSNumericSearch];
+    }];
+    
+    //生成 ---> 微信规定的签名格式
+    NSMutableString *sign = [NSMutableString string];
+    for (NSString *key in sortedKeys) {
+        [sign appendString:key];
+        [sign appendString:@"="];
+        [sign appendString:[signParams objectForKey:key]];
+        [sign appendString:@"&"];
+    }
+    NSString *signString = [[sign copy] substringWithRange:NSMakeRange(0, sign.length - 1)];
+    
+    // 拼接API密钥
+    NSString *result = [NSString stringWithFormat:@"%@&key=%@", signString, self.apikeystr];
+    // 打印检查
+    NSLog(@"*********1***********result = %@", result);
+    // md5加密
+    NSString *signMD5 = [CommonUtil md5:result];
+    // 微信规定签名英文大写
+    signMD5 = signMD5.uppercaseString;
+    // 打印检查
+    NSLog(@"*********2***********signMD5 = %@", signMD5);
+    return signMD5;
 }
 
 - (void)didReceiveMemoryWarning {

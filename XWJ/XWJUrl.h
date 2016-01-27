@@ -143,5 +143,6 @@
 //jifen
 #define GETJIFEN_URL  XWJBASEURL"order/scoreGoodsList"
 #define JIFENDUIHUAN_URL  XWJBASEURL"order/directBuy"
-
+//获取支付信息
+#define GETPAYINFO  XWJBASEURL"order/perPay"
 #endif /* XWJUrl_h */

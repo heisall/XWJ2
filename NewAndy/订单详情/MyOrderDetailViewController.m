@@ -30,10 +30,9 @@
 
 #import "XWJUrl.h"
 
-#import "payRequsestHandler.h"
-
+#import "ReturnIP.h"
 #import "WXApi.h"
-
+#import "CommonUtil.h"
 #define IOS7   [[UIDevice currentDevice]systemVersion].floatValue>=7.0
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 #define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
@@ -62,6 +61,13 @@
 @property(nonatomic,copy)NSString* allGoodsPriceStr;
 @property(nonatomic,copy)NSString* shangjiaHeadImageStr;
 @property(nonatomic,copy)NSString* shangjiaTitleStr;
+
+@property(nonatomic,copy)NSString* ipStr;
+@property(nonatomic,copy)NSString* prePayIdStr;
+@property(nonatomic,copy)NSString* myNoncestr;
+@property(nonatomic,copy)NSString* apikeystr;
+@property(nonatomic,copy)NSString* appid;
+@property(nonatomic,copy)NSString* parterid;
 @end
 
 @implementation MyOrderDetailViewController
@@ -84,10 +90,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"我的订单";
-    
+    [WXApi registerApp:@"wx706df433748af20c" withDescription:@"demo 2.0"];
     self.dataSourceArr = [[NSMutableArray alloc] init];
     self.dataSourceArr1 = [[NSMutableArray alloc] init];
     self.dataSourceArr2 = [[NSMutableArray alloc] init];
+    
+    self.ipStr = [ReturnIP deviceIPAdress];
     
     [self createTableView];
     
@@ -378,7 +386,7 @@
 #pragma mark - 立即付款响应
 - (void)payClick{
     NSLog(@"立即付款");
-    [self wxpay];
+    [self createPayRequest:self.orderId];
 }
 #pragma mark - 删除订单响应
 - (void)deleClick{
@@ -538,151 +546,127 @@
              NSLog(@"失败===%@", error);
          }];
 }
-
-//微信支付
-- (void)wxpay {
-    /*********这些常量应该放到一个文件中  或者定义为全局静态变量  在这仅仅是为了懒***********/
-    //商户号
-    NSString *PARTNER_ID    = @"2088211414819706";
-    //商户密钥
-    NSString *PARTNER_KEY   = @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJ1NVSHqbNkEJXrI0/GIrpQ/yDml2uFDEXnNdADR6P8H8o3seUMHJM4m7kw7KxOlt2QSd37VEaHXRW1R2x6P65Kh995PRn3RZyRHqO1OAjxaL7Vzp7O6BsOKmh8/Pw4bxiydzSZT0e2YlA5f9jvFHZ4dUdEvyFc5H8+xiqPR0VZPAgMBAAECgYEAk8VYGlpdEqmgg+4xnI9oYYBhmjZCnqcgvanSNgr7tMlEhSsG537Ihplv91EGMJjW5T2r4AxNWhoe8ImbLOTKySXv4n4YUe4zAjS7H/OLhZXVYbAZK0Kgz4XRUON2MlW8s3wx0CtJFIkb2ajZEtmmLaRVAjQTyGTgi1NYEy/ih7ECQQDQSEHt+xTN4J1MaL77p6zzYxS/PrUzWLKxDzN69BKSemL4YGoCXqN4va3ka/Iqaz4YI7LeJ4a1ajbPQTqRIoRzAkEAwVcXMeewijhpKQ0dvHrfXYGKxL+AugH5+BW5m6nSfum70iCuhnP/Ru49zQDe3sLgpV+5CeidhC3zFS9UPvRLtQJBAJu56tFsMRndHr7KckDmFUHEivaShBhn8PLBUtRTOK+cIfNi4t/ysnbMGv/2VZGxrTOPPWUsWGO7jk9XjdqF3FECQBqA7dURhcns4b2W5rSnw2b2EyfVeLgG/VVc5QzJwulS8URk5ofX7u6yShaIQAUZgeIptRv+n1k3U1NcIZhftOECQDo7Lo/8/I8zUwH+T6bFV98EtiVYiiHcNFvErr/9McBRkATkiU8DUuHLxeWBfUVH9ixGUjOSCLOu6iZkHggDV4I=";
-    //APPID
-    NSString *APPI_ID       = @"wx869e417c4c31b315";
-    //appsecret
-    NSString *APP_SECRET	= @"5d7d1ace07d9a184814d85ede50ecd84";
-    //支付密钥
-    NSString *APP_KEY       = @"L8LrMqqeGRxST5reouB0K66CaYAWpqhAVsq7ggKkxHCOastWksvuX1uvmvQclxaHoYd3ElNBrNO2DHnnzgfVG9Qs473M3DTOZug5er46FhuGofumV8H2FVR9qkjSlC5K";
-    
-    //支付结果回调页面
-    NSString *NOTIFY_URL    = @"http://localhost/pay/wx/notify_url.asp";
-    //订单标题
-    NSString *ORDER_NAME    = @"Ios客户端签名支付 测试";
-    //订单金额,单位（分）
-    NSString *ORDER_PRICE   = @"1";
-    
-    //创建支付签名对象
-    payRequsestHandler *req = [payRequsestHandler alloc];
-    //初始化支付签名对象
-    [req init:APPI_ID app_secret:APP_SECRET partner_key:PARTNER_KEY app_key:APP_KEY];
-    
-    //判断Token过期时间，10分钟内不重复获取,测试帐号多个使用，可能造成其他地方获取后不能用，需要即时获取
-    time_t  now;
-    time(&now);
-    //if ( (now - token_time) > 0 )//非测试帐号调试请启用该条件判断
-    {
-        //获取Token
-        Token                   = [req GetToken];
-        //设置Token有效期为10分钟
-        token_time              = now + 600;
-        //日志输出
-        NSLog(@"获取Token： %@\n",[req getDebugifo]);
-    }
-    if ( Token != nil){
-        //================================
-        //预付单参数订单设置
-        //================================
-        NSMutableDictionary *packageParams = [NSMutableDictionary dictionary];
-        [packageParams setObject: @"WX"                                             forKey:@"bank_type"];
-        [packageParams setObject: ORDER_NAME                                        forKey:@"body"];
-        [packageParams setObject: @"1"                                              forKey:@"fee_type"];
-        [packageParams setObject: @"UTF-8"                                          forKey:@"input_charset"];
-        [packageParams setObject: NOTIFY_URL                                        forKey:@"notify_url"];
-        [packageParams setObject: [NSString stringWithFormat:@"%ld",time(0)]        forKey:@"out_trade_no"];
-        [packageParams setObject: PARTNER_ID                                        forKey:@"partner"];
-        [packageParams setObject: @"196.168.1.1"                                    forKey:@"spbill_create_ip"];
-        [packageParams setObject: ORDER_PRICE                                       forKey:@"total_fee"];
-        
-        NSString    *package, *time_stamp, *nonce_str, *traceid;
-        //获取package包
-        package		= [req genPackage:packageParams];
-        
-        //输出debug info
-        NSString *debug     = [req getDebugifo];
-        NSLog(@"gen package: %@\n",package);
-        NSLog(@"生成package: %@\n",debug);
-        
-        //设置支付参数
-        time_stamp  = [NSString stringWithFormat:@"%ld", now];
-        nonce_str	= [TenpayUtil md5:time_stamp];
-        traceid		= @"mytestid_001";
-        NSMutableDictionary *prePayParams = [NSMutableDictionary dictionary];
-        [prePayParams setObject: APPI_ID                                            forKey:@"appid"];
-        [prePayParams setObject: APP_KEY                                            forKey:@"appkey"];
-        [prePayParams setObject: nonce_str                                          forKey:@"noncestr"];
-        [prePayParams setObject: package                                            forKey:@"package"];
-        [prePayParams setObject: time_stamp                                         forKey:@"timestamp"];
-        [prePayParams setObject: traceid                                            forKey:@"traceid"];
-        
-        //生成支付签名
-        NSString    *sign;
-        sign		= [req createSHA1Sign:prePayParams];
-        //增加非参与签名的额外参数
-        [prePayParams setObject: @"sha1"                                            forKey:@"sign_method"];
-        [prePayParams setObject: sign                                               forKey:@"app_signature"];
-        
-        //获取prepayId
-        NSString *prePayid;
-        prePayid            = [req sendPrepay:prePayParams];
-        //输出debug info
-        debug               = [req getDebugifo];
-        NSLog(@"提交预付单： %@\n",debug);
-        
-        if ( prePayid != nil) {
-            //重新按提交格式组包，微信客户端5.0.3以前版本只支持package=Sign=***格式，须考虑升级后支持携带package具体参数的情况
-            //package       = [NSString stringWithFormat:@"Sign=%@",package];
-            package         = @"Sign=WXPay";
-            //签名参数列表
-            NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
-            [signParams setObject: APPI_ID                                          forKey:@"appid"];
-            [signParams setObject: APP_KEY                                          forKey:@"appkey"];
-            [signParams setObject: nonce_str                                        forKey:@"noncestr"];
-            [signParams setObject: package                                          forKey:@"package"];
-            [signParams setObject: PARTNER_ID                                       forKey:@"partnerid"];
-            [signParams setObject: time_stamp                                       forKey:@"timestamp"];
-            [signParams setObject: prePayid                                         forKey:@"prepayid"];
-            
-            //生成签名
-            sign		= [req createSHA1Sign:signParams];
-            
-            //输出debug info
-            debug     = [req getDebugifo];
-            NSLog(@"调起支付签名： %@\n",debug);
-            
-            //调起微信支付
-            PayReq* req = [[PayReq alloc] init];
-            req.openID      = APPI_ID;
-            req.partnerId   = PARTNER_ID;
-            req.prepayId    = prePayid;
-            req.nonceStr    = nonce_str;
-            req.timeStamp   = now;
-            req.package     = package;
-            req.sign        = sign;
-            [WXApi sendReq:req];
-        }else{
-            /*long errcode = [req getLasterrCode];
-             if ( errcode == 40001 )
-             {//Token实效，重新获取
-             Token                   = [req GetToken];
-             token_time              = now + 600;
-             NSLog(@"获取Token： %@\n",[req getDebugifo]);
-             };*/
-            NSLog(@"获取prepayid失败\n");
-            [self alert:@"提示信息" msg:debug];
-        }
-    }else{
-        NSLog(@"获取Token失败\n");
-        [self alert:@"提示信息" msg:@"获取Token失败"];
-    }
+#pragma mark - 数据请求
+- (void)createPayRequest:(NSString*)orderid{
+    NSLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
+    NSString* requestAddress = GETPAYINFO;
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:requestAddress parameters:@{
+                                              @"orderId":orderid,
+                                              @"ip":self.ipStr
+                                              }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"成功-----%@",responseObject);
+              if ([responseObject[@"result"] intValue]) {
+                  NSDictionary* dict = responseObject[@"data"];
+                  self.prePayIdStr = dict[@"prepay_id"];
+                  NSLog(@"-----预订单----%@",self.prePayIdStr);
+                  self.myNoncestr = dict[@"nonce_str"];
+                  self.apikeystr = dict[@"apiKey"];
+                  self.appid = dict[@"appid"];
+                  self.parterid = dict[@"mch_id"];
+                  [self getWeChatPay];
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"失败===%@", error);
+          }];
 }
 
-//客户端提示信息
-- (void)alert:(NSString *)title msg:(NSString *)msg
+
+// 调起微信支付，传进来商品名称和价格
+- (void)getWeChatPay{
+    NSString *prePayid;
+    prePayid = self.prePayIdStr;
+    //---------------------------获取prePayId结束------------------------------
+    
+    if(prePayid){
+        NSString *timeStamp = [self genTimeStamp];
+        // 调起微信支付
+        PayReq *request = [[PayReq alloc] init];
+        request.partnerId = self.parterid;
+        request.prepayId = prePayid;
+        request.package = @"Sign=WXPay";
+        request.nonceStr = self.myNoncestr;
+        request.timeStamp = [timeStamp intValue];
+        
+        // 这里要注意key里的值一定要填对， 微信官方给的参数名是错误的，不是第二个字母大写
+        NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
+        [signParams setObject: self.appid               forKey:@"appid"];
+        [signParams setObject: self.parterid           forKey:@"partnerid"];
+        [signParams setObject: request.nonceStr      forKey:@"noncestr"];
+        [signParams setObject: request.package       forKey:@"package"];
+        [signParams setObject: timeStamp             forKey:@"timestamp"];
+        [signParams setObject: request.prepayId      forKey:@"prepayid"];
+        //生成签名
+        NSString *sign  = [self genSign:signParams];
+        //添加签名
+        request.sign = sign;
+        [WXApi sendReq:request];
+    } else{
+        NSLog(@"*************7*********获取prePayId失败！");
+    }
+}
+#pragma mark - 生成各种参数
+
+- (NSString *)genTimeStamp
 {
-    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-    [alter show];
+    return [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
 }
 
+/**
+ * 注意：商户系统内部的订单号,32个字符内、可包含字母,确保在商户系统唯一
+ */
+- (NSString *)genNonceStr
+{
+    return [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]];
+}
+
+/**
+ * 建议 traceid 字段包含用户信息及订单信息，方便后续对订单状态的查询和跟踪
+ */
+- (NSString *)genTraceId
+{
+    return [NSString stringWithFormat:@"myt_%@", [self genTimeStamp]];
+}
+
+- (NSString *)genOutTradNo
+{
+    return [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]];
+}
+
+#pragma mark - 签名
+/** 签名 */
+- (NSString *)genSign:(NSDictionary *)signParams
+{
+    // 排序, 因为微信规定 ---> 参数名ASCII码从小到大排序
+    NSArray *keys = [signParams allKeys];
+    NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2 options:NSNumericSearch];
+    }];
+    
+    //生成 ---> 微信规定的签名格式
+    NSMutableString *sign = [NSMutableString string];
+    for (NSString *key in sortedKeys) {
+        [sign appendString:key];
+        [sign appendString:@"="];
+        [sign appendString:[signParams objectForKey:key]];
+        [sign appendString:@"&"];
+    }
+    NSString *signString = [[sign copy] substringWithRange:NSMakeRange(0, sign.length - 1)];
+    
+    // 拼接API密钥
+    NSString *result = [NSString stringWithFormat:@"%@&key=%@", signString, self.apikeystr];
+    // 打印检查
+    NSLog(@"*********1***********result = %@", result);
+    // md5加密
+    NSString *signMD5 = [CommonUtil md5:result];
+    // 微信规定签名英文大写
+    signMD5 = signMD5.uppercaseString;
+    // 打印检查
+    NSLog(@"*********2***********signMD5 = %@", signMD5);
+    return signMD5;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

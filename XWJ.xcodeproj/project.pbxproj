@@ -27,10 +27,6 @@
 		212697501C4777CC00F5DF7D /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126973F1C4777CC00F5DF7D /* IQToolbar.m */; };
 		212697511C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697411C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m */; };
 		212697521C4777CC00F5DF7D /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 212697441C4777CC00F5DF7D /* IQKeyboardManager.bundle */; };
-		2126975E1C47823600F5DF7D /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 212697561C47823600F5DF7D /* payRequsestHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		2126975F1C47823600F5DF7D /* TenpayUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 212697581C47823600F5DF7D /* TenpayUtil.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		212697601C47823600F5DF7D /* WXPayXRQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126975C1C47823600F5DF7D /* WXPayXRQViewController.m */; };
-		212697651C47863900F5DF7D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 212697611C47863900F5DF7D /* libWeChatSDK.a */; };
 		219CCB441C45DD8E00791D9E /* JKNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB401C45DD8E00791D9E /* JKNotifier.m */; };
 		219CCB451C45DD8E00791D9E /* JKNotifier_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */; };
 		219CCB461C45DD8E00791D9E /* JKNotifierBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB431C45DD8E00791D9E /* JKNotifierBar.m */; };
@@ -224,6 +220,9 @@
 		A44290D91C32D6B6008816B3 /* XWJHomeCollectionCell4.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44290D81C32D6B6008816B3 /* XWJHomeCollectionCell4.xib */; };
 		A4462E641C2EE365004361BB /* XWJSPDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4462E631C2EE365004361BB /* XWJSPDetailTableViewCell.m */; };
 		A4462E661C2EE37F004361BB /* XWJSPDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4462E651C2EE37F004361BB /* XWJSPDetail.xib */; };
+		A448762F1C5853DC004FBC09 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A44876281C5853DC004FBC09 /* CommonUtil.m */; };
+		A44876301C5853DC004FBC09 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A44876291C5853DC004FBC09 /* libWeChatSDK.a */; };
+		A44876311C5853DC004FBC09 /* ReturnIP.m in Sources */ = {isa = PBXBuildFile; fileRef = A448762B1C5853DC004FBC09 /* ReturnIP.m */; };
 		A459474C1C2CB34D00DD8A2E /* XWJShangmenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459474B1C2CB34D00DD8A2E /* XWJShangmenViewController.m */; };
 		A45DCC031C446BC7001543CE /* XWJAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45DCC021C446BC7001543CE /* XWJAddressController.m */; };
 		A45DCC061C446C4E001543CE /* XWJAddAdrController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45DCC051C446C4E001543CE /* XWJAddAdrController.m */; };
@@ -455,16 +454,6 @@
 		212697411C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
 		212697421C4777CC00F5DF7D /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
 		212697441C4777CC00F5DF7D /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
-		212697551C47823600F5DF7D /* payRequsestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payRequsestHandler.h; sourceTree = "<group>"; };
-		212697561C47823600F5DF7D /* payRequsestHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = payRequsestHandler.mm; sourceTree = "<group>"; };
-		212697571C47823600F5DF7D /* TenpayUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenpayUtil.h; sourceTree = "<group>"; };
-		212697581C47823600F5DF7D /* TenpayUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TenpayUtil.mm; sourceTree = "<group>"; };
-		2126975B1C47823600F5DF7D /* WXPayXRQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPayXRQViewController.h; sourceTree = "<group>"; };
-		2126975C1C47823600F5DF7D /* WXPayXRQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXPayXRQViewController.m; sourceTree = "<group>"; };
-		212697611C47863900F5DF7D /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		212697621C47863900F5DF7D /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
-		212697631C47863900F5DF7D /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		212697641C47863900F5DF7D /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		219CCB3F1C45DD8E00791D9E /* JKNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNotifier.h; sourceTree = "<group>"; };
 		219CCB401C45DD8E00791D9E /* JKNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNotifier.m; sourceTree = "<group>"; };
 		219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JKNotifier_default_icon@2x.png"; sourceTree = "<group>"; };
@@ -800,6 +789,14 @@
 		A4462E621C2EE365004361BB /* XWJSPDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSPDetailTableViewCell.h; sourceTree = "<group>"; };
 		A4462E631C2EE365004361BB /* XWJSPDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSPDetailTableViewCell.m; sourceTree = "<group>"; };
 		A4462E651C2EE37F004361BB /* XWJSPDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJSPDetail.xib; sourceTree = "<group>"; };
+		A44876271C5853DC004FBC09 /* CommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtil.h; sourceTree = "<group>"; };
+		A44876281C5853DC004FBC09 /* CommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtil.m; sourceTree = "<group>"; };
+		A44876291C5853DC004FBC09 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		A448762A1C5853DC004FBC09 /* ReturnIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnIP.h; sourceTree = "<group>"; };
+		A448762B1C5853DC004FBC09 /* ReturnIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnIP.m; sourceTree = "<group>"; };
+		A448762C1C5853DC004FBC09 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		A448762D1C5853DC004FBC09 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		A448762E1C5853DC004FBC09 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		A459474A1C2CB34D00DD8A2E /* XWJShangmenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJShangmenViewController.h; sourceTree = "<group>"; };
 		A459474B1C2CB34D00DD8A2E /* XWJShangmenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJShangmenViewController.m; sourceTree = "<group>"; };
 		A45DCC011C446BC7001543CE /* XWJAddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJAddressController.h; sourceTree = "<group>"; };
@@ -1135,7 +1132,7 @@
 				A43811061C244DFB001D2F29 /* libsqlite3.tbd in Frameworks */,
 				EC9518C31C4540CD00AEA7E5 /* libPushSDK.a in Frameworks */,
 				DA20AE021BFB5694002032D1 /* libstdc++.tbd in Frameworks */,
-				212697651C47863900F5DF7D /* libWeChatSDK.a in Frameworks */,
+				A44876301C5853DC004FBC09 /* libWeChatSDK.a in Frameworks */,
 				EC9518B61C4540C400AEA7E5 /* libSocialWechat.a in Frameworks */,
 				EC9518AC1C4540C400AEA7E5 /* libUMSocial_Sdk_4.4.a in Frameworks */,
 				DA20ADFC1BFB5674002032D1 /* libz.tbd in Frameworks */,
@@ -1229,23 +1226,6 @@
 				212697441C4777CC00F5DF7D /* IQKeyboardManager.bundle */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		212697531C47823600F5DF7D /* 微信_支付 */ = {
-			isa = PBXGroup;
-			children = (
-				212697611C47863900F5DF7D /* libWeChatSDK.a */,
-				212697621C47863900F5DF7D /* WechatAuthSDK.h */,
-				212697631C47863900F5DF7D /* WXApi.h */,
-				212697641C47863900F5DF7D /* WXApiObject.h */,
-				212697551C47823600F5DF7D /* payRequsestHandler.h */,
-				212697561C47823600F5DF7D /* payRequsestHandler.mm */,
-				212697571C47823600F5DF7D /* TenpayUtil.h */,
-				212697581C47823600F5DF7D /* TenpayUtil.mm */,
-				2126975B1C47823600F5DF7D /* WXPayXRQViewController.h */,
-				2126975C1C47823600F5DF7D /* WXPayXRQViewController.m */,
-			);
-			path = "微信_支付";
 			sourceTree = "<group>";
 		};
 		219CCB3E1C45DD8E00791D9E /* JKNotifier */ = {
@@ -1776,6 +1756,21 @@
 				A41A1FE91C26E236002129DF /* XWJWebViewController.m */,
 			);
 			name = guanjia;
+			sourceTree = "<group>";
+		};
+		A44876261C5853DC004FBC09 /* 微信_支付 */ = {
+			isa = PBXGroup;
+			children = (
+				A44876271C5853DC004FBC09 /* CommonUtil.h */,
+				A44876281C5853DC004FBC09 /* CommonUtil.m */,
+				A44876291C5853DC004FBC09 /* libWeChatSDK.a */,
+				A448762A1C5853DC004FBC09 /* ReturnIP.h */,
+				A448762B1C5853DC004FBC09 /* ReturnIP.m */,
+				A448762C1C5853DC004FBC09 /* WechatAuthSDK.h */,
+				A448762D1C5853DC004FBC09 /* WXApi.h */,
+				A448762E1C5853DC004FBC09 /* WXApiObject.h */,
+			);
+			path = "微信_支付";
 			sourceTree = "<group>";
 		};
 		A46320741C00D7AD0062AA24 /* SMS_SDK */ = {
@@ -2317,9 +2312,9 @@
 		EC95184C1C4540C400AEA7E5 /* NewAndy */ = {
 			isa = PBXGroup;
 			children = (
+				A44876261C5853DC004FBC09 /* 微信_支付 */,
 				ECDFB6801C4E6F7E00163B8F /* SDCycleScrollView */,
 				ECDFB6761C4E6F3200163B8F /* Sign */,
-				212697531C47823600F5DF7D /* 微信_支付 */,
 				219CCB5C1C461BBE00791D9E /* 订单详情 */,
 				219CCB3E1C45DD8E00791D9E /* JKNotifier */,
 				EC9518BF1C4540CD00AEA7E5 /* JPushSDK */,
@@ -2575,7 +2570,7 @@
 				TargetAttributes = {
 					DAC4AF151BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 7BFR74B47J;
+						DevelopmentTeam = UAYEW27P4X;
 					};
 					DAC4AF2E1BF0619700D66E76 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -2766,10 +2761,8 @@
 				212697461C4777CC00F5DF7D /* IQUIScrollView+Additions.m in Sources */,
 				A488017F1C09F13300714F5B /* XWJHomeTabFactory.m in Sources */,
 				A4CBC7641C3AA46600274040 /* MJRefreshAutoFooter.m in Sources */,
-				2126975E1C47823600F5DF7D /* payRequsestHandler.mm in Sources */,
 				A41255741C0F39D20042D8CC /* SDImageCache.m in Sources */,
 				EC9518BC1C4540C400AEA7E5 /* EvaluationViewController.m in Sources */,
-				2126975F1C47823600F5DF7D /* TenpayUtil.mm in Sources */,
 				212697481C4777CC00F5DF7D /* IQUIView+Hierarchy.m in Sources */,
 				212697451C4777CC00F5DF7D /* IQNSArray+Sort.m in Sources */,
 				A41255071C0F22FC0042D8CC /* AFHTTPSessionManager.m in Sources */,
@@ -2788,6 +2781,7 @@
 				8E1327631C30E03B00D3EDB5 /* JSONModelError.m in Sources */,
 				8E1327271C30DED000D3EDB5 /* XWJMyZSViewController.m in Sources */,
 				A49DD3FD1C2F0A5100DB1EC1 /* XWJGouWucheTableViewCell.m in Sources */,
+				A44876311C5853DC004FBC09 /* ReturnIP.m in Sources */,
 				DA8834731BFCB47F001B2862 /* XWJLoginViewController.m in Sources */,
 				A4F14CF91C3D531000D4BFB0 /* XWJOrderTableViewCell.m in Sources */,
 				A48801CD1C0B5C9500714F5B /* StyledPageControl.m in Sources */,
@@ -2831,7 +2825,6 @@
 				A41A1FE11C26522E002129DF /* XWJUtil.m in Sources */,
 				A43C984B1C1516CC006A61EE /* XWJGuanjiaViewController.m in Sources */,
 				DAC4AF1C1BF0619700D66E76 /* main.m in Sources */,
-				212697601C47823600F5DF7D /* WXPayXRQViewController.m in Sources */,
 				A4CBC76A1C3AA46600274040 /* MJRefreshAutoNormalFooter.m in Sources */,
 				A45DCC061C446C4E001543CE /* XWJAddAdrController.m in Sources */,
 				8E13271A1C30DED000D3EDB5 /* xingbieViewController.m in Sources */,
@@ -2894,6 +2887,7 @@
 				A4DC3CB11C1D1ED7003D4D18 /* XWJMallViewController.m in Sources */,
 				A4CBC7751C3AA46600274040 /* UIScrollView+MJRefresh.m in Sources */,
 				A412550C1C0F22FC0042D8CC /* AFURLResponseSerialization.m in Sources */,
+				A448762F1C5853DC004FBC09 /* CommonUtil.m in Sources */,
 				A4DC3C341C1879C9003D4D18 /* XWJZFDetailViewController.m in Sources */,
 				A41255131C0F22FC0042D8CC /* UIButton+AFNetworking.m in Sources */,
 				A4F40BCD1C08B1EB006E2F19 /* XWJIDCodeViewController.m in Sources */,

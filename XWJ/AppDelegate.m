@@ -36,7 +36,7 @@
 #define mobAppKey @"c647ba762dc0"
 #define mobAppSecret @"76e6d7422f5d958e9a882675d0ffbd29"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -387,7 +387,31 @@
     BOOL result = [UMSocialSnsService handleOpenURL:url];
     if (result == FALSE) {
         //调用其他SDK，例如支付宝SDK等
+        result =  [WXApi handleOpenURL:url delegate:self];
+
     }
     return result;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+- (void)onResp:(BaseResp *)resp
+{
+    if ([resp isKindOfClass:[PayResp class]]) {
+        
+        NSString *strTitle = [NSString stringWithFormat:@"支付结果"];
+        NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle
+                                                        message:strMsg
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+        NSLog(@"-----%@",resp);
+        [alert show];
+    }
 }
 @end

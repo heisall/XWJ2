@@ -44,7 +44,9 @@
     
     if (self.isFromJiFen) {
         self.totalLabel.text = [NSString stringWithFormat:@"%@积分",self.price];
-    }
+    }else
+        self.totalLabel.text = self.price;
+
     self.payTableView.dataSource  = self;
     self.payTableView.delegate = self;
     NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:0];

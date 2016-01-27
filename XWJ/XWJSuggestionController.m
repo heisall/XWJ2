@@ -13,18 +13,21 @@
 
     UITextView *textv;
     UIButton *_button;
+    UILabel *_label;
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.navigationItem.title = @"给我们建议";
     [self createUI];
+    [self registerForKeyboardNotifications];
 }
 
 -(void)createUI{
     
+    
     textv = [[UITextView alloc]init];
-    textv.frame = CGRectMake(5, 90, WIDTH - 10, 100);
+    textv.frame = CGRectMake(5, 90, WIDTH - 10,100);
     //    UITextField * textField = (UITextField *)[self.view viewWithTag:1];
     //textF.placeholder = @"请修改建议";
     //    //    设置文本的字体类型和大小
@@ -34,10 +37,18 @@
     
     //textv.adjustsFontSizeToFitWidth = YES;
     //textv.borderStyle = UITextBorderStyleRoundedRect;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:textv];
     
+    _label = [[UILabel alloc]init];
+    _label.enabled = YES;
+    _label.text = @"很高兴为您服务，感谢您给出的宝贵建议";
+    _label.frame = CGRectMake(5, 5, 300, 30);
+    _label.textColor = [UIColor lightGrayColor];
+    [textv addSubview:_label];
+    
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button.frame  = CGRectMake(5, 210, WIDTH - 10, 30);
+    _button.frame  = CGRectMake(5, 220, WIDTH - 10, 30);
     [_button setTitle:@"完成" forState:UIControlStateNormal];
     _button.layer.cornerRadius = 5;
     _button.backgroundColor = [UIColor colorWithRed:0.18 green:0.67 blue:0.65 alpha:1];
@@ -46,7 +57,34 @@
     [self.view addSubview:_button];
     
 }
-
+- (void)registerForKeyboardNotifications
+{
+    //使用NSNotificationCenter 鍵盤出現時
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWasShown:)
+     
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    //使用NSNotificationCenter 鍵盤隐藏時
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWillBeHidden:)
+     
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+    
+}
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    
+    [_label setHidden:YES];
+}
+//当键盘隐藏的时候
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    
+}
 -(void)onButtonClick{
     
    // self.returnStrBlock(textF.text);

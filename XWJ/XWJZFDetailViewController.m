@@ -240,7 +240,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     if (URLs.count == 1) {
         
         UIImageView *imageView = [[UIImageView alloc] init];
-        imageView.frame = self.adView.frame;
+        imageView.frame = CGRectMake(0, 0, self.adView.frame.size.width, self.adView.frame.size.height);
         imageView.userInteractionEnabled = YES;
         [self.adView addSubview:imageView];
         

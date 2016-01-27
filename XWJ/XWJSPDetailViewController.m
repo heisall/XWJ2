@@ -67,7 +67,7 @@
     [self addView2];
     [self addView3];
     [self addView4];
-    
+
     tableView.dataSource =self;
     tableView.delegate = self;
     [tableView registerNib:[UINib nibWithNibName:@"XWJSPDetail" bundle:nil] forCellReuseIdentifier:@"cell"];
@@ -79,6 +79,7 @@
     [btn addTarget:self action:@selector(shoucang:) forControlEvents:UIControlEventTouchUpInside];
     [btn setBackgroundImage:image forState:UIControlStateNormal];
     [btn setBackgroundImage:image2 forState:UIControlStateSelected];
+    [self getDetail];
 
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
 //    self.navigationItem.rightBarButtonItem = barButtonItem;
@@ -89,7 +90,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    [self getDetail];
 
 }
 -(void)addView4{
@@ -172,7 +172,7 @@
 
 -(void)addView{
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
-    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width-60)];
+    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width)];
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, adView.frame.origin.y+adView.frame.size.height-25, SCREEN_SIZE.width, 25)];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.backgroundColor = [UIColor darkGrayColor];
@@ -506,7 +506,7 @@
     if(URLs&&URLs.count>0)
         [self.adView addSubview:({
             
-            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width-80,
+            LCBannerView *bannerView = [[LCBannerView alloc]initWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width-80,
                                                                                     self.adView.bounds.size.height)
                                         
                                                                 delegate:self
@@ -514,7 +514,8 @@
                                                         placeholderImage:@"devAdv_default"
                                                            timerInterval:MAXFLOAT
                                            currentPageIndicatorTintColor:[UIColor redColor]
-                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+                                                  pageIndicatorTintColor:[UIColor whiteColor]
+                                        :UIViewContentModeCenter];
             bannerView;
         })];
     

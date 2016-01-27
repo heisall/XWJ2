@@ -321,7 +321,9 @@
          visits = 0;
          */
         //    cell.label1.text = [self.tabledata ];
-        
+        for (UIView * subview in [cell.xingView subviews]) {
+            [subview removeFromSuperview];
+        }
         TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 70, 15) numberOfStar:[self.starArr[indexPath.row] intValue]];
         starRatingView.isNOhua = YES;
         [cell.xingView addSubview:starRatingView];
@@ -352,15 +354,18 @@
                 cell.tedeView.hidden = NO;
                 CGFloat wid = 0.0;
                 
+                for (UIView * subview in [cell.tedeView subviews]) {
+                        [subview removeFromSuperview];
+                }
                 for (int i =0; i<teseArr.count; i++) {
                     
                     UIView *view = [cell.tedeView viewWithTag:100+i];
                     UIFont* theFont = [UIFont systemFontOfSize:8];
 
-                    if (view) {
-                        [(UIButton *)view setTitle:[teseArr objectAtIndex:i] forState:UIControlStateNormal];
-                        
-                    }else{
+//                    if (view) {
+//                        [(UIButton *)view setTitle:[teseArr objectAtIndex:i] forState:UIControlStateNormal];
+//                        [view removeFromSuperview];
+//                    }else{
                         
                         
                         CGSize size = CGSizeMake(CGFLOAT_MAX,view.frame.size.height);
@@ -383,7 +388,7 @@
                         [cell.tedeView addSubview:btn];
                         wid = wid+labelSize.width;
 
-                    }
+//                    }
 
  
                 }

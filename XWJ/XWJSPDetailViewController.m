@@ -18,7 +18,9 @@
 #import "XWJSPinfoViewController.h"
 #import "XWJJiesuanViewController.h"
 #import "XWJSPCommentController.h"
-@interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource>
+#import "XWJWebViewController.h"
+#import "XWJImagesController.h"
+@interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource,LCBannerViewDelegate>
 @property UIScrollView *scrollView;
 
 @property UILabel *titleLabel;
@@ -65,7 +67,6 @@
     [self addView2];
     [self addView3];
     [self addView4];
-    [self getDetail];
     
     tableView.dataSource =self;
     tableView.delegate = self;
@@ -80,7 +81,7 @@
     [btn setBackgroundImage:image2 forState:UIControlStateSelected];
 
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
-    self.navigationItem.rightBarButtonItem = barButtonItem;
+//    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 -(void)shoucang:(UIButton *)btn{
     btn.selected = !btn.selected;
@@ -88,6 +89,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [self getDetail];
+
 }
 -(void)addView4{
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+HEIGHT_VIEW2+HEIGHT_VIEW2+12, SCREEN_SIZE.width, HEIGHT_VIEW3)];
@@ -316,7 +319,8 @@
     [dict setValue:@"1" forKey:@"counts"];
     [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"price"]] forKey:@"unitPrice"];
     [dict setValue:@"0" forKey:@"flg"];//0加入购物车 1修改
-    
+    NSLog(@"spdetail unitPrice %@",[self.goodsDic objectForKey:@"price"]);
+
     /*
      {"account":"177777777777","storeId":"4","goodsId":"4","counts":"1","unitPrice":"24","flg":"1"}
      */
@@ -388,6 +392,16 @@
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
+}
+
+- (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
+//    XWJWebViewController * web = [[XWJWebViewController alloc] init];
+//    web.url = self.;
+//    [self.navigationController pushViewController:web animated:NO];
+    XWJImagesController * image = [[XWJImagesController alloc] init];
+    image.urls = [self.goodsDic valueForKey:@"goods_img_small"];
+    [self.navigationController pushViewController:image animated:NO];
+
 }
 
 -(void)updateView{
@@ -474,26 +488,35 @@
     
     
     NSMutableArray *URLs = [NSMutableArray array];
-    [URLs addObject:[self.goodsDic objectForKey:@"default_image"]];
-    UIImageView *logoImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,                                                                                           self.adView.bounds.size.height)];
-    logoImgV.contentMode  = UIViewContentModeScaleAspectFit;
-    [logoImgV sd_setImageWithURL:[NSURL URLWithString:[self.goodsDic objectForKey:@"default_image"]] placeholderImage:[UIImage imageNamed:@"demo"]];
     
-    [self.adView addSubview:logoImgV];
-//    if(URLs&&URLs.count>0)
-//        [self.adView addSubview:({
-//            
-//            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width-80,
-//                                                                                    self.adView.bounds.size.height)
-//                                        
-//                                                                delegate:self
-//                                                               imageURLs:URLs
-//                                                        placeholderImage:@"devAdv_default"
-//                                                           timerInterval:3.0f
-//                                           currentPageIndicatorTintColor:[UIColor redColor]
-//                                                  pageIndicatorTintColor:[UIColor whiteColor]];
-//            bannerView;
-//        })];
+    if ([self.goodsDic objectForKey:@"goods_img_small"]!=[NSNull null]) {
+        NSString *url = [self.goodsDic valueForKey:@"goods_img_small"];
+        URLs = [NSMutableArray arrayWithArray:[url componentsSeparatedByString:@","]];
+    }else
+        [URLs addObject:[self.goodsDic objectForKey:@"default_image"]];
+    
+//    UIImageView *logoImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,                                                                                           self.adView.bounds.size.height)];
+//    logoImgV.contentMode  = UIViewContentModeScaleAspectFit;
+//    [logoImgV sd_setImageWithURL:[NSURL URLWithString:[self.goodsDic objectForKey:@"default_image"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+//    
+//    [self.adView addSubview:logoImgV];
+    
+    
+    
+    if(URLs&&URLs.count>0)
+        [self.adView addSubview:({
+            
+            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width-80,
+                                                                                    self.adView.bounds.size.height)
+                                        
+                                                                delegate:self
+                                                               imageURLs:URLs
+                                                        placeholderImage:@"devAdv_default"
+                                                           timerInterval:MAXFLOAT
+                                           currentPageIndicatorTintColor:[UIColor redColor]
+                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+            bannerView;
+        })];
     
     
 }

@@ -363,12 +363,18 @@
             break;
         case 2:
         {
+                        XWJWebViewController * web = [[XWJWebViewController alloc] init];
+                        web.url = @"http://mp.weixin.qq.com/s?__biz=MjM5NTQ1OTQ4NA==&mid=401513486&idx=5&sn=339adf312475b40de8c8e9d062790ad7&3rd=MzA3MDU4NTYzMw==&scene=6#rd";
+                        [self.navigationController pushViewController:web animated:NO];
+            
             
         }
             break;
         case 3:
         {
-            
+            XWJWebViewController * web = [[XWJWebViewController alloc] init];
+            web.url = @"http://mp.weixin.qq.com/s?__biz=MzA3OTQ4NzAxNg==&mid=206243211&idx=3&sn=eb9caac0e8f8143a938646c130ee8074&3rd=MzA3MDU4NTYzMw==&scene=6#rd";
+            [self.navigationController pushViewController:web animated:NO];
         }
             break;
         default:

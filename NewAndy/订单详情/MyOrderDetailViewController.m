@@ -502,13 +502,13 @@
                       MyOrderDetailModel2* model2 = [[MyOrderDetailModel2 alloc] init];
                       model2.goodsHeadImageStr = dic[@"goods_image"];
                       model2.goodsDesStr = dic[@"goods_name"];
-                      model2.goodNumStr = [NSString stringWithFormat:@"￥%.1f × %d",[dic[@"price"] floatValue],[dic[@"quantity"] intValue]];
+                      model2.goodNumStr = [NSString stringWithFormat:@"￥%.2f × %d",[dic[@"price"] floatValue],[dic[@"quantity"] intValue]];
                       temPriceAll += [dic[@"price"] floatValue]*[dic[@"quantity"] intValue];
                       [self.dataSourceArr2 addObject:model2];
                   }
                   
-                  self.allGoodsNumAndYunfeiStr = [NSString stringWithFormat:@"共计%lu件商品      运费：￥%.1f",(unsigned long)temArr1.count,[resultDic[@"shipping_fee"] floatValue]];
-                  self.allGoodsPriceStr = [NSString stringWithFormat:@"￥%.1f",temPriceAll + [resultDic[@"shipping_fee"] floatValue]];
+                  self.allGoodsNumAndYunfeiStr = [NSString stringWithFormat:@"共计%lu件商品      运费：￥%.2f",(unsigned long)temArr1.count,[resultDic[@"shipping_fee"] floatValue]];
+                  self.allGoodsPriceStr = [NSString stringWithFormat:@"￥%.2f",temPriceAll + [resultDic[@"shipping_fee"] floatValue]];
                   if (![resultDic[@"store_logo"] isKindOfClass:[NSNull class]]) {
                       self.shangjiaHeadImageStr = resultDic[@"store_logo"];
                   }

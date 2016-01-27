@@ -861,9 +861,13 @@ NSArray *footer;
         label.text = footer[indexPath.section];
     }
     
+
     UIButton *button  = (UIButton*)[view viewWithTag:2];
     button.tag = 100+indexPath.section;
     [button addTarget:self action:@selector(headerClick:) forControlEvents:UIControlEventTouchUpInside];
+    if (indexPath.section==2) {
+        button.hidden = YES;
+    }
     return view;
 }
 

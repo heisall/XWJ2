@@ -15,6 +15,7 @@
 @interface XWJCarViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property NSMutableArray *carListArr;
 @property NSMutableArray *selection;
+
 @end
 
 @implementation XWJCarViewController
@@ -220,6 +221,7 @@
     [dict setValue:[NSString stringWithFormat:@"%@",[dic objectForKey:@"goods_id"]] forKey:@"goodsId"];
     [dict setValue:count forKey:@"counts"];
     [dict setValue:[NSString stringWithFormat:@"%@",[dic objectForKey:@"price"]] forKey:@"unitPrice"];
+    NSLog(@"addcar unitPrice %@",dict);
     [dict setValue:@"1" forKey:@"flg"];//0加入购物车 1修改
     
     /*
@@ -273,9 +275,10 @@
     UILabel *label = (UILabel *)[btn.superview viewWithTag:100];
     NSInteger count = [label.text integerValue];
     count--;
-    if (count<0) {
-        count = 0;
+    if (count<1) {
+        count = 1;
     }
+    
     label.text = [NSString stringWithFormat:@"%lu",count];
     NSMutableDictionary *dic  = [[[carListArr objectAtIndex:section] objectForKey:@"data"] objectAtIndex:row];
     [dic setValue:label.text forKey:@"quantity"];

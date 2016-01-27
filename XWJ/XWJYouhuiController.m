@@ -23,7 +23,7 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 62, SCREEN_SIZE.width, SCREEN_SIZE.height)];
-    height = 150.0;
+    height = SCREEN_SIZE.height/4;
     self.navigationItem.title = @"商城优惠";
     [self.view addSubview:scrollView];
     [self getYouHui];

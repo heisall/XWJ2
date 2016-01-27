@@ -91,8 +91,8 @@
      */
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[self.array objectAtIndex:0] valueForKey:@"default_image"]] placeholderImage:[UIImage imageNamed:@"demo"]];
     cell.content.text = [[self.array objectAtIndex:0] valueForKey:@"goods_name"];
-    cell.jifenLabel.text = [NSString stringWithFormat:@"所需积分：￥%.1f",[[[self.array objectAtIndex:0] valueForKey:@"price"] floatValue]];
-    cell.priceLabel.text = [NSString stringWithFormat:@"市场价：￥%.1f",[[[self.array objectAtIndex:0] valueForKey:@"old_price"] floatValue]];
+    cell.jifenLabel.text = [NSString stringWithFormat:@"所需积分：￥%.2f",[[[self.array objectAtIndex:0] valueForKey:@"price"] floatValue]];
+    cell.priceLabel.text = [NSString stringWithFormat:@"市场价：￥%.2f",[[[self.array objectAtIndex:0] valueForKey:@"old_price"] floatValue]];
     // Configure the cell...
 //    cell.textLabel.text = self.array[indexPath.row];
 //    cell.textLabel.textColor = XWJGRAYCOLOR;

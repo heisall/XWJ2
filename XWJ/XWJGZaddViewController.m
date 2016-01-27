@@ -345,7 +345,7 @@
 
     XWJAccount *account = [XWJAccount instance];
     [dict setValue:self.guzhangTV.text forKey:@"content"];
-    if (self.imageDatas) {
+    if (self.imageDatas&&self.imageDatas.count>0) {
         [dict setObject:self.imageDatas forKey:@"pics"];
     }
     [dict setObject:account.uid forKey:@"userid"];

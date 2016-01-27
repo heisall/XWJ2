@@ -199,7 +199,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                 self.dataSourceArr = [[NSMutableArray alloc] init];
                 for (NSDictionary* temDic in self.orderArr) {
                     OrderFinishModel* model = [[OrderFinishModel alloc] init];
-                    //cell.priceLabel.text = [NSString stringWithFormat:@"￥%.1f x %@",[pri floatValue],[[arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
+                    //cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f x %@",[pri floatValue],[[arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
                     model.headImageStr = temDic[@"goods_image"];
                     NSLog(@"======头像地址====%@",model.headImageStr);
                     model.titleStr = temDic[@"goods_name"];
@@ -207,7 +207,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                     model.orderId = temDic[@"order_id"];
                     model.seller_id = temDic[@"seller_id"];
                     model.goodsId = temDic[@"goods_id"];
-                    model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.1f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"add_time"]];
+                    model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.2f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"add_time"]];
                     [self.dataSourceArr addObject:model];
                 }
                 NSLog(@"我新创建的数据源------%@",self.dataSourceArr);
@@ -311,7 +311,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     footer.numLabel.text = [NSString stringWithFormat:@"共计%ld件商品",detail.count];
     NSString *yunf =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:section] objectForKey:@"shipping_fee"]];
     
-    footer.yunfeiLabel.text = [NSString stringWithFormat:@"运费：￥%.1f",[yunf floatValue]];
+    footer.yunfeiLabel.text = [NSString stringWithFormat:@"运费：￥%.2f",[yunf floatValue]];
     float num =0.0;
     for (NSDictionary *d in detail) {
         
@@ -321,7 +321,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     }
     footer.delegateMyOrderDelegate = self;
     footer.cellIndex  = section;
-    footer.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",num];
+    footer.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",num];
     
     footer.delBtn.layer.masksToBounds = YES;
     footer.delBtn.layer.cornerRadius = 6.0;
@@ -401,7 +401,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     cell.contentLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
     NSString *pri = [NSString stringWithFormat:@"%@",[[arr objectAtIndex:indexPath.row] valueForKey:@"price"]];
     
-    cell.priceLabel.text = [NSString stringWithFormat:@"￥%.1f x %@",[pri floatValue],[[arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f x %@",[pri floatValue],[[arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"goods_image"]!=[NSNull null]?[[arr objectAtIndex:indexPath.row] objectForKey:@"goods_image"]:@""] placeholderImage:[UIImage imageNamed:@"demo"]];
     
     //        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]] ];

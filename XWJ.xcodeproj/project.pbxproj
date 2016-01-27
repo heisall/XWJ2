@@ -336,6 +336,7 @@
 		A4F6DA1A1C53601200C7AD83 /* XWJSPCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA191C53601200C7AD83 /* XWJSPCommentController.m */; };
 		A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */; };
 		A4FD431B1C3952FB00A44E01 /* XWJquxiaocell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */; };
+		A4FD64C51C590992000CC447 /* XWJImagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FD64C41C590992000CC447 /* XWJImagesController.m */; };
 		DA20ADFA1BFB565D002032D1 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADF91BFB565D002032D1 /* libicucore.tbd */; };
 		DA20ADFC1BFB5674002032D1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADFB1BFB5674002032D1 /* libz.tbd */; };
 		DA20ADFE1BFB567D002032D1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20ADFD1BFB567D002032D1 /* MessageUI.framework */; };
@@ -990,6 +991,8 @@
 		A4FD43171C38E50700A44E01 /* XWJGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJGroupViewController.h; sourceTree = "<group>"; };
 		A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJGroupViewController.m; sourceTree = "<group>"; };
 		A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJquxiaocell.xib; sourceTree = "<group>"; };
+		A4FD64C31C590992000CC447 /* XWJImagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJImagesController.h; sourceTree = "<group>"; };
+		A4FD64C41C590992000CC447 /* XWJImagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJImagesController.m; sourceTree = "<group>"; };
 		DA20ADF91BFB565D002032D1 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		DA20ADFB1BFB5674002032D1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		DA20ADFD1BFB567D002032D1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -2122,6 +2125,8 @@
 				A4F6DA161C5347F000C7AD83 /* XWJYouhuiController.m */,
 				A4F6DA181C53601200C7AD83 /* XWJSPCommentController.h */,
 				A4F6DA191C53601200C7AD83 /* XWJSPCommentController.m */,
+				A4FD64C31C590992000CC447 /* XWJImagesController.h */,
+				A4FD64C41C590992000CC447 /* XWJImagesController.m */,
 			);
 			name = shangcheng;
 			sourceTree = "<group>";
@@ -2909,6 +2914,7 @@
 				A4DC3C8D1C1C505B003D4D18 /* XWJGuzhangViewController.m in Sources */,
 				A41255721C0F39D20042D8CC /* README.md in Sources */,
 				EC9518A01C4540C400AEA7E5 /* MASCompositeConstraint.m in Sources */,
+				A4FD64C51C590992000CC447 /* XWJImagesController.m in Sources */,
 				8E13272C1C30DF6A00D3EDB5 /* EmoAndHobbyStatus.m in Sources */,
 				A43C98531C15CC15006A61EE /* XWJForgetPwd2ViewController.m in Sources */,
 				A41255201C0F264E0042D8CC /* XWJjianduViewController.m in Sources */,

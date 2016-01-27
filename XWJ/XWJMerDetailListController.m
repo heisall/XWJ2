@@ -125,7 +125,7 @@
     
     cell.title.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
     cell.chakan.text = [NSString stringWithFormat:@"查看人数:%@",[[arr objectAtIndex:indexPath.row] objectForKey:@"views"]];
-    cell.pricee.text = [NSString stringWithFormat:@"￥ %.1f",[[[arr objectAtIndex:indexPath.row] valueForKey:@"price"] floatValue]];
+    cell.pricee.text = [NSString stringWithFormat:@"￥ %.2f",[[[arr objectAtIndex:indexPath.row] valueForKey:@"price"] floatValue]];
     
     if ([[arr objectAtIndex:indexPath.row] objectForKey:@"default_image"]!=[NSNull null]) {
         

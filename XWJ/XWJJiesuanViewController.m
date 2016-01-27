@@ -16,6 +16,7 @@
 @property NSArray *array;
 @property NSArray *payarray;
 @property NSArray *zhifuIconArr;
+@property NSArray *orderArr;
 //@property NSDictionary *addressDic;
 @end
 
@@ -367,7 +368,7 @@
 
             if ([num intValue]== 1) {
                 [ProgressHUD showSuccess:errCode];
-                
+                [self getOrderList:@"30"];
             }else
                 [ProgressHUD showError:errCode];
 
@@ -377,6 +378,44 @@
         
     }];
     }
+}
+
+-(void)getOrderList:(NSString *)status{
+    NSString *url = GETORDER_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict setValue:[XWJAccount instance].account forKey:@"account"];
+    [dict setValue:@"0" forKey:@"pageindex"];
+    [dict setValue:@"100" forKey:@"countperpage"];
+    [dict setValue:status forKey:@"status"];
+    
+    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
+    
+    //    [dict setValue:@"1" forKey:@"a_id"];
+    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    /*
+     pageindex	第几页	String,从0开始
+     countperpage	每页条数	String
+     cateId	商户分类	String
+     */
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dict);
+            self.orderArr = [dict objectForKey:@"orders"];
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

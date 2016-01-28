@@ -24,14 +24,14 @@
 @property (weak, nonatomic) IBOutlet UIImageView *gzMidImageV;
 @property (weak, nonatomic) IBOutlet UIImageView *gzEndImageV;
 
-@property NSMutableArray *imageArray;
+@property NSArray *imageArray;
 @end
 
 @implementation XWJGZmiaoshuViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.imageArray = [[NSMutableArray alloc]init];
+    self.imageArray = [[NSArray alloc]init];
     // Do any additional setup after loading the view.
     if (self.type == 1) {
         self.navigationItem.title = @"报修详情";
@@ -55,29 +55,32 @@
     scrollV.pagingEnabled = YES;
     scrollV.bounces = YES;
     scrollV.contentOffset = CGPointMake(0, 0);
-    scrollV.contentSize = CGSizeMake(self.imageArray.count *85+1000, v.bounds.size.height);
+    scrollV.contentSize = CGSizeMake(self.imageArray.count *85, v.bounds.size.height);
     
     [v addSubview:scrollV];
     
-    for (int i=0; i<1; i++) {
+    for (int i=0; i<_imageArray.count; i++) {
         UIImageView *imageV = [[UIImageView alloc]init];
         imageV.frame = CGRectMake(85*i, 0, 80, v.bounds.size.height);
         
-        [imageV sd_setImageWithURL:[NSURL URLWithString:[self.detaildic objectForKey:@"fj"]]placeholderImage:nil];
-        //     NSLog(@"//////%@",self.detaildic);
+        [imageV sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]]placeholderImage:nil];
+        NSLog(@"//////%@",_imageArray[i]);
         UITapGestureRecognizer* singleRecognizer;
         imageV.userInteractionEnabled = YES;
-        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick)];
+        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick:)];
         //点击的次数
         singleRecognizer.numberOfTapsRequired = 1;
+        imageV.tag = i +666;
         [imageV addGestureRecognizer:singleRecognizer];
         [scrollV addSubview:imageV];
     }
 }
 
--(void)imgclick{
+-(void)imgclick:(UITapGestureRecognizer*)sender{
+    
     XWJWebViewController * web = [[XWJWebViewController alloc] init];
-    NSString *urls = [self.detaildic objectForKey:@"fj"]==[NSNull null]?@"":[self.detaildic objectForKey:@"fj"];
+    UITapGestureRecognizer * singleTap = (UITapGestureRecognizer *)sender;
+    NSString *urls = _imageArray[(long)[singleTap view].tag-666]==[NSNull null]?@"":_imageArray[(long)[singleTap view].tag-666];
     
     NSArray *url = [urls componentsSeparatedByString:@","];
     web.url = [url objectAtIndex:0];
@@ -136,13 +139,17 @@
             if(responseObject){
                 NSDictionary *dic = (NSDictionary *)responseObject;
                 NSLog(@"dic !!!!!!%@",dic);
-                self.detaildic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"data"]];
-                
-                
-                
-                NSLog(@"dic !!!!!!%@",[self.detaildic objectForKey:@"fj"]);
-                [self updateView ];
+                 self.detaildic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"data"]];
+                NSDictionary *imagedic = [[NSDictionary alloc]init];
+                imagedic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"data"]];
+                NSLog(@"dic%@",[imagedic objectForKey:@"fj"]);
+                NSString *str = [[NSString alloc]init];
+                str = [imagedic objectForKey:@"fj"];
+                _imageArray = [str componentsSeparatedByString:@","];
+                NSLog(@"***%@",_imageArray);
+                [self updateView];
                 [self createScrollV];
+                
             }
             
             

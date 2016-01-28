@@ -51,6 +51,7 @@
     self.lp = [NSMutableArray arrayWithObjects:@"随时上门",@"上午",@"下午",@"晚上", nil];
     self.imageDatas = [NSMutableArray array];
     self.guzhangTV.delegate  = self;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self createLabel];
 }
 
@@ -59,8 +60,9 @@
     UITextView *view = (UITextView *)[self.view viewWithTag:1994];
     _label = [[UILabel alloc]init];
     _label.enabled = YES;
-    _label.text = @"很高兴为您服务，请输入";
-    _label.frame = CGRectMake(10, 0, 200, 30);
+    _label.text = @"很高兴为您服务，请您描述您的问题";
+    _label.textColor = [UIColor lightGrayColor];
+    _label.frame = CGRectMake(10, 0, 320, 25);
     [view addSubview:_label];
 }
 - (IBAction)addImage:(UIButton *)sender {

@@ -33,6 +33,7 @@
 @property CGPoint center;
 @property(nonatomic,copy)NSString* shareImageStr;
 @property(nonatomic,copy)NSString* shareTitleStr;
+@property(nonatomic,copy)NSString* shareUrl;
 @end
 
 @implementation XWJjianduDetailViewController
@@ -103,15 +104,16 @@
 
 }
 - (IBAction)share:(UIButton *)sender {
-            UIImageView* temIV = [[UIImageView alloc] init];
-    
-            [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
-            [UMSocialSnsService presentSnsIconSheetView:self
-                                                 appKey:@"56938a23e0f55aac1d001cb6"
-                                              shareText:self.shareTitleStr
-                                             shareImage:temIV.image
-                                        shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
-                                               delegate:self];
+    UIImageView* temIV = [[UIImageView alloc] init];
+    [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"56938a23e0f55aac1d001cb6"
+                                      shareText:self.shareTitleStr
+                                     shareImage:temIV.image
+                                shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
+                                       delegate:self];
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = self.shareUrl;
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.shareUrl;
 }
 //实现回调方法（可选）：
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
@@ -254,9 +256,11 @@
 //            }];
             
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
+            
             self.dicw = [dic objectForKey:@"work"];
             NSString *url = [[dic objectForKey:@"work"] valueForKey:@"photo"];
             NSArray *URLs = [url componentsSeparatedByString:@","];
+            self.shareUrl = [NSString stringWithFormat:@"%@",[URLs firstObject]];
             self.shareImageStr = [URLs firstObject];
             NSLog(@"-------%@",self.dicw[@"Content"]);
             self.shareTitleStr = self.dicw[@"Content"];

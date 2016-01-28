@@ -205,7 +205,7 @@ CGRect tableViewCGRect;
             }
         }
         //85.5-20 =60
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 13, 60, 60)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 13, 60, 60)];
         [cell.contentView addSubview:imageView];
         [imageView sd_setImageWithURL:[NSURL URLWithString:imageStr]placeholderImage:[UIImage imageNamed:@"demo"]];
         

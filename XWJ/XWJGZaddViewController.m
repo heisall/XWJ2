@@ -132,7 +132,7 @@
     UIImagePickerController * pick = [[UIImagePickerController alloc]init];
     pick.sourceType=type;
     pick.delegate=self;
-    pick.allowsEditing=self;
+    pick.allowsEditing=NO;
     [self presentViewController:pick animated:NO completion:nil];
     
 }
@@ -328,7 +328,11 @@
 - (IBAction)submit:(id)sender {
     
     [ProgressHUD shared].image.image = [UIImage imageNamed:@"AppIcon"];
-
+    if([self.guzhangTV.text isEqualToString:@"很高兴为您服务，请描述您的问题"] || [self.guzhangTV.text isEqualToString:@""]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"评论内容不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }else{
     [ProgressHUD show:@"正在发布" Interaction:YES];
 
     [self.guzhangTV resignFirstResponder];
@@ -346,7 +350,14 @@
      */
 
     XWJAccount *account = [XWJAccount instance];
+    
+    
+    
+    
+    
+    
     [dict setValue:self.guzhangTV.text forKey:@"content"];
+    
     if (self.imageDatas&&self.imageDatas.count>0) {
         [dict setObject:self.imageDatas forKey:@"pics"];
     }
@@ -395,7 +406,7 @@
         
     }];
 }
-
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -526,8 +526,14 @@
 }
 
 - (IBAction)enroll:(id)sender {
-    [self pubCommentLword:self.textView.text type:@"留言"];
-    [self.textView resignFirstResponder];
+    if([self.textView.text isEqualToString:@"在此发表评论"] || [self.textView.text isEqualToString:@""]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"评论内容不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }else{
+        [self pubCommentLword:self.textView.text type:@"留言"];
+        [self.textView resignFirstResponder];
+    }
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     //    if (!controlView) {

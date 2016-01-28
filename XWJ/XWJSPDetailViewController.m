@@ -172,7 +172,7 @@
 
 -(void)addView{
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
-    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width)];
+    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width-60)];
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, adView.frame.origin.y+adView.frame.size.height-25, SCREEN_SIZE.width, 25)];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.backgroundColor = [UIColor darkGrayColor];

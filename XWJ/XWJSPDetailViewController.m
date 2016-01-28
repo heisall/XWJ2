@@ -67,6 +67,7 @@
     [self addView2];
     [self addView3];
     [self addView4];
+    [self getDetail];
 
     tableView.dataSource =self;
     tableView.delegate = self;
@@ -79,7 +80,6 @@
     [btn addTarget:self action:@selector(shoucang:) forControlEvents:UIControlEventTouchUpInside];
     [btn setBackgroundImage:image forState:UIControlStateNormal];
     [btn setBackgroundImage:image2 forState:UIControlStateSelected];
-    [self getDetail];
 
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
 //    self.navigationItem.rightBarButtonItem = barButtonItem;
@@ -283,7 +283,7 @@
     NSArray *arr = self.comments;
 
     if(arr&&arr.count>0){
-        cell.label1.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"buyer_name"];
+        cell.label1.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"buyer_name"]==[NSNull null]?@"":[[arr objectAtIndex:indexPath.row] objectForKey:@"buyer_name"];
         cell.label2.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"comment"];
         cell.timeLabel.text = [[arr objectAtIndex:indexPath.row] objectForKey:@"evaluation_time"];
         
@@ -685,10 +685,13 @@
         return;
     }
     
-    NSString *jifen = [XWJAccount instance].jifen ;
-    if ([jifen intValue]<[[self.goodsDic valueForKey:@"price"] intValue]) {
-        [ProgressHUD showError:@"您的积分不足，可以坚持签到获取更多积分再来"];
-        return;
+    
+    if(self.isFromJifen){
+        NSString *jifen = [XWJAccount instance].jifen ;
+        if ([jifen intValue]<[[self.goodsDic valueForKey:@"price"] intValue]) {
+            [ProgressHUD showError:@"您的积分不足，可以坚持签到获取更多积分再来"];
+            return;
+        }
     }
     
     XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];

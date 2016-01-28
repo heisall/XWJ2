@@ -368,7 +368,7 @@
 
             if ([num intValue]== 1) {
                 [ProgressHUD showSuccess:errCode];
-                [self getOrderList:@"30"];
+//                [self getOrderList:@"30"];
             }else
                 [ProgressHUD showError:errCode];
 

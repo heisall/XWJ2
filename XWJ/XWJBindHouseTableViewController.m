@@ -353,7 +353,7 @@
             index = [self.dataSource indexOfObject:self.city];
         }
         
-        if (index ==-1) {
+        if (index ==-1||NSNotFound == index) {
             [ProgressHUD showError:@"没有此城市的房源"];
         }else{
             [[XWJCity instance] selectCity:index];

@@ -46,6 +46,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+
     /*
      加推送
      */
@@ -154,19 +155,19 @@
     
     BOOL islaunched = [[NSUserDefaults standardUserDefaults] boolForKey:@"isLaunched"];
 
-//        UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-//        self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+    self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
     
     if (!islaunched) {
         UIViewController *view = [[XWJSplashController alloc] init];
         self.window.rootViewController = view;
     }else{
-    if (uname&&pass) {
-        [self loginUname:uname Pwd:pass];
-    }else{
-        [self toLoginController];
-        
-    }
+        if (uname&&pass) {
+            [self loginUname:uname Pwd:pass];
+        }else{
+            [self toLoginController];
+            
+        }
     }
     //    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
     //    self.window.rootViewController = [loginStoryboard instantiateViewControllerWithIdentifier:@"bindhouse2"];

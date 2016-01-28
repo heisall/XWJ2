@@ -8,7 +8,7 @@
 
 #import "XWJSPinfoViewController.h"
 
-#define HEIGHT_VIEW2 200
+#define HEIGHT_VIEW2 400
 
 @interface XWJSPinfoViewController ()
 
@@ -24,22 +24,27 @@
     [self.view addSubview:scoll];
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW2)];
 
+    CGFloat __block height =0.0 ;
     if (self.arr&&self.arr.count>0) {
   
         NSArray *imgs = self.arr;
         
-        view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, HEIGHT_VIEW2*imgs.count);
+//        view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, HEIGHT_VIEW2*imgs.count);
         for (int i =0; i<imgs.count; i++) {
 
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0,HEIGHT_VIEW2*i, SCREEN_SIZE.width, HEIGHT_VIEW2)];
-            img.contentMode  = UIViewContentModeRedraw;
+//            img.contentMode  = UIViewContentModeRedraw;
             [img sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:i]]placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                img.frame = CGRectMake(img.frame.origin.x, img.frame.origin.y, image.size.width, image.size.height);
+                img.frame = CGRectMake(img.frame.origin.x, img.frame.origin.y, img.frame.size.width, img.frame.size.width*image.size.height/image.size.width);
+                img.image = image;
+                height = height + img.frame.size.height;
+//                view.frame =
+                scoll.contentSize =  CGSizeMake(0,66+height);
             }];
-            [view addSubview:img];
+            
+//            [view addSubview:img];
+            [scoll addSubview:img];
         }
-        [scoll addSubview:view];
-        scoll.contentSize =  CGSizeMake(0,view.frame.size.height);
 
     }
     // Do any additional setup after loading the view.

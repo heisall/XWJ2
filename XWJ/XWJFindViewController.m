@@ -187,7 +187,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
             NSArray * arr = [dic2 objectForKey:@"types"];
             
             NSMutableDictionary *quanbu = [NSMutableDictionary dictionary];
-            [quanbu setValue:@"发现类别" forKey:@"memo"];
+            [quanbu setValue:@"全部" forKey:@"memo"];
 //            [quanbu setValue:@"" forKey:@"DictValue"];
             
             [self.findlistArr removeAllObjects];
@@ -208,7 +208,10 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
             }else{
                 self.typeLabel.text = [[self.findlistArr objectAtIndex:0] valueForKey:@"memo"];
             }
-//            self.typeLabel.text = @"全部";
+           
+            if([self.typeLabel.text isEqualToString:@"全部" ]){
+                self.typeLabel.text = @"信息类别";
+            }
 
             NSLog(@"dic %@",dic);
         }

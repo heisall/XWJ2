@@ -18,7 +18,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"优惠政策";
-    UILabel * labl = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, SCREEN_SIZE.width, SCREEN_SIZE.height-20)];
+    
+
+    CGSize size = CGSizeMake(self.view.frame.size.width,CGFLOAT_MAX);
+    UIFont* theFont = [UIFont systemFontOfSize:12];
+
+    //计算文字所占区域
+    CGSize labelSize = [self.zhengce boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : theFont} context:nil].size;
+    UILabel * labl = [[UILabel alloc] initWithFrame:CGRectMake(5, 70, self.view.frame.size.width, labelSize.height)];
     labl.text = self.zhengce;
     [self.view addSubview:labl];
 

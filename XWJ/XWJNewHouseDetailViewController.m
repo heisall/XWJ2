@@ -177,7 +177,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"areaId"];
-    
+    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
@@ -187,8 +187,8 @@
             
             //            XWJCity *city  = [[XWJCity alloc] init];
             
-                         self.dic  = [resdic objectForKey:@"house"];
-            [self.photos addObjectsFromArray:[resdic objectForKey:@"photo"] ];
+            self.dic  = [resdic objectForKey:@"house"]==[NSNull null]?nil:[resdic objectForKey:@"house"];
+            [self.photos addObjectsFromArray:[resdic objectForKey:@"photo"]];
             self.tableData = [NSMutableArray array];
             [self.tableData addObject:[NSString  stringWithFormat:@"%@",[self.dic objectForKey:@"kpsj"]==[NSNull null]?@"":[self.dic objectForKey:@"kpsj"]]] ;
             [self.tableData addObject:[NSString  stringWithFormat:@"%@%@%@",[self.dic objectForKey:@"cityName"],[self.dic objectForKey:@"quyu"],[self.dic objectForKey:@"weiZhi"]]] ;

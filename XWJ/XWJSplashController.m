@@ -25,15 +25,41 @@
         UIImageView*imv = [[UIImageView alloc] initWithFrame:CGRectMake(i*SCREEN_SIZE.width, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
 //        UIImage *image = [UIImage imageNamed:@"splash3"];
         imv.image = [UIImage imageNamed:[NSString stringWithFormat:@"splash%d",i+1]];
+        imv.userInteractionEnabled = YES;
+        if (i==0) {
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn.frame = CGRectMake(SCREEN_SIZE.width-80, (SCREEN_SIZE.height-40)/2, 80, 40);
+
+            [btn addTarget:self action:@selector(scroll1) forControlEvents:UIControlEventTouchUpInside];
+          
+            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn1 addTarget:self action:@selector(gologin) forControlEvents:UIControlEventTouchUpInside];
+            btn1.frame = CGRectMake(0, (SCREEN_SIZE.height-80), SCREEN_SIZE.width, 80);
+
+            [imv addSubview:btn];
+            [imv addSubview:btn1];
+        }
+        
+        if (i==1) {
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn.frame = CGRectMake(SCREEN_SIZE.width-80, (SCREEN_SIZE.height-40)/2, 80, 40);
+            [btn addTarget:self action:@selector(scroll2) forControlEvents:UIControlEventTouchUpInside];
+            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn1.frame = CGRectMake(0, (SCREEN_SIZE.height-80), SCREEN_SIZE.width, 80);
+            [btn1 addTarget:self action:@selector(gologin) forControlEvents:UIControlEventTouchUpInside];
+            [imv addSubview:btn];
+            [imv addSubview:btn1];
+        }
+        
         if (i==self.count-1) {
             
             UITapGestureRecognizer* singleRecognizer;
             singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gologin)];
             //点击的次数
             singleRecognizer.numberOfTapsRequired = 1;
-            imv.userInteractionEnabled = YES;
             [imv addGestureRecognizer:singleRecognizer];
         }
+        imv.userInteractionEnabled = YES;
         [scrollView addSubview:imv];
     }
     
@@ -45,7 +71,12 @@
     scrollView.contentSize =CGSizeMake(self.count*SCREEN_SIZE.width, 0);
     [self.view addSubview:scrollView];
 }
-
+-(void)scroll2{
+    self.scrollView.contentOffset = CGPointMake(SCREEN_SIZE.width*2, 0);
+}
+-(void)scroll1{
+    self.scrollView.contentOffset = CGPointMake(SCREEN_SIZE.width, 0);
+}
 -(void)gologin{
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLaunched"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -57,11 +88,8 @@
 #pragma mark - UIScrollView Delegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
     CGFloat scrollW = self.scrollView.frame.size.width;
     NSInteger currentPage = self.scrollView.contentOffset.x / scrollW;
-    
-
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {

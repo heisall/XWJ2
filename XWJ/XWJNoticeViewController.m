@@ -79,7 +79,7 @@
                 [dic2 setValue:[dic valueForKey:@"addTime"] forKey:KEY_AD_TIME];
                 [dic2 setValue:[dic valueForKey:@"description"]==[NSNull null]?@"":[dic valueForKey:@"description"] forKey:KEY_AD_CONTENT];
                 
-                NSString *count = [NSString stringWithFormat:@"%@",[dic valueForKey:@"ClickCount"]];
+                NSString *count = [NSString stringWithFormat:@"%@",[dic valueForKey:@"ClickCount"]==[NSNull null]?@"0":[dic valueForKey:@"ClickCount"]];
                 [dic2 setValue: count forKey:KEY_AD_CLICKCOUNT];
                 [dic2 setValue:[dic valueForKey:@"content"] forKey:KEY_AD_URL];
                 [dic2 setValue:[dic valueForKey:@"id"] forKey:KEY_AD_ID];
@@ -160,7 +160,7 @@
     cell.contentLabel.font = [UIFont systemFontOfSize:16];
     cell.contentLabel.numberOfLines = 1;
 //    cell.clickBtn.titleLabel.text = @""
-    [cell.clickBtn setTitle:[dic valueForKey:KEY_AD_CLICKCOUNT] forState:UIControlStateNormal];
+    [cell.clickBtn setTitle:[dic valueForKey:KEY_AD_CLICKCOUNT]==[NSNull null]?@"":[dic valueForKey:KEY_AD_CLICKCOUNT] forState:UIControlStateNormal];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     //    [cell.dialBtn setImage:[] forState:<#(UIControlState)#>]

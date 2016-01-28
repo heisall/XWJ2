@@ -150,10 +150,14 @@ NSArray *footer;
     NSLog(@"view width %f height %f",self.view.bounds.size.width,self.view.bounds.size.height);
 
 //    NSArray * arr= [NSArray arrayWithObjects:@"故障报修",@"在线缴费",@"我要投诉",@"物业监督",@"物业监督", nil];
-    NSArray * arr= [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉", @"物业账单",nil];
+//    NSArray * arr= [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉", @"物业账单",nil];
+//
+//    NSArray * business= [NSArray arrayWithObjects:@"hometongzhi",@"homehuodong",@"homewy",@"homegz",@"homets",@"homejf", nil];
 
-    NSArray * business= [NSArray arrayWithObjects:@"hometongzhi",@"homehuodong",@"homewy",@"homegz",@"homets",@"homejf", nil];
-
+    NSArray * arr= [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉",nil];
+    
+    NSArray * business= [NSArray arrayWithObjects:@"hometongzhi",@"homehuodong",@"homewy",@"homegz",@"homets", nil];
+    
     NSInteger count = arr.count;
     CGFloat width = self.view.bounds.size.width/4;
     CGFloat height = self.scrollView.bounds.size.height;

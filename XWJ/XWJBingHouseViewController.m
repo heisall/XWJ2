@@ -14,6 +14,7 @@
 #import "XWJHomeViewController.h"
 #import "ProgressHUD.h"
 #import "XWJAccount.h"
+#import "XRQJpush.h"
 //#define 1000000000
 @interface XWJBingHouseViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property NSInteger typeindex;
@@ -350,7 +351,7 @@
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            
+
             
             NSDictionary *dic = (NSDictionary *)responseObject;
             
@@ -392,6 +393,7 @@
                 
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
+
                 NSLog(@"sid %@",sid);
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
@@ -403,6 +405,7 @@
                 [XWJAccount instance].jifen = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"jifen"]];
                 [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"Photo"]];
 
+                [XRQJpush setBieming:sid];
                 /*
                  "A_id" = 4;
                  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";

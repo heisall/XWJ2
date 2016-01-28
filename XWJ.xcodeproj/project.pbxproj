@@ -28,7 +28,6 @@
 		212697511C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212697411C4777CC00F5DF7D /* IQUIView+IQKeyboardToolbar.m */; };
 		212697521C4777CC00F5DF7D /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 212697441C4777CC00F5DF7D /* IQKeyboardManager.bundle */; };
 		219CCB441C45DD8E00791D9E /* JKNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB401C45DD8E00791D9E /* JKNotifier.m */; };
-		219CCB451C45DD8E00791D9E /* JKNotifier_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */; };
 		219CCB461C45DD8E00791D9E /* JKNotifierBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB431C45DD8E00791D9E /* JKNotifierBar.m */; };
 		219CCB761C461CF200791D9E /* MyOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 219CCB751C461CF200791D9E /* MyOrderDetailViewController.m */; };
 		8E0F37DD1C5223E200555C2C /* XWJMyHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0F37DB1C5223E200555C2C /* XWJMyHouseCell.m */; };
@@ -232,6 +231,7 @@
 		A46320731C00D6990062AA24 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46320711C00D6990062AA24 /* AddressBookUI.framework */; };
 		A467B0F91C0BE0FA00394B75 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A467B0F81C0BE0FA00394B75 /* MOBFoundation.framework */; };
 		A467B0FB1C0BE11300394B75 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A467B0FA1C0BE11300394B75 /* SMS_SDK.framework */; };
+		A478FBFB1C5A6126007DFE57 /* JKNotifier_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A478FBFA1C5A6126007DFE57 /* JKNotifier_default_icon@2x.png */; };
 		A48801791C09D2A400714F5B /* XWJBingHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48801771C09D2A400714F5B /* XWJBingHouseViewController.m */; };
 		A488017F1C09F13300714F5B /* XWJHomeTabFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A488017E1C09F13300714F5B /* XWJHomeTabFactory.m */; };
 		A48801811C09F22700714F5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A48801801C09F22700714F5B /* UIKit.framework */; };
@@ -457,7 +457,6 @@
 		212697441C4777CC00F5DF7D /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		219CCB3F1C45DD8E00791D9E /* JKNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNotifier.h; sourceTree = "<group>"; };
 		219CCB401C45DD8E00791D9E /* JKNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNotifier.m; sourceTree = "<group>"; };
-		219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JKNotifier_default_icon@2x.png"; sourceTree = "<group>"; };
 		219CCB421C45DD8E00791D9E /* JKNotifierBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNotifierBar.h; sourceTree = "<group>"; };
 		219CCB431C45DD8E00791D9E /* JKNotifierBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNotifierBar.m; sourceTree = "<group>"; };
 		219CCB741C461CF200791D9E /* MyOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailViewController.h; sourceTree = "<group>"; };
@@ -812,6 +811,7 @@
 		A46320711C00D6990062AA24 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		A467B0F81C0BE0FA00394B75 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
 		A467B0FA1C0BE11300394B75 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		A478FBFA1C5A6126007DFE57 /* JKNotifier_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JKNotifier_default_icon@2x.png"; sourceTree = "<group>"; };
 		A48801761C09D2A400714F5B /* XWJBingHouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJBingHouseViewController.h; sourceTree = "<group>"; };
 		A48801771C09D2A400714F5B /* XWJBingHouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJBingHouseViewController.m; sourceTree = "<group>"; };
 		A488017D1C09F13300714F5B /* XWJHomeTabFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJHomeTabFactory.h; sourceTree = "<group>"; };
@@ -1234,9 +1234,9 @@
 		219CCB3E1C45DD8E00791D9E /* JKNotifier */ = {
 			isa = PBXGroup;
 			children = (
+				A478FBFA1C5A6126007DFE57 /* JKNotifier_default_icon@2x.png */,
 				219CCB3F1C45DD8E00791D9E /* JKNotifier.h */,
 				219CCB401C45DD8E00791D9E /* JKNotifier.m */,
-				219CCB411C45DD8E00791D9E /* JKNotifier_default_icon@2x.png */,
 				219CCB421C45DD8E00791D9E /* JKNotifierBar.h */,
 				219CCB431C45DD8E00791D9E /* JKNotifierBar.m */,
 			);
@@ -2631,11 +2631,11 @@
 				A4F5B79E1C2E8741009D177E /* XWJShanghuCell.xib in Resources */,
 				A4DC3C981C1C5230003D4D18 /* gztablecell.xib in Resources */,
 				EC95189F1C4540C400AEA7E5 /* Info.plist in Resources */,
+				A478FBFB1C5A6126007DFE57 /* JKNotifier_default_icon@2x.png in Resources */,
 				A4F2571B1C2B59FF00B2EC58 /* XWJShuoTableCell.xib in Resources */,
 				DAC4AF271BF0619700D66E76 /* Images.xcassets in Resources */,
 				A41255491C0F33770042D8CC /* devAdv_red@2x.png in Resources */,
 				A4DC3CA01C1C7593003D4D18 /* Images.xcassets in Resources */,
-				219CCB451C45DD8E00791D9E /* JKNotifier_default_icon@2x.png in Resources */,
 				A4462E661C2EE37F004361BB /* XWJSPDetail.xib in Resources */,
 				A43811181C24FFDD001D2F29 /* ShareSDK.bundle in Resources */,
 				A43C97FC1C129C68006A61EE /* shanguangdeng2@2x.png in Resources */,
@@ -3123,7 +3123,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ning zhang (J7U23VP8F7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -3145,7 +3145,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2727fa0d-6b11-410c-86fa-770ae5a0362a";
 			};
 			name = Debug;
 		};
@@ -3154,7 +3154,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ning zhang (J7U23VP8F7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -3176,7 +3176,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = "信我家";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2727fa0d-6b11-410c-86fa-770ae5a0362a";
 			};
 			name = Release;
 		};

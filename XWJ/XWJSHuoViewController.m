@@ -372,8 +372,9 @@
 
                 XWJWebViewController * web = [[XWJWebViewController alloc] init];
                 web.url = url;
-                [self.navigationController pushViewController:web animated:NO];
-            
+//                [self.navigationController pushViewController:web animated:NO];
+                [self.navigationController showViewController:web sender:nil];
+
             }
         }
             break;
@@ -387,7 +388,8 @@
                 url= [[self.adrightArr objectAtIndex:0] valueForKey:@"url"];
                 XWJWebViewController * web = [[XWJWebViewController alloc] init];
                 web.url = url;
-                [self.navigationController pushViewController:web animated:NO];
+                [self.navigationController showViewController:web sender:nil];
+//                [self.navigationController sh:web animated:NO];
             }
 
         }
@@ -415,7 +417,7 @@
 }
 -(void)singleTap:(UITapGestureRecognizer *)image{
     NSInteger index = image.view.tag;
-    NSLog(@"single tap %lu",index);
+//    NSLog(@"single tap %lu",index);
     NSArray *array ;
     switch (_selecttype) {
         case 1:

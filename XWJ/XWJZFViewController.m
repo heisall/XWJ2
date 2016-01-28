@@ -167,7 +167,11 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     switch (self.type) {
         case HOUSENEW:{
             
-            [self getXinFang:nil];
+            if (self.searchStr&&self.searchStr.length>0) {
+                [self getXinFang:self.searchStr];
+            }else{
+                [self getXinFang:nil];
+            }
         }
             break;
         case HOUSE2:{

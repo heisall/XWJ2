@@ -50,7 +50,6 @@
      加推送
      */
     [XRQJpush setupWithOptions:launchOptions];
-    
     /*
      加分享
      */

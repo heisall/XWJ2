@@ -333,7 +333,9 @@ static NSString *kcellIdentifier = @"cell";
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
                 [XWJAccount instance].jifen = [userDic valueForKey:@"jifen"];
                 [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"Photo"]];
-
+                //设置别名
+                [XRQJpush setBieming:[XWJAccount instance].uid];
+                NSLog(@"******别名*****%@",[XWJAccount instance].uid);
                 /*
                  "A_id" = 4;
                  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";
@@ -374,9 +376,7 @@ static NSString *kcellIdentifier = @"cell";
                 [alertview show];
             }
             
-            //设置别名
-            [XRQJpush setBieming:[XWJAccount instance].uid];
-            NSLog(@"******别名*****%@",[XWJAccount instance].uid);
+
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"log fail ");

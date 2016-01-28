@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "XWJTabViewController.h"
 #import "XWJUrl.h"
+#import "ProgressHUD.h"
 @interface XWJForgetPwd2ViewController ()
 
 @end
@@ -33,6 +34,11 @@
 }
 
 - (IBAction)done:(id)sender {
+    
+    if (!self.txtPwd.text.length>0) {
+        [ProgressHUD showError:@"请输入密码！"];
+        return;
+    }
     NSString *url = RESETPWD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -42,14 +48,23 @@
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"reset success ");
-        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-        [defaults setValue:self.txtPwd.text forKey:@"password"];
-        [defaults synchronize];
-        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        window.rootViewController = tab;
         
+        NSDictionary *dic = (NSDictionary *)responseObject;
         
+        NSLog(@"dic %@",dic);
+        NSNumber * result = [dic valueForKey:@"result"];
+        
+        if ([result intValue]== 1) {
+            NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+            [defaults setValue:self.txtPwd.text forKey:@"password"];
+            [defaults synchronize];
+            XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            window.rootViewController = tab;
+        }else{
+            [ProgressHUD showError:[dic objectForKey:@"errorCode"]];
+        }
+     
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"reset fail ");
         //        dispatch_async(dispatch_get_main_queue(), ^{

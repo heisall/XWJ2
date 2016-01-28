@@ -342,7 +342,14 @@
 //                break;
 //            }
 //        }
+        
+        if ([self.city isEqualToString:@"GPS定位中..."]) {
+            
+//            [ProgressHUD showError:@""];
+            return;
+        }
         if (self.dataSource&&self.dataSource.count>0) {
+            
             index = [self.dataSource indexOfObject:self.city];
         }
         

@@ -996,7 +996,7 @@
                                     <constraint firstAttribute="height" constant="60" id="lqh-eB-mMu"/>
                                 </constraints>
                                 <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="-1" y="123" width="401" height="60"/>
                                 </variation>

@@ -77,6 +77,7 @@ NSArray *myImgs;
     [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(whenClickImage)];
     [imageV addGestureRecognizer:singleTap];
    
+    [imageV sd_setImageWithURL:[NSURL URLWithString:[XWJAccount instance].headPhoto]placeholderImage:[UIImage imageNamed:@"demo"]];
     
     NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
     

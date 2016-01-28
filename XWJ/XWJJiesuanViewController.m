@@ -12,18 +12,30 @@
 #import "XWJAddressController.h"
 #import "XWJAccount.h"
 #import "ProgressHUD/ProgressHUD.h"
+
+#import "ReturnIP.h"
+#import "WXApi.h"
+#import "CommonUtil.h"
 @interface XWJJiesuanViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property NSArray *array;
 @property NSArray *payarray;
 @property NSArray *zhifuIconArr;
 @property NSArray *orderArr;
 //@property NSDictionary *addressDic;
+
+@property(nonatomic,copy)NSString* ipStr;
+@property(nonatomic,copy)NSString* prePayIdStr;
+@property(nonatomic,copy)NSString* myNoncestr;
+@property(nonatomic,copy)NSString* apikeystr;
+@property(nonatomic,copy)NSString* appid;
+@property(nonatomic,copy)NSString* parterid;
 @end
 
 @implementation XWJJiesuanViewController
 #define TAG 1
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [WXApi registerApp:@"wx706df433748af20c" withDescription:@"demo 2.0"];
     self.navigationItem.title = @"用户结算";
     // Do any additional setup after loading the view.
     
@@ -371,8 +383,20 @@
 //                [self getOrderList:@"30"];
             }else
                 [ProgressHUD showError:errCode];
-
+            
         }
+        
+        /*
+         
+         *如果订单提交成功  后台给你返回订单id那就把订单id传给下面我写的方法
+         
+         *把你的订单id传给createPayRequest的参数即可
+         
+         */
+        
+//        [self createPayRequest:oid];
+        
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
@@ -417,6 +441,135 @@
         
     }];
 }
+
+
+
+
+#pragma mark - 数据请求
+- (void)createPayRequest:(NSString*)orderid{
+    NSLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
+    NSString* requestAddress = GETPAYINFO;
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:requestAddress parameters:@{
+                                              @"orderId":orderid,
+                                              @"ip":self.ipStr
+                                              }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"成功-----%@",responseObject);
+              if ([responseObject[@"result"] intValue]) {
+                  NSDictionary* dict = responseObject[@"data"];
+                  self.prePayIdStr = dict[@"prepay_id"];
+                  NSLog(@"-----预订单----%@",self.prePayIdStr);
+                  self.myNoncestr = dict[@"nonce_str"];
+                  self.apikeystr = dict[@"apiKey"];
+                  self.appid = dict[@"appid"];
+                  self.parterid = dict[@"mch_id"];
+                  [self getWeChatPay];
+                  [[NSUserDefaults standardUserDefaults] setValue:orderid forKey:@"orderid"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"失败===%@", error);
+          }];
+}
+
+
+// 调起微信支付，传进来商品名称和价格
+- (void)getWeChatPay{
+    NSString *prePayid;
+    prePayid = self.prePayIdStr;
+    //---------------------------获取prePayId结束------------------------------
+    
+    if(prePayid){
+        NSString *timeStamp = [self genTimeStamp];
+        // 调起微信支付
+        PayReq *request = [[PayReq alloc] init];
+        request.partnerId = self.parterid;
+        request.prepayId = prePayid;
+        request.package = @"Sign=WXPay";
+        request.nonceStr = self.myNoncestr;
+        request.timeStamp = [timeStamp intValue];
+        
+        // 这里要注意key里的值一定要填对， 微信官方给的参数名是错误的，不是第二个字母大写
+        NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
+        [signParams setObject: self.appid               forKey:@"appid"];
+        [signParams setObject: self.parterid           forKey:@"partnerid"];
+        [signParams setObject: request.nonceStr      forKey:@"noncestr"];
+        [signParams setObject: request.package       forKey:@"package"];
+        [signParams setObject: timeStamp             forKey:@"timestamp"];
+        [signParams setObject: request.prepayId      forKey:@"prepayid"];
+        //生成签名
+        NSString *sign  = [self genSign:signParams];
+        //添加签名
+        request.sign = sign;
+        [WXApi sendReq:request];
+    } else{
+        NSLog(@"*************7*********获取prePayId失败！");
+    }
+}
+#pragma mark - 生成各种参数
+
+- (NSString *)genTimeStamp
+{
+    return [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+}
+
+/**
+ * 注意：商户系统内部的订单号,32个字符内、可包含字母,确保在商户系统唯一
+ */
+- (NSString *)genNonceStr
+{
+    return [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]];
+}
+
+/**
+ * 建议 traceid 字段包含用户信息及订单信息，方便后续对订单状态的查询和跟踪
+ */
+- (NSString *)genTraceId
+{
+    return [NSString stringWithFormat:@"myt_%@", [self genTimeStamp]];
+}
+
+- (NSString *)genOutTradNo
+{
+    return [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]];
+}
+
+#pragma mark - 签名
+/** 签名 */
+- (NSString *)genSign:(NSDictionary *)signParams
+{
+    // 排序, 因为微信规定 ---> 参数名ASCII码从小到大排序
+    NSArray *keys = [signParams allKeys];
+    NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2 options:NSNumericSearch];
+    }];
+    
+    //生成 ---> 微信规定的签名格式
+    NSMutableString *sign = [NSMutableString string];
+    for (NSString *key in sortedKeys) {
+        [sign appendString:key];
+        [sign appendString:@"="];
+        [sign appendString:[signParams objectForKey:key]];
+        [sign appendString:@"&"];
+    }
+    NSString *signString = [[sign copy] substringWithRange:NSMakeRange(0, sign.length - 1)];
+    
+    // 拼接API密钥
+    NSString *result = [NSString stringWithFormat:@"%@&key=%@", signString, self.apikeystr];
+    // 打印检查
+    NSLog(@"*********1***********result = %@", result);
+    // md5加密
+    NSString *signMD5 = [CommonUtil md5:result];
+    // 微信规定签名英文大写
+    signMD5 = signMD5.uppercaseString;
+    // 打印检查
+    NSLog(@"*********2***********signMD5 = %@", signMD5);
+    return signMD5;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

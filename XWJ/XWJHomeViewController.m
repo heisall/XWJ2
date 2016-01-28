@@ -116,7 +116,8 @@ NSArray *footer;
     }else{
         vc.nickName = self.nickName;
     }
-    vc.headImageStr = self.headImage;
+    vc.headImageStr = [XWJAccount instance].headPhoto;
+    NSLog(@"----传值照片-----%@",[XWJAccount instance].headPhoto);
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (BOOL) isBlankString:(NSString *)string {

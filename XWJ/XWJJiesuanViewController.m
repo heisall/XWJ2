@@ -60,6 +60,8 @@
     }else
         self.totalLabel.text = self.price;
 
+    self.ipStr = [ReturnIP deviceIPAdress];
+
     self.payTableView.dataSource  = self;
     self.payTableView.delegate = self;
     NSIndexPath *path=[NSIndexPath indexPathForItem:1 inSection:0];
@@ -381,6 +383,8 @@
 
             if ([num intValue]== 1) {
                 [ProgressHUD showSuccess:errCode];
+                [self createPayRequest:[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
+
 //                [self getOrderList:@"30"];
             }else
                 [ProgressHUD showError:errCode];

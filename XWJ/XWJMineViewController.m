@@ -142,6 +142,7 @@ NSArray *myImgs;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = nil;
 
+    [self downLoadData];
     [self getPersonInfo];
 
 }

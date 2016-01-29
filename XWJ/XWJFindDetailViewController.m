@@ -235,7 +235,12 @@
                 
                 NSDictionary* temDic = responseObject[@"data"];
                 NSDictionary* temDic1 = temDic[@"find"];
-                NSLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
+             //   NSLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
+                NSString *dicstring = [NSString stringWithFormat:@"%@",temDic1];
+                if ([dicstring isEqualToString:@"<null>"]) {
+                    return ;
+                }
+
                 self.shareUrl =[NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=%@",temDic1[@"id"]];
                 /*
                  

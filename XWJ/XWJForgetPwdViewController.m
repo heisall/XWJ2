@@ -116,6 +116,8 @@
     
     [manager GET:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success");
+
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure");
     }];

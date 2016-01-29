@@ -135,24 +135,6 @@
         btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
         NSLog(@"btn %@",[XWJUtil deviceString]);
-//        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 Plus"]) {
-//            
-//            [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 30, 0, 0)];
-//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(90, -25, 0, 0)];
-//        }else{
-//            [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
-//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];
-//            
-//        }
-//        if ([[XWJUtil deviceString] isEqualToString:@"iPhone 5s"]) {
-//            [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
-//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];
-//            
-//        }else{
-//            [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 25, 0, 0)];
-//            [btn setTitleEdgeInsets:UIEdgeInsetsMake(70, -25, 0, 0)];
-//            
-//        }
     
         if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 plus"]) {
             [btn setImageEdgeInsets:UIEdgeInsetsMake(15, 25, 0, 0)];

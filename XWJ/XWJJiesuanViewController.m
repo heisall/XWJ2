@@ -22,7 +22,7 @@
 @property NSArray *zhifuIconArr;
 @property NSArray *orderArr;
 //@property NSDictionary *addressDic;
-
+@property NSInteger payIndex;
 @property(nonatomic,copy)NSString* ipStr;
 @property(nonatomic,copy)NSString* prePayIdStr;
 @property(nonatomic,copy)NSString* myNoncestr;
@@ -75,6 +75,7 @@
 //    self.scrollView.contentSize = CGSizeMake(0, self.shangpinTableView.frame.origin.y+self.tableConstraint.constant);
     self.scrollView.contentSize = CGSizeMake(0, 1500);
     
+    self.payIndex = 1;
     self.liuyanTextView.text = @"";
     [self getAddress];
 
@@ -124,7 +125,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    self.payIndex = indexPath.row;
+    NSLog(@"pay index %d",self.payIndex);
+    
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -354,6 +357,9 @@
         [ProgressHUD showError:@"请输入地址"];
     }
     
+        
+        
+        
     NSMutableArray * ridArr = [NSMutableArray array];
     for (NSDictionary *d in self.arr) {
         [ridArr addObject:[NSString stringWithFormat:@"%@",[d objectForKey:@"rec_id"]]];
@@ -381,10 +387,16 @@
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *num = [dic objectForKey:@"result"];
 
+            NSLog(@"jesun %d",self.payIndex);
             if ([num intValue]== 1) {
-                [ProgressHUD showSuccess:errCode];
-                [self createPayRequest:[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
-
+                
+                if (self.payIndex ==1) {
+                    
+                    [self createPayRequest:[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
+                }else{
+                                [ProgressHUD showSuccess:errCode];
+                    [self confirmOrder:@"30":[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
+                }
 //                [self getOrderList:@"30"];
             }else
                 [ProgressHUD showError:errCode];
@@ -407,6 +419,54 @@
         
     }];
     }
+}
+
+
+-(void)confirmOrder:(NSString *)status :(NSString *)orderId{
+    
+    NSString *url = GETORDERCONFIRM_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict setValue:orderId forKey:@"orderId"];
+    [dict setValue:status forKey:@"status"];
+    
+    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
+    
+    //    [dict setValue:@"1" forKey:@"a_id"];
+    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    /*
+     pageindex	第几页	String,从0开始
+     countperpage	每页条数	String
+     cateId	商户分类	String
+     */
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dict);
+            NSString *res = [ NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
+            //            self.orderArr = [dict objectForKey:@"orders"];
+            if ([res isEqualToString:@"1"]) {
+                
+                if ([status isEqualToString:@"30"]) {
+                    
+                    [self getOrderList:@"11"];
+                }else if([status isEqualToString:@"40"]){
+                    [self getOrderList:@"30"];
+                }
+            }
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
 }
 
 -(void)getOrderList:(NSString *)status{

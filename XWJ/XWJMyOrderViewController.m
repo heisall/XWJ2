@@ -23,7 +23,7 @@
 #import "ReturnIP.h"
 #import "WXApi.h"
 #import "CommonUtil.h"
-@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate,MyOrderDetailViewControllerDelegate,XWJOrderTableViewCellDelegate>
+@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate,MyOrderDetailViewControllerDelegate,XWJOrderTableViewCellDelegate,UIAlertViewDelegate>
 
 @property NSMutableArray *btn;
 @property NSMutableArray *cornerBtn;
@@ -91,8 +91,21 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 #pragma mark - 订单列表删除订单
 - (void)delegateMyOrder:(NSInteger)index{
     NSLog(@"----列表删除订单---%ld",index);
-    self.deleOrderNum = index;
-    [self createDeleOrderRequest];
+    
+     self.deleOrderNum = index;
+    UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"确定要删除吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alertview show];
+    
+
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex==0){
+        [self createDeleOrderRequest];
+    }
+
+
 }
 #pragma mark - 评论代理实现
 - (void)sendBackCellNum:(NSInteger)cellNum{

@@ -155,8 +155,8 @@
     
     BOOL islaunched = [[NSUserDefaults standardUserDefaults] boolForKey:@"isLaunched"];
 
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-    self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
+//    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+//    self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
     
     if (!islaunched) {
         UIViewController *view = [[XWJSplashController alloc] init];

@@ -157,7 +157,7 @@ NSArray *footer;
 
     NSArray * arr= [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉",nil];
     
-    NSArray * business= [NSArray arrayWithObjects:@"hometongzhi",@"homehuodong",@"homewy",@"homegz",@"homets", nil];
+    NSArray * business= [NSArray arrayWithObjects:@"hometongzhi",@"homehuodong",@"homewy",@"homegz",@"homets",nil];
     
     NSInteger count = arr.count;
     CGFloat width = self.view.bounds.size.width/4;

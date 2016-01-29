@@ -318,7 +318,7 @@
     [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"goods_id"]] forKey:@"goodsId"];
     [dict setValue:@"1" forKey:@"counts"];
     [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"price"]] forKey:@"unitPrice"];
-    [dict setValue:@"0" forKey:@"flg"];//0加入购物车 1修改
+    [dict setValue:@"1" forKey:@"flg"];//0加入购物车 1修改
     NSLog(@"spdetail unitPrice %@",[self.goodsDic objectForKey:@"price"]);
 
     /*
@@ -670,13 +670,58 @@
 //        UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
 //        XWJYueLineViewController *view = [car instantiateViewControllerWithIdentifier:@"yuyueline"];
 //        [self.navigationController showViewController:view sender:nil];
-        [self toJiesuan];
+//        [self toJiesuan];
+        
+        [self addOrder:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"store_id"]]];
     }else if([butn.titleLabel.text isEqualToString:@"购物车"]){
         UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
         [self.navigationController showViewController:[car instantiateInitialViewController] sender:self];
     }
     
 }
+
+-(void)addOrder:(NSString *)storeid{
+    NSString *url = ADDORDER_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setValue:@"1" forKey:@"store_id"];
+    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    [dict setValue:storeid forKey:@"storeId"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *nu = [dic objectForKey:@"result"];
+            
+            if ([nu integerValue]== 1) {
+                
+                XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];
+                con.price = [NSString stringWithFormat:@"%.2f",[[self.goodsDic valueForKey:@"price"] floatValue]];
+                
+                NSMutableDictionary *dic  = [NSMutableDictionary dictionaryWithDictionary:self.goodsDic];
+                [dic setValue:[self.goodsDic valueForKey:@"default_image"] forKey:@"goods_image"];
+                [dic setValue:@"1" forKey:@"quantity"];
+                con.arr = [NSArray arrayWithObject:dic];
+                con.isFromJiFen = self.isFromJifen;
+                con.isPay = true;
+                [self.navigationController showViewController:con sender:nil];
+                //                                [ProgressHUD showSuccess:errCode];
+            }else{
+                //                [ProgressHUD showError:errCode];
+            }
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 -(void)toJiesuan{
     NSString *stock =  [self.goodsDic objectForKey:@"stock"];
     
@@ -704,7 +749,7 @@
     [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"goods_id"]] forKey:@"goodsId"];
     [dict setValue:@"1" forKey:@"counts"];
     [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"price"]] forKey:@"unitPrice"];
-    [dict setValue:@"0" forKey:@"flg"];//0加入购物车 1修改
+    [dict setValue:@"1" forKey:@"flg"];//0加入购物车 1修改
     NSLog(@"spdetail unitPrice %@",[self.goodsDic objectForKey:@"price"]);
     
     /*
@@ -724,15 +769,8 @@
             NSNumber *nu = [dic objectForKey:@"result"];
             
             if ([nu integerValue]== 1) {
-                XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];
-                con.price = [NSString stringWithFormat:@"%.2f",[[self.goodsDic valueForKey:@"price"] floatValue]];
-                
-                NSMutableDictionary *dic  = [NSMutableDictionary dictionaryWithDictionary:self.goodsDic];
-                [dic setValue:[self.goodsDic valueForKey:@"default_image"] forKey:@"goods_image"];
-                [dic setValue:@"1" forKey:@"quantity"];
-                con.arr = [NSArray arrayWithObject:dic];
-                con.isFromJiFen = self.isFromJifen;
-                [self.navigationController showViewController:con sender:nil];
+
+
             }else{
                 [ProgressHUD showError:errCode];
             }

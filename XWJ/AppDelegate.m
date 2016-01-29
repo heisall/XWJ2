@@ -278,6 +278,7 @@
     self.window.rootViewController = [loginStoryboard instantiateInitialViewController];
     
 }
+
 -(void)getCity{
     
     NSString *url = GETCITY_URL;
@@ -471,7 +472,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle
                                                         message:strMsg
                                                        delegate:self
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil, nil];
         NSLog(@"-----%@",resp);
         [alert show];

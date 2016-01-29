@@ -312,7 +312,17 @@
             NSNumber *num = [dic objectForKey:@"result"];
             
             if ([num intValue]== 1) {
+                if (self.isPay) {
+                    if (self.payIndex ==1) {
+                        
+                        [self createPayRequest:[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
+                    }else{
+                        [ProgressHUD showSuccess:errCode];
+                        [self confirmOrder:@"30":[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
+                    }
+                }else{
                 [ProgressHUD showSuccess:errCode];
+                }
             }else
                 [ProgressHUD showError:errCode];
             
@@ -325,7 +335,9 @@
 
 - (IBAction)p:(id)sender {
  
-    if (self.isFromJiFen) {
+
+    
+    if (self.isFromJiFen||self.isPay) {
         [self duihuan];
     }else{
     
@@ -355,6 +367,7 @@
     
     if (!self.selectDic) {
         [ProgressHUD showError:@"请输入地址"];
+        return;
     }
     
         
@@ -394,7 +407,7 @@
                     
                     [self createPayRequest:[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
                 }else{
-                                [ProgressHUD showSuccess:errCode];
+                    [ProgressHUD showSuccess:errCode];
                     [self confirmOrder:@"30":[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
                 }
 //                [self getOrderList:@"30"];
@@ -452,12 +465,13 @@
             //            self.orderArr = [dict objectForKey:@"orders"];
             if ([res isEqualToString:@"1"]) {
                 
-                if ([status isEqualToString:@"30"]) {
-                    
-                    [self getOrderList:@"11"];
-                }else if([status isEqualToString:@"40"]){
-                    [self getOrderList:@"30"];
-                }
+                [self.navigationController popViewControllerAnimated:NO ];
+//                if ([status isEqualToString:@"30"]) {
+//                    
+//                    [self getOrderList:@"11"];
+//                }else if([status isEqualToString:@"40"]){
+//                    [self getOrderList:@"30"];
+//                }
             }
             
         }

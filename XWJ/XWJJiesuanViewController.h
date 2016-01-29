@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *liuyanTextView;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property BOOL isFromJiFen;
+@property BOOL isPay;
+
 @property NSArray *arr;
 @property NSString *price;
 @property NSDictionary *selectDic;

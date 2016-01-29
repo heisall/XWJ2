@@ -84,7 +84,7 @@ CGRect tableViewCGRect;
             }
             NSString *qgzk = dicts[@"qgzk"];
             if ([qgzk isEqual:[NSNull null]]){
-                qgzk = @"未婚";
+                qgzk = @"";
             }
             NSString *xqah = dicts[@"xqah"];
             if ([xqah isEqual:[NSNull null]]) {
@@ -213,6 +213,18 @@ CGRect tableViewCGRect;
         imageView.layer.masksToBounds = YES;
         imageView.layer.cornerRadius = 30;
     }else{
+        if (indexPath.row == 2 ) {
+            switch ([self.tableDetailData[2] integerValue]) {
+                case 1:
+                    self.tableDetailData[2] = @"未婚";
+                    break;
+                case 2:
+                    self.tableDetailData[2] = @"已婚";
+                    break;
+                default:
+                    break;
+            }
+        }
         
         cell.detailTextLabel.text = self.tableDetailData[(indexPath.section-1)*4 + indexPath.row];
     }

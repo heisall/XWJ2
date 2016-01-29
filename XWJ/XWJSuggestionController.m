@@ -7,6 +7,7 @@
 //
 
 #import "XWJSuggestionController.h"
+#import "XWJAccount.h"
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 @implementation XWJSuggestionController{
@@ -111,8 +112,8 @@
     NSMutableDictionary *parameters =[[NSMutableDictionary alloc] init];
     //16位md5加密
     //    NSString *passwordString = [self getMd5_16Bit_String:_pwdtext.text];
-    parameters[@"userid"] = @"70";
-    parameters[@"content"] = @"dsad是多少";
+    parameters[@"userid"] = [XWJAccount instance].uid;
+    parameters[@"content"] = textv.text;
     
     [manager PUT:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //解析服务器返回的数据responseObject

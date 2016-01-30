@@ -61,7 +61,8 @@
 
 #define GETWUYE_URL XWJBASEURL"sup/supIndex"
 #define GETWUYEDETAIL_URL XWJBASEURL"sup/supDetail"
-
+#define GETFINDSHARE_URL XWJBASEURL"user/modifyFind"
+#define GETWUYESHARE_URL XWJBASEURL"user/modifySupervised"
 //zhangdan
 #define  GETFZHANGDAN_URL XWJBASEURL"bill/findBills"
 //guzhang

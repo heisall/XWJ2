@@ -598,7 +598,7 @@
             [tableView reloadData];
 //            tableView.contentSize =CGSizeMake(0,100+self.groupBuy.count*110);
             tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, self.groupBuy.count*110);
-            scroll.contentSize = CGSizeMake(SCREEN_SIZE.width, 100+SCREEN_SIZE.height+self.groupBuy.count*110);
+            scroll.contentSize = CGSizeMake(SCREEN_SIZE.width, 150+SCREEN_SIZE.height+self.groupBuy.count*110);
 
         }
         

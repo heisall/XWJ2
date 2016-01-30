@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIView *adView;
 @property (weak, nonatomic) IBOutlet UILabel *room;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property NSMutableArray *notices;
 @property NSMutableArray *shows ;

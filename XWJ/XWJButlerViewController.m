@@ -44,7 +44,7 @@
             }
         }
     }
-
+    self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.height+100);
 }
 ////通知传过来的信息
 //-(void)changeRoomNotification:(NSNotification *)notification
@@ -125,7 +125,7 @@
     for (int i=0; i<8; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"guanjia%d",i+1]] forState:UIControlStateNormal];
-        btn.frame = CGRectMake((SCREEN_SIZE.width/4+1)*(i%4), self.room.frame.origin.y+self.room.bounds.size.height+60 + ((int)(i/4))*(SCREEN_SIZE.width/4+1), SCREEN_SIZE.width/4 , SCREEN_SIZE.width/4 );
+        btn.frame = CGRectMake((SCREEN_SIZE.width/4+1)*(i%4), self.room.frame.origin.y+self.room.bounds.size.height+10 + ((int)(i/4))*(SCREEN_SIZE.width/4+1), SCREEN_SIZE.width/4 , SCREEN_SIZE.width/4 );
         btn.tag = i;
    //     NSLog(@"btn %@",btn);
 //        btn.backgroundColor = XWJColor(124, 197, 193);
@@ -147,7 +147,7 @@
 //        btn.al
         [btn setTitle:self.titles[i] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(btnclick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
+        [self.scrollView addSubview:btn];
     }
 }
 

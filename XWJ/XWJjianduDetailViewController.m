@@ -132,11 +132,18 @@
         //得到分享到的微博平台名
         NSInteger count = [self.shareBtn.titleLabel.text integerValue];
         count++;
-        [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
+        [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
+        
+        
     }
 
 
 }
+
+-(void)wuyeshareI{
+    
+}
+
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
     NSString *url = GETFINDPUBCOM_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -176,7 +183,7 @@
 //                alertview.delegate = self;
 //                [alertview show];
                 if ([types isEqualToString:@"点赞"]) {
-                    [ProgressHUD showSuccess:@"点赞成功"];
+                    [ProgressHUD showSuccess:[dict objectForKey:@"errorCode"]];
                 }else{
                     [ProgressHUD showSuccess:@"评论成功"];
                 
@@ -270,7 +277,7 @@
             NSString *url = [[dic objectForKey:@"work"] valueForKey:@"photo"];
             NSArray *URLs = [url componentsSeparatedByString:@","];
             self.shareUrl = [NSString stringWithFormat:@"%@",[URLs firstObject]];
-            self.shareImageStr = [URLs firstObject];
+            self.shareImageStr = self.shareUrl =[NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=%@",self.dicw[@"id"]];
             NSLog(@"-------%@",self.dicw[@"Content"]);
             self.shareTitleStr = self.dicw[@"Content"];
             if(URLs&&URLs.count>0)
@@ -349,12 +356,13 @@
     _typeLabel.text = type;
     
     
-    if ([[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"iftalk"]] isEqualToString:@"1"]) {
-        
-        self.zanBtn.selected = YES;
-    }else{
-        self.zanBtn.selected = NO;
-    }
+//    if ([[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"iftalk"]] isEqualToString:@"1"]) {
+    
+//        self.zanBtn.selected = YES;
+//    }else{
+//        self.zanBtn.selected = NO;
+//    }
+    
     if ([type isEqualToString:@"工作进展"]) {
         _typeLabel.backgroundColor = XWJColor(67, 164, 83);
     }else if ([type isEqualToString:@"工作记录"]){

@@ -67,10 +67,10 @@ NSArray *footer;
 -(void)viewDidLoad{
     
 //    [self setNavigationBar2];
+    
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
-   
 //     [XWJCity instance].aid = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_id"];
     [XWJAccount instance].aid = [XWJAccount instance].aid;
     [self.collectionView registerNib:[UINib nibWithNibName:@"XWJSupplementaryView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kheaderIdentifier];

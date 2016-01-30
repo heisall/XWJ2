@@ -87,33 +87,35 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(get30Pay) name:@"refreshorder" object:nil];
-
-//    [[NSNotificationCenter defaultCenter] addObserver:(nonnull id) selector:<#(nonnull SEL)#> name:<#(nullable NSString *)#> object:(nullable id):@"refreshorder" object:self userInfo:nil];
-
+    
+    //    [[NSNotificationCenter defaultCenter] addObserver:(nonnull id) selector:<#(nonnull SEL)#> name:<#(nullable NSString *)#> object:(nullable id):@"refreshorder" object:self userInfo:nil];
+    
 }
 #pragma mark - 订单列表删除订单
 - (void)delegateMyOrder:(NSInteger)index{
     NSLog(@"----列表删除订单---%ld",index);
     
-     self.deleOrderNum = index;
+    self.deleOrderNum = index;
     UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"确定要删除吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     [alertview show];
     
-
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if ((alertView.tag-100)>0) {
-        //确认收货
-        NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:(alertView.tag-100)] valueForKey:@"order_id"]] ;
-        [self confirmOrder:@"40" :oid];
+    if (alertView.tag == 100) {
+        if (1 == buttonIndex) {
+            //确认收货
+            NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:(alertView.tag-100)] valueForKey:@"order_id"]] ;
+            [self confirmOrder:@"40" :oid];
+        }
     }else{
-    if(buttonIndex==0){
-        [self createDeleOrderRequest];
+        if(buttonIndex==0){
+            [self createDeleOrderRequest];
+        }
     }
-    }
-
+    
 }
 #pragma mark - 评论代理实现
 - (void)sendBackCellNum:(NSInteger)cellNum{
@@ -407,11 +409,12 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
                                                         message:@"您确定进行确认收货吗？"
                                                        delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil, nil];
+                                              cancelButtonTitle:@"取消"
+                                              otherButtonTitles:@"确定", nil];
         alert.tag = 100+index;
+        NSLog(@"-----%ld",alert.tag);
         [alert show];
-
+        
     }else if(self.index==0){
         NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:index] valueForKey:@"order_id"]] ;
         //        [self confirmOrder:@"30" :oid];
@@ -419,11 +422,10 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     }
     
 }
-
 -(void)get30Pay{
-//    [[NSUserDefaults standardUserDefaults] setValue:orderid forKey:@"orderid"];
-//        NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
-//        [self confirmOrder:@"30" :orderid];
+    //    [[NSUserDefaults standardUserDefaults] setValue:orderid forKey:@"orderid"];
+    //        NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
+    //        [self confirmOrder:@"30" :orderid];
     [self getOrderList:@"11"];
 }
 
@@ -549,7 +551,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     self.btn = [NSMutableArray array];
     self.cornerBtn = [NSMutableArray array];
     NSArray * title = [NSArray arrayWithObjects:@"待付款",@"待收货",@"已完成", nil];
-
+    
     NSInteger count = title.count;
     CGFloat width = self.view.bounds.size.width/count;
     CGFloat height = 40;
@@ -584,7 +586,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         
     }
     self.index = 0;
-
+    
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(0,50, SCREEN_SIZE.width, 40)];
     self.label.textAlignment  = NSTextAlignmentCenter;
     self.label.textColor = [UIColor blackColor];
@@ -640,7 +642,6 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
              NSLog(@"失败===%@", error);
          }];
 }
-
 
 #pragma mark - 数据请求
 - (void)createPayRequest:(NSString*)orderid{

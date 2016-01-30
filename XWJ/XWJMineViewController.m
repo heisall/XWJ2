@@ -45,7 +45,7 @@ NSArray *myImgs;
 //    
 //}
 -(void)viewDidLoad{
-    
+   
     NSDictionary *dicuser = [[NSDictionary alloc]init];
     [self downLoadData];
 //    self.tableData = [NSArray arrayWithObjects:@"关于信我家",@"修改密码",@"版本检查",@"修改建议" ,@"退出登录" ,nil];
@@ -102,6 +102,7 @@ NSArray *myImgs;
         NSLog(@"%@",dic);
 
         if ([dic objectForKey:@"data"]!=[NSNull null]) {
+            
             self.dicuser = [[dic objectForKey:@"data"] objectForKey:@"user"];
             [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
             NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
@@ -110,7 +111,8 @@ NSArray *myImgs;
             
             [self.tableview reloadData];
         }
-        
+//        - (void)setObject:(id)value forKey:(NSString *)defaultName;
+//        - (void)removeObjectForKey:(NSString *)defaultName;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");
@@ -386,17 +388,20 @@ NSArray *myImgs;
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"确定要退出登陆？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
         alertview.delegate = self;
         [alertview show];
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"username"];
-//        UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-//        self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
     }
     
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
+        
+//清空所有的缓存到本地的信息
+        
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"username"];
+        NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults]dictionaryRepresentation];
+        for (NSString *key in [defaultsDictionary allKeys]) {    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
         UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
         self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
     }

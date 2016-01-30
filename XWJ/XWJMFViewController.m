@@ -592,7 +592,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         return;
     }
     [dict setValue:[[self.lp objectAtIndex:self.lpIndex] objectForKey:@"dicKey"] forKey:@"buildingInfo"];
-//    [dict setValue:@"" forKey:@"area"];
+    [dict setValue:@"" forKey:@"area"];
     
     if (!self.shiTF.text.length>0||!self.tingTF.text.length>0||!self.weiTF.text.length>0) {
         [ProgressHUD showError:@"请填写户型！"];
@@ -607,7 +607,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         return;
     }
     [dict setValue:[NSString stringWithFormat:@"%@",self.areaTF.text]forKey:@"buildingArea"];
-    
+    [dict setValue:@"" forKey:@"useArea"];
     if(!self.jiage.text.length>0){
         [ProgressHUD showError:@"请填写价格！"];
         return;
@@ -655,8 +655,11 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     
     if ([XWJAccount instance].phone) {
-        [dict setValue:[XWJAccount instance].phone forKey:@"addPerson"];
+        [dict setValue:[XWJAccount instance].uid forKey:@"addPerson"];
+        NSLog(@"%@",[XWJAccount instance].uid);
     }
+    [dict setValue:@"" forKey:@"clickCount"];
+    [dict setValue:@"" forKey:@"addTime"];
     [dict setValue:@"青岛市" forKey:@"city"];
     
     NSString * str = [XWJUtil dataTOjsonString:dict];
@@ -667,6 +670,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     [data setObject:str forKey:@"oldHouse"];
+    NSLog(@"%@",data);
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
@@ -674,7 +678,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             
-        
+            NSLog(@"%@",responseObject);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *nu = [dic objectForKey:@"result"];
             [ProgressHUD dismiss];
@@ -691,8 +695,6 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
             NSLog(@"dic %@",dic);
         }
         
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
         
@@ -701,7 +703,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if (!controlView) {
-        controlView        = [[UIControl alloc] initWithFrame:self.view.frame];
+        controlView  = [[UIControl alloc] initWithFrame:self.view.frame];
         [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
         controlView.backgroundColor = [UIColor clearColor];
     }

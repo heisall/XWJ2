@@ -27,8 +27,9 @@
         imv.image = [UIImage imageNamed:[NSString stringWithFormat:@"splash%d",i+1]];
         imv.userInteractionEnabled = YES;
         if (i==0) {
+            
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            btn.frame = CGRectMake(SCREEN_SIZE.width-80, (SCREEN_SIZE.height-40)/2, 80, 40);
+            btn.frame = CGRectMake(SCREEN_SIZE.width-80, (SCREEN_SIZE.height- 80)/2, 80, 80);
 
             [btn addTarget:self action:@selector(scroll1) forControlEvents:UIControlEventTouchUpInside];
           
@@ -42,7 +43,7 @@
         
         if (i==1) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            btn.frame = CGRectMake(SCREEN_SIZE.width-80, (SCREEN_SIZE.height-40)/2, 80, 40);
+            btn.frame = CGRectMake(SCREEN_SIZE.width-80, (SCREEN_SIZE.height- 80)/2, 80, 80);
             [btn addTarget:self action:@selector(scroll2) forControlEvents:UIControlEventTouchUpInside];
             UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
             btn1.frame = CGRectMake(0, (SCREEN_SIZE.height-80), SCREEN_SIZE.width, 80);

@@ -172,7 +172,6 @@
             [self loginUname:uname Pwd:pass];
         }else{
             [self toLoginController];
-            
         }
     }
     //    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
@@ -200,12 +199,6 @@
                 
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
-
-                //设置别名
-                [XRQJpush setBieming:sid];
-                NSLog(@"******别名*****%@",sid);
-                NSLog(@"sid %@",sid);
-                
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
                 [XWJAccount instance].password = pwd;
@@ -215,6 +208,9 @@
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
                 [XWJAccount instance].jifen = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"jifen"]];
                 [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"Photo"]];
+                //设置别名
+                NSLog(@"------%@",[XWJAccount instance].uid);
+                [XRQJpush setBieming:[XWJAccount instance].uid];
                 /*
                  "A_id" = 4;
                  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";
@@ -345,12 +341,16 @@
     
     // 应用正处理前台状态下，不会收到推送消息，因此在此处需要额外处理一下
     if (application.applicationState == UIApplicationStateActive) {
+        NSLog(@"-------%@",userInfo);
+        
         [JKNotifier showNotifer:[NSString stringWithFormat:@"亲,您中了一千万！！！！!"]];
         
         [JKNotifier handleClickAction:^(NSString *name,NSString *detail, JKNotifier *notifier) {
             [notifier dismiss];
             NSLog(@"点击可在这里边处理一些事情");
             
+            
+//            self.tabBarController.selectedIndex = 2;
         }];
     }
     return;

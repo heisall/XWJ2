@@ -24,6 +24,8 @@
 
 #import "WaiLianViewController.h"
 
+#import "XWJAccount.h"
+
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 @interface SignViewController ()<SDCycleScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,ShouYe0TableViewCellDelegate>{
     UITableView* _tableView;
@@ -137,7 +139,7 @@
 //    headIV.backgroundColor = [UIColor redColor];
     headIV.layer.cornerRadius = 35;
     headIV.layer.masksToBounds = YES;
-    [headIV sd_setImageWithURL:[NSURL URLWithString:self.headImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
+    [headIV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[XWJAccount instance].headPhoto]] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
     [cell addSubview:headIV];
     
     UILabel* nameLable  = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(headIV.frame) + 10, WIDTH - 20, 12)];

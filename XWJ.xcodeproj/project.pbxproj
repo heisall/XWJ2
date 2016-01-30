@@ -73,6 +73,7 @@
 		8E82E5081C48C2DB008D418B /* XWJBingHouseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E5071C48C2DB008D418B /* XWJBingHouseViewController.xib */; };
 		8E82E50A1C48C3EC008D418B /* WuyeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */; };
 		8E82E50C1C48C444008D418B /* XWJLoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */; };
+		8EB8CEA91C5C8A4100C20EAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB8CEA81C5C8A4100C20EAE /* AppDelegate.m */; };
 		8EEB6E141C3134C9006F572D /* XWJMyFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */; };
 		8EEB6E151C3134C9006F572D /* XWJMyFindViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */; };
 		8EEB6E161C3134C9006F572D /* XWJMyFindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E131C3134C9006F572D /* XWJMyFindViewController.m */; };
@@ -346,7 +347,6 @@
 		DA20AE021BFB5694002032D1 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA20AE011BFB5694002032D1 /* libstdc++.tbd */; };
 		DA8834731BFCB47F001B2862 /* XWJLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8834721BFCB47F001B2862 /* XWJLoginViewController.m */; };
 		DAC4AF1C1BF0619700D66E76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC4AF1B1BF0619700D66E76 /* main.m */; };
-		DAC4AF1F1BF0619700D66E76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC4AF1E1BF0619700D66E76 /* AppDelegate.m */; };
 		DAC4AF221BF0619700D66E76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC4AF211BF0619700D66E76 /* ViewController.m */; };
 		DAC4AF251BF0619700D66E76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC4AF231BF0619700D66E76 /* Main.storyboard */; };
 		DAC4AF271BF0619700D66E76 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC4AF261BF0619700D66E76 /* Images.xcassets */; };
@@ -538,6 +538,7 @@
 		8E82E5071C48C2DB008D418B /* XWJBingHouseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJBingHouseViewController.xib; sourceTree = "<group>"; };
 		8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WuyeStoryboard.storyboard; sourceTree = "<group>"; };
 		8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XWJLoginStoryboard.storyboard; sourceTree = "<group>"; };
+		8EB8CEA81C5C8A4100C20EAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8EEB6E0F1C3134C9006F572D /* XWJMyFindViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJMyFindViewCell.h; sourceTree = "<group>"; };
 		8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJMyFindViewCell.m; sourceTree = "<group>"; };
 		8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJMyFindViewCell.xib; sourceTree = "<group>"; };
@@ -1006,7 +1007,6 @@
 		DAC4AF1A1BF0619700D66E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAC4AF1B1BF0619700D66E76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DAC4AF1D1BF0619700D66E76 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		DAC4AF1E1BF0619700D66E76 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DAC4AF201BF0619700D66E76 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		DAC4AF211BF0619700D66E76 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DAC4AF241BF0619700D66E76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -2246,8 +2246,8 @@
 				A4F40BD41C098862006E2F19 /* BindHouse */,
 				DAC4AF191BF0619700D66E76 /* Supporting Files */,
 				DAC4AF1D1BF0619700D66E76 /* AppDelegate.h */,
+				8EB8CEA81C5C8A4100C20EAE /* AppDelegate.m */,
 				DAC4AF261BF0619700D66E76 /* Images.xcassets */,
-				DAC4AF1E1BF0619700D66E76 /* AppDelegate.m */,
 				DAC4AF201BF0619700D66E76 /* ViewController.h */,
 				DAC4AF211BF0619700D66E76 /* ViewController.m */,
 				DAC4AF231BF0619700D66E76 /* Main.storyboard */,
@@ -2747,7 +2747,6 @@
 				A4CBC7661C3AA46600274040 /* MJRefreshComponent.m in Sources */,
 				A43C97D01C129A79006A61EE /* LGPhotoPickerCustomToolBarView.m in Sources */,
 				A43C97D81C129B11006A61EE /* LICENSE.md in Sources */,
-				DAC4AF1F1BF0619700D66E76 /* AppDelegate.m in Sources */,
 				A43C97A41C1297E1006A61EE /* LGPhotoPickerDatas.m in Sources */,
 				8E1327171C30DED000D3EDB5 /* NichengViewController.m in Sources */,
 				A41255731C0F39D20042D8CC /* NSData+ImageContentType.m in Sources */,
@@ -2890,6 +2889,7 @@
 				A43C98241C140C16006A61EE /* XWJZFTableViewCell.m in Sources */,
 				A43C98061C12BFE4006A61EE /* XWJActivityViewController.m in Sources */,
 				A4DC3CB11C1D1ED7003D4D18 /* XWJMallViewController.m in Sources */,
+				8EB8CEA91C5C8A4100C20EAE /* AppDelegate.m in Sources */,
 				A4CBC7751C3AA46600274040 /* UIScrollView+MJRefresh.m in Sources */,
 				A412550C1C0F22FC0042D8CC /* AFURLResponseSerialization.m in Sources */,
 				A448762F1C5853DC004FBC09 /* CommonUtil.m in Sources */,

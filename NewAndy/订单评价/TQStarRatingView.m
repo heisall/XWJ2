@@ -70,8 +70,7 @@
     CGRect frame = self.bounds;
     UIView *view = [[UIView alloc] initWithFrame:frame];
     view.clipsToBounds = YES;
-    for (int i = 0; i < self.numberOfStar; i ++)
-    {
+    for (int i = 0; i < self.numberOfStar; i ++){
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
         imageView.frame = CGRectMake(i * frame.size.width / self.numberOfStar, 0, frame.size.width / self.numberOfStar, frame.size.height);
         [view addSubview:imageView];
@@ -79,8 +78,7 @@
     return view;
 }
 
-- (void)changeStarForegroundViewWithPoint:(CGPoint)point
-{
+- (void)changeStarForegroundViewWithPoint:(CGPoint)point {
     if (!self.isNOhua) {
         CGPoint p = point;
         
@@ -96,7 +94,10 @@
         NSString * str = [NSString stringWithFormat:@"%0.2f",p.x / self.frame.size.width];
         float score = [str floatValue];
         p.x = score * self.frame.size.width;
-        self.starForegroundView.frame = CGRectMake(0, 0, p.x, self.frame.size.height);
+        NSLog(@"=======%.2f",p.x);
+        int aa = 50 * (((int)p.x / 50) + 1);
+        NSLog(@"*******%d",aa);
+        self.starForegroundView.frame = CGRectMake(0, 0, aa, self.frame.size.height);
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(starRatingView: score:)])
         {

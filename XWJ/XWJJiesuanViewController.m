@@ -16,7 +16,8 @@
 #import "ReturnIP.h"
 #import "WXApi.h"
 #import "CommonUtil.h"
-@interface XWJJiesuanViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "UITextView+placeholder.h"
+@interface XWJJiesuanViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 @property NSArray *array;
 @property NSArray *payarray;
 @property NSArray *zhifuIconArr;
@@ -76,9 +77,14 @@
     self.scrollView.contentSize = CGSizeMake(0, 1500);
     
     self.payIndex = 1;
-    self.liuyanTextView.text = @"";
+    self.liuyanTextView.placeholder = @"请在这里进行留言";
+    self.liuyanTextView.delegate = self;
     [self getAddress];
 
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    textView.text = @"";
 }
 
 #pragma mark - Table view data source
@@ -465,6 +471,7 @@
             //            self.orderArr = [dict objectForKey:@"orders"];
             if ([res isEqualToString:@"1"]) {
                 
+                [ProgressHUD showSuccess:@"您的订单提交完成，如查询订单详情，请进入我的订单进行查看 "];
                 [self.navigationController popViewControllerAnimated:NO ];
 //                if ([status isEqualToString:@"30"]) {
 //                    

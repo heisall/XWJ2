@@ -96,9 +96,17 @@
    // [self pubCommentLword:@"" type:@"留言"];
 }
 - (IBAction)zan:(UIButton *)sender {
+
+//    sender.enabled = NO;
+    
+    if (sender.selected) {
+        [ProgressHUD showError:@"不能重复点赞"];
+        return;
+    }else{
+        sender.selected = YES;
+    }
     NSInteger count = [sender.titleLabel.text integerValue];
     count++;
-    sender.enabled = NO;
     [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
     [self pubCommentLword:@"" type:@"点赞"];
 

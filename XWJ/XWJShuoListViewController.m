@@ -324,7 +324,7 @@
         for (UIView * subview in [cell.xingView subviews]) {
             [subview removeFromSuperview];
         }
-        TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 70, 15) numberOfStar:[self.starArr[indexPath.row] intValue]];
+        TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(0, 0, (70/5)*[self.starArr[indexPath.row] intValue], 15) numberOfStar:[self.starArr[indexPath.row] intValue]];
         starRatingView.isNOhua = YES;
         [cell.xingView addSubview:starRatingView];
         NSArray *arr = self.tabledata;
@@ -386,7 +386,7 @@
                         [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
                         btn.tag  = 100+i;
                         [cell.tedeView addSubview:btn];
-                        wid = wid+labelSize.width;
+                        wid = wid+labelSize.width+1;
 
 //                    }
 

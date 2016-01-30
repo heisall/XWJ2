@@ -432,6 +432,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     XWJFindPubViewController *viewcon = [self.storyboard  instantiateViewControllerWithIdentifier:@"findpub"];
     viewcon.dataSource = [NSMutableArray array];
 
+    [self.finddetailArr removeObjectAtIndex:0];
     [viewcon.dataSource addObjectsFromArray: self.findlistArr];
     [self.navigationController showViewController:viewcon sender:nil];
     

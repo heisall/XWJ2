@@ -14,6 +14,7 @@
 #import "XWJHeader.h"
 #import "XWJAccount.h"
 #import "XWJCity.h"
+#import "ProgressHUD/ProgressHUD.h"
 //注册推送
 #import "XRQJpush.h"
 @interface XWJLoginViewController ()<XWJBindHouseDelegate>
@@ -234,9 +235,10 @@
             //            UIWindow *window = [UIApplication sharedApplication].keyWindow;
             //            window.rootViewController = tab;            //        });
             
-            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"服务端返回异常" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            alertview.delegate = self;
-            [alertview show];
+            [ProgressHUD showError:@"服务端返回异常"];
+//            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"服务端返回异常" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//            alertview.delegate = self;
+//            [alertview show];
         }];
     }else{
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"请输入用户名和密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

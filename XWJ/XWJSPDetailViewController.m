@@ -20,7 +20,7 @@
 #import "XWJSPCommentController.h"
 #import "XWJWebViewController.h"
 #import "XWJImagesController.h"
-@interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource,LCBannerViewDelegate>
+@interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property UIScrollView *scrollView;
 
 @property UILabel *titleLabel;
@@ -722,6 +722,10 @@
     }];
 }
 
+-(void)checkoutIf{
+    
+}
+
 -(void)toJiesuan{
     NSString *stock =  [self.goodsDic objectForKey:@"stock"];
     
@@ -735,6 +739,15 @@
         NSString *jifen = [XWJAccount instance].jifen ;
         if ([jifen intValue]<[[self.goodsDic valueForKey:@"price"] intValue]) {
             [ProgressHUD showError:@"您的积分不足，可以坚持签到获取更多积分再来"];
+            return;
+        }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"确定要兑换吗？"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil, nil];
+
+        [alert show];
             return;
         }
     }
@@ -787,6 +800,52 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+    [ProgressHUD show:@""];
+    NSString *url = ADDCAR_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setValue:@"1" forKey:@"store_id"];
+    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+    [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"store_id"]] forKey:@"storeId"];
+    [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"goods_id"]] forKey:@"goodsId"];
+    [dict setValue:@"1" forKey:@"counts"];
+    [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"price"]] forKey:@"unitPrice"];
+    [dict setValue:@"1" forKey:@"flg"];//0加入购物车 1修改
+    NSLog(@"spdetail unitPrice %@",[self.goodsDic objectForKey:@"price"]);
+    
+    /*
+     {"account":"177777777777","storeId":"4","goodsId":"4","counts":"1","unitPrice":"24","flg":"1"}
+     */
+    NSString * cart = [XWJUtil dataTOjsonString:dict];
+    NSDictionary * carDic = [NSDictionary dictionaryWithObject:cart forKey:@"cart"];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:carDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%s success ",__FUNCTION__);
+        [ProgressHUD dismiss];
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSLog(@"dic %@",dic);
+            NSString *errCode = [dic objectForKey:@"errorCode"];
+            NSNumber *nu = [dic objectForKey:@"result"];
+            
+            if ([nu integerValue]== 1) {
+                
+                
+            }else{
+                [ProgressHUD showError:errCode];
+            }
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s fail %@",__FUNCTION__,error);
+        [ProgressHUD dismiss];
+        
+    }];
 }
 
 /*

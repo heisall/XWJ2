@@ -87,18 +87,18 @@
         self.btn.enabled = YES;
 //        self.btn.hidden = YES;
     }else{
-//        self.btn.hidden = YES;
-        self.btn.enabled = NO;
-
-        if ([isEnrollEnd isEqualToString:@"1"]) {
-            [self.btn setTitle:@"报名截止" forState:UIControlStateDisabled];
-        }else if([isAllowEnroll isEqualToString:@"0"]){
-            [self.btn setTitle:@"暂未开始报名" forState:UIControlStateDisabled];
-
-        }else if([canEnroll isEqualToString:@"0"]){
-            [self.btn setTitle:@"我已报名" forState:UIControlStateDisabled];
-
-        }
+        self.btn.hidden = YES;
+//        self.btn.enabled = NO;
+//
+//        if ([isEnrollEnd isEqualToString:@"1"]) {
+//            [self.btn setTitle:@"报名截止" forState:UIControlStateDisabled];
+//        }else if([isAllowEnroll isEqualToString:@"0"]){
+//            [self.btn setTitle:@"暂未开始报名" forState:UIControlStateDisabled];
+//
+//        }else if([canEnroll isEqualToString:@"0"]){
+//            [self.btn setTitle:@"我已报名" forState:UIControlStateDisabled];
+//
+//        }
     }
 }
 

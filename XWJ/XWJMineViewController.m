@@ -98,13 +98,17 @@ NSArray *myImgs;
         
         NSDictionary *dic = (NSDictionary *)responseObject;
         NSLog(@"%@",dic);
-        self.dicuser = [[dic objectForKey:@"data"] objectForKey:@"user"];
-        [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
-        NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
-         self.scoreLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"jifen"] ];
-        [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[dic valueForKey:@"Photo"]];
 
-        [self.tableview reloadData];
+        if ([dic objectForKey:@"data"]!=[NSNull null]) {
+            self.dicuser = [[dic objectForKey:@"data"] objectForKey:@"user"];
+            [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
+            NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
+            self.scoreLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"jifen"]];
+            [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[dic valueForKey:@"Photo"]];
+            
+            [self.tableview reloadData];
+        }
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");

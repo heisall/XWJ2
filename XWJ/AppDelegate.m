@@ -12,6 +12,7 @@
 #import "XWJAccount.h"
 #import "XWJTabViewController.h"
 #import "XWJSplashController.h"
+#import "XWJJiesuanViewController.h"
 ////腾讯开放平台（对应QQ和QQ空间）SDK头文件
 //#import <TencentOpenAPI/TencentOAuth.h>
 //#import <TencentOpenAPI/QQApiInterface.h>
@@ -159,6 +160,10 @@
 //    UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
 //    self.window.rootViewController = [story instantiateViewControllerWithIdentifier:@"bindhouse2"];
     
+//    XWJJiesuanViewController *con = [[UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"jiesuanview"];
+//    UIViewController * je = [[XWJJiesuanViewController alloc] init];
+//    self.window.rootViewController =con;
+//    return NO;
     if (!islaunched) {
         UIViewController *view = [[XWJSplashController alloc] init];
         self.window.rootViewController = view;
@@ -451,7 +456,7 @@
         
         switch (resp.errCode) {
             case 0:{
-                strMsg = @"支付成功";
+                strMsg = @"返回购物车、再去逛逛";
                 NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
                 [self confirmOrder:@"30" :orderid];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshorder" object:self userInfo:nil];

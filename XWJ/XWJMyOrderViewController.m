@@ -33,6 +33,8 @@
 @property NSDictionary *statusDic;
 @property NSInteger index; // 0待付款 1代收货 2已完成
 @property NSArray *status;
+@property UILabel *label;
+@property NSArray *noDataArr;
 //@property NSInteger orderType;// 0待付款 1代收货 2已完成
 @property(nonatomic,copy)NSString* deleOrderId;
 @property(nonatomic,assign)NSInteger deleOrderNum;
@@ -65,6 +67,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     self.status = [NSArray arrayWithObjects:@"11",@"30",@"40", nil];
     statusDic = [NSDictionary dictionaryWithObjectsAndKeys:@"待付款",@"11",@"待收货",@"30",@"待评价",@"40", nil];
     
+    self.noDataArr = [NSArray  arrayWithObjects:@"暂无待付款订单",@"暂无待收货订单",@"暂无已完成订单",nil];
     //默认当前选中按钮是第0个
     [self addView];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJOrderCell" bundle:nil] forCellReuseIdentifier:@"cell"];
@@ -101,10 +104,15 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
+    if ((alertView.tag-100)>0) {
+        //确认收货
+        NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:(alertView.tag-100)] valueForKey:@"order_id"]] ;
+        [self confirmOrder:@"40" :oid];
+    }else{
     if(buttonIndex==0){
         [self createDeleOrderRequest];
     }
-
+    }
 
 }
 #pragma mark - 评论代理实现
@@ -237,6 +245,30 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
             
             [self.tableView.mj_header endRefreshing];
             self.tableView.contentSize =CGSizeMake(0,self.orderArr.count*(40+60)+cellNum*95+100);
+            
+            if (self.index == 0) {
+                if (self.orderArr.count>0) {
+                    self.label.hidden =YES;
+                }else{
+                    self.label.hidden = NO;
+                    self.label.text = self.noDataArr[self.index];
+                }
+                
+            }else if(self.index == 1){
+                if (self.orderArr.count>0) {
+                    self.label.hidden =YES;
+                }else{
+                    self.label.hidden = NO;
+                    self.label.text = self.noDataArr[self.index];
+                }
+            }else {
+                if (self.dataSourceArr.count>0) {
+                    self.label.hidden =YES;
+                }else{
+                    self.label.hidden = NO;
+                    self.label.text = self.noDataArr[self.index];
+                }
+            }
         }
         
         
@@ -370,9 +402,16 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     
     NSInteger index = btn.tag;
     if(self.index==1){
-        //确认收货
-        NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:index] valueForKey:@"order_id"]] ;
-        [self confirmOrder:@"40" :oid];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"您确定进行确认收货吗？"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil, nil];
+        alert.tag = 100+index;
+        [alert show];
+
     }else if(self.index==0){
         NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:index] valueForKey:@"order_id"]] ;
         //        [self confirmOrder:@"30" :oid];
@@ -509,11 +548,12 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 -(void)addView{
     self.btn = [NSMutableArray array];
     self.cornerBtn = [NSMutableArray array];
-    NSInteger count = 3;
+    NSArray * title = [NSArray arrayWithObjects:@"待付款",@"待收货",@"已完成", nil];
+
+    NSInteger count = title.count;
     CGFloat width = self.view.bounds.size.width/count;
     CGFloat height = 40;
     CGFloat btny = 66;
-    NSArray * title = [NSArray arrayWithObjects:@"待付款",@"待收货",@"已完成", nil];
     for (int i=0; i<count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(width*i, btny, width, height);
@@ -544,6 +584,10 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         
     }
     
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0,5 , SCREEN_SIZE.width, 40)];
+    self.label.textAlignment  = NSTextAlignmentCenter;
+    [self.tableView addSubview:self.label];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, btny+height, SCREEN_SIZE.width, SCREEN_SIZE.height-btny+height)];
     [self.view addSubview:self.tableView];
     //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
@@ -558,7 +602,6 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         b.selected = NO;
     }
     butn.selected = !butn.selected;
-    
     [self getOrderList:[self.status objectAtIndex:self.index]];
     
     

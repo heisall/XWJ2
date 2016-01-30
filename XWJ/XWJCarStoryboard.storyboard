@@ -194,7 +194,7 @@
                                             <constraint firstAttribute="height" constant="100" id="iXq-BK-Ahg"/>
                                         </constraints>
                                     </tableView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="请留言" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5hd-e6-VIL">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5hd-e6-VIL">
                                         <rect key="frame" x="0.0" y="376" width="375" height="63"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>

@@ -35,10 +35,9 @@
 
 - (IBAction)done:(id)sender {
     
-    if (!self.txtPwd.text.length>0) {
-        [ProgressHUD showError:@"请输入密码！"];
-        return;
-    }
+    if (self.txtPwd.text.length>=6&&self.txtPwd.text.length<=20) {
+
+    
     NSString *url = RESETPWD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -75,6 +74,9 @@
         
 
     }];
+    }else{
+        [ProgressHUD showError:@"密码位数不正确！"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

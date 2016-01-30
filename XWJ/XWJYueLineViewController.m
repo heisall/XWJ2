@@ -130,7 +130,7 @@
 }
 -(void)sendSMS{
     NSString *uid = @"2735";
-    NSString *phone = self.phoneTextF.text;
+    NSString *phone = self.tel;
     
 //    NSMutableString * good = [NSMutableString stringWithString:self.goodname];
     NSString *content = [NSString stringWithFormat:YUYUEMESSAGE_CONTENT,[self.goodname  stringByReplacingOccurrencesOfString:@"&" withString:@""],self.lianxirenTextF.text,self.phoneTextF.text];

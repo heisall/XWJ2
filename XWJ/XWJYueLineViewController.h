@@ -14,4 +14,5 @@
 @property NSString *goodid;
 @property NSString *stordid;
 @property NSString *goodname;
+@property NSString *tel;
 @end

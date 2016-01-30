@@ -229,6 +229,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic objectForKey:@"id"] forKey:@"id"];
+    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];

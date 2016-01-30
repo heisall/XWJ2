@@ -561,8 +561,8 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         
         [button setTitle:[title objectAtIndex:i] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:13];
-        [button setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
-        [button setBackgroundImage:[UIImage imageNamed:@"shuonormal"] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"shuonormal"] forState:UIControlStateSelected];
         
         [button setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];
         [button setTitleColor:XWJGREENCOLOR forState:UIControlStateSelected];
@@ -583,15 +583,16 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         [self.view addSubview:button];
         
     }
-    
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0,5 , SCREEN_SIZE.width, 40)];
+    self.index = 0;
+
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0,50, SCREEN_SIZE.width, 40)];
     self.label.textAlignment  = NSTextAlignmentCenter;
-    [self.tableView addSubview:self.label];
+    self.label.textColor = [UIColor blackColor];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, btny+height, SCREEN_SIZE.width, SCREEN_SIZE.height-btny+height)];
     [self.view addSubview:self.tableView];
+    [self.tableView addSubview:self.label];
     //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-    self.index = 0;
     ((UIButton*)self.btn[self.index]).selected=YES;
     [((UIButton*)self.btn[self.index]) sendActionsForControlEvents:UIControlEventTouchUpInside];
 }

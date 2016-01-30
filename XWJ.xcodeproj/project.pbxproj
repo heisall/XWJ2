@@ -334,6 +334,8 @@
 		A4F6DA141C50FD5200C7AD83 /* XWJJifenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA131C50FD5200C7AD83 /* XWJJifenCell.m */; };
 		A4F6DA171C5347F000C7AD83 /* XWJYouhuiController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA161C5347F000C7AD83 /* XWJYouhuiController.m */; };
 		A4F6DA1A1C53601200C7AD83 /* XWJSPCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6DA191C53601200C7AD83 /* XWJSPCommentController.m */; };
+		A4FBFDCC1C5C4C8C0004D66F /* 老师-星级@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FBFDCA1C5C4C8C0004D66F /* 老师-星级@2x.png */; };
+		A4FBFDCD1C5C4C8C0004D66F /* 老师-星级2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4FBFDCB1C5C4C8C0004D66F /* 老师-星级2@2x.png */; };
 		A4FD43191C38E50700A44E01 /* XWJGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */; };
 		A4FD431B1C3952FB00A44E01 /* XWJquxiaocell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */; };
 		A4FD64C51C590992000CC447 /* XWJImagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FD64C41C590992000CC447 /* XWJImagesController.m */; };
@@ -375,8 +377,6 @@
 		EC9518B51C4540C400AEA7E5 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC9518871C4540C400AEA7E5 /* UMSocialSDKResourcesNew.bundle */; };
 		EC9518B61C4540C400AEA7E5 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC95188A1C4540C400AEA7E5 /* libSocialWechat.a */; };
 		EC9518B71C4540C400AEA7E5 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC95188B1C4540C400AEA7E5 /* libWeChatSDK.a */; };
-		EC9518B81C4540C400AEA7E5 /* 老师-星级2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9518901C4540C400AEA7E5 /* 老师-星级2@2x.png */; };
-		EC9518B91C4540C400AEA7E5 /* 老师-星级@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC9518911C4540C400AEA7E5 /* 老师-星级@2x.png */; };
 		EC9518BA1C4540C400AEA7E5 /* OrderFinishModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9518941C4540C400AEA7E5 /* OrderFinishModel.m */; };
 		EC9518BB1C4540C400AEA7E5 /* OrderFinishTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9518961C4540C400AEA7E5 /* OrderFinishTableViewCell.m */; };
 		EC9518BC1C4540C400AEA7E5 /* EvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9518991C4540C400AEA7E5 /* EvaluationViewController.m */; };
@@ -988,6 +988,8 @@
 		A4F6DA161C5347F000C7AD83 /* XWJYouhuiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJYouhuiController.m; sourceTree = "<group>"; };
 		A4F6DA181C53601200C7AD83 /* XWJSPCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSPCommentController.h; sourceTree = "<group>"; };
 		A4F6DA191C53601200C7AD83 /* XWJSPCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSPCommentController.m; sourceTree = "<group>"; };
+		A4FBFDCA1C5C4C8C0004D66F /* 老师-星级@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "老师-星级@2x.png"; sourceTree = "<group>"; };
+		A4FBFDCB1C5C4C8C0004D66F /* 老师-星级2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "老师-星级2@2x.png"; sourceTree = "<group>"; };
 		A4FD43171C38E50700A44E01 /* XWJGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJGroupViewController.h; sourceTree = "<group>"; };
 		A4FD43181C38E50700A44E01 /* XWJGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJGroupViewController.m; sourceTree = "<group>"; };
 		A4FD431A1C3952FB00A44E01 /* XWJquxiaocell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJquxiaocell.xib; sourceTree = "<group>"; };
@@ -1070,8 +1072,6 @@
 		EC95188C1C4540C400AEA7E5 /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
 		EC95188D1C4540C400AEA7E5 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		EC95188E1C4540C400AEA7E5 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		EC9518901C4540C400AEA7E5 /* 老师-星级2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "老师-星级2@2x.png"; sourceTree = "<group>"; };
-		EC9518911C4540C400AEA7E5 /* 老师-星级@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "老师-星级@2x.png"; sourceTree = "<group>"; };
 		EC9518931C4540C400AEA7E5 /* OrderFinishModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFinishModel.h; sourceTree = "<group>"; };
 		EC9518941C4540C400AEA7E5 /* OrderFinishModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFinishModel.m; sourceTree = "<group>"; };
 		EC9518951C4540C400AEA7E5 /* OrderFinishTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFinishTableViewCell.h; sourceTree = "<group>"; };
@@ -2317,6 +2317,8 @@
 		EC95184C1C4540C400AEA7E5 /* NewAndy */ = {
 			isa = PBXGroup;
 			children = (
+				A4FBFDCA1C5C4C8C0004D66F /* 老师-星级@2x.png */,
+				A4FBFDCB1C5C4C8C0004D66F /* 老师-星级2@2x.png */,
 				A44876261C5853DC004FBC09 /* 微信_支付 */,
 				ECDFB6801C4E6F7E00163B8F /* SDCycleScrollView */,
 				ECDFB6761C4E6F3200163B8F /* Sign */,
@@ -2328,8 +2330,6 @@
 				EC95186B1C4540C400AEA7E5 /* Push */,
 				EC95186E1C4540C400AEA7E5 /* UMSocial_Sdk_4.4 */,
 				EC9518891C4540C400AEA7E5 /* Wechat */,
-				EC9518901C4540C400AEA7E5 /* 老师-星级2@2x.png */,
-				EC9518911C4540C400AEA7E5 /* 老师-星级@2x.png */,
 				EC9518921C4540C400AEA7E5 /* 订单已完成 */,
 				EC9518971C4540C400AEA7E5 /* 订单评价 */,
 			);
@@ -2608,18 +2608,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4FBFDCD1C5C4C8C0004D66F /* 老师-星级2@2x.png in Resources */,
 				A43928F91C3039B500572F70 /* Address.plist in Resources */,
 				A43C97EF1C129C68006A61EE /* broswerPic1.jpg in Resources */,
 				8E13276D1C311CB900D3EDB5 /* 图层-1@3x.png in Resources */,
 				A43C97FB1C129C68006A61EE /* shanguangdeng2.png in Resources */,
 				A49DD3FA1C2F087C00DB1EC1 /* XWJGouwucheCell.xib in Resources */,
-				EC9518B91C4540C400AEA7E5 /* 老师-星级@2x.png in Resources */,
 				EC9518B21C4540C400AEA7E5 /* UMSLoginViewController.xib in Resources */,
 				DAC4AF251BF0619700D66E76 /* Main.storyboard in Resources */,
 				A48801A81C0AADAE00714F5B /* liebiao@3x.png in Resources */,
 				A49DD3FF1C2F0BB500DB1EC1 /* XWJCarStoryboard.storyboard in Resources */,
 				A48801D41C0B66B800714F5B /* HomeStoryboard.storyboard in Resources */,
 				EC9518AE1C4540C400AEA7E5 /* UMSCommentInputController.xib in Resources */,
+				A4FBFDCC1C5C4C8C0004D66F /* 老师-星级@2x.png in Resources */,
 				A43928F11C302F5100572F70 /* XWJJiesuanCell.xib in Resources */,
 				A43C97F61C129C68006A61EE /* checkbox_pic_non2@2x.png in Resources */,
 				8E1327161C30DED000D3EDB5 /* mor_icon_default@2x.png in Resources */,
@@ -2644,7 +2645,6 @@
 				A43C97F01C129C68006A61EE /* broswerPic2.jpg in Resources */,
 				8EEB6E151C3134C9006F572D /* XWJMyFindViewCell.xib in Resources */,
 				8E13276C1C311CB900D3EDB5 /* 图层-1@2x.png in Resources */,
-				EC9518B81C4540C400AEA7E5 /* 老师-星级2@2x.png in Resources */,
 				A41255711C0F39D20042D8CC /* LICENSE in Resources */,
 				EC9518B51C4540C400AEA7E5 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				A43C98001C129C68006A61EE /* xiang@2x.png in Resources */,

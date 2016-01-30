@@ -347,6 +347,13 @@
 //    _titleLabel.font = [UIFont systemFontOfSize:12];
     _typeLabel.text = type;
     
+    
+    if ([[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"iftalk"]] isEqualToString:@"1"]) {
+        
+        self.zanBtn.selected = YES;
+    }else{
+        self.zanBtn.selected = NO;
+    }
     if ([type isEqualToString:@"工作进展"]) {
         _typeLabel.backgroundColor = XWJColor(67, 164, 83);
     }else if ([type isEqualToString:@"工作记录"]){

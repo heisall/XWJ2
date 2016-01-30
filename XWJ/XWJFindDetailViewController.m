@@ -114,11 +114,18 @@
 }
 
 -(void)phrase:(UIButton *)sender{
+    
+    if(sender.selected){
+        [ProgressHUD showError:@"不能重复点赞"];
+    }else{
+        
+        sender.selected=YES;
     NSInteger count = [sender.titleLabel.text integerValue];
     count++;
-    sender.enabled = NO;
+//    sender.enabled = NO;
     [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
     [self pubCommentLword:@"" type:@"点赞"];
+    }
 }
 
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
@@ -311,6 +318,12 @@
     self.sharecontStr = [self.dic objectForKey:@"content"];
     _typeLabel.text = [self.dic objectForKey:@"Memo"];
     
+    if ([[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"canZan"]] isEqualToString:@"0"]) {
+        
+        self.phraseBtn.selected = YES;
+    }else{
+        self.phraseBtn.selected = NO;
+    }
     NSString *type = [self.dic objectForKey:@"Memo"];
     if ([type isEqualToString:@"社区分享"]) {
         _typeLabel.backgroundColor = XWJColor(255,44, 56);

@@ -86,10 +86,25 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     [WXApi registerApp:@"wx706df433748af20c" withDescription:@"demo 2.0"];
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(get30Pay) name:@"refreshorder" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess:) name:@"paySuccess" object:nil];
     
-    //    [[NSNotificationCenter defaultCenter] addObserver:(nonnull id) selector:<#(nonnull SEL)#> name:<#(nullable NSString *)#> object:(nullable id):@"refreshorder" object:self userInfo:nil];
-    
+}
+- (void)paySuccess:(NSNotification *)text{
+    NSLog(@"%@",text.userInfo[@"paySuccess"]);
+    NSLog(@"－－－－－接收到通知------");
+    NSMutableArray* tArr = [[NSMutableArray alloc] init];
+    [tArr addObjectsFromArray:self.orderArr];
+    for (int i = 0; i < tArr.count; i++) {
+        NSString * oid = [NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:i] valueForKey:@"order_id"]] ;
+        NSLog(@"----%@",oid);
+        if ([text.userInfo[@"paySuccess"] isEqualToString:oid]) {
+            [tArr removeObjectAtIndex:i];
+            self.orderArr =  [[NSMutableArray alloc] init];
+            [self.orderArr addObjectsFromArray:tArr];
+            [_tableView reloadData];
+        }
+    }
 }
 #pragma mark - 订单列表删除订单
 - (void)delegateMyOrder:(NSInteger)index{

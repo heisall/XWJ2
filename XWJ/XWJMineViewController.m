@@ -78,6 +78,8 @@ NSArray *myImgs;
     [imageV addGestureRecognizer:singleTap];
    
     [imageV sd_setImageWithURL:[NSURL URLWithString:[XWJAccount instance].headPhoto]placeholderImage:[UIImage imageNamed:@"demo"]];
+    imageV.layer.cornerRadius = imageV.frame.size.width/2;
+    imageV.layer.masksToBounds = YES;
     
     NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
     

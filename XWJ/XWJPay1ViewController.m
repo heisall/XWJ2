@@ -43,7 +43,6 @@
     if([XWJAccount instance].headPhoto){
         [self.userImageView sd_setImageWithURL:[NSURL URLWithString:[XWJAccount instance].headPhoto] placeholderImage:[UIImage imageNamed:@"headDefaultImg"]];
     }
-
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *imgBase64 = [usr valueForKey:@"photo"];
     //判断有没有图片；

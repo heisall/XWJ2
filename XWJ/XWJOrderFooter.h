@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @protocol XWJOrderTableViewCellDelegate <NSObject>
 - (void)delegateMyOrder:(NSInteger)index;
+- (void)payMyOrder:(NSInteger)index;
 @end
 @interface XWJOrderFooter : UITableViewHeaderFooterView
 @property (weak, nonatomic) IBOutlet UILabel *numLabel;

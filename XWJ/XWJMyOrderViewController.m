@@ -94,6 +94,23 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     NSLog(@"%@",text.userInfo[@"paySuccess"]);
     NSLog(@"－－－－－接收到通知------");
     NSMutableArray* tArr = [[NSMutableArray alloc] init];
+
+    int zhifuCount = ((UIButton *)self.cornerBtn[0]).titleLabel.text.intValue;
+    int shouhuoCount = 0;
+    if (![((UIButton *)self.cornerBtn[1]).titleLabel.text isEqualToString:@""]) {
+        shouhuoCount = ((UIButton *)self.cornerBtn[1]).titleLabel.text.intValue;
+    }
+    zhifuCount--;
+    shouhuoCount++;
+
+        [self.cornerBtn[0] setTitle:[NSString stringWithFormat:@"%d",zhifuCount] forState:UIControlStateNormal];
+    if (zhifuCount==0) {
+        ((UIButton *)self.cornerBtn[0]).hidden = YES;
+    }
+
+    [self.cornerBtn[1] setTitle:[NSString stringWithFormat:@"%d",shouhuoCount] forState:UIControlStateNormal];
+    ((UIButton *)self.cornerBtn[1]).hidden = NO;
+    
     [tArr addObjectsFromArray:self.orderArr];
     for (int i = 0; i < tArr.count; i++) {
         NSString * oid = [NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:i] valueForKey:@"order_id"]] ;
@@ -432,6 +449,12 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         
     }else if(self.index==0){
         NSString * oid =[NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:index] valueForKey:@"order_id"]] ;
+        
+        
+        
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",index] forKey:@"payorderindex"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         //        [self confirmOrder:@"30" :oid];
         [self createPayRequest:oid];
     }

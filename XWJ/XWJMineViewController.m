@@ -102,6 +102,7 @@ NSArray *myImgs;
         NSLog(@"%@",dic);
 
         if ([dic objectForKey:@"data"]!=[NSNull null]) {
+            
             self.dicuser = [[dic objectForKey:@"data"] objectForKey:@"user"];
             [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
             NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
@@ -110,7 +111,8 @@ NSArray *myImgs;
             
             [self.tableview reloadData];
         }
-        
+//        - (void)setObject:(id)value forKey:(NSString *)defaultName;
+//        - (void)removeObjectForKey:(NSString *)defaultName;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");

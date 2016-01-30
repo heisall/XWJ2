@@ -1003,7 +1003,7 @@
 		DA20AE011BFB5694002032D1 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		DA8834711BFCB47F001B2862 /* XWJLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJLoginViewController.h; sourceTree = "<group>"; };
 		DA8834721BFCB47F001B2862 /* XWJLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJLoginViewController.m; sourceTree = "<group>"; };
-		DAC4AF161BF0619700D66E76 /* 信我家.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "信我家.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAC4AF161BF0619700D66E76 /* xwj.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xwj.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC4AF1A1BF0619700D66E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAC4AF1B1BF0619700D66E76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DAC4AF1D1BF0619700D66E76 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -2206,7 +2206,7 @@
 		DAC4AF171BF0619700D66E76 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DAC4AF161BF0619700D66E76 /* 信我家.app */,
+				DAC4AF161BF0619700D66E76 /* xwj.app */,
 				DAC4AF2F1BF0619700D66E76 /* XWJTests.xctest */,
 			);
 			name = Products;
@@ -2540,7 +2540,7 @@
 			);
 			name = XWJ;
 			productName = "信我家";
-			productReference = DAC4AF161BF0619700D66E76 /* 信我家.app */;
+			productReference = DAC4AF161BF0619700D66E76 /* xwj.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAC4AF2E1BF0619700D66E76 /* XWJTests */ = {
@@ -3134,7 +3134,7 @@
 					"$(PROJECT_DIR)/XWJ",
 				);
 				INFOPLIST_FILE = XWJ/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3144,7 +3144,7 @@
 					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
-				PRODUCT_NAME = "信我家";
+				PRODUCT_NAME = xwj;
 				PROVISIONING_PROFILE = "2727fa0d-6b11-410c-86fa-770ae5a0362a";
 			};
 			name = Debug;
@@ -3165,7 +3165,7 @@
 					"$(PROJECT_DIR)/XWJ",
 				);
 				INFOPLIST_FILE = XWJ/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3175,7 +3175,7 @@
 					"$(PROJECT_DIR)/NewAndy/微信_支付",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
-				PRODUCT_NAME = "信我家";
+				PRODUCT_NAME = xwj;
 				PROVISIONING_PROFILE = "2727fa0d-6b11-410c-86fa-770ae5a0362a";
 			};
 			name = Release;

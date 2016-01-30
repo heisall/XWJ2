@@ -146,4 +146,11 @@
 #define JIFENDUIHUAN_URL  XWJBASEURL"order/directBuy"
 //获取支付信息
 #define GETPAYINFO  XWJBASEURL"order/perPay"
+
+//发现分享
+#define FINDSUCCESSSHARE  XWJBASEURL"user/modifyFind"
+//物业监督分享
+#define WUYESUCCESSSHARE  XWJBASEURL"user/modifySupervised"
+//新房
+#define NEWHOUSESUCCESSSHARE  XWJBASEURL"user/modifyFind"
 #endif /* XWJUrl_h */

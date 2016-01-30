@@ -24,6 +24,9 @@
         
         UIImageView*imv = [[UIImageView alloc] initWithFrame:CGRectMake(i*SCREEN_SIZE.width, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
 //        UIImage *image = [UIImage imageNamed:@"splash3"];
+
+        
+        
         imv.image = [UIImage imageNamed:[NSString stringWithFormat:@"splash%d",i+1]];
         imv.userInteractionEnabled = YES;
         if (i==0) {

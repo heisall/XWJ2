@@ -34,6 +34,8 @@
 @property(nonatomic,copy)NSString* shareImageStr;
 @property(nonatomic,copy)NSString* shareTitleStr;
 @property(nonatomic,copy)NSString* shareUrl;
+@property(nonatomic,copy)NSString* codeStr;
+
 @end
 
 @implementation XWJjianduDetailViewController
@@ -105,13 +107,14 @@
     }else{
         sender.selected = YES;
     }
-    NSInteger count = [sender.titleLabel.text integerValue];
-    count++;
-    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
+//    NSInteger count = [sender.titleLabel.text integerValue];
+//    count++;
+//    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
     [self pubCommentLword:@"" type:@"点赞"];
 
 }
 - (IBAction)share:(UIButton *)sender {
+    NSLog(@"----%@",[self.dic objectForKey:@"id"]);
     UIImageView* temIV = [[UIImageView alloc] init];
     [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
     [UMSocialSnsService presentSnsIconSheetView:self
@@ -120,24 +123,53 @@
                                      shareImage:temIV.image
                                 shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline]
                                        delegate:self];
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = self.shareUrl;
-    [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.shareUrl;
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_supervisedetail.aspx?id=%@",[self.dic objectForKey:@"id"]];//self.shareUrl;
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_supervisedetail.aspx?id=%@",[self.dic objectForKey:@"id"]];
 }
 //实现回调方法（可选）：
+#pragma mark - //实现回调方法（可选)
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
 {
     //根据`responseCode`得到发送结果,如果分享成功
     if(response.responseCode == UMSResponseCodeSuccess)
     {
         //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        /*
+         这个地方哪有QQ分享  这个地方需要判断一下是哪分享成功了  我没数据线装不了app
+         if ([UMShareToWechatSession isEqualToString:[[response.data allKeys] objectAtIndex:0]]) {
+         self.codeStr = @"shareWXCount";
+         }
+         */
         NSInteger count = [self.shareBtn.titleLabel.text integerValue];
         count++;
+        //    sender.enabled = NO;
         [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
-        
-        
+        self.codeStr = @"ShareQQCount";
+        [self createShareSuccessRequest];
     }
-
-
+}
+#pragma mark - 分享请求
+- (void)createShareSuccessRequest{
+    NSLog(@"请求的参数----%@\n----%@\n",[self.dic valueForKey:@"id"],WUYESUCCESSSHARE);
+    NSString* requestAddress = WUYESUCCESSSHARE;
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:requestAddress parameters:@{
+                                             @"id":[self.dic valueForKey:@"id"],
+                                             @"code":self.codeStr
+                                             }
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"------%@",responseObject);
+             
+             if ([[responseObject objectForKey:@"result"] intValue]) {
+                 
+             }else{
+                 
+             }
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"失败===%@", error);
+         }];
 }
 
 -(void)wuyeshareI{
@@ -176,16 +208,22 @@
             NSNumber *res =[dict objectForKey:@"result"];
             [self cleanText];
 
+
             if ([res intValue] == 1) {
+                [ProgressHUD showSuccess:[dict objectForKey:@"errorCode"]];
                 
                 NSString *errCode = [dict objectForKey:@"errorCode"];
 //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 //                alertview.delegate = self;
 //                [alertview show];
                 if ([types isEqualToString:@"点赞"]) {
-                    [ProgressHUD showSuccess:[dict objectForKey:@"errorCode"]];
+                    
+                        NSInteger count = [self.zanBtn.titleLabel.text integerValue];
+                        count++;
+                        [self.zanBtn setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
+//                    [ProgressHUD showSuccess:[dict objectForKey:@"errorCode"]];
                 }else{
-                    [ProgressHUD showSuccess:@"评论成功"];
+//                    [ProgressHUD showSuccess:@"评论成功"];
                 
                     [self getWuyeDetail];
                 }
@@ -195,6 +233,8 @@
 //                });
                 
                 
+            }else{
+                [ProgressHUD showError:[dict objectForKey:@"errorCode"]];
             }
             
         }
@@ -339,12 +379,12 @@
     
     NSString * zanCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ClickPraiseCount"]];
     NSString *  leaveCount= [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"LeaveWordCount"]];
-    NSString * qqCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareQQCount"]];
-    NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareQQCount"]];
+//    NSString * qqCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareQQCount"]];
+    NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@"0":[self.dic objectForKey:@"ShareQQCount"]];
     
     [_zanBtn setTitle:zanCount forState:UIControlStateNormal];
     [_comBtn setTitle:leaveCount forState:UIControlStateNormal];
-    [_shareBtn setTitle:qqCount forState:UIControlStateNormal];
+    [_shareBtn setTitle:wxCount forState:UIControlStateNormal];
 //    [_zanBtn setTitle:zanCount forState:UIControlStateNormal];
     
     NSString *type = [self.dic objectForKey:@"Types"];

@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property(nonatomic,copy)NSString* codeStr;
+
 - (IBAction)shareDetail:(id)sender;
 @property  UIControl *controlView;
 @property  CGRect bottomRect;
@@ -99,8 +101,44 @@
     {
         //得到分享到的微博平台名
         NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        /*
+         这个地方哪有QQ分享  这个地方需要判断一下是哪分享成功了  我没数据线装不了app
+         if ([UMShareToWechatSession isEqualToString:[[response.data allKeys] objectAtIndex:0]]) {
+         self.codeStr = @"shareWXCount";
+         }
+         */
+        
+        NSInteger count = [self.shareBtn.titleLabel.text integerValue];
+        count++;
+        //    sender.enabled = NO;
+        [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
+        self.codeStr = @"shareWXCount";
+        [self createShareSuccessRequest];
     }
 }
+#pragma mark - 分享请求
+- (void)createShareSuccessRequest{
+    NSLog(@"请求的参数----%@\n----%@\n",[self.dic valueForKey:@"id"],FINDSUCCESSSHARE);
+    NSString* requestAddress = FINDSUCCESSSHARE;
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:requestAddress parameters:@{
+                                             @"id":[self.dic valueForKey:@"id"],
+                                             @"code":self.codeStr
+                                             }
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"------%@",responseObject);
+             
+             if ([[responseObject objectForKey:@"result"] intValue]) {
+                 
+             }else{
+                 
+             }
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"失败===%@", error);
+         }];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
@@ -212,7 +250,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
-    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+//    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -303,11 +341,12 @@
     
     NSString * zanCount = [self.dic objectForKey:@"ClickPraiseCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ClickPraiseCount"]];
     NSString *  leaveCount= [self.dic objectForKey:@"LeaveWordCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"LeaveWordCount"]];
-    NSString * qqCount = [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ShareQQCount"]];
-    //    NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"shareWXCount"]];
+//    NSString * qqCount = [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ShareQQCount"]];
+        NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareWXCount"]==[NSNull null]?@"0":[self.dic objectForKey:@"ShareWXCount"]];
     
     [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
     [_CommentBtn setTitle:leaveCount forState:UIControlStateNormal];
+    [self.shareBtn setTitle:wxCount forState:UIControlStateNormal];
     //    [_shareBtn setTitle:qqCount forState:UIControlStateNormal];
     //    [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
     NSString * name = [self.dic objectForKey:@"NickName"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"NickName"]];

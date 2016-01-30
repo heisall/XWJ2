@@ -396,12 +396,12 @@ NSArray *myImgs;
         
 //清空所有的缓存到本地的信息
         
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"username"];
-//        NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults]dictionaryRepresentation];
-//        for (NSString *key in [defaultsDictionary allKeys]) {    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-//        }
-//        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"username"];
+        NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults]dictionaryRepresentation];
+        for (NSString *key in [defaultsDictionary allKeys]) {    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
         UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
         self.view.window.rootViewController = [loginStoryboard instantiateInitialViewController];
     }

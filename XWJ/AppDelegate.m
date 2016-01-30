@@ -172,7 +172,6 @@
             [self loginUname:uname Pwd:pass];
         }else{
             [self toLoginController];
-            
         }
     }
     //    UIStoryboard *loginStoryboard = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
@@ -343,11 +342,13 @@
     // 应用正处理前台状态下，不会收到推送消息，因此在此处需要额外处理一下
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"-------%@",userInfo);
+        
         [JKNotifier showNotifer:[NSString stringWithFormat:@"亲,您中了一千万！！！！!"]];
         
         [JKNotifier handleClickAction:^(NSString *name,NSString *detail, JKNotifier *notifier) {
             [notifier dismiss];
             NSLog(@"点击可在这里边处理一些事情");
+            
             
 //            self.tabBarController.selectedIndex = 2;
         }];

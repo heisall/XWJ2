@@ -384,6 +384,7 @@
                     if (data&&data.count==0) {
                         self.numLabel.text = @"0";
                         self.priceLabel.text = @"￥0.0";
+                        self.selection = nil;
                     }
                     for (NSDictionary *d in [dic objectForKey:@"data"]) {
                         [arr addObject:[NSMutableDictionary dictionaryWithDictionary:d]];

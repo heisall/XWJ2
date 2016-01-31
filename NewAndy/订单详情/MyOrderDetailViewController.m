@@ -100,8 +100,10 @@
     [self createTableView];
     
     [self createRequest];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popview) name:@"refreshorder" object:nil];
-
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popview) name:@"refreshorder" object:nil];
+    
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess:) name:@"paySuccess" object:nil];
 }
 
 -(void)popview{
@@ -399,6 +401,14 @@
 - (void)payClick{
     NSLog(@"立即付款");
     [self createPayRequest:self.orderId];
+}
+- (void)paySuccess:(NSNotification *)text{
+    NSLog(@"%@",text.userInfo[@"paySuccess"]);
+    NSLog(@"－－－－－接收到通知------");
+    self.orderId = text.userInfo[@"paySuccess"];
+    NSLog(@"----%@",text.userInfo[@"payindex"]);
+    self.makeUsreNum = [text.userInfo[@"payindex"] integerValue];
+    [self createDeleOrderRequest];
 }
 #pragma mark - 删除订单响应
 - (void)deleClick{

@@ -40,6 +40,7 @@
 @property NSMutableArray *btn;
 @property NSString * gouwuCheCounts;
 @property NSString *commentCount;
+@property BOOL isLoad;
 @end
 
 #define PADDINGTOP 64
@@ -53,7 +54,7 @@
 
 @implementation XWJSPDetailViewController
 @synthesize scrollView,titleLabel,youhuLabel,shichangjiaLabel,xiaoliangLabel,adView,dianpuBtn;
-@synthesize shangpinImg,tableView,headerLabel,gouwucheLabel,contentLabel;
+@synthesize shangpinImg,tableView,headerLabel,gouwucheLabel,contentLabel,isLoad;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -67,7 +68,6 @@
     [self addView2];
     [self addView3];
     [self addView4];
-    [self getDetail];
     
     tableView.dataSource =self;
     tableView.delegate = self;
@@ -90,7 +90,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    
+    [self getDetail];
+
 }
 -(void)addView4{
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+HEIGHT_VIEW2+HEIGHT_VIEW2+12, SCREEN_SIZE.width, HEIGHT_VIEW3)];
@@ -381,12 +382,23 @@
             self.comments = [dic objectForKey:@"comments"];
             self.commentCount = [NSString stringWithFormat:@"%@",[dic objectForKey:@"count"]==[NSNull null]?@"0":[dic objectForKey:@"count"]];
             self.gouwuCheCounts = [NSString stringWithFormat:@"%@",[dic objectForKey:@"counts"]];
+            
+            if (isLoad) {
+                
+                if ([self.gouwuCheCounts isEqualToString:@"0"]) {
+                    gouwucheLabel.hidden = YES;
+                }else
+                    gouwucheLabel.text= self.gouwuCheCounts;
+
+                return ;
+            }
             [self.tableView reloadData];
             self.tableView.contentSize = CGSizeMake(0, 100*self.goodsDic.count+150);
             //            self.adArr = [dic objectForKey:@"ad"];
             //            self.thumb = [dic objectForKey:@"thumb"];
             
             [self updateView];
+            isLoad = YES;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
@@ -592,7 +604,7 @@
                 button.frame = CGRectMake((width+1)*i, SCREEN_SIZE.height-height, width, height);
                 button.tag = i;
                 [button setTitle:[title objectAtIndex:i] forState:UIControlStateNormal];
-                
+                button.titleLabel.numberOfLines =2;
                 UIImageView *imgView;
                 if ([[title objectAtIndex:i] isEqualToString:@""]) {
                     

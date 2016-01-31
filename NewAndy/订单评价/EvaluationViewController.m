@@ -24,6 +24,7 @@
 
 #import "XWJUrl.h"
 #define IOS7   [[UIDevice currentDevice]systemVersion].floatValue>=7.0
+#define WIDTH [UIScreen mainScreen].bounds.size.width
 @interface EvaluationViewController ()<UITableViewDataSource,UITableViewDelegate,StarRatingViewDelegate>{
     UITableView* _tableView;
 }
@@ -58,7 +59,7 @@
 }
 #pragma - mark 滑动评分代理
 -(void)starRatingView:(TQStarRatingView *)view score:(float)score{
-    NSLog(@"开始滑动");
+    NSLog(@"开始滑动----%d",(int)score);
     self.star = [NSString stringWithFormat:@"%d",(int)score];
 }
 #pragma mark - 初始化tableView
@@ -132,8 +133,8 @@
     self.titleLable.text = self.titleStr;
     
     self.priceAndTimeLable.text = self.priceAndTimeStr;
-    
-    TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(40, 90, [UIScreen mainScreen].bounds.size.width - 80, 30) numberOfStar:5];
+    //[UIScreen mainScreen].bounds.size.width
+    TQStarRatingView *starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - 60, 90, 120, 30) numberOfStar:5];
     starRatingView.delegate = self;
     [cell addSubview:starRatingView];
     //    [starRatingView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -166,7 +167,28 @@
 }
 - (void)sendBtnClick{
     NSLog(@"提交");
-    [self createRequest];
+    UITextView* temV = (UITextView*)[_tableView viewWithTag:100];
+    if (temV.text.length) {
+        [self createRequest];
+    }else{
+        [self HelpfulHints:@"请填写评价内容" addView:self.view];
+    }
+}
+- (void)HelpfulHints:(NSString*)text addView:(UIView*)addView{
+    UILabel  * Alertlabel = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-80, WIDTH/2-40, 160, 80)];
+    //    Alertlabel.backgroundColor = [UIColor orangeColor];
+    Alertlabel.backgroundColor = [UIColor blackColor];
+    Alertlabel.textColor = [UIColor whiteColor];
+    Alertlabel.font = [UIFont boldSystemFontOfSize:14];
+    Alertlabel.text = text;
+    [addView addSubview:Alertlabel];
+    Alertlabel.textAlignment = NSTextAlignmentCenter;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:3.0];
+    [UIView setAnimationDelegate:self];
+    Alertlabel.alpha =0.0;
+    [UIView commitAnimations];
 }
 #pragma mark - tableView行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

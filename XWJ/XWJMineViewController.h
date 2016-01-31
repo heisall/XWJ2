@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collcitonView;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (strong, nonatomic) IBOutlet UILabel *NickNameLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic) NSArray *tableData;
 @property (nonatomic) NSArray *collectionData;

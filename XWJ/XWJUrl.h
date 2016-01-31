@@ -16,7 +16,10 @@
 
 
 //#define XWJBASEURL @"http://115.28.48.166:8100/appPhone/"
-#define XWJBASEURL @"http://www.hisenseplus.com:8100/appPhone/rest/"
+//#define XWJBASEURL @"http://www.hisenseplus.com:8100/appPhone/rest/"
+#define XWJBASEURL @"http://app.hisenseplus.com:8100/appPhone/rest/"
+
+
 //admin.hisenseplus.com
 
 //#define XWJBASEURL @"http://www.hisenseplus.com:8100/appPhone/rest/"

@@ -16,17 +16,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="350" height="137.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="agree2" highlightedImage="agree1" translatesAutoresizingMaskIntoConstraints="NO" id="a01-py-UZJ">
+                        <rect key="frame" x="13" y="56.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="B49-kK-jxb"/>
+                            <constraint firstAttribute="height" constant="25" id="gdu-MU-Rbk"/>
+                        </constraints>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="80l-qG-8Ke">
-                        <rect key="frame" x="33" y="6" width="70" height="122"/>
+                        <rect key="frame" x="48" y="6" width="70" height="122"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ll" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTm-Et-pjn">
-                        <rect key="frame" x="113" y="6" width="224" height="20.5"/>
+                        <rect key="frame" x="128" y="6" width="209" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QhV-BP-hJ0">
-                        <rect key="frame" x="113" y="107.5" width="42" height="20.5"/>
+                        <rect key="frame" x="128" y="107.5" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.61960784310000006" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -61,16 +68,18 @@
                     <constraint firstItem="hX4-C9-0Sj" firstAttribute="centerY" secondItem="QhV-BP-hJ0" secondAttribute="centerY" id="KmQ-Xe-PPQ"/>
                     <constraint firstItem="pvo-aD-aEV" firstAttribute="leading" secondItem="hX4-C9-0Sj" secondAttribute="trailing" constant="10" id="Nwy-QT-9rO"/>
                     <constraint firstAttribute="bottomMargin" secondItem="80l-qG-8Ke" secondAttribute="bottom" constant="2" id="Rlx-wH-yhF"/>
+                    <constraint firstItem="a01-py-UZJ" firstAttribute="centerY" secondItem="Ixp-ho-zBR" secondAttribute="centerY" id="T1g-dg-QUi"/>
                     <constraint firstAttribute="topMargin" secondItem="80l-qG-8Ke" secondAttribute="top" constant="2" id="UVO-eU-qin"/>
                     <constraint firstAttribute="trailingMargin" secondItem="bi3-lx-V8t" secondAttribute="trailing" id="UmW-ag-L6e"/>
                     <constraint firstItem="QhV-BP-hJ0" firstAttribute="leading" secondItem="TTm-Et-pjn" secondAttribute="leading" id="WXW-aW-TnX"/>
+                    <constraint firstItem="a01-py-UZJ" firstAttribute="leading" secondItem="Ixp-ho-zBR" secondAttribute="leadingMargin" constant="5" id="a5j-AX-hMR"/>
                     <constraint firstAttribute="trailingMargin" secondItem="TTm-Et-pjn" secondAttribute="trailing" constant="5" id="eQc-8g-tTq"/>
                     <constraint firstItem="TTm-Et-pjn" firstAttribute="leading" secondItem="80l-qG-8Ke" secondAttribute="trailing" constant="10" id="fNA-x9-L5C"/>
                     <constraint firstItem="bi3-lx-V8t" firstAttribute="centerY" secondItem="hX4-C9-0Sj" secondAttribute="centerY" id="gNV-oc-xmA"/>
                     <constraint firstItem="hX4-C9-0Sj" firstAttribute="centerY" secondItem="QhV-BP-hJ0" secondAttribute="centerY" id="gde-ic-esP"/>
                     <constraint firstItem="QhV-BP-hJ0" firstAttribute="bottom" secondItem="80l-qG-8Ke" secondAttribute="bottom" id="qXp-Af-qQM"/>
+                    <constraint firstItem="80l-qG-8Ke" firstAttribute="leading" secondItem="a01-py-UZJ" secondAttribute="trailing" constant="10" id="qvy-x7-nPE"/>
                     <constraint firstItem="pvo-aD-aEV" firstAttribute="centerY" secondItem="hX4-C9-0Sj" secondAttribute="centerY" id="vJe-KQ-jKC"/>
-                    <constraint firstItem="80l-qG-8Ke" firstAttribute="leading" secondItem="Ixp-ho-zBR" secondAttribute="leadingMargin" constant="25" id="zrv-f7-f6q"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -86,8 +95,13 @@
                 <outlet property="numLabel" destination="pvo-aD-aEV" id="IWN-iJ-x4H"/>
                 <outlet property="price" destination="QhV-BP-hJ0" id="0y9-gc-xZQ"/>
                 <outlet property="title" destination="TTm-Et-pjn" id="qm5-4t-Vab"/>
+                <outlet property="xuanImg" destination="a01-py-UZJ" id="dKq-Qh-2Lz"/>
             </connections>
             <point key="canvasLocation" x="415" y="17"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="agree1" width="14" height="14"/>
+        <image name="agree2" width="14" height="14"/>
+    </resources>
 </document>

@@ -396,6 +396,8 @@
     
 //    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
     
+        
+        NSLog(@"dict %@",dict);
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);

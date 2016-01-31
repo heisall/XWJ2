@@ -16,6 +16,7 @@
 @property NSMutableArray *carListArr;
 @property NSMutableArray *selection;
 @property NSString * counts;
+@property NSInteger selectIndex;
 @end
 
 @implementation XWJCarViewController
@@ -75,10 +76,11 @@
 //    [carListArr addObject:dic];
 //    [carListArr addObject:dic2];
 
-    [self getCarList];
 }
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+
 }
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -187,7 +189,8 @@
     }
 
     NSArray *arr = [[self.carListArr objectAtIndex:indexPath.section] objectForKey:@"data"];
-    
+    cell.xuanImg.image = [UIImage imageNamed:@"agree2"];
+    cell.xuanImg.highlightedImage = [UIImage imageNamed:@"agree1"];
     if(arr&&arr.count>0){
         cell.title.text =     [[arr objectAtIndex:indexPath.row] objectForKey:@"goods_name"];
         cell.price.text = [NSString stringWithFormat:@"%.2f",[[[arr objectAtIndex:indexPath.row] objectForKey:@"price"]floatValue]];
@@ -205,13 +208,13 @@
 
     }
     
-    cell.imageView.image = [UIImage imageNamed:@"agree2"];
-    cell.imageView.highlightedImage = [UIImage imageNamed:@"agree1"];
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     return cell;
 }
 
--(void)addCarDic:(NSDictionary *)dic :(NSString *)count{
+-(void)addCarDic:(NSDictionary *)dic :(UILabel *)label :(NSInteger )section :(NSInteger)index{
+    
+    [ProgressHUD show:@""];
     NSString *url = ADDCAR_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -219,20 +222,21 @@
     [dict setValue:[XWJAccount instance].account  forKey:@"account"];
     [dict setValue:[NSString stringWithFormat:@"%@",[dic objectForKey:@"store_id"]] forKey:@"storeId"];
     [dict setValue:[NSString stringWithFormat:@"%@",[dic objectForKey:@"goods_id"]] forKey:@"goodsId"];
-    [dict setValue:self.counts forKey:@"counts"];
+    [dict setValue:@"1" forKey:@"counts"];
     [dict setValue:[NSString stringWithFormat:@"%@",[dic objectForKey:@"price"]] forKey:@"unitPrice"];
     NSLog(@"addcar unitPrice %@",dict);
-    [dict setValue:@"1" forKey:@"flg"];//0加入购物车 1修改
+    [dict setValue:self.counts forKey:@"flg"];//0加入购物车 1修改
     
     /*
      {"account":"177777777777","storeId":"4","goodsId":"4","counts":"1","unitPrice":"24","flg":"1"}
      */
     NSString * cart = [XWJUtil dataTOjsonString:dict];
+    NSLog(@"cart %@",cart);
     NSDictionary * carDic = [NSDictionary dictionaryWithObject:cart forKey:@"cart"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:carDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%s success ",__FUNCTION__);
-        
+        [ProgressHUD dismiss];
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             NSLog(@"dic %@",dic);
@@ -240,6 +244,16 @@
             NSNumber *nu = [dic objectForKey:@"result"];
             
             if ([nu integerValue]== 1) {
+                
+                int c =  label.text.intValue;
+                if ([self.counts isEqualToString:@"1"]) {
+                    c++;
+                }else{
+                    c--;
+                }
+                label.text = [NSString stringWithFormat:@"%d",c];
+                NSMutableDictionary *dic  = [[[carListArr objectAtIndex:section] objectForKey:@"data"] objectAtIndex:index];
+                [dic setValue:label.text forKey:@"quantity"];
                 [self countTotal];
 //                [ProgressHUD showSuccess:errCode];
             }else{
@@ -249,7 +263,8 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%s fail %@",__FUNCTION__,error);
-        
+        [ProgressHUD dismiss];
+
     }];
 }
 
@@ -259,13 +274,14 @@
     NSInteger row = btn.tag%10000;
 //    NSLog(@"add car tag %lu",tag);
     UILabel *label = (UILabel *)[btn.superview viewWithTag:100];
-    NSInteger count = [label.text integerValue];
-    count++;
-    label.text = [NSString stringWithFormat:@"%lu",count];
+//    NSInteger count = [label.text integerValue];
+//    count++;
+//    label.text = [NSString stringWithFormat:@"%lu",count];
     NSMutableDictionary *dic  = [[[carListArr objectAtIndex:section] objectForKey:@"data"] objectAtIndex:row];
-    [dic setValue:label.text forKey:@"quantity"];
+//    [dic setValue:label.text forKey:@"quantity"];
+
     self.counts = @"1";
-    [self addCarDic:dic :label.text];
+    [self addCarDic:dic :label :section :row];
 }
 
 -(void)minusCar:(UIButton *)btn{
@@ -275,16 +291,16 @@
 
     UILabel *label = (UILabel *)[btn.superview viewWithTag:100];
     NSInteger count = [label.text integerValue];
-    count--;
-    if (count<1) {
-        count = 1;
-    }
     
-    label.text = [NSString stringWithFormat:@"%lu",count];
+    if (count==1) {
+        return;
+    }
+//    count--;
+//    label.text = [NSString stringWithFormat:@"%lu",count];
     NSMutableDictionary *dic  = [[[carListArr objectAtIndex:section] objectForKey:@"data"] objectAtIndex:row];
-    [dic setValue:label.text forKey:@"quantity"];
+//    [dic setValue:label.text forKey:@"quantity"];
     self.counts = @"0";
-    [self addCarDic:dic :label.text];
+    [self addCarDic:dic :label :section :row];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -298,6 +314,7 @@
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = barButtonItem;
     self.tabBarController.tabBar.hidden = YES;
+    [self getCarList];
 
 }
 
@@ -363,6 +380,11 @@
                 if ([num intValue]== 1) {
                     NSMutableArray * arr = [NSMutableArray array];
 
+                    NSArray *data = [dic objectForKey:@"data"];
+                    if (data&&data.count==0) {
+                        self.numLabel.text = @"0";
+                        self.priceLabel.text = @"￥0.0";
+                    }
                     for (NSDictionary *d in [dic objectForKey:@"data"]) {
                         [arr addObject:[NSMutableDictionary dictionaryWithDictionary:d]];
                     }
@@ -378,6 +400,7 @@
 //                    [dic2 setValue:@"农夫山泉矿泉水" forKey:@"type"];
 //                    [dic2 setObject:arr2 forKey:@"data"];
                     
+                    [carListArr removeAllObjects];
                     NSArray *key = [snameDic allKeys];
                     for (NSString *name in key) {
                         NSPredicate *predicate =

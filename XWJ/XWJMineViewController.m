@@ -83,6 +83,7 @@ NSArray *myImgs;
     
     NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
     
+    self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.height+100);
 }
 
 -(void)downLoadData{

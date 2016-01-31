@@ -108,6 +108,7 @@ NSArray *myImgs;
             [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
             NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
             self.scoreLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"jifen"]];
+            self.NickNameLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"NickName"]==[NSNull null]?@"":[self.dicuser objectForKey:@"NickName"]];
             [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[dic valueForKey:@"Photo"]];
             
             [self.tableview reloadData];
@@ -131,7 +132,7 @@ NSArray *myImgs;
 -(void)getPersonInfo{
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *imgstr = [usr valueForKey:@"photo"];
-    NSString *nickname = [usr valueForKey:@"nicheng"];
+    NSString *nickname = [usr valueForKey:@"nicheng"]==[NSNull null]?@"": [usr valueForKey:@"nicheng"];
     if (nickname) {
         self.NickNameLabel.text = nickname;
     }

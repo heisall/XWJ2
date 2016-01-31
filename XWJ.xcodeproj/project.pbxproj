@@ -77,6 +77,7 @@
 		8EEB6E141C3134C9006F572D /* XWJMyFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */; };
 		8EEB6E151C3134C9006F572D /* XWJMyFindViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */; };
 		8EEB6E161C3134C9006F572D /* XWJMyFindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E131C3134C9006F572D /* XWJMyFindViewController.m */; };
+		9B6600C41C5D9D8C007A853B /* xwjyk.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B6600C31C5D9D8C007A853B /* xwjyk.png */; };
 		A4093EEB1C10ACEB00F2F324 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4093EEA1C10ACEB00F2F324 /* UIPlaceHolderTextView.m */; };
 		A4093EEF1C10AEF100F2F324 /* agreeButtonBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4093EEC1C10AEF100F2F324 /* agreeButtonBg@2x.png */; };
 		A4093EF01C10AEF100F2F324 /* agreeButtonSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4093EED1C10AEF100F2F324 /* agreeButtonSelected@2x.png */; };
@@ -544,6 +545,7 @@
 		8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJMyFindViewCell.xib; sourceTree = "<group>"; };
 		8EEB6E121C3134C9006F572D /* XWJMyFindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJMyFindViewController.h; sourceTree = "<group>"; };
 		8EEB6E131C3134C9006F572D /* XWJMyFindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJMyFindViewController.m; sourceTree = "<group>"; };
+		9B6600C31C5D9D8C007A853B /* xwjyk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = xwjyk.png; path = Utils/xwjyk.png; sourceTree = "<group>"; };
 		A4093EE91C10ACEB00F2F324 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		A4093EEA1C10ACEB00F2F324 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
 		A4093EEC1C10AEF100F2F324 /* agreeButtonBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "agreeButtonBg@2x.png"; sourceTree = "<group>"; };
@@ -2230,6 +2232,7 @@
 				A43C97DA1C129C68006A61EE /* Images */,
 				A43C97AE1C1298AF006A61EE /* Utils */,
 				A41255471C0F33770042D8CC /* devAdv_red@2x.png */,
+				9B6600C31C5D9D8C007A853B /* xwjyk.png */,
 				A42DA7C01C36856D00EF74C1 /* devAdv_default@2x.png */,
 				A41255481C0F33770042D8CC /* devAdv_white@2x.png */,
 				A4093EEC1C10AEF100F2F324 /* agreeButtonBg@2x.png */,
@@ -2623,6 +2626,7 @@
 				A4FBFDCC1C5C4C8C0004D66F /* 老师-星级@2x.png in Resources */,
 				A43928F11C302F5100572F70 /* XWJJiesuanCell.xib in Resources */,
 				A43C97F61C129C68006A61EE /* checkbox_pic_non2@2x.png in Resources */,
+				9B6600C41C5D9D8C007A853B /* xwjyk.png in Resources */,
 				8E1327161C30DED000D3EDB5 /* mor_icon_default@2x.png in Resources */,
 				A43C981E1C14073D006A61EE /* XWJZFStoryboard.storyboard in Resources */,
 				A43C97FE1C129C68006A61EE /* X@2x.png in Resources */,

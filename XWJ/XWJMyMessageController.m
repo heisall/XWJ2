@@ -39,6 +39,7 @@ static NSString *kcellIdentifier = @"cell";
     self.subTitles = [[NSMutableArray alloc]init];
     self.msgArr = [[NSMutableArray alloc]init];
     self.idArray = [[NSMutableArray alloc]init];
+    self.finddetailArr = [[NSMutableArray alloc]init];
 //    _msgArr = [NSMutableArray arrayWithObjects:@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3", nil];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -72,6 +73,7 @@ static NSString *kcellIdentifier = @"cell";
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSArray *array  =[[NSArray alloc]init];
             array = [dict objectForKey:@"data"];
+            self.finddetailArr = [dict objectForKey:@"data"];
            NSLog(@"dic++++++ %@",array);
             
             [_subTitles removeAllObjects];
@@ -135,42 +137,16 @@ static NSString *kcellIdentifier = @"cell";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   // [self downLoadFindData];
-    NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/find/findDetail";
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    XWJAccount *account = [XWJAccount instance];
-    [dict setValue:@"87"  forKey:@"id"];
-    NSLog(@"%@",_idArray[indexPath.row]);
-    [dict setValue:account.uid forKey:@"userid"];
-    [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"dic***** %@",responseObject);
-        
-        if(responseObject){
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            NSDictionary *dicc =[[NSDictionary alloc]init];
-            dicc = [dict objectForKey:@"data"];
-            self.dic = [dicc objectForKey:@"find"];
-            NSLog(@"dic*****%@",self.dic);
             
             UIStoryboard *find = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
             XWJFindDetailViewController * con = [find instantiateViewControllerWithIdentifier:@"findDetail"];
-            //      con.finddetail = self.finddetailArr;
-            //       con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];
-            con.dic = _dic;
+
+           NSString * fromeId = [self.finddetailArr[indexPath.row]  objectForKey:@"fromid"];
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+           dict[@"id"] = fromeId;
+           con.dic  = dict;
             NSLog(@"****%@",con.dic);
             [self.navigationController showViewController:con sender:nil];
-            
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
-        
-    }];
-
     
 }
 

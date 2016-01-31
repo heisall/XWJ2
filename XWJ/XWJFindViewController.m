@@ -464,6 +464,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         XWJFindDetailViewController * con = [self.storyboard instantiateViewControllerWithIdentifier:@"findDetail"];
         con.finddetail = self.finddetailArr;
     con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];
+    NSLog(@"%@",con.dic);
     [self.navigationController showViewController:con sender:nil];
 //            UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
 //            [cell setBackgroundColor:[UIColor greenColor]];

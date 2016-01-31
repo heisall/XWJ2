@@ -210,20 +210,19 @@
 
 
             if ([res intValue] == 1) {
-                [ProgressHUD showSuccess:[dict objectForKey:@"errorCode"]];
                 
                 NSString *errCode = [dict objectForKey:@"errorCode"];
 //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 //                alertview.delegate = self;
 //                [alertview show];
                 if ([types isEqualToString:@"点赞"]) {
-                    
+//                        [ProgressHUD showSuccess:[dict objectForKey:@"errorCode"]];
                         NSInteger count = [self.zanBtn.titleLabel.text integerValue];
                         count++;
                         [self.zanBtn setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
-//                    [ProgressHUD showSuccess:[dict objectForKey:@"errorCode"]];
+                    [ProgressHUD showSuccess:@"点赞成功"];
                 }else{
-//                    [ProgressHUD showSuccess:@"评论成功"];
+                    [ProgressHUD showSuccess:@"评论成功"];
                 
                     [self getWuyeDetail];
                 }

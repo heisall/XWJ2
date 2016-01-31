@@ -92,38 +92,38 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 }
 - (void)paySuccess:(NSNotification *)text{
     
-    [((UIButton*)self.btn[1]) sendActionsForControlEvents:UIControlEventTouchUpInside];
+//    [((UIButton*)self.btn[1]) sendActionsForControlEvents:UIControlEventTouchUpInside];
     NSLog(@"%@",text.userInfo[@"paySuccess"]);
     NSLog(@"－－－－－接收到通知------");
-//    NSMutableArray* tArr = [[NSMutableArray alloc] init];
-//
-//    int zhifuCount = ((UIButton *)self.cornerBtn[0]).titleLabel.text.intValue;
-//    int shouhuoCount = 0;
-//    if (![((UIButton *)self.cornerBtn[1]).titleLabel.text isEqualToString:@""]) {
-//        shouhuoCount = ((UIButton *)self.cornerBtn[1]).titleLabel.text.intValue;
-//    }
-//    zhifuCount--;
-//    shouhuoCount++;
-//
-//        [self.cornerBtn[0] setTitle:[NSString stringWithFormat:@"%d",zhifuCount] forState:UIControlStateNormal];
-//    if (zhifuCount==0) {
-//        ((UIButton *)self.cornerBtn[0]).hidden = YES;
-//    }
-//
-//    [self.cornerBtn[1] setTitle:[NSString stringWithFormat:@"%d",shouhuoCount] forState:UIControlStateNormal];
-//    ((UIButton *)self.cornerBtn[1]).hidden = NO;
-//    
-//    [tArr addObjectsFromArray:self.orderArr];
-//    for (int i = 0; i < tArr.count; i++) {
-//        NSString * oid = [NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:i] valueForKey:@"order_id"]] ;
-//        NSLog(@"----%@",oid);
-//        if ([text.userInfo[@"paySuccess"] isEqualToString:oid]) {
-//            [tArr removeObjectAtIndex:i];
-//            self.orderArr =  [[NSMutableArray alloc] init];
-//            [self.orderArr addObjectsFromArray:tArr];
-//            [_tableView reloadData];
-//        }
-//    }
+    NSMutableArray* tArr = [[NSMutableArray alloc] init];
+
+    int zhifuCount = ((UIButton *)self.cornerBtn[0]).titleLabel.text.intValue;
+    int shouhuoCount = 0;
+    if (![((UIButton *)self.cornerBtn[1]).titleLabel.text isEqualToString:@""]) {
+        shouhuoCount = ((UIButton *)self.cornerBtn[1]).titleLabel.text.intValue;
+    }
+    zhifuCount--;
+    shouhuoCount++;
+
+        [self.cornerBtn[0] setTitle:[NSString stringWithFormat:@"%d",zhifuCount] forState:UIControlStateNormal];
+    if (zhifuCount==0) {
+        ((UIButton *)self.cornerBtn[0]).hidden = YES;
+    }
+
+    [self.cornerBtn[1] setTitle:[NSString stringWithFormat:@"%d",shouhuoCount] forState:UIControlStateNormal];
+    ((UIButton *)self.cornerBtn[1]).hidden = NO;
+    
+    [tArr addObjectsFromArray:self.orderArr];
+    for (int i = 0; i < tArr.count; i++) {
+        NSString * oid = [NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:i] valueForKey:@"order_id"]] ;
+        NSLog(@"----%@",oid);
+        if ([text.userInfo[@"paySuccess"] isEqualToString:oid]) {
+            [tArr removeObjectAtIndex:i];
+            self.orderArr =  [[NSMutableArray alloc] init];
+            [self.orderArr addObjectsFromArray:tArr];
+            [_tableView reloadData];
+        }
+    }
 }
 #pragma mark - 订单列表删除订单
 - (void)delegateMyOrder:(NSInteger)index{

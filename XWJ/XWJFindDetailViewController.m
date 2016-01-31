@@ -13,6 +13,7 @@
 #import "XWJWebViewController.h"
 #import "UIImage+Category.h"
 
+#import "UITextView+placeholder.h"
 
 #import "UMSocial.h"
 
@@ -73,7 +74,8 @@
     [dic setValue:@"2015-11-11" forKey:KEY_TIME];
     [dic setValue:@"保养几次了什么时候方便看车" forKey:KEY_CONTENT];
     [self getFind:0];
-    
+    self.textView.placeholder = @"在此发表评论";
+
     [self.phraseBtn addTarget:self action:@selector(phrase:) forControlEvents:UIControlEventTouchUpInside];
     //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
     
@@ -209,7 +211,7 @@
                 //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 //                alertview.delegate = self;
                 //                [alertview show];
-                self.textView.text = @"在此发表评论";
+//                self.textView.text = @"在此发表评论";
                 //                [self.navigationController popViewControllerAnimated:NO];
                 
                 
@@ -480,9 +482,7 @@
     }
     // Configure the cell...
     NSDictionary *dic = (NSDictionary *)self.array[indexPath.row];
-    
-    
-    
+
     /*
      
      "A_id" = 1;

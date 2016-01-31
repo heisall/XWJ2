@@ -91,6 +91,8 @@
             
             [self.imageScroll addSubview:deleImageBtn];
         }
+    }else{
+        [self.imageScroll removeSubviews];
     }
 }
 

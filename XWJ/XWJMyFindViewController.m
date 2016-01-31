@@ -226,7 +226,8 @@
         if (success) {
 //            NSLog(@"dic==>%@",responseObject);
             NSDictionary *dic = responseObject;
-//            NSLog(@"dic==>%@",dic);
+            self.idArray = [dic objectForKey:@"message"];
+            NSLog(@"dic==>%@",dic);
             NSArray *arr = [dic objectForKey:@"message"];
 //            NSLog(@"arr:%@",arr);
             NSString *result = [dic valueForKey:@"result"];
@@ -251,42 +252,11 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self downLoadFindData];
-}
--(void)downLoadFindData{
-    NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/find/findDetail";
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    XWJAccount *account = [XWJAccount instance];
-    [dict setValue:_idArray  forKey:@"id"];
-    [dict setValue:account.uid forKey:@"userid"];
-    [manager POST:messageUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"dic***** %@",responseObject);
-        
-        if(responseObject){
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            NSDictionary *dicc =[[NSDictionary alloc]init];
-            dicc = [dict objectForKey:@"data"];
-            self.dic = [dicc objectForKey:@"find"];
-            NSLog(@"dic*****%@",self.dic);
-            
-            UIStoryboard *find = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
-            XWJFindDetailViewController * con = [find instantiateViewControllerWithIdentifier:@"findDetail"];
-            //      con.finddetail = self.finddetailArr;
-            //       con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];
-            con.dic = _dic;
-            NSLog(@"****%@",con.dic);
-            [self.navigationController showViewController:con sender:nil];
-            
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
-        
-    }];
+    UIStoryboard *find = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
+    XWJFindDetailViewController * con = [find instantiateViewControllerWithIdentifier:@"findDetail"];
+    con.dic  = self.idArray[indexPath.row];
+    NSLog(@"****%@",con.dic);
+    [self.navigationController showViewController:con sender:nil];
 }
 
 

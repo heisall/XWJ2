@@ -107,6 +107,7 @@ NSArray *myImgs;
             [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
             NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
             self.scoreLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"jifen"]];
+            self.NickNameLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"NickName"]];
             [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[dic valueForKey:@"Photo"]];
             
             [self.tableview reloadData];

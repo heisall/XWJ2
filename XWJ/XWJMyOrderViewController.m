@@ -23,7 +23,11 @@
 #import "ReturnIP.h"
 #import "WXApi.h"
 #import "CommonUtil.h"
-@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate,MyOrderDetailViewControllerDelegate,XWJOrderTableViewCellDelegate,UIAlertViewDelegate>
+@interface XWJMyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFinishTableViewCellDelegate,UMSocialUIDelegate,EvaluationViewControllerDelegate,MyOrderDetailViewControllerDelegate,XWJOrderTableViewCellDelegate,UIAlertViewDelegate>{
+ 
+    NSInteger deleOrderNum;
+
+}
 
 @property NSMutableArray *btn;
 @property NSMutableArray *cornerBtn;
@@ -37,7 +41,6 @@
 @property NSArray *noDataArr;
 //@property NSInteger orderType;// 0待付款 1代收货 2已完成
 @property(nonatomic,copy)NSString* deleOrderId;
-@property(nonatomic,assign)NSInteger deleOrderNum;
 @property(nonatomic,retain)NSMutableArray* dataSourceArr;
 
 
@@ -129,7 +132,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 - (void)delegateMyOrder:(NSInteger)index{
     NSLog(@"----列表删除订单---%ld",index);
     
-    self.deleOrderNum = index;
+    deleOrderNum = index;
     UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"确定要删除吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     [alertview show];
     
@@ -652,9 +655,16 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 
 #pragma mark - 删除订单数据请求
 - (void)createDeleOrderRequest{
-    NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:self.deleOrderNum] objectForKey:@"detail"];
+    NSArray *arr =(NSArray * )[[self.orderArr objectAtIndex:deleOrderNum] objectForKey:@"detail"];
+    if (arr.count==0) {
+        self.deleOrderId = [[self.orderArr objectAtIndex:deleOrderNum] objectForKey:@"order_id"];
+    }else
     for (NSDictionary* temDic in arr) {
         self.deleOrderId = temDic[@"order_id"];
+    }
+    
+    if (!self.deleOrderId) {
+        return;
     }
     
     NSLog(@"请求的参数----%@\n----%@",self.deleOrderId,DELEORDER);
@@ -670,13 +680,15 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                   *这个地方我处理了一下   因为之前的self.orderArr在请求数据完成的时候  赋值的方式被强制修改成了不可变数组
                   *我在这个地方把self.orderArr改成可变数组进行数据的删除  然后刷新列表
                   */
-                 NSMutableArray* tArr = [[NSMutableArray alloc] init];
-                 [tArr addObjectsFromArray:self.orderArr];
-                 NSLog(@"-----请求删除---%ld",self.deleOrderNum);
-                 [tArr removeObjectAtIndex:self.deleOrderNum];
-                 self.orderArr =  [[NSMutableArray alloc] init];
-                 [self.orderArr addObjectsFromArray:tArr];
-                 [_tableView reloadData];
+//                 NSMutableArray* tArr = [[NSMutableArray alloc] init];
+//                 [tArr addObjectsFromArray:self.orderArr];
+//                 NSLog(@"-----请求删除---%ld",self.deleOrderNum);
+//                 [tArr removeObjectAtIndex:self.deleOrderNum];
+//                 self.orderArr =  [[NSMutableArray alloc] init];
+//                 [self.orderArr addObjectsFromArray:tArr];
+//                 [_tableView reloadData];
+                 
+                 [self getOrderList:[self.status objectAtIndex:self.index]];
              }
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"失败===%@", error);

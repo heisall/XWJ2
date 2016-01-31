@@ -341,6 +341,7 @@
                 int count = self.gouwuCheCounts.intValue;
                 count++;
                 gouwucheLabel.text = [NSString stringWithFormat:@"%d",count];
+                gouwucheLabel.hidden =NO;
                 [ProgressHUD showSuccess:errCode];
             }else{
                 [ProgressHUD showError:errCode];

@@ -81,6 +81,13 @@
     self.liuyanTextView.delegate = self;
     [self getAddress];
 
+    
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popView) name:@"paySuccess" object:nil];
+}
+
+-(void)popView{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
@@ -91,6 +98,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
+}
+
+-(void)viewDidUnload{
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:@"paySuccess"];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

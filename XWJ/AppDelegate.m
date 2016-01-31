@@ -165,7 +165,7 @@
 //    self.window.rootViewController =con;
 //    return NO;
     if (!islaunched) {
-        UIViewController *view = [[XWJSplashController alloc] init];
+        XWJSplashController *view = [[XWJSplashController alloc] init];
         self.window.rootViewController = view;
     }else{
         if (uname&&pass) {

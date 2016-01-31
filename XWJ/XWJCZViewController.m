@@ -75,7 +75,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     
 //    self.collectionData = [NSArray arrayWithObjects:@"床",@"衣柜",@"空调",@"电视",@"冰箱",@"洗衣机",@"天然气",@"暖气",@"热水器",@"宽带",nil];
-    self.backScroll.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+200);
+    self.backScroll.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+250);
 
     self.tableData = [NSArray arrayWithObjects:@"描述",@"联系人",@"手机号", nil];
     _tableHolderData = [NSArray arrayWithObjects:@"小区环境，交通状况等",@"请输入您的姓名",@"请输入您的手机号", nil];

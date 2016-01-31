@@ -250,7 +250,9 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
-//    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    
+    NSLog(@"______%@",self.dic);
+    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -277,7 +279,7 @@
             NSLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
-                
+            
                 NSDictionary* temDic = responseObject[@"data"];
                 NSDictionary* temDic1 = temDic[@"find"];
              //   NSLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
@@ -306,6 +308,7 @@
                 if([[dict objectForKey:@"data"] objectForKey:@"find"]!=[NSNull null]){
                     
                     self.dic = [NSMutableDictionary dictionaryWithDictionary:[(NSDictionary*)[dict objectForKey:@"data"] objectForKey:@"find"]];
+                    NSLog(@"%@",self.dic);
                     [self initView];
                 }
                 
@@ -338,7 +341,7 @@
     [self.textView resignFirstResponder];
 }
 -(void)initView{
-    
+    NSLog(@"%@",self.dic);
     NSString * zanCount = [self.dic objectForKey:@"ClickPraiseCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ClickPraiseCount"]];
     NSString *  leaveCount= [self.dic objectForKey:@"LeaveWordCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"LeaveWordCount"]];
 //    NSString * qqCount = [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ShareQQCount"]];

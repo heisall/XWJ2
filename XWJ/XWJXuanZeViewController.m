@@ -44,6 +44,8 @@
     if (!fromLogin) {
         self.navigationItem.leftBarButtonItem = nil;
     }
+    self.view.backgroundColor = [UIColor colorWithRed:234/255.0 green:236/255.0 blue:235/255.0 alpha:1.0];
+
 }
 #pragma bindhouse delegate
 -(void)didSelectAtIndex:(NSInteger)index Type:(HouseMode)type{

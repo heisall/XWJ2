@@ -326,8 +326,12 @@
                         [ProgressHUD showSuccess:errCode];
                         [self confirmOrder:@"30":[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
                     }
+                }else if(self.isFromJiFen){
+                    [self confirmOrder:@"30":[NSString stringWithFormat:@"%@",[dic objectForKey:@"data"]]];
+
                 }else{
-                [ProgressHUD showSuccess:errCode];
+                    [ProgressHUD showSuccess:errCode];
+                    
                 }
             }else
                 [ProgressHUD showError:errCode];

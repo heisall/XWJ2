@@ -685,7 +685,7 @@
         //        [self.navigationController showViewController:view sender:nil];
         //        [self toJiesuan];
         
-        [self addOrder:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"store_id"]]];
+        [self addOrder:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"store_id"]]:YES :NO];
     }else if([butn.titleLabel.text isEqualToString:@"购物车"]){
         UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];
         [self.navigationController showViewController:[car instantiateInitialViewController] sender:self];
@@ -693,7 +693,7 @@
     
 }
 
--(void)addOrder:(NSString *)storeid{
+-(void)addOrder:(NSString *)storeid :(BOOL)isPay :(BOOL)isJIfen{
     NSString *url = ADDORDER_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -720,8 +720,8 @@
                 [dic setValue:[self.goodsDic valueForKey:@"default_image"] forKey:@"goods_image"];
                 [dic setValue:@"1" forKey:@"quantity"];
                 con.arr = [NSArray arrayWithObject:dic];
-                con.isFromJiFen = self.isFromJifen;
-                con.isPay = true;
+                con.isFromJiFen = isJIfen;
+                con.isPay = isPay;
                 [self.navigationController showViewController:con sender:nil];
                 //                                [ProgressHUD showSuccess:errCode];
             }else{
@@ -818,47 +818,50 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     if (1 == buttonIndex) {
-        [ProgressHUD show:@""];
-        NSString *url = ADDCAR_URL;
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        //    [dict setValue:@"1" forKey:@"store_id"];
-        [dict setValue:[XWJAccount instance].account  forKey:@"account"];
-        [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"store_id"]] forKey:@"storeId"];
-        [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"goods_id"]] forKey:@"goodsId"];
-        [dict setValue:@"1" forKey:@"counts"];
-        [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"price"]] forKey:@"unitPrice"];
-        [dict setValue:@"1" forKey:@"flg"];//0加入购物车 1修改
-        NSLog(@"spdetail unitPrice %@",[self.goodsDic objectForKey:@"price"]);
         
-        /*
-         {"account":"177777777777","storeId":"4","goodsId":"4","counts":"1","unitPrice":"24","flg":"1"}
-         */
-        NSString * cart = [XWJUtil dataTOjsonString:dict];
-        NSDictionary * carDic = [NSDictionary dictionaryWithObject:cart forKey:@"cart"];
-        manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-        [manager PUT:url parameters:carDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%s success ",__FUNCTION__);
-            [ProgressHUD dismiss];
-            
-            if(responseObject){
-                NSDictionary *dic = (NSDictionary *)responseObject;
-                NSLog(@"dic %@",dic);
-                NSString *errCode = [dic objectForKey:@"errorCode"];
-                NSNumber *nu = [dic objectForKey:@"result"];
-                
-                if ([nu integerValue]== 1) {
-                    
-                    
-                }else{
-                    [ProgressHUD showError:errCode];
-                }
-                
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%s fail %@",__FUNCTION__,error);
-            [ProgressHUD dismiss];
-        }];
+        [self addOrder:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"store_id"]]:NO :YES];
+
+//        [ProgressHUD show:@""];
+//        NSString *url = ADDCAR_URL;
+//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//        //    [dict setValue:@"1" forKey:@"store_id"];
+//        [dict setValue:[XWJAccount instance].account  forKey:@"account"];
+//        [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"store_id"]] forKey:@"storeId"];
+//        [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"goods_id"]] forKey:@"goodsId"];
+//        [dict setValue:@"1" forKey:@"counts"];
+//        [dict setValue:[NSString stringWithFormat:@"%@",[self.goodsDic objectForKey:@"price"]] forKey:@"unitPrice"];
+//        [dict setValue:@"1" forKey:@"flg"];//0加入购物车 1修改
+//        NSLog(@"spdetail unitPrice %@",[self.goodsDic objectForKey:@"price"]);
+//        
+//        /*
+//         {"account":"177777777777","storeId":"4","goodsId":"4","counts":"1","unitPrice":"24","flg":"1"}
+//         */
+//        NSString * cart = [XWJUtil dataTOjsonString:dict];
+//        NSDictionary * carDic = [NSDictionary dictionaryWithObject:cart forKey:@"cart"];
+//        manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+//        [manager PUT:url parameters:carDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSLog(@"%s success ",__FUNCTION__);
+//            [ProgressHUD dismiss];
+//            
+//            if(responseObject){
+//                NSDictionary *dic = (NSDictionary *)responseObject;
+//                NSLog(@"dic %@",dic);
+//                NSString *errCode = [dic objectForKey:@"errorCode"];
+//                NSNumber *nu = [dic objectForKey:@"result"];
+//                
+//                if ([nu integerValue]== 1) {
+//                    
+//                    
+//                }else{
+//                    [ProgressHUD showError:errCode];
+//                }
+//                
+//            }
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"%s fail %@",__FUNCTION__,error);
+//            [ProgressHUD dismiss];
+//        }];
     }
 }
 

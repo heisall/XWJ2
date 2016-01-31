@@ -771,11 +771,11 @@
                                     <constraint firstItem="HkP-Ul-qeF" firstAttribute="leading" secondItem="ciX-Ev-Bao" secondAttribute="leading" constant="8" id="xOD-6X-wbm"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="xwjyk.png" translatesAutoresizingMaskIntoConstraints="NO" id="PJA-Tp-9Va">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xwjxuanzebg" translatesAutoresizingMaskIntoConstraints="NO" id="PJA-Tp-9Va">
                                 <rect key="frame" x="108" y="407" width="160" height="160"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.91764705882352937" green="0.92549019607843142" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.94117647058823528" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="VSZ-mE-eA2" firstAttribute="top" secondItem="PJA-Tp-9Va" secondAttribute="bottom" constant="100" id="2Du-J8-JuF"/>
                             <constraint firstItem="PJA-Tp-9Va" firstAttribute="leading" secondItem="0js-nt-O8r" secondAttribute="leadingMargin" id="BlK-4j-Xaz"/>
@@ -1043,6 +1043,6 @@
         <image name="resetpwdicon" width="20" height="20"/>
         <image name="showpwd1" width="43" height="20"/>
         <image name="showpwd2" width="43" height="20"/>
-        <image name="xwjyk.png" width="1025" height="1025"/>
+        <image name="xwjxuanzebg" width="160" height="160"/>
     </resources>
 </document>

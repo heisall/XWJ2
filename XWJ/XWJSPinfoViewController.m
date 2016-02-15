@@ -34,12 +34,17 @@
 
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0,HEIGHT_VIEW2*i, SCREEN_SIZE.width, HEIGHT_VIEW2)];
 //            img.contentMode  = UIViewContentModeRedraw;
-            [img sd_setImageWithURL:[NSURL URLWithString:[imgs objectAtIndex:i]]placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                img.frame = CGRectMake(img.frame.origin.x, img.frame.origin.y, img.frame.size.width, img.frame.size.width*image.size.height/image.size.width);
-                img.image = image;
-                height = height + img.frame.size.height;
-//                view.frame =
-                scoll.contentSize =  CGSizeMake(0,66+height);
+            
+            NSString *str = [imgs objectAtIndex:i];
+
+            [img sd_setImageWithURL:[NSURL URLWithString:str]placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                if(image){
+                    img.frame = CGRectMake(img.frame.origin.x, img.frame.origin.y, img.frame.size.width, img.frame.size.width*image.size.height/image.size.width);
+                    img.image = image;
+                    height = height + img.frame.size.height;
+        //                view.frame =
+                    scoll.contentSize =  CGSizeMake(0,66+height);
+                }
             }];
             
 //            [view addSubview:img];

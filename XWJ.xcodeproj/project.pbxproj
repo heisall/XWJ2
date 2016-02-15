@@ -3149,7 +3149,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = xwj;
-				PROVISIONING_PROFILE = "2727fa0d-6b11-410c-86fa-770ae5a0362a";
+				PROVISIONING_PROFILE = "a50f31c5-9790-4c59-beb0-fc74bb96161c";
 			};
 			name = Debug;
 		};
@@ -3180,7 +3180,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hisense.xwj;
 				PRODUCT_NAME = xwj;
-				PROVISIONING_PROFILE = "2727fa0d-6b11-410c-86fa-770ae5a0362a";
+				PROVISIONING_PROFILE = "a50f31c5-9790-4c59-beb0-fc74bb96161c";
 			};
 			name = Release;
 		};

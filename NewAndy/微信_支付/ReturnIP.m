@@ -36,7 +36,7 @@
     
     freeifaddrs(interfaces);  
     
-    NSLog(@"手机的IP是：%@", address);
+    CLog(@"手机的IP是：%@", address);
     return address;  
 }
 @end

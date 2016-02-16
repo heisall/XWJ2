@@ -20,7 +20,7 @@
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
                                                          error:&error];
     if (! jsonData) {
-        NSLog(@"Got an error: %@", error);
+        CLog(@"Got an error: %@", error);
     } else {
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
@@ -53,7 +53,7 @@
     
     freeifaddrs(interfaces);  
     
-    NSLog(@"手机的IP是：%@", address);
+    CLog(@"手机的IP是：%@", address);
     return address;  
 }
 

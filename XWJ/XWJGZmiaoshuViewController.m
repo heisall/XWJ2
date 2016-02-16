@@ -64,7 +64,7 @@
         imageV.frame = CGRectMake(85*i, 0, 80, v.bounds.size.height);
         
         [imageV sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]]placeholderImage:nil];
-        NSLog(@"//////%@",_imageArray[i]);
+        CLog(@"//////%@",_imageArray[i]);
         UITapGestureRecognizer* singleRecognizer;
         imageV.userInteractionEnabled = YES;
         singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgclick:)];
@@ -129,8 +129,8 @@
         
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%s success ",__FUNCTION__);
-            NSLog(@"%@", responseObject);
+            CLog(@"%s success ",__FUNCTION__);
+            CLog(@"%@", responseObject);
             
             
             /*
@@ -138,15 +138,15 @@
              */
             if(responseObject){
                 NSDictionary *dic = (NSDictionary *)responseObject;
-                NSLog(@"dic !!!!!!%@",dic);
+                CLog(@"dic !!!!!!%@",dic);
                  self.detaildic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"data"]];
                 NSDictionary *imagedic = [[NSDictionary alloc]init];
                 imagedic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"data"]];
-                NSLog(@"dic%@",[imagedic objectForKey:@"fj"]);
+                CLog(@"dic%@",[imagedic objectForKey:@"fj"]);
                 NSString *str = [[NSString alloc]init];
                 str = [imagedic objectForKey:@"fj"];
                 _imageArray = [str componentsSeparatedByString:@","];
-                NSLog(@"***%@",_imageArray);
+                CLog(@"***%@",_imageArray);
                 [self updateView];
                 [self createScrollV];
                 
@@ -154,7 +154,7 @@
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%s fail %@",__FUNCTION__,error);
+            CLog(@"%s fail %@",__FUNCTION__,error);
             
         }];
     

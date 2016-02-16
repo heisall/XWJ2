@@ -99,7 +99,7 @@ static NSString *kcellIdentifier = @"cell";
             [self.navigationController showViewController:bind sender:nil];
             
             //            [city getDistrct:^(NSArray *arr) {
-            //                NSLog(@"district  %@",arr);
+            //                CLog(@"district  %@",arr);
             //                NSMutableArray *arr2 = [NSMutableArray array];
             //
             //                for (NSDictionary *dic in arr) {
@@ -171,7 +171,7 @@ static NSString *kcellIdentifier = @"cell";
     XWJAccount *account = [XWJAccount instance];
     [dict setValue:account.uid forKey:@"userid"];
     [manager POST:houseUrl parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
+        CLog(@"%@",responseObject);
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSArray *array  =[[NSArray alloc]init];
@@ -183,14 +183,14 @@ static NSString *kcellIdentifier = @"cell";
                 [_louhao addObject:[d objectForKey:@"R_id"]];
                 [_JURID addObject:[d objectForKey:@"JU_RID"]];
                 [_isDefault addObject:[d objectForKey:@"isDefault"]];
-                NSLog(@"%@",_isDefault);
+                CLog(@"%@",_isDefault);
 
             }
         }
 
         [_tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -218,7 +218,7 @@ static NSString *kcellIdentifier = @"cell";
     //    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.titleLabel.text = [_titles objectAtIndex:indexPath.row];
     cell.DetailLabel.text =[NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
-    NSLog(@"_isDefault:%@",_isDefault);
+    CLog(@"_isDefault:%@",_isDefault);
     NSString *str= [NSString stringWithFormat:@"%@",_isDefault[indexPath.row]];
     if ([str isEqualToString:@"1"]) {
         cell.imageview.hidden = NO;
@@ -252,15 +252,15 @@ static NSString *kcellIdentifier = @"cell";
     XWJAccount *account = [XWJAccount instance];
     [housedict setValue:account.uid forKey:@"userid"];
     [housedict setValue:self.JURID[indexPath.row] forKey:@"JU_RID"];
-    //    NSLog(@"哈哈哈%@",self.JURID[indexPath.row]);
+    //    CLog(@"哈哈哈%@",self.JURID[indexPath.row]);
     [manager POST:changeUrl parameters:housedict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%@",responseObject);
+            CLog(@"%@",responseObject);
         if(responseObject){
             
         }
       //  [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 
@@ -323,7 +323,7 @@ static NSString *kcellIdentifier = @"cell";
                 
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
-                NSLog(@"sid %@",sid);
+                CLog(@"sid %@",sid);
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
                 [XWJAccount instance].password = pwd;
@@ -335,7 +335,7 @@ static NSString *kcellIdentifier = @"cell";
                 [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"Photo"]];
                 //设置别名
                 [XRQJpush setBieming:[XWJAccount instance].uid];
-                NSLog(@"******别名*****%@",[XWJAccount instance].uid);
+                CLog(@"******别名*****%@",[XWJAccount instance].uid);
                 /*
                  "A_id" = 4;
                  "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";
@@ -379,7 +379,7 @@ static NSString *kcellIdentifier = @"cell";
 
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"log fail ");
+            CLog(@"log fail ");
             //        dispatch_async(dispatch_get_main_queue(), ^{
             //            XWJTabViewController *tab = [[XWJTabViewController alloc] init];
             //            UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -424,7 +424,7 @@ static NSString *kcellIdentifier = @"cell";
 //        
 //        
 //        NSDictionary *dic = (NSDictionary *)responseObject;
-//        NSLog(@"dic%@",dic);
+//        CLog(@"dic%@",dic);
 //       
 //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
 //        self.view.window.rootViewController = tab;

@@ -155,7 +155,7 @@
 -(void)click:(UITapGestureRecognizer *)ges{
     
     [self bannerView:nil didClickedImageIndex:ges.view.tag];
-   // NSLog(@"click");
+   // CLog(@"click");
 }
 
 -(void)getWuye{
@@ -166,7 +166,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-      //  NSLog(@"%s success ",__FUNCTION__);
+      //  CLog(@"%s success ",__FUNCTION__);
         
         /*
          Name = "\U674e\U56db";
@@ -186,7 +186,7 @@
          */
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic----- %@",dic);
+            CLog(@"dic----- %@",dic);
             NSNumber *res =[dic objectForKey:@"result"];
             if ([res intValue] == 1) {
                 
@@ -209,7 +209,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }

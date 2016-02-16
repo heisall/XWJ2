@@ -165,7 +165,7 @@
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    NSLog(@"已取消选择");
+    CLog(@"已取消选择");
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
@@ -296,7 +296,7 @@
     [self closeButtonClicked];
     
     NSInteger index = button.tag - 60001;
-    NSLog(@"selcet id %ld",index);
+    CLog(@"selcet id %ld",index);
     self.lpIndex = index;
     [self.timeBtn setTitle:[self.lp objectAtIndex:index] forState:UIControlStateNormal];
     
@@ -313,7 +313,7 @@
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
                                                          error:&error];
     if (! jsonData) {
-        NSLog(@"Got an error: %@", error);
+        CLog(@"Got an error: %@", error);
     } else {
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
@@ -377,7 +377,7 @@
 
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:guzhang success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -396,13 +396,13 @@
                 
             }
             
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }

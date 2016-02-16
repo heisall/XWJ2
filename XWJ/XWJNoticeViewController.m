@@ -66,7 +66,7 @@
 -(void)loadNewData{
     XWJCity *city =    [XWJCity instance];
     [city getActive:self.type :^(NSArray *arr) {
-        NSLog(@"room  %@",arr);
+        CLog(@"room  %@",arr);
         
         if (arr) {
             
@@ -187,11 +187,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
             
             XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
@@ -207,7 +207,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }

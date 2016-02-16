@@ -162,7 +162,7 @@
 //    } else
 //        oneCell.accessoryType = UITableViewCellAccessoryNone;
     [self countTotal];
-    NSLog(@"didSelectRowAtIndexPath %@",selection);
+    CLog(@"didSelectRowAtIndexPath %@",selection);
 }
 
 - (void)tableView:(UITableView *)table didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -173,14 +173,14 @@
 //        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
 //    } else
 //        oneCell.accessoryType = UITableViewCellAccessoryNone;
-    NSLog(@"didDeselectRowAtIndexPath %@",selection);
+    CLog(@"didDeselectRowAtIndexPath %@",selection);
     [self countTotal];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)taView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"index path %ld",(long)indexPath.row);
+    CLog(@"index path %ld",(long)indexPath.row);
     XWJGouWucheTableViewCell *cell;
     
     cell = [taView dequeueReusableCellWithIdentifier:@"cell"];
@@ -224,22 +224,22 @@
     [dict setValue:[NSString stringWithFormat:@"%@",[dic objectForKey:@"goods_id"]] forKey:@"goodsId"];
     [dict setValue:@"1" forKey:@"counts"];
     [dict setValue:[NSString stringWithFormat:@"%@",[dic objectForKey:@"price"]] forKey:@"unitPrice"];
-    NSLog(@"addcar unitPrice %@",dict);
+    CLog(@"addcar unitPrice %@",dict);
     [dict setValue:self.counts forKey:@"flg"];//0加入购物车 1修改
     
     /*
      {"account":"177777777777","storeId":"4","goodsId":"4","counts":"1","unitPrice":"24","flg":"1"}
      */
     NSString * cart = [XWJUtil dataTOjsonString:dict];
-    NSLog(@"cart %@",cart);
+    CLog(@"cart %@",cart);
     NSDictionary * carDic = [NSDictionary dictionaryWithObject:cart forKey:@"cart"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:carDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         [ProgressHUD dismiss];
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *nu = [dic objectForKey:@"result"];
             
@@ -262,7 +262,7 @@
             
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         [ProgressHUD dismiss];
 
     }];
@@ -272,7 +272,7 @@
 //    NSInteger tag = btn.tag;
     NSInteger section = btn.tag/10000;
     NSInteger row = btn.tag%10000;
-//    NSLog(@"add car tag %lu",tag);
+//    CLog(@"add car tag %lu",tag);
     UILabel *label = (UILabel *)[btn.superview viewWithTag:100];
 //    NSInteger count = [label.text integerValue];
 //    count++;
@@ -326,11 +326,11 @@
     [dict setValue:rids forKey:@"recIds"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *num = [dic objectForKey:@"result"];
             
@@ -340,7 +340,7 @@
             
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -355,11 +355,11 @@
 
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%s success ",__FUNCTION__);
+            CLog(@"%s success ",__FUNCTION__);
             
             if(responseObject){
                 NSDictionary *dic = (NSDictionary *)responseObject;
-                NSLog(@"dic %@",dic);
+                CLog(@"dic %@",dic);
                 NSString *errCode = [dic objectForKey:@"errorCode"];
                 NSNumber *num = [dic objectForKey:@"result"];
                 /*
@@ -407,7 +407,7 @@
                         NSPredicate *predicate =
                         [NSPredicate predicateWithFormat:@"store_name = %@", name];
                         NSMutableArray *a1 =   [NSMutableArray arrayWithArray:[arr  filteredArrayUsingPredicate:predicate]];
-                        NSLog(@"a1 %@",a1);
+                        CLog(@"a1 %@",a1);
                         
                         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
                         [dic setObject:a1 forKey:@"data"];
@@ -437,7 +437,7 @@
                 
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%s fail %@",__FUNCTION__,error);
+            CLog(@"%s fail %@",__FUNCTION__,error);
             
         }];
     
@@ -511,11 +511,11 @@
 
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *nu = [dic objectForKey:@"result"];
             
@@ -527,7 +527,7 @@
             
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }

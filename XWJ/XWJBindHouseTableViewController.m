@@ -31,7 +31,7 @@
         
         [city getCity:^(NSArray *arr) {
             
-            NSLog(@"arr %@",arr);
+            CLog(@"arr %@",arr);
             NSMutableArray *arr2 = [NSMutableArray array];
             
             for (NSDictionary *dic in arr) {
@@ -54,7 +54,7 @@
         case HouseCommunity:
         {
             [city getDistrct:^(NSArray *arr) {
-            //NSLog(@"district 888888 %@",arr);
+            //CLog(@"district 888888 %@",arr);
                 NSMutableArray *arr2 = [NSMutableArray array];
                 
                 for (NSDictionary *dic in arr) {
@@ -69,7 +69,7 @@
             break;
         case HouseFlour:{
             [city getBuiding:^(NSArray *arr) {
-                NSLog(@"buiding  %@",arr);
+                CLog(@"buiding  %@",arr);
                 NSMutableArray *arr2 = [NSMutableArray array];
                 
                 for (NSDictionary *dic in arr) {
@@ -85,7 +85,7 @@
         case HouseRoomNumber:
         {
             [city getRoom:^(NSArray *arr) {
-                NSLog(@"room  %@",arr);
+                CLog(@"room  %@",arr);
                 NSMutableArray *arr2 = [NSMutableArray array];
                 
                 for (NSDictionary *dic in arr) {
@@ -132,7 +132,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"log success ");
+        CLog(@"log success ");
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -143,7 +143,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"log fail ");
+        CLog(@"log fail ");
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -183,12 +183,12 @@
 //                     if (!error && [placemarks count] > 0)
 //                     {
 //                         NSDictionary *dict =
-//                         [[placemarks objectAtIndex:0] addressDictionary]; NSLog(@"street address: %@",
+//                         [[placemarks objectAtIndex:0] addressDictionary]; CLog(@"street address: %@",
 //                                                                                 //记录地址
 //                                                                                 [dict objectForKey:@"Street"]); }
 //                     else
 //                     {
-//                         NSLog(@"ERROR: %@", error); }
+//                         CLog(@"ERROR: %@", error); }
 //                 }];
 }
 
@@ -196,15 +196,15 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_6, __MAC_NA, __IPHONE_2_0, __IPHONE_6_0) __TVOS_PROHIBITED __WATCHOS_PROHIBITED{
     CLLocationCoordinate2D oldCoordinate = newLocation.coordinate;
-//    NSLog(@"旧的经度：%f,旧的纬度：%f",oldCoordinate.longitude,oldCoordinate.latitude);
+//    CLog(@"旧的经度：%f,旧的纬度：%f",oldCoordinate.longitude,oldCoordinate.latitude);
 
     //    CLLocation *newLocation = locations[1];
     //    CLLocationCoordinate2D newCoordinate = newLocation.coordinate;
-    //    NSLog(@"经度：%f,纬度：%f",newCoordinate.longitude,newCoordinate.latitude);
+    //    CLog(@"经度：%f,纬度：%f",newCoordinate.longitude,newCoordinate.latitude);
     
     // 计算两个坐标距离
     //    float distance = [newLocation distanceFromLocation:oldLocation];
-    //    NSLog(@"%f",distance);
+    //    CLog(@"%f",distance);
     
     
     //------------------位置反编码---5.0之后使用-----------------
@@ -217,14 +217,14 @@
                            for (CLPlacemark *place in placemarks) {
                                //                           UILabel *label = (UILabel *)[self.view viewWithTag:101];
                                //                           label.text = place.name;
-//                               NSLog(@"name,%@",place.locality);                       // 位置名
+//                               CLog(@"name,%@",place.locality);                       // 位置名
                                self.city = place.locality;
                                [self.tableView reloadData];
-                               //                           NSLog(@"thoroughfare,%@",place.thoroughfare);       // 街道
-                               //                           NSLog(@"subThoroughfare,%@",place.subThoroughfare); // 子街道
-                               //                           NSLog(@"locality,%@",place.locality);               // 市
-                               //                           NSLog(@"subLocality,%@",place.subLocality);         // 区
-                               //                           NSLog(@"country,%@",place.country);                 // 国家
+                               //                           CLog(@"thoroughfare,%@",place.thoroughfare);       // 街道
+                               //                           CLog(@"subThoroughfare,%@",place.subThoroughfare); // 子街道
+                               //                           CLog(@"locality,%@",place.locality);               // 市
+                               //                           CLog(@"subLocality,%@",place.subLocality);         // 区
+                               //                           CLog(@"country,%@",place.country);                 // 国家
                            }
                        }
                        
@@ -236,15 +236,15 @@
            fromLocation:(CLLocation *)oldLocation{
   
     CLLocationCoordinate2D oldCoordinate = newLocation.coordinate;
-    NSLog(@"旧的经度：%f,旧的纬度：%f",oldCoordinate.longitude,oldCoordinate.latitude);
+    CLog(@"旧的经度：%f,旧的纬度：%f",oldCoordinate.longitude,oldCoordinate.latitude);
     
     //    CLLocation *newLocation = locations[1];
     //    CLLocationCoordinate2D newCoordinate = newLocation.coordinate;
-    //    NSLog(@"经度：%f,纬度：%f",newCoordinate.longitude,newCoordinate.latitude);
+    //    CLog(@"经度：%f,纬度：%f",newCoordinate.longitude,newCoordinate.latitude);
     
     // 计算两个坐标距离
     //    float distance = [newLocation distanceFromLocation:oldLocation];
-    //    NSLog(@"%f",distance);
+    //    CLog(@"%f",distance);
     
 //    [manager stopUpdatingLocation];
     
@@ -256,12 +256,12 @@
                        for (CLPlacemark *place in placemarks) {
 //                           UILabel *label = (UILabel *)[self.view viewWithTag:101];
 //                           label.text = place.name;
-                           NSLog(@"name,%@",place.locality);                       // 位置名
-                           //                           NSLog(@"thoroughfare,%@",place.thoroughfare);       // 街道
-                           //                           NSLog(@"subThoroughfare,%@",place.subThoroughfare); // 子街道
-                           //                           NSLog(@"locality,%@",place.locality);               // 市
-                           //                           NSLog(@"subLocality,%@",place.subLocality);         // 区
-                           //                           NSLog(@"country,%@",place.country);                 // 国家
+                           CLog(@"name,%@",place.locality);                       // 位置名
+                           //                           CLog(@"thoroughfare,%@",place.thoroughfare);       // 街道
+                           //                           CLog(@"subThoroughfare,%@",place.subThoroughfare); // 子街道
+                           //                           CLog(@"locality,%@",place.locality);               // 市
+                           //                           CLog(@"subLocality,%@",place.subLocality);         // 区
+                           //                           CLog(@"country,%@",place.country);                 // 国家
                        }
                        
                    }];
@@ -330,11 +330,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (mode == HouseCity) {
 //        [self.dataSource containsObject:self.city];
-        NSLog(@"contains");
+        CLog(@"contains");
     }
     if (mode == HouseCity&&indexPath.section == 0) {
 //        [self.dataSource containsObject:self.city];
-        NSLog(@"contains");
+        CLog(@"contains");
         NSInteger index =-1;
 //        for (int i= 0; i<self.dataSource.count; i++) {
 //            if ([self.city isEqualToString:[[self.dataSource objectAtIndex:i] valueForKey:@"CityName"]]) {

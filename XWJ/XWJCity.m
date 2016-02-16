@@ -72,7 +72,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -82,7 +82,7 @@
             
 //            NSArray *arr  = [dic objectForKey:@"data"];
 //            for (NSDictionary *d in arr) {
-//                NSLog(@"dic %@",d);
+//                CLog(@"dic %@",d);
 //            }
             
             NSNumber * result = [dic valueForKey:@"result"];
@@ -111,7 +111,7 @@
                 errCode = [dic objectForKey:@"errorCode"];
                 UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alertview show];
-                NSLog(@"dic %@",dic);
+                CLog(@"dic %@",dic);
             }
         }
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
@@ -120,7 +120,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail ",__FUNCTION__);
+        CLog(@"%s fail ",__FUNCTION__);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -147,7 +147,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -156,7 +156,7 @@
             //            XWJCity *city  = [[XWJCity alloc] init];
             
             NSDictionary *data  = [dic objectForKey:@"data"];
-                NSLog(@"dic %@",data);
+                CLog(@"dic %@",data);
             success(data);
 //
 //            if ([data objectForKey:@"info"]==[NSNull null]) {
@@ -165,7 +165,7 @@
 //            }
 //            
 //            _yezhu = [NSMutableDictionary dictionaryWithDictionary:[data objectForKey:@"info"]];
-//            NSLog(@"dic %@",dic);
+//            CLog(@"dic %@",dic);
 //            success(_yezhu);
         }
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
@@ -174,7 +174,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail ",__FUNCTION__);
+        CLog(@"%s fail ",__FUNCTION__);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -193,7 +193,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -203,14 +203,14 @@
             
             NSArray *arr  = [dic objectForKey:@"data"];
             for (NSDictionary *d in arr) {
-                NSLog(@"dic %@",d);
+                CLog(@"dic %@",d);
             }
             
             _citys = [NSMutableArray array];
             [_citys addObjectsFromArray:arr];
 
             success(arr);
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -218,7 +218,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail ",__FUNCTION__);
+        CLog(@"%s fail ",__FUNCTION__);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -233,10 +233,10 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:_cno  forKey:@"cityNo"];
     
-//    NSLog(@"getDistrct %@",_cno);
+//    CLog(@"getDistrct %@",_cno);
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -246,14 +246,14 @@
             
             NSArray *arr  = [dic objectForKey:@"data"];
             for (NSDictionary *d in arr) {
-                NSLog(@"district %@",d);
+                CLog(@"district %@",d);
             }
             
             _districts = [NSMutableArray array];
             [_districts addObjectsFromArray:arr];
 
             success(arr);
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -261,7 +261,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail ",__FUNCTION__);
+        CLog(@"%s fail ",__FUNCTION__);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -278,7 +278,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -288,13 +288,13 @@
             
             NSArray *arr  = [dic objectForKey:@"data"];
             for (NSDictionary *d in arr) {
-                NSLog(@"dic %@",d);
+                CLog(@"dic %@",d);
             }
             
             _buidings = [NSMutableArray array];
             [_buidings addObjectsFromArray:arr];
             success(arr);
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -302,7 +302,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail ",__FUNCTION__);
+        CLog(@"%s fail ",__FUNCTION__);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -322,7 +322,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -332,11 +332,11 @@
             
             NSArray *arr  = [dic objectForKey:@"data"];
             for (NSDictionary *d in arr) {
-                NSLog(@"dic %@",d);
+                CLog(@"dic %@",d);
             }
 
             success(arr);
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -344,7 +344,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -361,7 +361,7 @@
 
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -371,12 +371,12 @@
             
             NSArray *arr  = [dic objectForKey:@"data"];
             for (NSDictionary *d in arr) {
-                NSLog(@"dic %@",d);
+                CLog(@"dic %@",d);
             }
             _rooms = [NSMutableArray array];
             [_rooms addObjectsFromArray:arr];
             success(arr);
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -384,7 +384,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;

@@ -82,7 +82,7 @@
 }
 #pragma mark - 分享按钮响应
 - (void)shareDetail:(id)sender{
-    NSLog(@"分享");
+    CLog(@"分享");
     UIImageView* temIV = [[UIImageView alloc] init];
     
     [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
@@ -102,7 +102,7 @@
     if(response.responseCode == UMSResponseCodeSuccess)
     {
         //得到分享到的微博平台名
-        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        CLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
         /*
          这个地方哪有QQ分享  这个地方需要判断一下是哪分享成功了  我没数据线装不了app
          if ([UMShareToWechatSession isEqualToString:[[response.data allKeys] objectAtIndex:0]]) {
@@ -120,7 +120,7 @@
 }
 #pragma mark - 分享请求
 - (void)createShareSuccessRequest{
-    NSLog(@"请求的参数----%@\n----%@\n",[self.dic valueForKey:@"id"],FINDSUCCESSSHARE);
+    CLog(@"请求的参数----%@\n----%@\n",[self.dic valueForKey:@"id"],FINDSUCCESSSHARE);
     NSString* requestAddress = FINDSUCCESSSHARE;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -129,7 +129,7 @@
                                              @"code":self.codeStr
                                              }
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"------%@",responseObject);
+             CLog(@"------%@",responseObject);
              
              if ([[responseObject objectForKey:@"result"] intValue]) {
                  
@@ -137,7 +137,7 @@
                  
              }
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"失败===%@", error);
+             CLog(@"失败===%@", error);
          }];
 }
 
@@ -192,11 +192,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
                 
@@ -221,7 +221,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -253,12 +253,12 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
     
-    NSLog(@"______%@",self.dic);
+    CLog(@"______%@",self.dic);
     //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         /*
          find =         {
@@ -278,13 +278,13 @@
          */
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
             
                 NSDictionary* temDic = responseObject[@"data"];
                 NSDictionary* temDic1 = temDic[@"find"];
-             //   NSLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
+             //   CLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
                 NSString *dicstring = [NSString stringWithFormat:@"%@",temDic1];
                 if ([dicstring isEqualToString:@"<null>"]) {
                     return ;
@@ -310,7 +310,7 @@
                 if([[dict objectForKey:@"data"] objectForKey:@"find"]!=[NSNull null]){
                     
                     self.dic = [NSMutableDictionary dictionaryWithDictionary:[(NSDictionary*)[dict objectForKey:@"data"] objectForKey:@"find"]];
-                    NSLog(@"%@",self.dic);
+                    CLog(@"%@",self.dic);
                     [self initView];
                 }
                 
@@ -335,7 +335,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -343,7 +343,7 @@
     [self.textView resignFirstResponder];
 }
 -(void)initView{
-    NSLog(@"%@",self.dic);
+    CLog(@"%@",self.dic);
     NSString * zanCount = [self.dic objectForKey:@"ClickPraiseCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ClickPraiseCount"]];
     NSString *  leaveCount= [self.dic objectForKey:@"LeaveWordCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"LeaveWordCount"]];
 //    NSString * qqCount = [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ShareQQCount"]];
@@ -555,7 +555,7 @@
     NSDictionary* info = [aNotification userInfo];
     //kbSize即為鍵盤尺寸 (有width, height)
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//得到鍵盤的高度
-    NSLog(@"hight_hitht:%f",kbSize.height);
+    CLog(@"hight_hitht:%f",kbSize.height);
     
     self.bottomRect = self.bottomView.frame ;
     //    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height), self.bottomRect.size.width, self.bottomRect.size.height);

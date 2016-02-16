@@ -77,7 +77,7 @@
 }
 #pragma mark - 分享按钮响应
 - (IBAction)share:(id)sender {
-    NSLog(@"分享");
+    CLog(@"分享");
     UIImageView* temIV = [[UIImageView alloc] init];
     
     [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
@@ -101,7 +101,7 @@
     if(response.responseCode == UMSResponseCodeSuccess)
     {
         //得到分享到的微博平台名
-        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        CLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
     }
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -136,11 +136,11 @@
 //    }
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%s success ",__FUNCTION__);
+            CLog(@"%s success ",__FUNCTION__);
             
             if(responseObject){
                 NSDictionary *dict = (NSDictionary *)responseObject;
-                NSLog(@"dic %@",dict);
+                CLog(@"dic %@",dict);
                 NSNumber *res =[dict objectForKey:@"result"];
                 if ([res intValue] == 1) {
                     
@@ -158,7 +158,7 @@
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%s fail %@",__FUNCTION__,error);
+            CLog(@"%s fail %@",__FUNCTION__,error);
             
         }];
     
@@ -180,7 +180,7 @@
     [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *resdic = (NSDictionary *)responseObject;
@@ -283,13 +283,13 @@
             //            [self.houseArr addObjectsFromArray:arr];
                         [self.infoTableView reloadData];
             self.backScrollView.contentSize = CGSizeMake(0, self.infoTableView.frame.origin.y+self.infoTableView.bounds.size.height+100);
-//                        NSLog(@"dic %@",resdic);
+//                        CLog(@"dic %@",resdic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -306,7 +306,7 @@
     vie.urls = self.photos;
     
     [self.navigationController showViewController:vie sender:nil];
-    NSLog(@"click ");
+    CLog(@"click ");
 }
 
 #pragma mark - Table view data source

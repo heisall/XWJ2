@@ -258,7 +258,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self closeButtonClicked];
     
     NSInteger index = button.tag - 60001;
-    NSLog(@"selcet id %ld",index);
+   
     switch (self.stype) {
         case 1:
         {
@@ -399,7 +399,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -432,13 +432,13 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
             self.collectionView.frame = CGRectMake(0, self.collectionView.frame.origin.y, self.collectionView.size.width, height);
             
             [self.collectionView reloadData];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -452,7 +452,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self presentViewController:pick animated:NO completion:nil];
     
 }
-//代理方法
+//图片获取的代理方法
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //获取图片并编码；
@@ -479,9 +479,11 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
     [self dismissViewControllerAnimated:NO completion:nil];
 }
+
+//选择要上传的照片，可以从相册选择，也可以从相机选择
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    NSLog(@"已取消选择");
+    CLog(@"已取消选择");
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
@@ -529,10 +531,9 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     }
     
 }
-
+//点击按钮选择要上传的图片
 - (IBAction)ad:(id)sender {
-    
-//    [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"请选择" message:nil preferredStyle:0];
     [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -553,39 +554,15 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+//点击发布时提交信息到服务器
 - (IBAction)sure:(UIButton *)sender {
     
-//5.必填项：照片、楼座名称、户型、面积、价格、楼层、联系方式
+//必填项：照片、楼座名称、户型、面积、价格、楼层、联系方式
     [ProgressHUD show:@"正在发布" Interaction:YES];
     NSString *url = GET2HANDFB_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-//    [dict setValue:@"" forKey:@"rentHouse"];
-    
-//    NSDate *date = [NSDate date];
-//    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
-//    formater.dateFormat = @"yyyy-MM-dd hh:mm:ss";
-//    formater.timeZone = [NSTimeZone systemTimeZone];
-//    NSString *time = [formater stringFromDate:date];
-    /*
-     
-     @property (weak, nonatomic) IBOutlet UITextField *shiTF;
-     @property (weak, nonatomic) IBOutlet UITextField *tingTF;
-     @property (weak, nonatomic) IBOutlet UITextField *weiTF;
-     @property (weak, nonatomic) IBOutlet UITextField *areaTF;
-     @property (weak, nonatomic) IBOutlet UITextField *cengTF;
-     @property (weak, nonatomic) IBOutlet UITextField *totalFloorTF;
-     @property (weak, nonatomic) IBOutlet UILabel *chaoxiangLabel;
-     @property (weak, nonatomic) IBOutlet UILabel *zhuangxiuLabel;
-     @property (weak, nonatomic) IBOutlet UITextField *phoneTF;
-     @property (weak, nonatomic) IBOutlet UITextField *niandaiTF;
-     @property (nonatomic) NSArray *collectionData;
-     @property NSMutableArray * selectMaidian;
-     @property (weak, nonatomic) IBOutlet UITextField *niandaiLabel;
-     @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-     @property (weak, nonatomic) IBOutlet UILabel *xiaoquLabel;
-     */
     
     if (self.lpIndex==-1) {
         [ProgressHUD showError:@"请选择楼盘！"];
@@ -656,7 +633,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     if ([XWJAccount instance].phone) {
         [dict setValue:[XWJAccount instance].uid forKey:@"addPerson"];
-        NSLog(@"%@",[XWJAccount instance].uid);
+        CLog(@"%@",[XWJAccount instance].uid);
     }
     [dict setValue:@"" forKey:@"clickCount"];
     [dict setValue:@"" forKey:@"addTime"];
@@ -664,21 +641,17 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     NSString * str = [XWJUtil dataTOjsonString:dict];
     
-    
-//    NSMutableDictionary *guzhang = [NSMutableDictionary dictionary];
-//    [guzhang setObject:str forKey:@"complain"];
-    
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     [data setObject:str forKey:@"oldHouse"];
-    NSLog(@"%@",data);
+    CLog(@"%@",data);
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             
-            NSLog(@"%@",responseObject);
+            CLog(@"%@",responseObject);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *nu = [dic objectForKey:@"result"];
             [ProgressHUD dismiss];
@@ -692,11 +665,11 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
                 [alertview show];
             }
             [self.navigationController popViewControllerAnimated:YES];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -708,14 +681,6 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         controlView.backgroundColor = [UIColor clearColor];
     }
     [self.view addSubview:controlView];
-//    self.scrollView.contentOffset = CGPointMake(0, -100);
-    //    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    btn.frame = CGRectMake(0, 0, 40, 40);
-    //    [btn setTitle:@"完成" forState:UIControlStateNormal];
-    //    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    //    [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-    //    UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
-    //    self.navigationItem.rightBarButtonItem = done;
 }
 
 

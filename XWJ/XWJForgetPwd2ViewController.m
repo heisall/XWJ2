@@ -46,11 +46,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"reset success ");
+        CLog(@"reset success ");
         
         NSDictionary *dic = (NSDictionary *)responseObject;
         
-        NSLog(@"dic %@",dic);
+        CLog(@"dic %@",dic);
         NSNumber * result = [dic valueForKey:@"result"];
         
         if ([result intValue]== 1) {
@@ -65,7 +65,7 @@
         }
      
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"reset fail ");
+        CLog(@"reset fail ");
         //        dispatch_async(dispatch_get_main_queue(), ^{
         
         NSString *message = @"重置失败";

@@ -86,7 +86,6 @@ GKHpickerAddressView * instance;
         keyboardToolbar.backgroundColor=[UIColor blackColor];
         keyboardToolbar.superview.backgroundColor=[UIColor clearColor];
         [keyboardToolbar setItems:[NSArray arrayWithObjects:doneBarItem,nil]];
-        //    NSLog(@"%lu",(unsigned long)self.keyboardToolbar.subviews.count);
         self.textfield.inputAccessoryView =keyboardToolbar;
         self.textfield.inputView=self.pickerView;
     }

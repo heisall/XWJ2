@@ -72,9 +72,9 @@ CGRect tableViewCGRect;
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSDictionary *dicts = [dict objectForKey:@"data"];
-            NSLog(@"dict:%@",dict);
+            CLog(@"dict:%@",dict);
             NSString *nickname = [dicts objectForKey:@"NickName"];
-            NSLog(@"==>%@",nickname);
+            CLog(@"==>%@",nickname);
             if ([nickname isEqual:[NSNull null]]) {
                 nickname = @"";
             }
@@ -95,7 +95,7 @@ CGRect tableViewCGRect;
                 gxqm = @"";
             }
             self.tableDetailData = [NSMutableArray arrayWithObjects:nickname,sex,qgzk,xqah,gxqm,nil];
-            NSLog(@"？？？？dic++++++ %@",self.tableDetailData);
+            CLog(@"？？？？dic++++++ %@",self.tableDetailData);
             imageStr = dicts[@"Photo"];
             if (![imageStr isEqual:[NSNull null]]) {
                 NSData *imagedata = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageStr]];
@@ -107,7 +107,7 @@ CGRect tableViewCGRect;
         }
         [_tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
     
@@ -133,7 +133,7 @@ CGRect tableViewCGRect;
     }else{
         tableViewCellHeight = NORMALHGIGHT;
     }
-    //    NSLog(@"seciton %ld row %ld",(long)indexPath.section,(long)indexPath.row);
+    //    CLog(@"seciton %ld row %ld",(long)indexPath.section,(long)indexPath.row);
     return tableViewCellHeight;
 }
 
@@ -200,7 +200,7 @@ CGRect tableViewCGRect;
        // cell.imageView.frame = CGRectMake(30, 0, 50, 50);
         for (UIView* view in cell.contentView.subviews) {
             if ([view isKindOfClass:[UIImageView class]]) {
-                //                NSLog(@"view%@",view);
+                //                CLog(@"view%@",view);
                 [view removeFromSuperview];
             }
         }
@@ -281,14 +281,14 @@ CGRect tableViewCGRect;
             nicheng.returnStrBlock = ^(NSString * str){
                 
                 [self postInfoWithDic:dic FromKey:@"nickName" object:(id)str success:^(id s) {
-                    NSLog(@"成功");
+                    CLog(@"成功");
                     [self.tableDetailData replaceObjectAtIndex:0 withObject:str];
                     [usr setObject:str forKey:@"nicheng"];
-                    NSLog(@".....%@",str);
-                    NSLog(@"==>%@",self.tableDetailData);
+                    CLog(@".....%@",str);
+                    CLog(@"==>%@",self.tableDetailData);
                     [self.tableView reloadData];
                 } failure:^(NSError *error){
-                    NSLog(@"%@",error);
+                    CLog(@"%@",error);
                 }];
                 
             };
@@ -302,12 +302,12 @@ CGRect tableViewCGRect;
                 
                 [self postInfoWithDic:dic FromKey:@"sex" object:(id)str success:^(id s) {
                     //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
-                    NSLog(@"成功%@",s);
+                    CLog(@"成功%@",s);
                     [self.tableDetailData replaceObjectAtIndex:1 withObject:str];
                     [usr setObject:str forKey:@"xingbie"];
                     [self.tableView reloadData];
                 } failure:^(NSError *error){
-                    NSLog(@"%@",error);
+                    CLog(@"%@",error);
                 }];
                 
             };
@@ -321,12 +321,12 @@ CGRect tableViewCGRect;
                 
                 [self postInfoWithDic:dic FromKey:@"qgzk" object:(id)str success:^(id s) {
                     //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
-                    NSLog(@"成功%@",s);
+                    CLog(@"成功%@",s);
                     [self.tableDetailData replaceObjectAtIndex:2 withObject:str];
                     [usr setObject:str forKey:@"hunyin"];
                     [self.tableView reloadData];
                 } failure:^(NSError *error){
-                    NSLog(@"%@",error);
+                    CLog(@"%@",error);
                 }];
             };
             
@@ -339,12 +339,12 @@ CGRect tableViewCGRect;
                 
                 [self postInfoWithDic:dic FromKey:@"xqah" object:(id)str success:^(id s) {
                     //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
-                    NSLog(@"成功%@",s);
+                    CLog(@"成功%@",s);
                     [self.tableDetailData replaceObjectAtIndex:3 withObject:str];
                     [usr setObject:str forKey:@"aihao"];
                     [self.tableView reloadData];
                 } failure:^(NSError *error){
-                    NSLog(@"%@",error);
+                    CLog(@"%@",error);
                 }];
                 
             };
@@ -361,11 +361,11 @@ CGRect tableViewCGRect;
                 //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
                 [self.tableDetailData replaceObjectAtIndex:4 withObject:str];
                 [usr setObject:str forKey:@"qianming"];
-                NSLog(@"成功");
+                CLog(@"成功");
                 
                 [self.tableView reloadData];
             } failure:^(NSError *error){
-                NSLog(@"%@",error);
+                CLog(@"%@",error);
             }];
             
         };
@@ -416,12 +416,12 @@ CGRect tableViewCGRect;
     //请求成功后显示图片，并添加到缓存池中；
     _photo = baseStr;
     [self postInfoWithDic:_dict FromKey:@"photo" object:(id)baseStr success:^(id s) {
-        NSLog(@"成功%@",s);
+        CLog(@"成功%@",s);
         NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
         [usr setObject:baseStr forKey:@"photo"];
         [self downLoadInfo];
     } failure:^(NSError *error){
-        NSLog(@"%@",error);
+        CLog(@"%@",error);
     }];
     //返回；
     //  cell.imageView.image = [UIImage imageNamed:@"mor_icon_default"];
@@ -429,7 +429,7 @@ CGRect tableViewCGRect;
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    NSLog(@"已取消选择");
+    CLog(@"已取消选择");
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -455,7 +455,7 @@ CGRect tableViewCGRect;
         
         if (success) {
             NSDictionary *dic = responseObject;
-            NSLog(@"dic==>%@",dic);
+            CLog(@"dic==>%@",dic);
             NSString *result = [dic valueForKey:@"result"];
             if ([result isEqualToString:@"1"]) {
                 //                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"修改完成" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -470,7 +470,7 @@ CGRect tableViewCGRect;
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"log fail ");
+        CLog(@"log fail ");
         
         if (failure) {
             failure(error);

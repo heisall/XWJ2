@@ -58,7 +58,7 @@ static NSString *cellid = @"zftablecell";
 - (IBAction)back:(UIButton *)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
-    NSLog(@"back");
+    CLog(@"back");
 }
 
 

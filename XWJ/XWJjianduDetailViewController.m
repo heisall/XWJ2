@@ -114,7 +114,7 @@
 
 }
 - (IBAction)share:(UIButton *)sender {
-    NSLog(@"----%@",[self.dic objectForKey:@"id"]);
+    CLog(@"----%@",[self.dic objectForKey:@"id"]);
     UIImageView* temIV = [[UIImageView alloc] init];
     [temIV sd_setImageWithURL:[NSURL URLWithString:self.shareImageStr] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
     [UMSocialSnsService presentSnsIconSheetView:self
@@ -134,7 +134,7 @@
     if(response.responseCode == UMSResponseCodeSuccess)
     {
         //得到分享到的微博平台名
-        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        CLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
         /*
          这个地方哪有QQ分享  这个地方需要判断一下是哪分享成功了  我没数据线装不了app
          if ([UMShareToWechatSession isEqualToString:[[response.data allKeys] objectAtIndex:0]]) {
@@ -151,7 +151,7 @@
 }
 #pragma mark - 分享请求
 - (void)createShareSuccessRequest{
-    NSLog(@"请求的参数----%@\n----%@\n",[self.dic valueForKey:@"id"],WUYESUCCESSSHARE);
+    CLog(@"请求的参数----%@\n----%@\n",[self.dic valueForKey:@"id"],WUYESUCCESSSHARE);
     NSString* requestAddress = WUYESUCCESSSHARE;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -160,7 +160,7 @@
                                              @"code":self.codeStr
                                              }
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"------%@",responseObject);
+             CLog(@"------%@",responseObject);
              
              if ([[responseObject objectForKey:@"result"] intValue]) {
                  
@@ -168,7 +168,7 @@
                  
              }
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"失败===%@", error);
+             CLog(@"失败===%@", error);
          }];
 }
 
@@ -200,11 +200,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dictp success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             [self cleanText];
 
@@ -240,7 +240,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
 
     }];
 }
@@ -280,7 +280,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     //   NSLog(@"%s success ",__FUNCTION__);
+     //   CLog(@"%s success ",__FUNCTION__);
         
         /*
          "A_id" = 1;
@@ -296,7 +296,7 @@
          */
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-           // NSLog(@"dic------ %@",dic);
+           // CLog(@"dic------ %@",dic);
             self.array = [NSMutableArray arrayWithArray:[dic objectForKey:@"comments"]];
             
             
@@ -317,7 +317,7 @@
             NSArray *URLs = [url componentsSeparatedByString:@","];
             self.shareUrl = [NSString stringWithFormat:@"%@",[URLs firstObject]];
             self.shareImageStr = self.shareUrl =[NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=%@",self.dicw[@"id"]];
-            NSLog(@"-------%@",self.dicw[@"Content"]);
+            CLog(@"-------%@",self.dicw[@"Content"]);
             self.shareTitleStr = self.dicw[@"Content"];
             if(URLs&&URLs.count>0)
                 
@@ -351,7 +351,7 @@
                         bannerView;
                     })];
                 }
-        //    NSLog(@"*****%@",self.dicWork);
+        //    CLog(@"*****%@",self.dicWork);
             
             NSString *istalk = [NSString stringWithFormat:@"%@",[self.dicw objectForKey:@"iftalk"]];
             if ([istalk isEqualToString:@"0"]) {
@@ -370,7 +370,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       // NSLog(@"%s fail %@",__FUNCTION__,error);
+       // CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -520,7 +520,7 @@
     self.commentTextView.text  = @"";
     //kbSize即為鍵盤尺寸 (有width, height)
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//得到鍵盤的高度
-    NSLog(@"hight_hitht:%f",kbSize.height);
+    CLog(@"hight_hitht:%f",kbSize.height);
     
 //    self.bottomRect = self.bottomView.frame ;
 //    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height) -45, self.bottomRect.size.width, self.bottomRect.size.height);

@@ -54,15 +54,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 @synthesize URLs;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-
-    
-//    UIScrollView *scrolView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
-//    scrolView.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+300);
-//    [self.view  insertSubview:scrolView belowSubview:self.adView];
-    
-
     if (self.type == HOUSEZU) {
         self.teseView.hidden = YES;
         self.collectionIView.hidden = NO;
@@ -135,7 +127,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             
@@ -147,7 +139,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -163,7 +155,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             
@@ -177,7 +169,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         [self addBackBtn];
     }];
 }
@@ -194,37 +186,6 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self.adView addSubview:back];
 }
 -(void)updateView{
-    
-    /*
-     data =     {
-     ReleaseTime = "12-19 13:43";
-     area = "<null>";
-     buildingArea = "<null>";
-     buildingInfo = "\U6e56\U5c9b\U4e16\U5bb6";
-     city = "<null>";
-     clickCount = 5;
-     contactPerson = "\U738b\U7ecf\U7406";
-     contactPhone = 18088888888;
-     des = "<null>";
-     floorCount = 9;
-     floors = 7;
-     "house_Indoor" = 5;
-     "house_Toilet" = 5;
-     "house_living" = 5;
-     id = 8;
-     isCollected = 0;
-     maidian = "<null>";
-     niandai = "<null>";
-     orientation = "\U53cc\U5357";
-     photo = "http://www.hisenseplus.com/HisenseUpload/loupan/imag201512191343238102.jpg,http://www.hisenseplus.com/HisenseUpload/loupan/imag201512191343238262.jpg";
-     renovationInfo = "\U7cbe\U88c5\U4fee";
-     rent = 500;
-     };
-     */
-    
-//    NSArray *URLs = @[@"http://admin.guoluke.com:80/userfiles/files/admin/201509181707000766.png",
-//                      @"http://admin.guoluke.com:80/userfiles/files/admin/201509181707000766.png",
-//                      @"http://img.guoluke.com/upload/201509091054250274.jpg"];
     
     if ([self.datailDic isEqual:[NSNull null]]){
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"获取信息失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -273,7 +234,6 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     [self addBackBtn];
     
-//    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@",[self.datailDic objectForKey:@"buildingInfo"],[NSString stringWithFormat:@"%@室%@厅%@卫",[self.datailDic objectForKey:@"house_Indoor"],[self.datailDic objectForKey:@"house_living"],[self.datailDic objectForKey:@"house_Toilet"]]];
         self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.datailDic objectForKey:@"buildingInfo"]];
     self.timeLabel.text = [NSString stringWithFormat:@"发布时间：%@",[self.datailDic objectForKey:@"ReleaseTime"]];
     self.zoneLabel.text = [NSString stringWithFormat:@"%@%@",[self.datailDic objectForKey:@"city"],[self.datailDic objectForKey:@"area"]==[NSNull null]?@"":[self.datailDic objectForKey:@"area"]];
@@ -363,11 +323,9 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     UIButton *button  = (UIButton*)[view viewWithTag:2];
     button.hidden = YES;
 
-   
-
     return view;
 }
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //重用cell
@@ -483,11 +441,11 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
                 
@@ -505,7 +463,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
     

@@ -92,7 +92,7 @@
 }
 - (void)configueUI:(MyOrderDetailModel2 *)model{
     self.goodsTitleLable.text = model.goodsDesStr;
-    NSLog(@"***********商品名字*****%@",model.goodsDesStr);
+    CLog(@"***********商品名字*****%@",model.goodsDesStr);
     [self.goodsHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.goodsHeadImageStr] placeholderImage:[UIImage imageNamed:@""]];
     self.goodsHeadImageView.backgroundColor = [UIColor redColor];
     

@@ -69,14 +69,14 @@
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic哈哈哈 %@",dic);
+            CLog(@"dic哈哈哈 %@",dic);
             
             self.roomDic = [dic objectForKey:@"room"];
         }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -91,15 +91,15 @@
     [dict setValue:[NSString stringWithFormat:@"%@",[XWJAccount instance].uid] forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic********rr %@",dic);
+            CLog(@"dic********rr %@",dic);
             
             
             self.roomDic = [dic objectForKey:@"room"];
-             NSLog(@"dic %@",self.roomDic);
+             CLog(@"dic %@",self.roomDic);
 //            [self.userImageView sd_setImageWithURL:[NSURL URLWithString:[self.dicuser objectForKey:@"Photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
             if([XWJAccount instance].isYouke){
 
@@ -113,7 +113,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
     
@@ -153,18 +153,18 @@
     
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%s success ",__FUNCTION__);
+            CLog(@"%s success ",__FUNCTION__);
             
             if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"+++==dic%@",dic);
+            CLog(@"+++==dic%@",dic);
             self.payListArr = [dic objectForKey:@"data"];
             [self.tableView reloadData];
-                NSLog(@"dic ++++%@",self.payListArr);
+                CLog(@"dic ++++%@",self.payListArr);
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%s fail %@",__FUNCTION__,error);
+            CLog(@"%s fail %@",__FUNCTION__,error);
             
         }];
     
@@ -300,7 +300,7 @@
     //    } else
     //        oneCell.accessoryType = UITableViewCellAccessoryNone;
     [self countPrice];
-    NSLog(@"didSelectRowAtIndexPath %@",selection);
+    CLog(@"didSelectRowAtIndexPath %@",selection);
 }
 
 - (void)tableView:(UITableView *)table didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -311,7 +311,7 @@
     //        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
     //    } else
     //        oneCell.accessoryType = UITableViewCellAccessoryNone;
-    NSLog(@"didDeselectRowAtIndexPath %@",selection);
+    CLog(@"didDeselectRowAtIndexPath %@",selection);
     [self countPrice];
 }
 

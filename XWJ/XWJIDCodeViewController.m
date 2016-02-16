@@ -51,7 +51,7 @@
 
 -(void)resiginTF
 {
-    NSLog(@"resign");
+    CLog(@"resign");
     [self.txtFieldIDCode resignFirstResponder];
     [self.txtFieldPhoneNumber resignFirstResponder];
 }
@@ -90,7 +90,7 @@
     NSString *content = [NSString stringWithFormat:MESSAGE_CONTENT,code];
     NSString *urlStr = [NSString stringWithFormat:IDCODE_URL,uid,phone,content];
     
-    NSLog(@"url %@",urlStr);
+    CLog(@"url %@",urlStr);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer new];
@@ -98,12 +98,12 @@
     [manager GET:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
 //        _btnGetcode.enabled = NO;
-        NSLog(@"success");
+        CLog(@"success");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         UIAlertView *view  = [[UIAlertView alloc] initWithTitle:@"" message:@"验证码发送失败请稍后再试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [view show];
-        NSLog(@"failure");
+        CLog(@"failure");
     }];
 }
 

@@ -52,7 +52,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)taView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    NSLog(@"index path %ld",(long)indexPath.row);
+//    CLog(@"index path %ld",(long)indexPath.row);
     XWJSPDetailTableViewCell *cell;
     
     cell = [taView dequeueReusableCellWithIdentifier:@"cell"];

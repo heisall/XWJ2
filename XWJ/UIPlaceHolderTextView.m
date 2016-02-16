@@ -98,6 +98,7 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
     
 }
 
+//初始化尺寸
 - (id)initWithFrame:(CGRect)frame
 {
     if( (self = [super initWithFrame:frame]) )

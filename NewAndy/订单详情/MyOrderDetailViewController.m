@@ -394,25 +394,25 @@
 }
 #pragma mark - 确认收货响应
 - (void)makeSureClick{
-    NSLog(@"确认收货");
+    CLog(@"确认收货");
     [self createMakeSureRequest];
 }
 #pragma mark - 立即付款响应
 - (void)payClick{
-    NSLog(@"立即付款");
+    CLog(@"立即付款");
     [self createPayRequest:self.orderId];
 }
 - (void)paySuccess:(NSNotification *)text{
-    NSLog(@"%@",text.userInfo[@"paySuccess"]);
-    NSLog(@"－－－－－接收到通知------");
+    CLog(@"%@",text.userInfo[@"paySuccess"]);
+    CLog(@"－－－－－接收到通知------");
     self.orderId = text.userInfo[@"paySuccess"];
-    NSLog(@"----%@",text.userInfo[@"payindex"]);
+    CLog(@"----%@",text.userInfo[@"payindex"]);
     self.makeUsreNum = [text.userInfo[@"payindex"] integerValue];
     [self createDeleOrderRequest];
 }
 #pragma mark - 删除订单响应
 - (void)deleClick{
-    NSLog(@"删除订单");
+    CLog(@"删除订单");
     [self createDeleOrderRequest];
 }
 #pragma mark - 头标题高度
@@ -470,7 +470,7 @@
 }
 #pragma mark - 数据请求
 - (void)createRequest{
-    NSLog(@"请求的参数----%@\n----%@\n-----%@",self.status,self.orderId,MYORDERDETAIL);
+    CLog(@"请求的参数----%@\n----%@\n-----%@",self.status,self.orderId,MYORDERDETAIL);
     NSString* requestAddress = MYORDERDETAIL;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -480,9 +480,9 @@
                                               }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               if ([[responseObject objectForKey:@"data"] isKindOfClass:[NSNull class]]) {
-                  NSLog(@"没有返回信息");
+                  CLog(@"没有返回信息");
               }else{
-                  NSLog(@"---%@",responseObject);
+                  CLog(@"---%@",responseObject);
                   MyOrderDetailModel* model = [[MyOrderDetailModel alloc] init];
                   NSDictionary* resultDic = [responseObject objectForKey:@"data"];
                   if ([@"11" isEqualToString:self.status]) {
@@ -503,11 +503,11 @@
                   model1.phoneStr = resultDic[@"phone_tel"];
                   model1.goodAddStr = [NSString stringWithFormat:@"收货地址：%@",temArr[@"address"]];
                   [self.dataSourceArr1 addObject:model1];
-                  NSLog(@"=========第二个数据源====%@====%ld",self.dataSourceArr1,self.dataSourceArr1.count);
+                  CLog(@"=========第二个数据源====%@====%ld",self.dataSourceArr1,self.dataSourceArr1.count);
                   /************************************/
                   NSArray* temArr1 = resultDic[@"detail"];
                   float temPriceAll = 0;
-                  NSLog(@"商品数组-----%@",temArr1);
+                  CLog(@"商品数组-----%@",temArr1);
                   for (NSDictionary* dic in temArr1) {
                       MyOrderDetailModel2* model2 = [[MyOrderDetailModel2 alloc] init];
                       model2.goodsHeadImageStr = dic[@"goods_image"];
@@ -527,12 +527,12 @@
                   [_tableView reloadData];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"失败===%@", error);
+              CLog(@"失败===%@", error);
           }];
 }
 #pragma mark - 删除订单数据请求
 - (void)createDeleOrderRequest{
-    NSLog(@"请求的参数----%@\n----%@\n-----%@",self.status,self.orderId,DELEORDER);
+    CLog(@"请求的参数----%@\n----%@\n-----%@",self.status,self.orderId,DELEORDER);
     NSString* requestAddress = DELEORDER;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -545,12 +545,12 @@
                  [self.navigationController popViewControllerAnimated:YES];
              }
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"失败===%@", error);
+             CLog(@"失败===%@", error);
          }];
 }
 #pragma mark - 确认收货数据请求
 - (void)createMakeSureRequest{
-    NSLog(@"请求的参数----%@\n----%@\n-----%@",self.status,self.orderId,MAKESUREORDER);
+    CLog(@"请求的参数----%@\n----%@\n-----%@",self.status,self.orderId,MAKESUREORDER);
     NSString* requestAddress = MAKESUREORDER;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -559,18 +559,18 @@
                                              @"status":self.status
                                              }
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"---%@",responseObject);
+             CLog(@"---%@",responseObject);
              if ([[responseObject objectForKey:@"result"] intValue]) {
                  [self.makeSureDelegate makeSureOrder:self.makeUsreNum];
                  [self.navigationController popViewControllerAnimated:YES];
              }
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"失败===%@", error);
+             CLog(@"失败===%@", error);
          }];
 }
 #pragma mark - 数据请求
 - (void)createPayRequest:(NSString*)orderid{
-    NSLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
+    CLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
     NSString* requestAddress = GETPAYINFO;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -579,11 +579,11 @@
                                               @"ip":self.ipStr
                                               }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"成功-----%@",responseObject);
+              CLog(@"成功-----%@",responseObject);
               if ([responseObject[@"result"] intValue]) {
                   NSDictionary* dict = responseObject[@"data"];
                   self.prePayIdStr = dict[@"prepay_id"];
-                  NSLog(@"-----预订单----%@",self.prePayIdStr);
+                  CLog(@"-----预订单----%@",self.prePayIdStr);
                   self.myNoncestr = dict[@"nonce_str"];
                   self.apikeystr = dict[@"apiKey"];
                   self.appid = dict[@"appid"];
@@ -591,7 +591,7 @@
                   [self getWeChatPay];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"失败===%@", error);
+              CLog(@"失败===%@", error);
           }];
 }
 
@@ -626,7 +626,7 @@
         request.sign = sign;
         [WXApi sendReq:request];
     } else{
-        NSLog(@"*************7*********获取prePayId失败！");
+        CLog(@"*************7*********获取prePayId失败！");
     }
 }
 #pragma mark - 生成各种参数
@@ -680,13 +680,13 @@
     // 拼接API密钥
     NSString *result = [NSString stringWithFormat:@"%@&key=%@", signString, self.apikeystr];
     // 打印检查
-    NSLog(@"*********1***********result = %@", result);
+    CLog(@"*********1***********result = %@", result);
     // md5加密
     NSString *signMD5 = [CommonUtil md5:result];
     // 微信规定签名英文大写
     signMD5 = signMD5.uppercaseString;
     // 打印检查
-    NSLog(@"*********2***********signMD5 = %@", signMD5);
+    CLog(@"*********2***********signMD5 = %@", signMD5);
     return signMD5;
 }
 - (void)didReceiveMemoryWarning {

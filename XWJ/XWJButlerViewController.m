@@ -27,14 +27,8 @@
     [self addView];
     
     [self getGuanjiaAD];
-    //订阅通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRoomNotification:) name:@"changeRoomNotification" object:nil];
-//    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"huname"]) {
-//        self.room.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"huname"];
-//    }
-    
+    //判断是否为游客模式
     if([XWJAccount instance].isYouke){
-//        self.room.text = [NSString stringWithFormat:@"%@%@号楼%@单元%@",[[XWJCity instance].district valueForKey:@"a_name"],[[XWJCity instance].buiding valueForKey:@"b_name"],[XWJCity instance].rdy,[XWJCity instance].rid];
         self.room.text  = @"";
     }else
     if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
@@ -46,12 +40,8 @@
     }
     self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.height+100);
 }
-////通知传过来的信息
-//-(void)changeRoomNotification:(NSNotification *)notification
-//{
-//    NSDictionary *roomDictionary = [notification userInfo];
-//    NSLog(@"\n%@",roomDictionary);
-//}
+
+//获取绑定山庄的详细信息
 -(void)getGuanjiaAD{
     NSString *url = GETGUANJIAAD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -61,23 +51,16 @@
      a_id	小区a_id	String
      userid	用户id	String
      */
-    
-    //    [dict setValue:[XWJCity instance].aid  forKey:@"a_id"];
-//    [dict setValue:@"1"  forKey:@"a_id"];
-//    NSString *userid = [XWJAccount in];
-//    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
-    
-//    [dict setValue:@"1" forKey:@"a_id"];
-        [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
 
+    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
     [dict setValue:[NSString stringWithFormat:@"%@",[XWJAccount instance].uid] forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
             self.notices = [dic objectForKey:@"ads"];
             
@@ -99,16 +82,14 @@
             if(URLs&&URLs.count>0)
                 [self.adView addSubview:({
                     
-                    LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-                                                                                            self.adView.bounds.size.height)
-                                                
-                                                                        delegate:self
-                                                                       imageURLs:URLs
-                                                                placeholderImage:@"devAdv_default"
-                                                                   timerInterval:3.0f
-                                                   currentPageIndicatorTintColor:[UIColor redColor]
-                                                          pageIndicatorTintColor:[UIColor whiteColor]];
-                    bannerView;
+                    LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,self.adView.bounds.size.height)
+                                   delegate:self
+                                  imageURLs:URLs
+                           placeholderImage:@"devAdv_default"
+                              timerInterval:3.0f
+              currentPageIndicatorTintColor:[UIColor redColor]
+                     pageIndicatorTintColor:[UIColor whiteColor]];
+            bannerView;
                 })];
 
             
@@ -116,26 +97,25 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
 
+//添加具体的模块
 -(void)addView{
     for (int i=0; i<8; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"guanjia%d",i+1]] forState:UIControlStateNormal];
         btn.frame = CGRectMake((SCREEN_SIZE.width/4+1)*(i%4), self.room.frame.origin.y+self.room.bounds.size.height+10 + ((int)(i/4))*(SCREEN_SIZE.width/4+1), SCREEN_SIZE.width/4 , SCREEN_SIZE.width/4 );
         btn.tag = i;
-   //     NSLog(@"btn %@",btn);
-//        btn.backgroundColor = XWJColor(124, 197, 193);
         [btn setTitleColor:XWJGREENCOLOR forState:UIControlStateNormal];
         btn.backgroundColor = [UIColor whiteColor];
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-        NSLog(@"btn %@",[XWJUtil deviceString]);
-    
+        CLog(@"btn %@",[XWJUtil deviceString]);
+        //对不同型号的手机进行适配
         if ([[XWJUtil deviceString] isEqualToString:@"iPhone 6 plus"]) {
             [btn setImageEdgeInsets:UIEdgeInsetsMake(15, 25, 0, 0)];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(70, -28, 0, 0)];
@@ -143,19 +123,17 @@
             [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 15, 0, 0)];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(60, -37, 0, 0)];
         }
-    
-//        btn.al
+
         [btn setTitle:self.titles[i] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(btnclick:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:btn];
     }
 }
-
+// 初始化数据
 -(void)initData{
     
 //    物业通知、社区活动、物业监督、物业报修、物业投诉、物业账单、海信地产、二手房源
     self.titles = [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉", @"物业账单",@"海信地产",@"二手房源",nil];
-
     
     UIStoryboard * HomeStoryboard = [UIStoryboard storyboardWithName:@"HomeStoryboard" bundle:nil];
     XWJNoticeViewController *notice = [HomeStoryboard instantiateViewControllerWithIdentifier:@"noticeController"];
@@ -186,27 +164,14 @@
     self.vConlers = [NSArray arrayWithObjects:notice,notice2,wu,gz,gz2,pay,zf,secondF,nil];
 }
 
+//添加按钮的点击事件
 -(void)btnclick:(UIButton *)btn{
     
-
+//       如果是游客模式就没法使用报修投诉和账单功能
        if ([XWJAccount instance].isYouke&&((btn.tag == 3)||(btn.tag  == 5)||(btn.tag == 4))) {
-    //
-    //        XWJCity *city = [XWJCity instance];
-    //
-    //        [city getCity:^(NSArray *arr) {
-    //
-    //            NSLog(@"arr %@",arr);
-    //            NSMutableArray *arr2 = [NSMutableArray array];
-    //
-    //            for (NSDictionary *dic in arr) {
-    //                [arr2 addObject:[dic valueForKey:@"CityName"]];
-    //            }
-    //        }];
        UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"您还没有绑定房间，请绑定后使用。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         alertview.delegate = self;
        [alertview show];
-    
-    
       }else{
     
     [self.navigationController showViewController:[self.vConlers objectAtIndex:btn.tag] sender:nil];
@@ -214,13 +179,11 @@
       }
 }
 
+//如果是游客模式可以继续选择城市
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
     bind.title = @"城市选择";
-    //            bind.dataSource = [NSArray arrayWithObjects:@"青岛市",@"济南市",@"威海市",@"烟台市",@"临沂市", nil];
-    
-    //        bind.dataSource = arr2;
     bind.delegate = self;
     bind->mode = HouseCity;
     [self.navigationController showViewController:bind sender:nil];
@@ -230,7 +193,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.navigationItem.title = @"管家";
     [self getGuanjiaAD];
     
     if([XWJAccount instance].isYouke){
@@ -254,36 +216,15 @@
 
     self.navigationItem.leftBarButtonItem = nil;
 
-    self.tabBarController.tabBar.hidden = NO;
-//    NSString *ti =[NSString stringWithFormat:@"%@%@",[[XWJCity instance].district valueForKey:@"a_name"]?[[XWJCity instance].district valueForKey:@"a_name"]:@"",[[XWJCity instance].buiding valueForKey:@"b_name"]?[[XWJCity instance].buiding valueForKey:@"b_name"]:@""];
-//    self.room.text  = ti;
-//    [self addView];
-
-//    [self getGuanjiaAD];
-    
-//    /******************** internet ********************/
-//    NSArray *URLs = @[@"http://admin.guoluke.com:80/userfiles/files/admin/201509181707000766.png",
-//                      @"http://admin.guoluke.com:80/userfiles/files/admin/201509181707000766.png",
-//                      @"http://img.guoluke.com/upload/201509091054250274.jpg"];
-//    [self.adView addSubview:({
-//        
-//        LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-//                                                                                self.adView.bounds.size.height)
-//                                    
-//                                                            delegate:self
-//                                                           imageURLs:URLs
-//                                                    placeholderImage:nil
-//                                                       timerInterval:3.0f
-//                                       currentPageIndicatorTintColor:[UIColor redColor]
-//                                              pageIndicatorTintColor:[UIColor whiteColor]];
-//        bannerView;
-//    })];
-    
+    self.tabBarController.tabBar.hidden = NO;    
 }
+-(void)showList{
 
+}
+//选中某个广告图片的时候进入广告web页
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
     
-    NSLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
+    CLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
     
     if (self.notices) {
         if ([[[self.notices objectAtIndex:index] objectForKey:@"Types"] isEqualToString:@"外链"]) {
@@ -294,12 +235,6 @@
             [self.navigationController  showViewController:web sender:self];
         }
     }
-        //        UIStoryboard *FindStory =[UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
-        //        UIViewController *mesCon = [FindStory instantiateViewControllerWithIdentifier:@"activityDetail"];
-//        XWJNoticeViewController *notice = [self.storyboard instantiateViewControllerWithIdentifier:@"noticeController"];
-//        [self.navigationController showViewController:notice sender:nil];
-        NSLog(@"notice click");
-    
 }
 
 

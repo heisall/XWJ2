@@ -81,7 +81,7 @@ NSArray *myImgs;
     imageV.layer.cornerRadius = imageV.frame.size.width/2;
     imageV.layer.masksToBounds = YES;
     
-    NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
+    CLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
     
     self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.height+100);
 }
@@ -100,13 +100,13 @@ NSArray *myImgs;
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *dic = (NSDictionary *)responseObject;
-        NSLog(@"%@",dic);
+        CLog(@"%@",dic);
 
         if ([dic objectForKey:@"data"]!=[NSNull null]) {
             
             self.dicuser = [[dic objectForKey:@"data"] objectForKey:@"user"];
             [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
-            NSLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
+            CLog(@"%@",[self.dicuser objectForKey:@"jifen"]);
             self.scoreLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"jifen"]==[NSNull null]?@"":[NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"jifen"]]];
             self.NickNameLabel.text = [NSString stringWithFormat:@"%@",[self.dicuser objectForKey:@"NickName"]==[NSNull null]?@"":[self.dicuser objectForKey:@"NickName"]];
             [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[dic valueForKey:@"Photo"]];
@@ -117,7 +117,7 @@ NSArray *myImgs;
 //        - (void)removeObjectForKey:(NSString *)defaultName;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
+        CLog(@"请求失败");
     }];
 }
 -(void)whenClickImage{
@@ -299,7 +299,7 @@ NSArray *myImgs;
 //           
 //           
 //
-////            NSLog(@"==>%ld",(long)indexPath.row);
+////            CLog(@"==>%ld",(long)indexPath.row);
 //            if(indexPath.section == 1){
 ////                if (indexPath.row == 0) {
 ////                 

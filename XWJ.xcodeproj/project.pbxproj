@@ -540,6 +540,7 @@
 		8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WuyeStoryboard.storyboard; sourceTree = "<group>"; };
 		8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XWJLoginStoryboard.storyboard; sourceTree = "<group>"; };
 		8EB8CEA81C5C8A4100C20EAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8EDADE3B1C72CA0100C57D90 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		8EEB6E0F1C3134C9006F572D /* XWJMyFindViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJMyFindViewCell.h; sourceTree = "<group>"; };
 		8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJMyFindViewCell.m; sourceTree = "<group>"; };
 		8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJMyFindViewCell.xib; sourceTree = "<group>"; };
@@ -2250,6 +2251,7 @@
 				DAC4AF191BF0619700D66E76 /* Supporting Files */,
 				DAC4AF1D1BF0619700D66E76 /* AppDelegate.h */,
 				8EB8CEA81C5C8A4100C20EAE /* AppDelegate.m */,
+				8EDADE3B1C72CA0100C57D90 /* PrefixHeader.pch */,
 				DAC4AF261BF0619700D66E76 /* Images.xcassets */,
 				DAC4AF201BF0619700D66E76 /* ViewController.h */,
 				DAC4AF211BF0619700D66E76 /* ViewController.m */,
@@ -3137,6 +3139,7 @@
 					"$(PROJECT_DIR)/SMS_SDK",
 					"$(PROJECT_DIR)/XWJ",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/XWJ/PrefixHeader.pch";
 				INFOPLIST_FILE = XWJ/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3168,6 +3171,7 @@
 					"$(PROJECT_DIR)/SMS_SDK",
 					"$(PROJECT_DIR)/XWJ",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/XWJ/PrefixHeader.pch";
 				INFOPLIST_FILE = XWJ/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

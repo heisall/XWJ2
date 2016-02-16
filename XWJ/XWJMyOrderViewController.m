@@ -96,8 +96,8 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 - (void)paySuccess:(NSNotification *)text{
     
 //    [((UIButton*)self.btn[1]) sendActionsForControlEvents:UIControlEventTouchUpInside];
-    NSLog(@"%@",text.userInfo[@"paySuccess"]);
-    NSLog(@"－－－－－接收到通知------");
+    CLog(@"%@",text.userInfo[@"paySuccess"]);
+    CLog(@"－－－－－接收到通知------");
     NSMutableArray* tArr = [[NSMutableArray alloc] init];
 
     int zhifuCount = ((UIButton *)self.cornerBtn[0]).titleLabel.text.intValue;
@@ -119,7 +119,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     [tArr addObjectsFromArray:self.orderArr];
     for (int i = 0; i < tArr.count; i++) {
         NSString * oid = [NSString stringWithFormat:@"%@",[[self.orderArr objectAtIndex:i] valueForKey:@"order_id"]] ;
-        NSLog(@"----%@",oid);
+        CLog(@"----%@",oid);
         if ([text.userInfo[@"paySuccess"] isEqualToString:oid]) {
             [tArr removeObjectAtIndex:i];
             self.orderArr =  [[NSMutableArray alloc] init];
@@ -130,7 +130,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 }
 #pragma mark - 订单列表删除订单
 - (void)delegateMyOrder:(NSInteger)index{
-    NSLog(@"----列表删除订单---%ld",index);
+    CLog(@"----列表删除订单---%ld",index);
     
     deleOrderNum = index;
     UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"确定要删除吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
@@ -166,7 +166,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
      *这个地方我处理了一下   因为之前的self.orderArr在请求数据完成的时候  赋值的方式被强制修改成了不可变数组
      *我在这个地方把self.orderArr改成可变数组进行数据的删除  然后刷新列表
      */
-    NSLog(@"-----删除%ld\n---%@",cellNum,self.orderArr);
+    CLog(@"-----删除%ld\n---%@",cellNum,self.orderArr);
     NSMutableArray* tArr = [[NSMutableArray alloc] init];
     [tArr addObjectsFromArray:self.orderArr];
     [tArr removeObjectAtIndex:cellNum];
@@ -196,11 +196,11 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             NSString *res = [ NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
             //            self.orderArr = [dict objectForKey:@"orders"];
             if ([res isEqualToString:@"1"]) {
@@ -217,7 +217,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -244,11 +244,11 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             self.orderArr = [dict objectForKey:@"orders"];
             
             self.dic = [dict objectForKey:@"orderCount"];
@@ -261,7 +261,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                     OrderFinishModel* model = [[OrderFinishModel alloc] init];
                     //cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f x %@",[pri floatValue],[[arr objectAtIndex:indexPath.row] objectForKey:@"quantity"]];
                     model.headImageStr = temDic[@"goods_image"];
-                    NSLog(@"======头像地址====%@",model.headImageStr);
+                    CLog(@"======头像地址====%@",model.headImageStr);
                     model.titleStr = temDic[@"goods_name"];
                     model.e_status = [temDic[@"e_status"] integerValue];
                     model.orderId = temDic[@"order_id"];
@@ -270,7 +270,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                     model.priceAndTimeStr = [NSString stringWithFormat:@"￥%.2f   收货时间：%@",[temDic[@"price"] floatValue],temDic[@"add_time"]];
                     [self.dataSourceArr addObject:model];
                 }
-                NSLog(@"我新创建的数据源------%@",self.dataSourceArr);
+                CLog(@"我新创建的数据源------%@",self.dataSourceArr);
             }
             
             [self.tableView reloadData];
@@ -312,7 +312,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -449,7 +449,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                                               cancelButtonTitle:@"取消"
                                               otherButtonTitles:@"确定", nil];
         alert.tag = 100+index;
-        NSLog(@"-----%ld",alert.tag);
+        CLog(@"-----%ld",alert.tag);
         [alert show];
         
     }else if(self.index==0){
@@ -486,7 +486,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"index path %ld",(long)indexPath.row);
+    CLog(@"index path %ld",(long)indexPath.row);
     XWJOrderTableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -527,7 +527,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 }
 #pragma mark - 评论代理实现
 - (void)pinglun:(NSInteger)index{
-    NSLog(@"评论----%ld",(long)index);
+    CLog(@"评论----%ld",(long)index);
     OrderFinishModel* model = self.dataSourceArr[index];
     EvaluationViewController* vc = [[EvaluationViewController alloc] init];
     vc.headImageStr = model.headImageStr;
@@ -578,7 +578,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     if(response.responseCode == UMSResponseCodeSuccess)
     {
         //得到分享到的微博平台名
-        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        CLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
     }
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -643,7 +643,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
 }
 -(void)typeclick:(UIButton *)butn{
     self.index = butn.tag;
-    NSLog(@"当前点中按钮tag---%ld",(long)butn.tag);
+    CLog(@"当前点中按钮tag---%ld",(long)butn.tag);
     for (UIButton *b in self.btn) {
         b.selected = NO;
     }
@@ -667,7 +667,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         return;
     }
     
-    NSLog(@"请求的参数----%@\n----%@",self.deleOrderId,DELEORDER);
+    CLog(@"请求的参数----%@\n----%@",self.deleOrderId,DELEORDER);
     NSString* requestAddress = DELEORDER;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -682,7 +682,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                   */
 //                 NSMutableArray* tArr = [[NSMutableArray alloc] init];
 //                 [tArr addObjectsFromArray:self.orderArr];
-//                 NSLog(@"-----请求删除---%ld",self.deleOrderNum);
+//                 CLog(@"-----请求删除---%ld",self.deleOrderNum);
 //                 [tArr removeObjectAtIndex:self.deleOrderNum];
 //                 self.orderArr =  [[NSMutableArray alloc] init];
 //                 [self.orderArr addObjectsFromArray:tArr];
@@ -691,13 +691,13 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                  [self getOrderList:[self.status objectAtIndex:self.index]];
              }
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"失败===%@", error);
+             CLog(@"失败===%@", error);
          }];
 }
 
 #pragma mark - 数据请求
 - (void)createPayRequest:(NSString*)orderid{
-    NSLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
+    CLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
     NSString* requestAddress = GETPAYINFO;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -706,11 +706,11 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                                               @"ip":self.ipStr
                                               }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"成功-----%@",responseObject);
+              CLog(@"成功-----%@",responseObject);
               if ([responseObject[@"result"] intValue]) {
                   NSDictionary* dict = responseObject[@"data"];
                   self.prePayIdStr = dict[@"prepay_id"];
-                  NSLog(@"-----预订单----%@",self.prePayIdStr);
+                  CLog(@"-----预订单----%@",self.prePayIdStr);
                   self.myNoncestr = dict[@"nonce_str"];
                   self.apikeystr = dict[@"apiKey"];
                   self.appid = dict[@"appid"];
@@ -720,7 +720,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
                   [[NSUserDefaults standardUserDefaults] synchronize];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"失败===%@", error);
+              CLog(@"失败===%@", error);
           }];
 }
 
@@ -755,7 +755,7 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
         request.sign = sign;
         [WXApi sendReq:request];
     } else{
-        NSLog(@"*************7*********获取prePayId失败！");
+        CLog(@"*************7*********获取prePayId失败！");
     }
 }
 #pragma mark - 生成各种参数
@@ -809,13 +809,13 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     // 拼接API密钥
     NSString *result = [NSString stringWithFormat:@"%@&key=%@", signString, self.apikeystr];
     // 打印检查
-    NSLog(@"*********1***********result = %@", result);
+    CLog(@"*********1***********result = %@", result);
     // md5加密
     NSString *signMD5 = [CommonUtil md5:result];
     // 微信规定签名英文大写
     signMD5 = signMD5.uppercaseString;
     // 打印检查
-    NSLog(@"*********2***********signMD5 = %@", signMD5);
+    CLog(@"*********2***********signMD5 = %@", signMD5);
     return signMD5;
 }
 

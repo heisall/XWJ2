@@ -118,24 +118,24 @@
     [manager PUT:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //解析服务器返回的数据responseObject
 //        NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        NSLog(@"------%@",str);
+//        CLog(@"------%@",str);
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"租售数据%@",dict);
-         NSLog(@"成功");
+        CLog(@"租售数据%@",dict);
+         CLog(@"成功");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败==%@",error);
+        CLog(@"请求失败==%@",error);
     }];
 //    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        //解析服务器返回的数据responseObject
 //        //    NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        //  NSLog(@"------%@",str);
+//        //  CLog(@"------%@",str);
 //        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-//        NSLog(@"租售数据%@",dict);
-//         NSLog(@"成功");
+//        CLog(@"租售数据%@",dict);
+//         CLog(@"成功");
 //        
 //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"请求失败==%@",error);
+//        CLog(@"请求失败==%@",error);
 //    }];
 
 

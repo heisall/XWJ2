@@ -128,7 +128,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -139,14 +139,14 @@
             [self.tableView reloadData];
             NSArray *arr  = [dic objectForKey:@"data"];
             for (NSDictionary *d in arr) {
-                NSLog(@"dic %@",d);
+                CLog(@"dic %@",d);
             }
             
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
 
     }];
 }

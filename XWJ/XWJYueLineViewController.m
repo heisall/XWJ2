@@ -66,11 +66,11 @@
      */
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *nu = [dic objectForKey:@"result"];
             
@@ -84,7 +84,7 @@
             
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -106,11 +106,11 @@
      */
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *nu = [dic objectForKey:@"result"];
             
@@ -124,7 +124,7 @@
             
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -136,7 +136,7 @@
     NSString *content = [NSString stringWithFormat:YUYUEMESSAGE_CONTENT,[self.goodname  stringByReplacingOccurrencesOfString:@"&" withString:@""],self.lianxirenTextF.text,self.phoneTextF.text];
     NSString *urlStr = [NSString stringWithFormat:IDCODE_URL,uid,phone,content];
     
-    NSLog(@"url %@",urlStr);
+    CLog(@"url %@",urlStr);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     
@@ -145,10 +145,10 @@
 //    urlStr  = @"http://dx.qxtsms.cn/sms.aspx?action=send&userid=2735&account=hisenseplus&password=hisenseplus&mobile=15092245487&content=【信我家】预约信息：预约产品:五粮液股份公司 52度 A级上品 500ml浓香型白酒 单瓶装,Bill,15092245487&sendTime=&checkcontent=1";
     [manager GET:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"success");
+        CLog(@"success");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        NSLog(@"failure");
+        CLog(@"failure");
     }];
 }
 - (void)didReceiveMemoryWarning {

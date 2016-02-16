@@ -24,12 +24,6 @@
     CLLocationCoordinate2D coord = [loc coordinate];
     //创建标题
     NSString *titile = [NSString stringWithFormat:@"%f,%f",coord.latitude,coord.longitude];
-//    MyPoint *myPoint = [[MyPoint alloc] initWithCoordinate:coord andTitle:titile];
-    //添加标注
-//    
-//    [self.mapView addAnnotation:<#(nonnull id<MKAnnotation>)#>]
-//    [self.mapView addAnnotation:myPoint];
-    
     //放大到标注的位置
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coord, 250, 250);
     [self.mapView setRegion:region animated:YES];}

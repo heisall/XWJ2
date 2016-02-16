@@ -103,7 +103,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    NSLog(@"index path %ld",(long)indexPath.row);
+//    CLog(@"index path %ld",(long)indexPath.row);
     XWJShangHuTableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -192,12 +192,12 @@
 
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         [ProgressHUD dismiss];
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
             
             self.goodsArr = [dic objectForKey:@"goods"];
@@ -286,7 +286,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         [ProgressHUD dismiss];
         UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
         back.frame = CGRectMake(10, 5, 30, 30);
@@ -362,7 +362,7 @@
 -(void)sortTypeButtonClicked:(UIButton *)button{
     [self closeButtonClicked];
     NSInteger index = button.tag - 60001;
-    NSLog(@"selcet id %ld",index);
+    CLog(@"selcet id %ld",index);
     self.lpIndex = index;
 //    self.typeLabel.text = [NSString stringWithFormat:@"%@",[[self.cates objectAtIndex:index] objectForKey:@"cate_name"]];
     

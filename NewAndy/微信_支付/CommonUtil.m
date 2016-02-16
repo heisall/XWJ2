@@ -69,7 +69,6 @@
     @[ IOS_WIFI @"/" IP_ADDR_IPv6, IOS_WIFI @"/" IP_ADDR_IPv4, IOS_CELLULAR @"/" IP_ADDR_IPv6, IOS_CELLULAR @"/" IP_ADDR_IPv4 ] ;
     
     NSDictionary *addresses = [self getIPAddresses];
-    //NSLog(@"addresses: %@", addresses);
     
     __block NSString *address;
     [searchArray enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop)
@@ -77,22 +76,21 @@
          address = addresses[key];
          if(address) *stop = YES;
      } ];
-    NSLog(@"%@", address);
+    CLog(@"%@", address);
     return address ? address : @"0.0.0.0";
 }
 
 + (NSDictionary *)getIPAddresses
 {
     NSMutableDictionary *addresses = [NSMutableDictionary dictionaryWithCapacity:8];
-    
-    // retrieve the current interfaces - returns 0 on success
+
     struct ifaddrs *interfaces;
     if(!getifaddrs(&interfaces)) {
-        // Loop through linked list of interfaces
+
         struct ifaddrs *interface;
         for(interface=interfaces; interface; interface=interface->ifa_next) {
             if(!(interface->ifa_flags & IFF_UP) || (interface->ifa_flags & IFF_LOOPBACK)) {
-                continue; // deeply nested code harder to read
+                continue;
             }
             const struct sockaddr_in *addr = (const struct sockaddr_in*)interface->ifa_addr;
             if(addr && (addr->sin_family==AF_INET || addr->sin_family==AF_INET6)) {
@@ -104,11 +102,10 @@
                 }
             }
         }
-        // Free memory
+
         freeifaddrs(interfaces);
     }
     
-    // The dictionary keys have the form "interface" "/" "ipv4 or ipv6"
     return [addresses count] ? addresses : nil;
 }
 

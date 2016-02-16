@@ -166,11 +166,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             tabledata = [dic objectForKey:@"data"]==[NSNull null]?nil:[dic objectForKey:@"data"];
 
             groupBuy = [dic objectForKey:@"groupBuy"]==[NSNull null]?nil:[dic objectForKey:@"groupBuy"];
@@ -186,7 +186,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -200,11 +200,11 @@
     [dict setValue:[self.dic objectForKey:@"parent_id"] forKey:@"parent_id"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
             self.adArr = [dic objectForKey:@"ad"];
                         self.thumbArr = [dic objectForKey:@"thumb"];
@@ -254,7 +254,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
         back.frame = CGRectMake(10, 5, 30, 30);
         [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -304,7 +304,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"index path %ld",(long)indexPath.row);
+    CLog(@"index path %ld",(long)indexPath.row);
     
     if (indexPath.section==0) {
         XWJShuolistTableViewCell *cell;

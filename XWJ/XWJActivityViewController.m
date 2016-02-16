@@ -26,7 +26,7 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yibaoming) name:@"baoming" object:nil];
-//    NSLog(@"dic,%@",self.dic);
+//    CLog(@"dic,%@",self.dic);
     NSString *sr = [NSString stringWithFormat:@"%ld",(long)self.dic];
     NSString *str = [[NSUserDefaults standardUserDefaults] valueForKey:sr];
     if ([str isEqualToString:@"yibaoming"]) {
@@ -138,7 +138,7 @@
 //    
 //    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
 //    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%s success ",__FUNCTION__);
+//        CLog(@"%s success ",__FUNCTION__);
 //        
 //        if(responseObject){
 //            NSDictionary *dic = (NSDictionary *)responseObject;
@@ -148,16 +148,16 @@
 //            [alertview show];
 //        
 // 
-//            NSLog(@"dic %@",dic);
+//            CLog(@"dic %@",dic);
 //        }
 //        
 //        
 //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"%s fail %@",__FUNCTION__,error);
+//        CLog(@"%s fail %@",__FUNCTION__,error);
 //
 //    }];
     
-    NSLog(@"baoming");
+    CLog(@"baoming");
 }
 
 @end

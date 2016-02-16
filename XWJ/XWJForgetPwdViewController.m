@@ -69,7 +69,7 @@
 
 -(void)resiginTF
 {
-    NSLog(@"resign");
+    CLog(@"resign");
     [self.textPhone resignFirstResponder];
     [self.txtIdcode resignFirstResponder];
 }
@@ -109,17 +109,17 @@
     //    NSURL *url = [NSURL URLWithString:urlStr];
     //    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    NSLog(@"url %@",urlStr);
+    CLog(@"url %@",urlStr);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer new];
     
     [manager GET:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"success");
+        CLog(@"success");
 
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure");
+        CLog(@"failure");
     }];
 }
 - (IBAction)submit:(id)sender {

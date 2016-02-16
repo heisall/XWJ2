@@ -69,9 +69,7 @@
 -(void)viewWillDisappear:(BOOL)animated{
     self.tabBarController.tabBar.hidden = NO;
 }
-
 /*
- 
  data =     {
  Wei = 3;
  cx = "\U53cc\U5357";
@@ -102,6 +100,8 @@
     self.directionLabel.text =[NSString stringWithFormat:@"朝向：%@",[self.dict objectForKey:@"cx"]];
 }
 
+//获取新房的信息
+
 -(void)getXinFangInfo{
     NSString *url = GETXINFANGHXT_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -110,7 +110,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -122,10 +122,10 @@
 //            [self updateView];
             //            [self.houseArr addObjectsFromArray:arr];
             //            [self.tableView reloadData];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -135,14 +135,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

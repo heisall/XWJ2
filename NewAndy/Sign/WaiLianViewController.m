@@ -44,7 +44,7 @@
         
     }
     NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.urlString]];
-    NSLog(@"链接地址-----%@",url);
+    CLog(@"链接地址-----%@",url);
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
     [self createLeftNvc];
@@ -92,7 +92,7 @@
     [activityIndicatorView stopAnimating];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    NSLog(@"----错误----%@",[error localizedDescription]);
+    CLog(@"----错误----%@",[error localizedDescription]);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

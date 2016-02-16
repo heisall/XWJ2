@@ -144,7 +144,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.payIndex = indexPath.row;
-    NSLog(@"pay index %d",self.payIndex);
+    CLog(@"pay index %ld",self.payIndex);
     
 }
 
@@ -241,11 +241,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *num = [dic objectForKey:@"result"];
             /*
@@ -283,7 +283,7 @@
             
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
     
@@ -321,11 +321,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *num = [dic objectForKey:@"result"];
             
@@ -350,7 +350,7 @@
             
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -413,18 +413,18 @@
 //    [dict setValue:[XWJAccount instance].account  forKey:@"account"];
     
         
-        NSLog(@"dict %@",dict);
+        CLog(@"dict %@",dict);
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSString *errCode = [dic objectForKey:@"errorCode"];
             NSNumber *num = [dic objectForKey:@"result"];
 
-            NSLog(@"jesun %d",self.payIndex);
+            CLog(@"jesun %d",self.payIndex);
             if ([num intValue]== 1) {
                 
                 if (self.payIndex ==1) {
@@ -452,7 +452,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
     }
@@ -480,11 +480,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             NSString *res = [ NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
             //            self.orderArr = [dict objectForKey:@"orders"];
             if ([res isEqualToString:@"1"]) {
@@ -503,7 +503,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -530,18 +530,18 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             self.orderArr = [dict objectForKey:@"orders"];
             
         }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -551,7 +551,7 @@
 
 #pragma mark - 数据请求
 - (void)createPayRequest:(NSString*)orderid{
-    NSLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
+    CLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
     NSString* requestAddress = GETPAYINFO;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -560,11 +560,11 @@
                                               @"ip":self.ipStr
                                               }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"成功-----%@",responseObject);
+              CLog(@"成功-----%@",responseObject);
               if ([responseObject[@"result"] intValue]) {
                   NSDictionary* dict = responseObject[@"data"];
                   self.prePayIdStr = dict[@"prepay_id"];
-                  NSLog(@"-----预订单----%@",self.prePayIdStr);
+                  CLog(@"-----预订单----%@",self.prePayIdStr);
                   self.myNoncestr = dict[@"nonce_str"];
                   self.apikeystr = dict[@"apiKey"];
                   self.appid = dict[@"appid"];
@@ -574,7 +574,7 @@
                   [[NSUserDefaults standardUserDefaults] synchronize];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"失败===%@", error);
+              CLog(@"失败===%@", error);
           }];
 }
 
@@ -609,7 +609,7 @@
         request.sign = sign;
         [WXApi sendReq:request];
     } else{
-        NSLog(@"*************7*********获取prePayId失败！");
+        CLog(@"*************7*********获取prePayId失败！");
     }
 }
 #pragma mark - 生成各种参数
@@ -663,13 +663,13 @@
     // 拼接API密钥
     NSString *result = [NSString stringWithFormat:@"%@&key=%@", signString, self.apikeystr];
     // 打印检查
-    NSLog(@"*********1***********result = %@", result);
+    CLog(@"*********1***********result = %@", result);
     // md5加密
     NSString *signMD5 = [CommonUtil md5:result];
     // 微信规定签名英文大写
     signMD5 = signMD5.uppercaseString;
     // 打印检查
-    NSLog(@"*********2***********signMD5 = %@", signMD5);
+    CLog(@"*********2***********signMD5 = %@", signMD5);
     return signMD5;
 }
 

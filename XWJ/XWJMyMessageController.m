@@ -74,7 +74,7 @@ static NSString *kcellIdentifier = @"cell";
             NSArray *array  =[[NSArray alloc]init];
             array = [dict objectForKey:@"data"];
             self.finddetailArr = [dict objectForKey:@"data"];
-           NSLog(@"dic++++++ %@",array);
+           CLog(@"dic++++++ %@",array);
             
             [_subTitles removeAllObjects];
             [_msgArr removeAllObjects];
@@ -88,12 +88,12 @@ static NSString *kcellIdentifier = @"cell";
                 [_titles addObject:@"有人评论了你的帖子"];
                 [_idArray addObject:[d objectForKey:@"fromid"]];
             }
-            NSLog(@"dic++++++ %@",_idArray);
+            CLog(@"dic++++++ %@",_idArray);
         }
         [self.tableView.mj_header endRefreshing];
         [_tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -145,7 +145,7 @@ static NSString *kcellIdentifier = @"cell";
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
            dict[@"id"] = fromeId;
            con.dic  = dict;
-            NSLog(@"****%@",con.dic);
+            CLog(@"****%@",con.dic);
             [self.navigationController showViewController:con sender:nil];
     
 }

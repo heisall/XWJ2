@@ -43,7 +43,7 @@
     self.hyb_bottomOffsetToCell = 0;
 }
 - (void)configCellWithModel:(ShouYe0Model *)model {
-    NSLog(@"穿过来的数组-----%@",model.picArr);
+    CLog(@"穿过来的数组-----%@",model.picArr);
     self.cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     self.cycleScrollView.delegate = self;
     self.cycleScrollView.currentPageDotColor = [UIColor blackColor]; // 自定义分页控件小圆标颜色
@@ -55,7 +55,7 @@
 }
 #pragma mark - 轮滚点击代理
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
-    NSLog(@"---点击了第%ld张图片", index);
+    CLog(@"---点击了第%ld张图片", index);
     [self.ShouYe0Delegate didselectADPic:index];
 }
 @end

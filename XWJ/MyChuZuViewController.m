@@ -50,9 +50,9 @@
     [manager POST:loginUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //解析服务器返回的数据responseObject
     //    NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-      //  NSLog(@"------%@",str);
+      //  CLog(@"------%@",str);
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"出租数据%@",dict);
+        CLog(@"出租数据%@",dict);
                  self.houseArr = [dict objectForKey:@"data"];
         NSArray *array = [dict objectForKey:@"data"];
 //        for (NSDictionary *czDict in array) {
@@ -60,7 +60,7 @@
 //            [czmodel setValuesForKeysWithDictionary:czDict];
 //            
 //            [_dataSource addObject:czmodel];
-//            // NSLog(@"-----%ld",_dataSource.count);
+//            // CLog(@"-----%ld",_dataSource.count);
 //            
 //           
 //        }
@@ -68,7 +68,7 @@
     
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
+        CLog(@"请求失败");
     }];
     
 }
@@ -105,7 +105,7 @@
 //        chuzuModel *chuzuM = [[chuzuModel alloc]init];
 //        chuzuM = _dataSource[indexPath.row];
 //    
-//        // NSLog(@"------%@",skM);
+//        // CLog(@"------%@",skM);
 //    
 //        [cell setCzModel:chuzuM];
 //    

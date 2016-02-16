@@ -77,7 +77,7 @@
 }
 #pragma mark - ShouYe0TableViewCellDelegate广告代理
 - (void)didselectADPic:(NSInteger)index{
-    NSLog(@"---点击了第%ld张---",(long)index);
+    CLog(@"---点击了第%ld张---",(long)index);
     WaiLianViewController* vc = [[WaiLianViewController alloc] init];
     vc.urlString = self.urlArr[index];
     [self.navigationController pushViewController:vc animated:YES];
@@ -158,7 +158,7 @@
 }
 #pragma mark - 签到
 - (void)signBtnClick{
-    NSLog(@"签到");
+    CLog(@"签到");
     [self createSignRequest];
 }
 #pragma mark - tableView行高
@@ -178,7 +178,7 @@
 }
 #pragma mark - 广告数据请求
 - (void)createRequest{
-    NSLog(@"请求的参数----%@\n----%@\n",self.a_idStr,SIGNADD);
+    CLog(@"请求的参数----%@\n----%@\n",self.a_idStr,SIGNADD);
     NSString* requestAddress = SIGNADD;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -186,11 +186,11 @@
                                               @"a_id":[NSString stringWithFormat:@"%@",self.a_idStr],
                                               }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"response %@",responseObject);
+              CLog(@"response %@",responseObject);
               if ([[responseObject objectForKey:@"data"] isKindOfClass:[NSNull class]]) {
-                  NSLog(@"没有返回信息");
+                  CLog(@"没有返回信息");
               }else{
-                  NSLog(@"---%@",responseObject);
+                  CLog(@"---%@",responseObject);
                   NSMutableArray* temArr = responseObject[@"ad"];
                   ShouYe0Model* model = [[ShouYe0Model alloc] init];
                   model.picArr = [[NSMutableArray alloc] init];
@@ -203,12 +203,12 @@
                   [_tableView reloadData];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"失败===%@", error);
+              CLog(@"失败===%@", error);
           }];
 }
 #pragma mark - 签到数据请求
 - (void)createSignRequest{
-    NSLog(@"请求的参数----%@\n----%@\n",self.account,SIGNSUCC);
+    CLog(@"请求的参数----%@\n----%@\n",self.account,SIGNSUCC);
     NSString* requestAddress = SIGNSUCC;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -216,20 +216,20 @@
                                               @"account":self.account,
                                               }
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"------%@",responseObject);
+              CLog(@"------%@",responseObject);
               
               if ([[responseObject objectForKey:@"result"] intValue]) {
-                  NSLog(@"签到成功");
+                  CLog(@"签到成功");
                   self.btnTitleStr = @"已签到";
                   [_tableView reloadData];
               }else{
-                  NSLog(@"------%@",responseObject[@"errorCode"]);
+                  CLog(@"------%@",responseObject[@"errorCode"]);
                   [self HelpfulHints:responseObject[@"errorCode"] addView:self.view];
                   self.btnTitleStr = @"已签到";
                   [_tableView reloadData];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"失败===%@", error);
+              CLog(@"失败===%@", error);
           }];
 }
 #pragma mark - 颜色转换 IOS中十六进制的颜色转换为UIColor

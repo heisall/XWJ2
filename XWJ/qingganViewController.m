@@ -79,15 +79,15 @@
     [manager POST:qingganUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //解析服务器返回的数据responseObject
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"dict==%@",responseObject);
-        NSLog(@"dict==%@",dict);
+        CLog(@"dict==%@",responseObject);
+        CLog(@"dict==%@",dict);
         NSArray *ary = dict[@"data"];
         
         [self createUIWithArr:ary];
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
+        CLog(@"请求失败");
     }];
     
     //    MainViewController * main = [[MainViewController alloc]init];

@@ -107,7 +107,7 @@ NSArray *footer;
 - (IBAction)jifen:(UIButton *)sender {
 }
 - (IBAction)signBtn:(id)sender {
-    NSLog(@"签到");
+    CLog(@"签到");
     SignViewController* vc = [[SignViewController alloc] init];
     vc.account = self.accountid;
     vc.a_idStr = self.xiaoquid;
@@ -117,7 +117,7 @@ NSArray *footer;
         vc.nickName = self.nickName;
     }
     vc.headImageStr = [XWJAccount instance].headPhoto;
-    NSLog(@"----传值照片-----%@",[XWJAccount instance].headPhoto);
+    CLog(@"----传值照片-----%@",[XWJAccount instance].headPhoto);
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (BOOL) isBlankString:(NSString *)string {
@@ -134,12 +134,12 @@ NSArray *footer;
 }
 
 -(void)msgClick:(UIButton *)sender{
-    NSLog(@"click %ld",(long)sender.tag);
+    CLog(@"click %ld",(long)sender.tag);
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    NSLog(@"scrolview width %f height %f",self.scrollView.bounds.size.width,self.scrollView.bounds.size.height);
+//    CLog(@"scrolview width %f height %f",self.scrollView.bounds.size.width,self.scrollView.bounds.size.height);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -147,8 +147,8 @@ NSArray *footer;
     self.tabBarController.tabBar.hidden = NO;
 
     [self setNavigationBar2];
-    NSLog(@"scrolview width %f height %f",self.scrollView.bounds.size.width,self.scrollView.bounds.size.height);
-    NSLog(@"view width %f height %f",self.view.bounds.size.width,self.view.bounds.size.height);
+    CLog(@"scrolview width %f height %f",self.scrollView.bounds.size.width,self.scrollView.bounds.size.height);
+    CLog(@"view width %f height %f",self.view.bounds.size.width,self.view.bounds.size.height);
 
 //    NSArray * arr= [NSArray arrayWithObjects:@"故障报修",@"在线缴费",@"我要投诉",@"物业监督",@"物业监督", nil];
 //    NSArray * arr= [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉", @"物业账单",nil];
@@ -249,11 +249,11 @@ NSArray *footer;
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
             self.notices = [dic objectForKey:@"notices"];
             self.shows = [dic objectForKey:@"topad"];
@@ -302,7 +302,7 @@ NSArray *footer;
 
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
 
     }];
     
@@ -339,7 +339,7 @@ NSArray *footer;
 //
 //        [city getCity:^(NSArray *arr) {
 //
-//            NSLog(@"arr %@",arr);
+//            CLog(@"arr %@",arr);
 //            NSMutableArray *arr2 = [NSMutableArray array];
 //            
 //            for (NSDictionary *dic in arr) {
@@ -390,7 +390,7 @@ NSArray *footer;
             [self.navigationController showViewController:bind sender:nil];
             
 //            [city getDistrct:^(NSArray *arr) {
-//                NSLog(@"district  %@",arr);
+//                CLog(@"district  %@",arr);
 //                NSMutableArray *arr2 = [NSMutableArray array];
 //                
 //                for (NSDictionary *dic in arr) {
@@ -460,18 +460,16 @@ NSArray *footer;
 
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
             XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
-            
-//            XWJADViewController *acti =[[XWJADViewController alloc] init];
             acti.dic  = [dic objectForKey:@"data"];
-            NSLog(@"=====%@",acti.dic);
+//            CLog(@"=====%@",acti.dic);
             acti.type = [acti.dic valueForKey:@"Types"];
             [self.navigationController showViewController:acti sender:nil];
             
@@ -479,14 +477,14 @@ NSArray *footer;
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
 
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
     
-    NSLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
+    CLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
     if (bannerView.titles) {
         
         [self getDetailAD:index];
@@ -495,7 +493,7 @@ NSArray *footer;
 //        XWJNoticeViewController *notice = [self.storyboard instantiateViewControllerWithIdentifier:@"noticeController"];
         
 //        [self.navigationController showViewController:notice sender:nil];
-        NSLog(@"notice click");
+        CLog(@"notice click");
     }else{
         
         
@@ -649,11 +647,11 @@ NSArray *footer;
     //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
 //            _selecttype = 1;
             //            self.thumbArr = [dic objectForKey:@"jz"];
@@ -666,7 +664,7 @@ NSArray *footer;
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -680,11 +678,11 @@ NSArray *footer;
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
             
             XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
@@ -700,7 +698,7 @@ NSArray *footer;
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -787,8 +785,8 @@ NSArray *footer;
     
 }
 -(void)colleciotnCellclick:(UIButton *)btn{
-//    NSLog(@"%p %@",__FUNCTION__,btn);
-    NSLog(@"title %@ tag %lu",btn.titleLabel.text,btn.tag);
+//    CLog(@"%p %@",__FUNCTION__,btn);
+    CLog(@"title %@ tag %lu",btn.titleLabel.text,btn.tag);
     
     int section = [btn.titleLabel.text intValue];
     switch (section) {
@@ -885,7 +883,7 @@ NSArray *footer;
     }else if(index == 1){
         [self.tabBarController setSelectedIndex:2];
     }
-    NSLog(@"header %ld ",index);
+    CLog(@"header %ld ",index);
     
 }
 
@@ -933,7 +931,7 @@ NSArray *footer;
 //选择了某个cell
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSLog(@"%p %@",__FUNCTION__,indexPath);
+//    CLog(@"%p %@",__FUNCTION__,indexPath);
 //    self.section = indexPath.section;
 //
 //    switch (indexPath.section) {

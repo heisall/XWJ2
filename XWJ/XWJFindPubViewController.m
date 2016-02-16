@@ -58,7 +58,7 @@
 
 -(void)addImgView{
     if (self.imageArray.count) {
-        NSLog(@"剩下的数组----%ld",self.imageArray.count);
+        CLog(@"剩下的数组----%ld",self.imageArray.count);
         
         [self.imageScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         self.imageScroll.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageArray.count, IMAGE_WIDTH);
@@ -178,7 +178,7 @@
     self.select = index;
 
     [self.typeBtn setTitle:[[self.dataSource objectAtIndex:index] valueForKey:@"memo"] forState:UIControlStateNormal];
-    NSLog(@"selcet id %ld",index);
+    CLog(@"selcet id %ld",index);
     
 }
 
@@ -263,7 +263,7 @@
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    NSLog(@"已取消选择");
+    CLog(@"已取消选择");
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
@@ -311,7 +311,7 @@
 }
 #pragma mark -删除图片响应
 - (void)deleImageBtn:(UIButton*)btn{
-    NSLog(@"=====删除第%ld个图片",btn.tag - 900);
+    CLog(@"=====删除第%ld个图片",btn.tag - 900);
     self.willDeleImage = btn.tag - 900;
     UIAlertView* al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定要删除该图片？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [al show];
@@ -374,7 +374,7 @@
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -393,17 +393,17 @@
                 [alertview show];
             }
             [self.navigationController popViewControllerAnimated:YES];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
     
-    NSLog(@"submit");
+    CLog(@"submit");
 }
 
 - (void)didReceiveMemoryWarning {

@@ -53,11 +53,6 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    /**
-     *  注册所有的
-     */
     /**
      *  注册所有的
      */
@@ -67,7 +62,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     controlView.backgroundColor = [UIColor clearColor];
     
 
-    if (self.type != HOUSENEW) {
+        if (self.type != HOUSENEW) {
     
         NSArray *array ;
         
@@ -78,7 +73,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             array =  [NSArray arrayWithObjects:@"区域",@"租金",@"户型",@"方式", nil];
         }
         CGFloat width = [UIScreen mainScreen].bounds.size.width/4;
-        CGFloat height  = self.selectView.bounds.size.height;
+//            创建区域面积等筛选按钮
         for (int i = 0 ; i<4; i++) {
             
             UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -110,7 +105,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     }
     
     self.searchbar.delegate = self;
-    [self.searchbar setShowsCancelButton:YES];// 是否显示取消按钮
+    //是否显示取消按钮
     [self.searchbar setShowsCancelButton:YES animated:YES];
     
     for(id cc in [_searchbar.subviews[0] subviews])
@@ -209,7 +204,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     [self.searchbar resignFirstResponder];
     self.searchbar.text = @"";
     self.searchStr = @"";
-    NSLog(@"");
+    CLog(@"");
 }// called when cancel button pressed
 
 
@@ -221,7 +216,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 
 -(void)resiginTextFields
 {
-    NSLog(@"resigne  tf");
+    CLog(@"resigne  tf");
     [self.searchbar resignFirstResponder];
 }
 
@@ -237,7 +232,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     [backview addGestureRecognizer:tap];
     [self.view.window addSubview:backview];
     
-    //    //添加helper视图
+    //添加helper视图
     float kHelperOrign_X=30;
     float kHelperOrign_Y=(self.view.frame.size.height-300)/2+64;
     helperView=[[UIScrollView alloc]initWithFrame:CGRectMake(kHelperOrign_X, kHelperOrign_Y,self.view.frame.size.width-2*kHelperOrign_X, 300)];
@@ -335,13 +330,13 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     [self closeButtonClicked];
 
     NSInteger index = button.tag - 60001;
-    NSLog(@"selcet id %ld",index);
+    CLog(@"selcet id %ld",index);
     
     UIButton *btn = [self.selectView viewWithTag:self.stype+1];
     UILabel *label = [button viewWithTag:100];
     [btn setTitle:label.text forState:UIControlStateNormal];
 
-    NSLog(@"button.titleLabel.text %@",button.titleLabel.text);
+    CLog(@"button.titleLabel.text %@",button.titleLabel.text);
     switch (self.stype) {
         case selecttypehuxing:
         {
@@ -425,26 +420,13 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     }
 }
 
+//获取二手房是信息列表
 -(void)get2hangFilter{
     NSString *url = GET2HANDDFILTER_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    /*
-     buildingInfo	小区名称	String
-     pageindex	第几页	String,从0开始
-     countperpage	每页条数	String
-     district	区域	String
-     price	价格	String
-     style	户型	String
-     square	面积	String
-     
-     */
-
-    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -463,45 +445,24 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             [self.price insertObject:quanbu atIndex:0];
             [self.mianji insertObject:quanbu atIndex:0];
             [self.huxing insertObject:quanbu atIndex:0];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
-
+//获取租房信息列表
 -(void)getZufangFilter{
     NSString *url = GETCHUZUFILTER_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    /*
-     buildingInfo	小区名称	String
-     pageindex	第几页	String,从0开始
-     countperpage	每页条数	String
-     district	区域	String
-     price	价格	String
-     style	户型	String
-     square	面积	String
-     
-     */
-    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            
-
-//            self.zufangquyu = [dic objectForKey:@"area"];
-//            self.zufangfkfs = [dic objectForKey:@"fkfs"];
-//            self.zufanghuxing = [dic objectForKey:@"hx"];
-//            self.zufangprice = [dic objectForKey:@"zujin"];
             
             NSDictionary *quanbu  = [NSDictionary dictionaryWithObjectsAndKeys:@"",@"dicKey",@"全部",@"dicValue", nil];
             self.quyu  = [NSMutableArray arrayWithArray:[dic objectForKey:@"area"]];
@@ -513,32 +474,23 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             [self.mianji insertObject:quanbu atIndex:0];
             [self.huxing insertObject:quanbu atIndex:0];
             
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
     
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
 
+//获取二手房列表信息
 -(void)get2handfang:(NSString *)tex{
     NSString *url = GET2HAND_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
-    /*
-     buildingInfo	小区名称	String
-     pageindex	第几页	String,从0开始
-     countperpage	每页条数	String
-     district	区域	String
-     price	价格	String
-     style	户型	String
-     square	面积	String
-     
-     */
     if (tex) {
         [dict setValue:tex forKey:@"buildingInfo"];
     }
@@ -555,7 +507,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -569,13 +521,13 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -584,17 +536,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     NSString *url = GETCHUZU_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    
-    /*
-     buildingInfo	小区名称	String
-     pageindex	第几页	String,从0开始
-     countperpage	每页条数	String
-     area	区域	String
-     zujin	租金	String
-     hx	户型	String
-     fkfs	付款方式	String
-     */
+
     if (area) {
         [dict setValue:area  forKey:@"buildingInfo"];
     }
@@ -608,7 +550,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -621,17 +563,17 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             [self.houseArr addObjectsFromArray:arr];
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
-
+//获取新房的信息列表
 -(void)getXinFang:(NSString *)area{
     NSString *url = GETXINFANG_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -649,7 +591,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -662,17 +604,17 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             [self.houseArr addObjectsFromArray:arr];
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
-
+//设置正确的头标题
 -(void)setRigthNavItem:(int)d{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 100, 40);
@@ -684,6 +626,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     self.navigationItem.rightBarButtonItem = done;
 }
 
+//个人租房卖房的发布按钮
 -(void)woyao{
     switch (self.type) {
         case HOUSE2:{
@@ -703,7 +646,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 }
 
 -(void)click:(UIButton *)btn{
-  //  NSLog(@"click");
+  //  CLog(@"click");
 }
 
 
@@ -843,14 +786,5 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

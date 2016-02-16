@@ -143,7 +143,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             
@@ -155,7 +155,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -171,7 +171,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             
@@ -185,11 +185,12 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         [self addBackBtn];
 
     }];
 }
+//图片按钮的点击事件
 -(void)imgclick{
     XWJWebViewController * web = [[XWJWebViewController alloc] init];
     NSString *urls = [self.datailDic objectForKey:@"photo"]==[NSNull null]?@"":[self.dic objectForKey:@"photo"];
@@ -198,6 +199,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     web.url = [url objectAtIndex:0];
     [self.navigationController pushViewController:web animated:NO];
 }
+//更新出租房的详细信息
 -(void)updateView{
     
     /*
@@ -495,11 +497,11 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
                 
@@ -517,7 +519,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
     

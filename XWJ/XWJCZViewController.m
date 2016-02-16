@@ -71,10 +71,7 @@ static NSString *kcellIdentifier = @"collectionCellID";
 static NSString *kheaderIdentifier = @"headerIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    
-//    self.collectionData = [NSArray arrayWithObjects:@"床",@"衣柜",@"空调",@"电视",@"冰箱",@"洗衣机",@"天然气",@"暖气",@"热水器",@"宽带",nil];
+
     self.backScroll.contentSize = CGSizeMake(SCREEN_SIZE.width, SCREEN_SIZE.height+250);
 
     self.tableData = [NSArray arrayWithObjects:@"描述",@"联系人",@"手机号", nil];
@@ -99,14 +96,17 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.lpIndex  = -1;
 }
 - (IBAction)changxiang:(id)sender {
+//    朝向的描述
     [self showSortView:sender];
 
 }
 - (IBAction)zuangxiu:(id)sender {
+//    装修的描述
     [self showSortView:sender];
 
 }
 - (IBAction)fukuan:(id)sender {
+//    付款方式的描述
     [self showSortView:sender];
 
 }
@@ -120,6 +120,8 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     self.tabBarController.tabBar.hidden =NO;
     
 }
+
+//朝向装修付款方式的点击时间
 -(void)showSortView:(UIButton *)btn{
     //添加半透明背景图
     NSUInteger type = btn.tag;
@@ -132,7 +134,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [backview addGestureRecognizer:tap];
     [self.view.window addSubview:backview];
     
-    //    //添加helper视图
+    //添加helper视图
     float kHelperOrign_X=30;
     float kHelperOrign_Y=(self.view.frame.size.height-300)/2+64;
     helperView=[[UIScrollView alloc]initWithFrame:CGRectMake(kHelperOrign_X, kHelperOrign_Y,self.view.frame.size.width-2*kHelperOrign_X, 300)];
@@ -142,10 +144,12 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     helperView.clipsToBounds=YES;
     [backview addSubview:helperView];
     
+    // 添加label在helper视图上
     UILabel *titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 200, 40)];
     titleLabel.textColor=[UIColor colorWithRed:95.0/255.0 green:170.0/255.0 blue:249.0/255.0 alpha:1];
     titleLabel.font=[UIFont boldSystemFontOfSize:17];
     [helperView addSubview:titleLabel];
+    //添加线在label下面
     UILabel *line=[[UILabel alloc]initWithFrame:CGRectMake(0, 40, helperView.frame.size.width, 2)];
     line.backgroundColor=[UIColor colorWithRed:212.0/255.0 green:212.0/255.0 blue:212.0/255.0 alpha:1];
     [helperView addSubview:line];
@@ -177,6 +181,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         default:
             break;
     }
+//    在label上添加按钮
     for (int i=0; i<count; i++) {
         UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
         button.frame=CGRectMake(0, 40+40*i, helperView.frame.size.width, 40);
@@ -204,22 +209,12 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [backview removeFromSuperview];
 }
 
-//-(void)sortTypeButtonClicked:(UIButton *)button{
-//    
-//    [self closeButtonClicked];
-//    NSInteger index = button.tag - 60001;
-//    NSLog(@"selcet id %ld",index);
-//    self.lpIndex = index;
-//    self.xiaoquLabel.text = [NSString stringWithFormat:@"%@",[[self.lp objectAtIndex:index] objectForKey:@"dicValue"]];
-//
-//}
-
 -(void)sortTypeButtonClicked:(UIButton *)button{
     
     [self closeButtonClicked];
     
     NSInteger index = button.tag - 60001;
-    NSLog(@"selcet id %ld",index);
+    CLog(@"selcet id %ld",index);
     switch (self.stype) {
         case 1:
         {
@@ -262,6 +257,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    //放弃编辑按钮的第一响应者
     [textField resignFirstResponder];
     
     return YES;
@@ -473,7 +469,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    NSLog(@"已取消选择");
+    CLog(@"已取消选择");
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
@@ -541,7 +537,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -567,13 +563,13 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
                 [self.collectionSelect addObject:@"0"];
             }
             [self.collectionView reloadData];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -612,33 +608,6 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    //    [dict setValue:@"" forKey:@"rentHouse"];
-    /*
-     private String buildingInfo;
-     private String area;
-     private String house_Indoor;
-     private String house_living;
-     private String house_Toilet;
-     private Double buildingArea;
-     private Double useArea;
-     private Double rent;
-     private String floors;
-     private String floorCount;
-     private String supporting;
-     
-     private String fangyuanmiaoshu;
-     private String orientation;
-     private String renovationInfo;
-     private String description;
-     private String payMethod;
-     
-     private String mobilePhone;
-     private String[] photo;
-     private String addPerson;
-     private Integer clickCount;
-     private Date addTime;
-     */
-    
 //    必填项：照片、小区、户型、面积、租金、楼层、联系人、手机号
     
     if (self.lpIndex==-1) {
@@ -736,7 +705,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [data setObject:str forKey:@"rentHouse"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -755,13 +724,13 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
                 [alertview show];
             }
             [self.navigationController popViewControllerAnimated:YES];
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
     

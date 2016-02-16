@@ -131,7 +131,7 @@
 }
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
     
-    NSLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
+    CLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
     
     if (self.adArr) {
         if ([[[self.adArr objectAtIndex:index] objectForKey:@"Types"] isEqualToString:@"外链"]) {
@@ -146,7 +146,7 @@
     //        UIViewController *mesCon = [FindStory instantiateViewControllerWithIdentifier:@"activityDetail"];
     //        XWJNoticeViewController *notice = [self.storyboard instantiateViewControllerWithIdentifier:@"noticeController"];
     //        [self.navigationController showViewController:notice sender:nil];
-    NSLog(@"notice click");
+    CLog(@"notice click");
     
 }
 -(void)imgclick{
@@ -417,7 +417,7 @@
 }
 -(void)singleTap:(UITapGestureRecognizer *)image{
     NSInteger index = image.view.tag;
-//    NSLog(@"single tap %lu",index);
+//    CLog(@"single tap %lu",index);
     NSArray *array ;
     switch (_selecttype) {
         case 1:
@@ -458,16 +458,16 @@
     [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -483,11 +483,11 @@
 //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
             _selecttype = 1;
             self.adArr = [dic objectForKey:@"ad"];
@@ -566,7 +566,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -588,11 +588,11 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
             groupBuy = [dic objectForKey:@"data"];
             [tableView reloadData];
@@ -604,7 +604,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -670,7 +670,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"index path %ld",(long)indexPath.row);
+    CLog(@"index path %ld",(long)indexPath.row);
     
     
     XWJGroupBuyTableViewCell *cell;

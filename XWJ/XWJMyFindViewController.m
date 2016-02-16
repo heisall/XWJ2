@@ -49,7 +49,7 @@
         Arr = arr;
         [self.tabaleView reloadData];
     } failure:^(NSError *error) {
-        NSLog(@"请求失败");
+        CLog(@"请求失败");
     }];
 
     
@@ -209,7 +209,7 @@
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *userid = [usr valueForKey:@"username"];
     NSString *a_id = [usr valueForKey:@"a_id"];
-    NSLog(@"----->%@,%@",userid,a_id);
+    CLog(@"----->%@,%@",userid,a_id);
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setObject:@"0" forKey:@"pageindex"];
@@ -224,12 +224,12 @@
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if (success) {
-//            NSLog(@"dic==>%@",responseObject);
+//            CLog(@"dic==>%@",responseObject);
             NSDictionary *dic = responseObject;
             self.idArray = [dic objectForKey:@"message"];
-            NSLog(@"dic==>%@",dic);
+            CLog(@"dic==>%@",dic);
             NSArray *arr = [dic objectForKey:@"message"];
-//            NSLog(@"arr:%@",arr);
+//            CLog(@"arr:%@",arr);
             NSString *result = [dic valueForKey:@"result"];
             if ([result isEqualToString:@"1"]) {
 //                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"修改完成" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -243,7 +243,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"---->log fail ");
+        CLog(@"---->log fail ");
         
         if (failure) {
             failure(error);
@@ -255,7 +255,7 @@
     UIStoryboard *find = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
     XWJFindDetailViewController * con = [find instantiateViewControllerWithIdentifier:@"findDetail"];
     con.dic  = self.idArray[indexPath.row];
-    NSLog(@"****%@",con.dic);
+    CLog(@"****%@",con.dic);
     [self.navigationController showViewController:con sender:nil];
 }
 

@@ -134,7 +134,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     NSInteger index = button.tag - 60001;
     self.select = index;
     [self getFindList:[[self.findlistArr objectAtIndex:self.select] valueForKey:@"dictValue"]];
-    NSLog(@"selcet id %ld",index);
+    CLog(@"selcet id %ld",index);
     
 }
 
@@ -173,7 +173,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         [self.collectionView.mj_header endRefreshing];
 
@@ -213,13 +213,13 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
                 self.typeLabel.text = @"信息类别";
             }
 
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
 
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
 
     }];
 }
@@ -234,7 +234,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         /*
          find =         {
@@ -254,7 +254,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
          */
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             NSNumber *res =[dic objectForKey:@"result"];
             if ([res intValue] == 1) {
                 
@@ -269,7 +269,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -328,7 +328,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         return 1;
     }
     NSInteger count = self.finddetailArr.count/COLLECTION_NUMITEMS+self.finddetailArr.count%COLLECTION_NUMITEMS;
-    NSLog(@"count %ld %ld",count,self.finddetailArr.count);
+    CLog(@"count %ld %ld",count,self.finddetailArr.count);
     return count;
 }
 
@@ -377,7 +377,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         }
 //        label1.text = [[self.finddetailArr objectAtIndex:indexPath.row] objectForKey:@"types"];
     
-    NSLog(@"%ld %ld time%@",indexPath.section,indexPath.row,[[self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS+ indexPath.row] objectForKey:@"ReleaseTime"]);
+    CLog(@"%ld %ld time%@",indexPath.section,indexPath.row,[[self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS+ indexPath.row] objectForKey:@"ReleaseTime"]);
         label2.text = [[self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS+ indexPath.row] objectForKey:@"content"];
     
     NSString *urls = [[self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS+ indexPath.row] objectForKey:@"Photo"];
@@ -459,12 +459,12 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 //- (void)collectionView:(UICollectionView *)collectionView :(NSIndexPath *)indexPath
 {
     
-    NSLog(@"%ld row %ld",indexPath.section,indexPath.row);
+    CLog(@"%ld row %ld",indexPath.section,indexPath.row);
     
         XWJFindDetailViewController * con = [self.storyboard instantiateViewControllerWithIdentifier:@"findDetail"];
         con.finddetail = self.finddetailArr;
     con.dic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary*) [self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS +indexPath.row]];
-    NSLog(@"%@",con.dic);
+    CLog(@"%@",con.dic);
     [self.navigationController showViewController:con sender:nil];
 //            UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
 //            [cell setBackgroundColor:[UIColor greenColor]];

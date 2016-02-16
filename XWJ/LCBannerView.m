@@ -48,8 +48,8 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
 + (instancetype)bannerViewWithFrame:(CGRect)frame delegate:(id<LCBannerViewDelegate>)delegate titles:(NSArray *)titles timerInterval:(NSInteger)timeInterval currentPageIndicatorTintColor:(UIColor *)currentPageIndicatorTintColor pageIndicatorTintColor:(UIColor *)pageIndicatorTintColor{
     return [[self alloc] initWithFrame:frame
                               delegate:delegate
-                             titles:titles
-                      timerInterval:timeInterval
+                                titles:titles
+                         timerInterval:timeInterval
          currentPageIndicatorTintColor:currentPageIndicatorTintColor
                 pageIndicatorTintColor:pageIndicatorTintColor];
 }
@@ -265,7 +265,7 @@ static CGFloat LCPageDistance = 10.0f;      // pageControl 到底部的距离
                 UIImage *image = [UIImage imageNamed:currentImageName];
                 if (!image) {
                     
-                    NSLog(@"ERROR: No image named `%@`!", currentImageName);
+                    CLog(@"ERROR: No image named `%@`!", currentImageName);
                 }
                 
                 imageView.image = image;

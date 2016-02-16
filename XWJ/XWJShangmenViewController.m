@@ -55,11 +55,11 @@
 //        [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
             
             self.adArr = [dic objectForKey:@"ad"];
             self.thumb = [dic objectForKey:@"thumb"];
@@ -89,14 +89,14 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
 
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
     
-    NSLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
+    CLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
 
     
         XWJADViewController *acti= [[XWJADViewController alloc] init];
@@ -144,7 +144,7 @@
 
 -(void)singleTap:(UITapGestureRecognizer *)image{
     NSInteger index = image.view.tag;
-    NSLog(@"single tap %lu",index);
+    CLog(@"single tap %lu",index);
     XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
     list.dic = [self.thumb objectAtIndex:index-1000];
     [self.navigationController showViewController:list sender:self];

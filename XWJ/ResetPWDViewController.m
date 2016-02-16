@@ -41,7 +41,7 @@
 
 -(void)resiginTF
 {
-    NSLog(@"resign");
+    CLog(@"resign");
     [self.txtFieldIDCode resignFirstResponder];
     [self.txtFieldPhoneNumber resignFirstResponder];
 }
@@ -86,7 +86,7 @@
         
         if (!error)
         {
-            NSLog(@"block 获取验证码成功");
+            CLog(@"block 获取验证码成功");
             
         }
         else
@@ -114,13 +114,13 @@
          if (!error)
          {
             message = @"验证成功";
-             NSLog(@"验证成功");
+             CLog(@"验证成功");
              
          }
          else
          {
              message = @"验证失败";
-             NSLog(@"验证失败");
+             CLog(@"验证失败");
          }
          UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
          [alertview show];

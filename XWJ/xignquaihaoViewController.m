@@ -83,7 +83,7 @@
     
 }
 -(void)btnAction:(UIButton *)button{
-  //  NSLog(@"btn.titlelabel:%@",button.titleLabel.text);
+  //  CLog(@"btn.titlelabel:%@",button.titleLabel.text);
     if (button.tag != 200) {
         button.selected = !button.selected;
         if (button.selected == YES) {
@@ -95,13 +95,13 @@
                 [_buttonSource removeObject:button.titleLabel.text];
             }
         }
-     //   NSLog(@"_buttonSource%@",_buttonSource);
+     //   CLog(@"_buttonSource%@",_buttonSource);
     }else{
         NSString *returnStr = @"";
         for (id str in _buttonSource) {
             returnStr = [returnStr stringByAppendingString:[NSString stringWithFormat:@"%@ ",str]];
         }
-        NSLog(@"return:%@",returnStr);
+        CLog(@"return:%@",returnStr);
         self.returnStrBlock(returnStr);
         [self.navigationController popViewControllerAnimated:YES];
 
@@ -134,23 +134,23 @@
     [manager POST:xingquUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //解析服务器返回的数据responseObject
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-          //  NSLog(@"dict==%@",responseObject);
-                NSLog(@"dict==%@",dict);
+          //  CLog(@"dict==%@",responseObject);
+                CLog(@"dict==%@",dict);
          NSArray *ary = dict[@"data"];
 //        for (NSDictionary*dic in ary) {
 //            FindModel *model =[[FindModel alloc]init];
 ////            model.title = dic[@"memo"];
 //            model.title = [dic objectForKey:@"memo"];
-//            NSLog(@"%@",model.title);
+//            CLog(@"%@",model.title);
 //            [_buttonSource addObject:model];
-//            NSLog(@"button==%ld",_buttonSource.count);
+//            CLog(@"button==%ld",_buttonSource.count);
             [self createUIWithArr:ary];
 //        }
         
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
+        CLog(@"请求失败");
     }];
     
     //    MainViewController * main = [[MainViewController alloc]init];

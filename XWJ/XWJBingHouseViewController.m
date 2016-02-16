@@ -65,7 +65,7 @@
         [self.tableView reloadData];
         if ([dic objectForKey:@"info"]!=[NSNull null]) {
             NSString *phone = [[dic objectForKey:@"info"] valueForKey:@"mobilePhone"];
-            NSLog(@"phone number %@",phone);
+            CLog(@"phone number %@",phone);
             _phonearray = [phone componentsSeparatedByString:@","];
             [self changeNumber:0];
         }
@@ -103,7 +103,7 @@
             
             NSString *s1= [phoneNum substringWithRange:NSMakeRange(i,1)];
             [numArr addObject:s1];
-            NSLog(@" %@",s1);
+            CLog(@" %@",s1);
         }
         _phone1 = [[numArr objectAtIndex:0] integerValue];
         _phone2 = [[numArr objectAtIndex:1] integerValue];
@@ -394,7 +394,7 @@
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
 
-                NSLog(@"sid %@",sid);
+                CLog(@"sid %@",sid);
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
                 [XWJAccount instance].password = pass;
@@ -440,7 +440,7 @@
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"log fail ");
+            CLog(@"log fail ");
             //        dispatch_async(dispatch_get_main_queue(), ^{
             //            XWJTabViewController *tab = [[XWJTabViewController alloc] init];
             //            UIWindow *window = [UIApplication sharedApplication].keyWindow;

@@ -209,7 +209,7 @@
                 [XWJAccount instance].jifen = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"jifen"]];
                 [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"Photo"]];
                 //设置别名
-                NSLog(@"------%@",[XWJAccount instance].uid);
+                CLog(@"------%@",[XWJAccount instance].uid);
                 [XRQJpush setBieming:[XWJAccount instance].uid];
                 /*
                  "A_id" = 4;
@@ -253,7 +253,7 @@
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"log fail ");
+            CLog(@"log fail ");
             //        dispatch_async(dispatch_get_main_queue(), ^{
             //            XWJTabViewController *tab = [[XWJTabViewController alloc] init];
             //            UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -287,7 +287,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -297,11 +297,11 @@
             
             NSArray *arr  = [dic objectForKey:@"data"];
             for (NSDictionary *d in arr) {
-                NSLog(@"dic %@",d);
+                CLog(@"dic %@",d);
             }
             
             
-            NSLog(@"dic %@",dic);
+            CLog(@"dic %@",dic);
         }
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -309,7 +309,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail ",__FUNCTION__);
+        CLog(@"%s fail ",__FUNCTION__);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
         //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -341,13 +341,13 @@
     
     // 应用正处理前台状态下，不会收到推送消息，因此在此处需要额外处理一下
     if (application.applicationState == UIApplicationStateActive) {
-        NSLog(@"-------%@",userInfo);
+        CLog(@"-------%@",userInfo);
         
         [JKNotifier showNotifer:[NSString stringWithFormat:@"亲,您中了一千万！！！！!"]];
         
         [JKNotifier handleClickAction:^(NSString *name,NSString *detail, JKNotifier *notifier) {
             [notifier dismiss];
-            NSLog(@"点击可在这里边处理一些事情");
+            CLog(@"点击可在这里边处理一些事情");
             
             
 //            self.tabBarController.selectedIndex = 2;
@@ -367,7 +367,7 @@
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
-    NSLog(@"Error in registration. Error: %@", err);
+    CLog(@"Error in registration. Error: %@", err);
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -427,16 +427,16 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dic %@",dict);
+            CLog(@"dic %@",dict);
             NSString *res = [ NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
             //            self.orderArr = [dict objectForKey:@"orders"];
             if ([res isEqualToString:@"1"]) {
                 //当delegate中  支付回调成功了  然后调修改订单状态接口   当修改订单状态成功了  那就发通知去修改之前支付地方的数据源（删除）  如果是订单列表那就删掉当前数据源并且代付款数量-1  代收货数量+1
-                NSLog(@"订单状态修改");
+                CLog(@"订单状态修改");
                 NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
                 NSString *payindex  =[[NSUserDefaults standardUserDefaults] valueForKey:@"payorderindex"];
                 //添加 字典，将label的值通过key值设置传递
@@ -452,7 +452,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
@@ -468,7 +468,7 @@
         switch (resp.errCode) {
             case 0:{
                 NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
-                NSLog(@"=====%@",orderid);
+                CLog(@"=====%@",orderid);
                 [self confirmOrder:@"30" :orderid];
             }
                 break;

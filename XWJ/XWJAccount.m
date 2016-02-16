@@ -40,7 +40,7 @@
             NSDictionary *dic = (NSDictionary *)responseObject;
             
             NSNumber * result = [dic valueForKey:@"result"];
-            NSLog(@"%@",dic);
+            CLog(@"%@",dic);
             
             /*
              Account = 15092245487;
@@ -78,7 +78,7 @@
                 
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
-                NSLog(@"sid %@",sid);
+                CLog(@"sid %@",sid);
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
                 [XWJAccount instance].password = pass;
@@ -109,7 +109,7 @@
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"log fail ");
+            CLog(@"log fail ");
      
         }];
     }else{
@@ -132,7 +132,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"log success ");
+        CLog(@"log success ");
         success((NSData *)responseObject);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

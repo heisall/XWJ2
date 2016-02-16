@@ -34,7 +34,7 @@
     NSString *username = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
     NSString *pwd = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
     if (username&&pwd) {
-//        [self login:username :pwd];
+        
     }
     
     /**
@@ -52,16 +52,8 @@
     [_tFieldUserName setValue:[UIColor colorWithRed:88.0/255.0 green:176.0/255.0 blue:176.0/255.0 alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
     [_tFieldPassWord setValue:[UIColor colorWithRed:88.0/255.0 green:176.0/255.0 blue:176.0/255.0 alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
     [UIApplication sharedApplication].statusBarHidden = YES;
-
-    
-
     self.navigationController.navigationBar.hidden = YES;
     
-//    UIControl *controlView = [[UIControl alloc] initWithFrame:self.view.frame];
-//    [controlView addTarget:self action:@selector(resiginTextFields) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:controlView];
-//    controlView.backgroundColor = [UIColor clearColor];
-
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
         //iOS 7
         [self prefersStatusBarHidden];
@@ -72,7 +64,7 @@
 -(void)resiginTextFields
 {
     
-    NSLog(@"resigne  tf");
+    CLog(@"resigne  tf");
     [self.tFieldUserName resignFirstResponder];
     [self.tFieldPassWord resignFirstResponder];
     
@@ -118,20 +110,13 @@
 
 -(void)login:(NSString *)username :(NSString *)pwd{
     if (username.length>0&&pwd.length>0) {
-        
-        //        NSString *url = @"http://www.hisenseplus.com:8100/appPhone/rest/user/userLogin";
         NSString *url = LOGIN_URL;
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [dict setValue:username forKey:@"account"];
         [dict setValue:pwd forKey:@"password"];
-        
-        
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-
-            
             NSDictionary *dic = (NSDictionary *)responseObject;
             
             NSNumber * result = [dic valueForKey:@"result"];
@@ -160,20 +145,10 @@
 
                 [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"username"];
                 [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
-//                NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
-//                NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
-//                //            [XWJAccount instance].uid = ;
-//                if (![username isEqualToString:uname]) {
-//
-//                    //                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"bind"];
-//                    [[NSUserDefaults standardUserDefaults] synchronize];
-//                }else if(![pwd isEqualToString:pass]){
-//                    [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
-//                }
                 
                 NSDictionary *userDic = [[dic objectForKey:@"data"] objectForKey:@"user"];
                 NSString *sid = [userDic valueForKey:@"id"];
-                NSLog(@"sid %@",sid);
+                CLog(@"sid %@",sid);
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [userDic valueForKey:@"Account"];
                 [XWJAccount instance].password = pwd;
@@ -183,12 +158,6 @@
                 [XWJAccount instance].phone = [userDic valueForKey:@"TEL"];
                 [XWJAccount instance].jifen = [userDic valueForKey:@"jifen"];
                 [XWJAccount instance].headPhoto = [NSString stringWithFormat:@"%@",[userDic valueForKey:@"Photo"]];
-                
-                /*
-                 "A_id" = 4;
-                 "A_name" = "\U9ea6\U5c9b\U91d1\U5cb8";
-                 isDefault = 1;
-                 */
                 [XWJAccount instance].array = [[dic objectForKey:@"data"] valueForKey:@"area"];
                 if ([XWJAccount instance].array&&[XWJAccount instance].array.count>0) {
                     [XWJAccount instance].isYouke = NO;
@@ -199,25 +168,17 @@
                     }
                 }
                 
-                //设置别名
+        //设置别名
                 [XRQJpush setBieming:[XWJAccount instance].uid];
-                NSLog(@"******别名*****%@",[XWJAccount instance].uid);
-//                BOOL isBind = [[NSUserDefaults standardUserDefaults] boolForKey:@"bind"];
+                CLog(@"******别名*****%@",[XWJAccount instance].uid);
                 BOOL isBind = [XWJAccount instance].aid?TRUE:FALSE;
                 if (!isBind) {
                     UIViewController *view =[self.storyboard instantiateViewControllerWithIdentifier:@"xuanzefangshi"];
                     
                     [self.navigationController showViewController:view sender:nil];
-                    
-                    //                    XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
-                    //                    bind.title = @"城市选择";
-                    //                    bind.delegate = self;
-                    //                    bind->mode = HouseCity;
-                    //                    [self.navigationController showViewController:bind sender:nil];
                 }else{
                    
                     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-//                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     self.view.window.rootViewController = tab;
                 }
             }else{
@@ -229,36 +190,16 @@
 
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"log fail ");
-            //        dispatch_async(dispatch_get_main_queue(), ^{
-            //            XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-            //            UIWindow *window = [UIApplication sharedApplication].keyWindow;
-            //            window.rootViewController = tab;            //        });
+            CLog(@"log fail ");
             
             [ProgressHUD showError:@"服务端返回异常"];
-//            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"服务端返回异常" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//            alertview.delegate = self;
-//            [alertview show];
         }];
     }else{
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"请输入用户名和密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         alertview.delegate = self;
         [alertview show];
-        //    if ([self.tFieldUserName.text isEqualToString:username]&&[self.tFieldPassWord.text isEqualToString:pwd]) {
-        //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-        //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        //        window.rootViewController = tab;
-        //    }
+
     }
-    
-    /*
-     XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
-     bind.title = @"城市选择";
-     bind.dataSource = [NSArray arrayWithObjects:@"青岛市",@"济南市",@"威海市", nil];
-     bind.delegate = self;
-     bind->mode = HouseCity;
-     [self.navigationController showViewController:bind sender:nil];
-     */
 }
 - (IBAction)login:(id)sender {
     NSString *username = self.tFieldUserName.text;
@@ -321,16 +262,6 @@
             break;
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

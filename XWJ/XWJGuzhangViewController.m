@@ -104,7 +104,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    NSLog(@"index path %ld",(long)indexPath.row);
+//    CLog(@"index path %ld",(long)indexPath.row);
     XWJGZTableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -163,7 +163,7 @@
 }
 
 -(void)pingjia:(UIButton *)btn{
-    NSLog(@"btn %ld",(long)btn.tag);
+    CLog(@"btn %ld",(long)btn.tag);
     
     XWJGZJudgeViewController *jubge = [self.storyboard instantiateViewControllerWithIdentifier:@"gzpingjia"];
     jubge.gzid = [[self.guzhangArr objectAtIndex:btn.tag-100] objectForKey:@"id"];
@@ -214,7 +214,7 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%s success ",__FUNCTION__);
+        CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -232,7 +232,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s fail %@",__FUNCTION__,error);
+        CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }

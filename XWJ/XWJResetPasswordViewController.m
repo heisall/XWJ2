@@ -46,7 +46,7 @@
     __block int ret = 0;
 
     NSString *url = REGISTER_URL;
-    NSLog(@"%p url %@",__FUNCTION__,url);
+    CLog(@"%p url %@",__FUNCTION__,url);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[NSString stringWithFormat:@"%@",user] forKey:@"account"];
@@ -61,18 +61,18 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"res success ");
+        CLog(@"res success ");
         
         if(responseObject){
         NSDictionary *dic = (NSDictionary *)responseObject;
-        NSLog(@"zhu ce res %@",dic);
+        CLog(@"zhu ce res %@",dic);
         
         NSNumber * result = [dic valueForKey:@"result"];
         
             if ([result intValue]== 1) {
                 
                 NSString *sid = [[[dic valueForKey:@"data"] valueForKey:@"user"] valueForKey:@"id"];
-                NSLog(@"sid %@",sid);
+                CLog(@"sid %@",sid);
                 [XWJAccount instance].uid = sid;
                 [XWJAccount instance].account = [[[dic valueForKey:@"data"] valueForKey:@"user"] valueForKey:@"Account"];
                 [XWJAccount instance].password = pwd;
@@ -98,17 +98,17 @@
 //            
 //            NSDictionary *dictionary = (NSDictionary *)responseObject;
 //            
-//            NSLog(@"Dersialized JSON Dictionary = %@", dictionary);
+//            CLog(@"Dersialized JSON Dictionary = %@", dictionary);
 ////            
 //        }else if ([jsonObject isKindOfClass:[NSArray class]]){
 //            
 //            NSArray *nsArray = (NSArray *)jsonObject;
 //            
-//            NSLog(@"Dersialized JSON Array = %@", nsArray);
+//            CLog(@"Dersialized JSON Array = %@", nsArray);
 //            
 //        } else {
 //            
-//            NSLog(@"An error happened while deserializing the JSON data.");
+//            CLog(@"An error happened while deserializing the JSON data.");
 //            
 //        }
         ret = 1;
@@ -116,7 +116,7 @@
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [ProgressHUD showError:@"服务器异常"];
-        NSLog(@"res fail %@",error);
+        CLog(@"res fail %@",error);
         ret = 0;
 //        [self.navigationController popToRootViewControllerAnimated:YES];
     }];

@@ -47,7 +47,7 @@
     parameters[@"countperpage"] = @"100";
     parameters[@"userid"] = uid;
     //     parameters[@"userid"] = [[NSUserDefaults standardUserDefaults] valueForKey:@"account"];
-    //    NSLog(@"sdfasdfsdf%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Accout"]);
+    //    CLog(@"sdfasdfsdf%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Accout"]);
     
     //    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     //    [dict setValue:[[self.notices objectAtIndex:index] valueForKey:@"id"]  forKey:@"id"];
@@ -57,9 +57,9 @@
     [manager POST:loginUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //解析服务器返回的数据responseObject
         //    NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        //  NSLog(@"------%@",str);
+        //  CLog(@"------%@",str);
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-         NSLog(@"房屋出售%@",dict);
+         CLog(@"房屋出售%@",dict);
 //    NSDictionary *czDict = [dict objectForKey:@"data"];
          self.houseArr = [dict objectForKey:@"data"];
         for (NSDictionary *czDict in self.houseArr) {
@@ -78,7 +78,7 @@
 //        czmodel.house_Toilet = [czDict objectForKey:@"house_Toilet"];
 //        czmodel.house_living = [czDict objectForKey:@"house_living"];
 //        czmodel.house_living = [czDict objectForKey:@"city"];
-     //   NSLog(@"-----%d",czmodel.house_Toilet);
+     //   CLog(@"-----%d",czmodel.house_Toilet);
 //            buildingArea;
 //            buildingInfo;
 //            photo;
@@ -94,7 +94,7 @@
         [_tableV reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
+        CLog(@"请求失败");
     }];
     
 }
@@ -130,7 +130,7 @@
 //    chushouModel *chushouM = [[chushouModel alloc]init];
 //        chushouM = _dataSource[indexPath.row];
 //    
-//    // NSLog(@"------%@",skM);
+//    // CLog(@"------%@",skM);
 //    
 //    [cell setCsModel:chushouM];
 //    

@@ -23,6 +23,7 @@
     return _CTLClient;
 }
 
+//登陆注册
 -(void)login:(NSString *)username :(NSString *)pwd{
     if (username.length>0&&pwd.length>0) {
         
@@ -41,7 +42,6 @@
             
             NSNumber * result = [dic valueForKey:@"result"];
             CLog(@"%@",dic);
-            
             /*
              Account = 15092245487;
              AccountCount = 0;
@@ -66,11 +66,9 @@
                 
                 NSString *uname = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
                 NSString *pass = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
-                //            [XWJAccount instance].uid = ;
                 if (![username isEqualToString:uname]) {
                     [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"username"];
                     [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
-                    //                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"bind"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                 }else if(![pwd isEqualToString:pass]){
                     [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];

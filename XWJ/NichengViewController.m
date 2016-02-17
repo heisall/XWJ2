@@ -31,13 +31,7 @@
     
     textF = [[UITextField alloc]init];
     textF.frame = CGRectMake(30, 90, WIDTH - 60, 30);
-//    UITextField * textField = (UITextField *)[self.view viewWithTag:1];
     textF.placeholder = @"请输入昵称";
-//    //    设置文本的字体类型和大小
-//    textField.font = [UIFont italicSystemFontOfSize:30];
-//    //    设置字体颜色(默认为黑色)
-//    textField.textColor = [UIColor redColor];
-   
     textF.adjustsFontSizeToFitWidth = YES;
     textF.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:textF];
@@ -63,26 +57,12 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     //点任何空白区域才能收下键盘
     [textF resignFirstResponder];
-    //    [self.view endEditing:YES];
-    
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

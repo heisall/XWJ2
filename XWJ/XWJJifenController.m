@@ -27,13 +27,11 @@
     [self.allBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
-        
         if (self.allBtn.selected) {
             [self getJifenList:@"0"];
         }else{
             [self getJifenList:@"1"];
         }
-        
     }];
 }
 
@@ -93,12 +91,6 @@
     cell.content.text = [[self.array objectAtIndex:0] valueForKey:@"goods_name"];
     cell.jifenLabel.text = [NSString stringWithFormat:@"所需积分：￥%.2f",[[[self.array objectAtIndex:0] valueForKey:@"price"] floatValue]];
     cell.priceLabel.text = [NSString stringWithFormat:@"市场价：￥%.2f",[[[self.array objectAtIndex:0] valueForKey:@"old_price"] floatValue]];
-    // Configure the cell...
-//    cell.textLabel.text = self.array[indexPath.row];
-//    cell.textLabel.textColor = XWJGRAYCOLOR;
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, tableViewCellHeight-1, self.view.bounds.size.width,1)];
-//    view.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -113,14 +105,12 @@
     list.isFromJifen = YES;
     [self.navigationController showViewController:list sender:self];
 }
-
+//积分数据的请求
 -(void)getJifenList:(NSString *)type{
-//post方式，参数是pageindex、countperpage、type（全部0，我可兑换1）
+
     NSString *url = GETJIFEN_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-
-    //        [dict setValue:@"1"  forKey:@"a_id"];
     [dict setValue:[XWJAccount instance].account forKey:@"account"];
     [dict setValue:type  forKey:@"type"];
     [dict setValue:@"0" forKey:@"pageindex"];

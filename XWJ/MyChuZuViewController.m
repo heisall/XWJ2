@@ -48,25 +48,12 @@
     parameters[@"userid"] = uid;
     
     [manager POST:loginUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //解析服务器返回的数据responseObject
-    //    NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-      //  CLog(@"------%@",str);
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         CLog(@"出租数据%@",dict);
                  self.houseArr = [dict objectForKey:@"data"];
         NSArray *array = [dict objectForKey:@"data"];
-//        for (NSDictionary *czDict in array) {
-//            chuzuModel *czmodel = [[chuzuModel alloc]init];
-//            [czmodel setValuesForKeysWithDictionary:czDict];
-//            
-//            [_dataSource addObject:czmodel];
-//            // CLog(@"-----%ld",_dataSource.count);
-//            
-//           
-//        }
         [_tableV reloadData];
     
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CLog(@"请求失败");
     }];
@@ -89,28 +76,12 @@
     
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJZFStoryboard" bundle:nil];
     XWJCZFDetailViewController *detail = [story instantiateViewControllerWithIdentifier:@"czfdatail"];
-    //        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    //        [dic setValue:@"" forKey:@""];
     detail.dic = [self.houseArr objectAtIndex:indexPath.row];
     detail.type = HOUSEZU;
     [self.navigationController showViewController: detail sender:self];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//        chuzuTableViewCell * cell  = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//        if (!cell) {
-//            cell = [[chuzuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//        }
-//    
-//        chuzuModel *chuzuM = [[chuzuModel alloc]init];
-//        chuzuM = _dataSource[indexPath.row];
-//    
-//        // CLog(@"------%@",skM);
-//    
-//        [cell setCzModel:chuzuM];
-//    
-//        return cell;
-    
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{    
     XWJZFTableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"zftablecell"];

@@ -53,11 +53,6 @@
     [dict setValue:[NSString stringWithFormat:@"%@",pwd] forKey:@"password"];
     [dict setValue:[XWJUtil deviceString] forKey:@"type"];
     [dict setValue:[XWJUtil deviceIPAdress] forKey:@"ip"];
-
-//        [dict setValue:@"15092244444" forKey:@"account"];
-//        [dict setValue:@"111111" forKey:@"password"];
-//        [dict setValue:@"iPhone" forKey:@"type"];
-//        [dict setValue:@"192.168.0.1" forKey:@"ip"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -79,46 +74,17 @@
                 UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 alertview.delegate = self;
                 [alertview show];
-                
-//                [ProgressHUD showSuccess:@"注册成功"];
-                
-                
+    
             }else{
                 NSString *errCode = [dic objectForKey:@"errorCode"];
                 [ProgressHUD showError:errCode];
-//            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//            alertview.delegate = self;
-//                alertview.tag = 100;
-//            [alertview show];
             }
         }
-//        id jsonObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&error];
-//        
-//        if ([jsonObject isKindOfClass:[NSDictionary class]]){
-//            
-//            NSDictionary *dictionary = (NSDictionary *)responseObject;
-//            
-//            CLog(@"Dersialized JSON Dictionary = %@", dictionary);
-////            
-//        }else if ([jsonObject isKindOfClass:[NSArray class]]){
-//            
-//            NSArray *nsArray = (NSArray *)jsonObject;
-//            
-//            CLog(@"Dersialized JSON Array = %@", nsArray);
-//            
-//        } else {
-//            
-//            CLog(@"An error happened while deserializing the JSON data.");
-//            
-//        }
         ret = 1;
-//        [self.navigationController popToRootViewControllerAnimated:YES];
-
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [ProgressHUD showError:@"服务器异常"];
         CLog(@"res fail %@",error);
         ret = 0;
-//        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
 
     return ret;
@@ -132,7 +98,6 @@
     UIViewController *view =[self.storyboard instantiateViewControllerWithIdentifier:@"xuanzefangshi"];
     
     [self.navigationController showViewController:view sender:nil];
-//    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -141,7 +106,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 -(void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;

@@ -72,27 +72,27 @@
 
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-//    self.navigationController.navigationBar.hidden=YES;
+    //    self.navigationController.navigationBar.hidden=YES;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     NSString *username = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
     NSString *pwd = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
     
-
+    
     if (username) {
         
-//        self.tFieldUserName.text = username;
+        //        self.tFieldUserName.text = username;
     }else{
         
-//        self.tFieldUserName.text = @"15092245487";
+        //        self.tFieldUserName.text = @"15092245487";
     }
     if (pwd) {
         
-//        self.tFieldPassWord.text = pwd;
+        //        self.tFieldPassWord.text = pwd;
     }else
-//        self.tFieldPassWord.text = @"123456";
-    self.navigationController.navigationBar.hidden = YES;
+        //        self.tFieldPassWord.text = @"123456";
+        self.navigationController.navigationBar.hidden = YES;
 }
 - (BOOL)prefersStatusBarHidden
 {
@@ -104,10 +104,10 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
+//通过用户名和密码来登录和注册
 -(void)login:(NSString *)username :(NSString *)pwd{
     if (username.length>0&&pwd.length>0) {
         NSString *url = LOGIN_URL;
@@ -142,7 +142,7 @@
              sex = "<null>";
              */
             if ([result intValue]== 1) {
-
+//                获取登陆信息的个人信息
                 [[NSUserDefaults standardUserDefaults] setValue:username forKey:@"username"];
                 [[NSUserDefaults standardUserDefaults] setValue:pwd forKey:@"password"];
                 
@@ -168,7 +168,7 @@
                     }
                 }
                 
-        //设置别名
+                //设置别名
                 [XRQJpush setBieming:[XWJAccount instance].uid];
                 CLog(@"******别名*****%@",[XWJAccount instance].uid);
                 BOOL isBind = [XWJAccount instance].aid?TRUE:FALSE;
@@ -177,7 +177,7 @@
                     
                     [self.navigationController showViewController:view sender:nil];
                 }else{
-                   
+                    
                     XWJTabViewController *tab = [[XWJTabViewController alloc] init];
                     self.view.window.rootViewController = tab;
                 }
@@ -187,7 +187,7 @@
                 alertview.delegate = self;
                 [alertview show];
             }
-
+            
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             CLog(@"log fail ");
@@ -198,7 +198,7 @@
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"请输入用户名和密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         alertview.delegate = self;
         [alertview show];
-
+        
     }
 }
 - (IBAction)login:(id)sender {
@@ -217,12 +217,12 @@
             [city selectCity:index];
             XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
             bind.title = @"小区选择";
-
+            
             bind.delegate = self;
             bind->mode = HouseCommunity;
             
             [self.navigationController showViewController:bind sender:nil];
-        
+            
         }
             break;
         case HouseCommunity:{
@@ -231,7 +231,7 @@
             
             XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
             bind.title = @"楼座选择";
-
+            
             bind.delegate = self;
             bind->mode = HouseFlour;
             [self.navigationController showViewController:bind sender:nil];
@@ -243,7 +243,7 @@
             
             XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
             bind.title = @"房间选择";
-
+            
             bind.delegate = self;
             bind->mode = HouseRoomNumber;
             [self.navigationController showViewController:bind sender:nil];

@@ -41,15 +41,11 @@
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
+//团购信息
 -(void)getGroup:(NSInteger)index{
     NSString *url = GETGROUP_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-//    [dict setValue:[[self.thumbArr objectAtIndex:index] objectForKey:@"id"] forKey:@"cateId"];
-//    [dict setValue:@"0" forKey:@"pageindex"];
-//    [dict setValue:@"20" forKey:@"countperpage"];
-  
     /*
      pageindex	第几页	String,从0开始
      countperpage	每页条数	String

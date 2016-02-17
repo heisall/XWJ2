@@ -45,6 +45,7 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
     isInit = NO;
 }
 
+
 -(void)drawUI
 {
     self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 55, self.frame.size.height -5, 62, 14)];
@@ -88,12 +89,12 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
             
             self.countLabel.text=[NSString stringWithFormat:@"%@/%@",self.maxCount,self.maxCount];
             self.countLabel.textColor = [UIColor lightGrayColor];
-
+            
         }
     } else {
         self.countLabel.text=[NSString stringWithFormat:@"%i/%@",len,self.maxCount];
         self.countLabel.textColor = [UIColor lightGrayColor];
-
+        
     }
     
 }
@@ -170,7 +171,7 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
     if (self.countLabel)
     {
         self.countLabel.hidden = hidden;
-
+        
     }
 }
 

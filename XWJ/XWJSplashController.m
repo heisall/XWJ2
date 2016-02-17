@@ -67,7 +67,6 @@
         [scrollView addSubview:imv];
     }
     
-//    scrollView.delegate = self;
     scrollView.scrollsToTop = NO;
     scrollView.pagingEnabled = YES;
     scrollView.showsHorizontalScrollIndicator = NO;
@@ -106,22 +105,5 @@
     CGFloat scrollW = self.scrollView.frame.size.width;
     NSInteger currentPage = self.scrollView.contentOffset.x / scrollW;
     [self.scrollView setContentOffset:CGPointMake(self.count * scrollW, 0) animated:NO];
-    
-//    if (currentPage == self.count + 1) {
-//        
-//        self.pageControl.currentPage = 0;
-//        
-//        [self.scrollView setContentOffset:CGPointMake(scrollW, 0) animated:NO];
-//        
-//    } else if (currentPage == 0) {
-//        
-//        self.pageControl.currentPage = self.count;
-//        
-//        [self.scrollView setContentOffset:CGPointMake(self.count * scrollW, 0) animated:NO];
-//        
-//    } else {
-//        
-//        self.pageControl.currentPage = currentPage - 1;
-//    }
 }
 @end

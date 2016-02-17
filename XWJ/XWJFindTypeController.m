@@ -21,26 +21,25 @@
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return self.array.count;
 }
-
+//选择类型
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
-
-        cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        }
-        
-        // Configure the cell...
-        cell.textLabel.text = [self.array[indexPath.row] objectForKey:@"memo"];
-        cell.textLabel.textColor =[UIColor colorWithRed:68.0/255.0 green:70.0/255.0 blue:71.0/255.0 alpha:1.0];
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    
+    cell.textLabel.text = [self.array[indexPath.row] objectForKey:@"memo"];
+    cell.textLabel.textColor =[UIColor colorWithRed:68.0/255.0 green:70.0/255.0 blue:71.0/255.0 alpha:1.0];
     
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -48,7 +47,7 @@
 }
 
 #pragma mark - Table view delegate
-
+//选择是什么类型
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *array = self.navigationController.viewControllers;
     XWJFindViewController *view  = [array objectAtIndex:array.count - 2] ;

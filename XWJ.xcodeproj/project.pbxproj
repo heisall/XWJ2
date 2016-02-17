@@ -1375,6 +1375,25 @@
 			path = JSONModelTransformations;
 			sourceTree = "<group>";
 		};
+		8EF0C93B1C744FD00025E2C1 /* SigelMessage */ = {
+			isa = PBXGroup;
+			children = (
+				8E1326EE1C30DED000D3EDB5 /* gexingqianmingViewController.h */,
+				8E1326EF1C30DED000D3EDB5 /* gexingqianmingViewController.m */,
+				8E1326F21C30DED000D3EDB5 /* NichengViewController.h */,
+				8E1326F31C30DED000D3EDB5 /* NichengViewController.m */,
+				8E1326F41C30DED000D3EDB5 /* qingganViewController.h */,
+				8E1326F51C30DED000D3EDB5 /* qingganViewController.m */,
+				8E1326F61C30DED000D3EDB5 /* xignquaihaoViewController.h */,
+				8E1326F71C30DED000D3EDB5 /* xignquaihaoViewController.m */,
+				8E1326F81C30DED000D3EDB5 /* xingbieViewController.h */,
+				8E1326F91C30DED000D3EDB5 /* xingbieViewController.m */,
+				8E13270B1C30DED000D3EDB5 /* XWJMyInfoViewController.h */,
+				8E13270C1C30DED000D3EDB5 /* XWJMyInfoViewController.m */,
+			);
+			name = SigelMessage;
+			sourceTree = "<group>";
+		};
 		A412546C1C0F13B80042D8CC /* third */ = {
 			isa = PBXGroup;
 			children = (
@@ -1813,22 +1832,13 @@
 		A48801B01C0AE0E600714F5B /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				8EF0C93B1C744FD00025E2C1 /* SigelMessage */,
 				8E13272D1C30DF7B00D3EDB5 /* RentAndSale */,
 				8E1327291C30DF3200D3EDB5 /* emotion status */,
 				8E1326EC1C30DED000D3EDB5 /* FindModel.h */,
 				8E1326ED1C30DED000D3EDB5 /* FindModel.m */,
-				8E1326EE1C30DED000D3EDB5 /* gexingqianmingViewController.h */,
-				8E1326EF1C30DED000D3EDB5 /* gexingqianmingViewController.m */,
 				8E1326F01C30DED000D3EDB5 /* MineStoryboard.storyboard */,
 				8E1326F11C30DED000D3EDB5 /* mor_icon_default@2x.png */,
-				8E1326F21C30DED000D3EDB5 /* NichengViewController.h */,
-				8E1326F31C30DED000D3EDB5 /* NichengViewController.m */,
-				8E1326F41C30DED000D3EDB5 /* qingganViewController.h */,
-				8E1326F51C30DED000D3EDB5 /* qingganViewController.m */,
-				8E1326F61C30DED000D3EDB5 /* xignquaihaoViewController.h */,
-				8E1326F71C30DED000D3EDB5 /* xignquaihaoViewController.m */,
-				8E1326F81C30DED000D3EDB5 /* xingbieViewController.h */,
-				8E1326F91C30DED000D3EDB5 /* xingbieViewController.m */,
 				8E1326FA1C30DED000D3EDB5 /* XWJAboutViewController.h */,
 				8E1326FB1C30DED000D3EDB5 /* XWJAboutViewController.m */,
 				8E1326FC1C30DED000D3EDB5 /* XWJCollectionCell.xib */,
@@ -1840,8 +1850,6 @@
 				8E0F37DB1C5223E200555C2C /* XWJMyHouseCell.m */,
 				8E0F37DC1C5223E200555C2C /* XWJMyHouseCell.xib */,
 				8E13270A1C30DED000D3EDB5 /* XWJMyhouseTableCell.xib */,
-				8E13270B1C30DED000D3EDB5 /* XWJMyInfoViewController.h */,
-				8E13270C1C30DED000D3EDB5 /* XWJMyInfoViewController.m */,
 				8EEB6E0F1C3134C9006F572D /* XWJMyFindViewCell.h */,
 				8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */,
 				8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */,

@@ -58,6 +58,7 @@ CGRect tableViewCGRect;
     self.navigationItem.title = @"个人信息";
     [self.myView addSubview:self.tableView];
 }
+//获取个人信息的详细信息
 -(void)downLoadInfo{
     
     NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/getUserInfo";
@@ -197,7 +198,7 @@ CGRect tableViewCGRect;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
         //        cell.imageView.image = [UIImage imageNamed:@"mor_icon_default"];
-       // cell.imageView.frame = CGRectMake(30, 0, 50, 50);
+        // cell.imageView.frame = CGRectMake(30, 0, 50, 50);
         for (UIView* view in cell.contentView.subviews) {
             if ([view isKindOfClass:[UIImageView class]]) {
                 //                CLog(@"view%@",view);
@@ -279,7 +280,7 @@ CGRect tableViewCGRect;
             NichengViewController *nicheng = [[NichengViewController alloc]init];
             
             nicheng.returnStrBlock = ^(NSString * str){
-                
+                //                调用修改新的方法来修改个人信息
                 [self postInfoWithDic:dic FromKey:@"nickName" object:(id)str success:^(id s) {
                     CLog(@"成功");
                     [self.tableDetailData replaceObjectAtIndex:0 withObject:str];
@@ -338,7 +339,6 @@ CGRect tableViewCGRect;
             xingquaihao.returnStrBlock = ^(NSString * str){
                 
                 [self postInfoWithDic:dic FromKey:@"xqah" object:(id)str success:^(id s) {
-                    //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
                     CLog(@"成功%@",s);
                     [self.tableDetailData replaceObjectAtIndex:3 withObject:str];
                     [usr setObject:str forKey:@"aihao"];
@@ -358,7 +358,6 @@ CGRect tableViewCGRect;
         gexing.returnStrBlock = ^(NSString * str){
             
             [self postInfoWithDic:dic FromKey:@"gxqm" object:(id)str success:^(id s) {
-                //@"Angela",@"女",@"已婚",@"烹饪",@"开花"
                 [self.tableDetailData replaceObjectAtIndex:4 withObject:str];
                 [usr setObject:str forKey:@"qianming"];
                 CLog(@"成功");

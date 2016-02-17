@@ -44,7 +44,7 @@
     controlView.backgroundColor = [UIColor clearColor];
     // Do any additional setup after loading the view.
 }
-
+//重新发送验证码
 -(void)timeFireMethod
 {
     timeTick--;

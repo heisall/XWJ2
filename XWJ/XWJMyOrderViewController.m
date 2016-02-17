@@ -39,7 +39,6 @@
 @property NSArray *status;
 @property UILabel *label;
 @property NSArray *noDataArr;
-//@property NSInteger orderType;// 0待付款 1代收货 2已完成
 @property(nonatomic,copy)NSString* deleOrderId;
 @property(nonatomic,retain)NSMutableArray* dataSourceArr;
 
@@ -94,10 +93,6 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     
 }
 - (void)paySuccess:(NSNotification *)text{
-    
-//    [((UIButton*)self.btn[1]) sendActionsForControlEvents:UIControlEventTouchUpInside];
-    CLog(@"%@",text.userInfo[@"paySuccess"]);
-    CLog(@"－－－－－接收到通知------");
     NSMutableArray* tArr = [[NSMutableArray alloc] init];
 
     int zhifuCount = ((UIButton *)self.cornerBtn[0]).titleLabel.text.intValue;
@@ -135,8 +130,6 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     deleOrderNum = index;
     UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"确定要删除吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     [alertview show];
-    
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -183,11 +176,6 @@ NSString * const getPrePayIdUrl = @"https://api.mch.weixin.qq.com/pay/unifiedord
     
     [dict setValue:orderId forKey:@"orderId"];
     [dict setValue:status forKey:@"status"];
-    
-    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
-    
-    //    [dict setValue:@"1" forKey:@"a_id"];
-    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     /*
      pageindex	第几页	String,从0开始
      countperpage	每页条数	String

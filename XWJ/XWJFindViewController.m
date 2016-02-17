@@ -64,7 +64,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     [backview addGestureRecognizer:tap];
     [self.view.window addSubview:backview];
     
-    //    //添加helper视图
+    //添加helper视图
     float kHelperOrign_X=30;
     float kHelperOrign_Y=(self.view.frame.size.height-300)/2+64;
     helperView=[[UIScrollView alloc]initWithFrame:CGRectMake(kHelperOrign_X, kHelperOrign_Y,self.view.frame.size.width-2*kHelperOrign_X, 300)];
@@ -87,7 +87,6 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 
     array = self.findlistArr;
     NSInteger  count = array.count  ;
-//    [array addObjectsFromArray:self.findlistArr];
     for (int i=0; i<count; i++) {
         UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
         button.frame=CGRectMake(0, 40+40*i, helperView.frame.size.width, 40);
@@ -96,10 +95,6 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         [button addSubview:label];
         
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(button.frame.size.width-20-10, 10, 20, 20)];
-        //       imageView.image=[UIImage imageNamed:@"tcpUnselect"];
-        //        if (sortSelected==i) {
-        //            imageView.image=[UIImage imageNamed:@"tcpSelect"];
-        //        }
         imageView.tag=7001;
         [button addSubview:imageView];
         
@@ -159,6 +154,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 }
 
 //参数：pageindex：第几页（从0开始）countperpage：每页条数 a_id ：小区id，types:类型 userid:用户id
+//发现页面列表的信息
 -(void)getFindList:(NSString *)type{
     NSString *url = GETFINDLIST_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -180,22 +176,15 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             
-            //            NSMutableArray * array = [NSMutableArray array];
-            //            XWJCity *city  = [[XWJCity alloc] init];
-            
             NSDictionary *dic2  = [dic objectForKey:@"data"];
             NSArray * arr = [dic2 objectForKey:@"types"];
             
             NSMutableDictionary *quanbu = [NSMutableDictionary dictionary];
             [quanbu setValue:@"全部" forKey:@"memo"];
-//            [quanbu setValue:@"" forKey:@"DictValue"];
             
             [self.findlistArr removeAllObjects];
             [self.findlistArr addObject:quanbu];
             [self.findlistArr addObjectsFromArray:arr];
-//            for (NSInteger i=0; i<arr.count; i++) {
-//                [self getFind:i];
-//            }
             
             NSArray *mes = [dic2 objectForKey:@"message"];
             [self.finddetailArr removeAllObjects];
@@ -235,7 +224,6 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         CLog(@"%s success ",__FUNCTION__);
-        
         /*
          find =         {
          "a_id" = "<null>";
@@ -313,17 +301,12 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 }
 
 -(void)showList{
-    //    UIStoryboard *wuyStory = [UIStoryboard storyboardWithName:@"WuyeStoryboard" bundle:nil];
-    //    [self.navigationController showViewController:[wuyStory instantiateInitialViewController] sender:nil];
     UIViewController * con = [[XWJMyMessageController alloc] init];
     [self.navigationController showViewController:con sender:nil];
 }
 #pragma mark -CollectionView datasource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    //    collectionCellHeight = self.collectionView.frame.size.height/COLLECTION_NUMSECTIONS-1;
-    //    collectionCellWidth = self.collectionView.frame.size.width/COLLECTION_NUMITEMS-1;
-//    return COLLECTION_NUMSECTIONS;
     if (self.finddetailArr.count==1) {
         return 1;
     }
@@ -334,9 +317,6 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
-//    collectionCellHeight = self.collectionView.frame.size.height/COLLECTION_NUMSECTIONS-1;
-//    collectionCellWidth = self.collectionView.frame.size.width/COLLECTION_NUMITEMS-1;
     
     if(self.finddetailArr&&self.finddetailArr.count==1){
         return 1;
@@ -360,10 +340,6 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     UIImageView *imageView2 = (UIImageView *)[cell viewWithTag:4];
     UILabel *label3 = (UILabel *)[cell viewWithTag:5];
     UILabel *label4 = (UILabel *)[cell viewWithTag:6];
-//    label1.text = @"二手车市场";
-//    label2.text = @"二手转让" ;
-//    label3.text = @"10";
-//    label4.text = @"5分中前";
     
         NSString *type  = [[self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS+indexPath.row] valueForKey:@"Memo"];
         label1.text = type;
@@ -375,8 +351,6 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
             }else{
                 label1.backgroundColor = XWJColor(67, 164, 83);
         }
-//        label1.text = [[self.finddetailArr objectAtIndex:indexPath.row] objectForKey:@"types"];
-    
     CLog(@"%ld %ld time%@",indexPath.section,indexPath.row,[[self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS+ indexPath.row] objectForKey:@"ReleaseTime"]);
         label2.text = [[self.finddetailArr objectAtIndex:indexPath.section*COLLECTION_NUMITEMS+ indexPath.row] objectForKey:@"content"];
     
@@ -411,11 +385,6 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     return CGSizeMake(collectionCellWidth, height);
 }
 
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    return vspacing;
-//}
-
 //定义每个Section 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
@@ -427,6 +396,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         notice.type  = @"1";
         [self.navigationController showViewController:notice sender:nil];
 }
+//点击发布按钮发布我的发信息
 - (IBAction)fabu:(id)sender {
     
     XWJFindPubViewController *viewcon = [self.storyboard  instantiateViewControllerWithIdentifier:@"findpub"];
@@ -438,25 +408,14 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     
 }
 - (IBAction)selectType:(id)sender {
-    
-//    self.typeLabel.text = [[self.findlistArr objectAtIndex:0] valueForKey:@"Memo"];
-//    NSMutableArray *a = [NSMutableArray array];
-//    for (NSDictionary *d in self.findlistArr) {
-//        [a addObject:[d valueForKey:@"Memo"]];
-//    }
 
     [self showSortView:(UIButton *)sender];
-    
-//    XWJFindTypeController *viewcon = [self.storyboard  instantiateViewControllerWithIdentifier:@"findtype"];
-//    viewcon.array = self.findlistArr;
-//    [self.navigationController showViewController:viewcon sender:nil];
-    // 为UIPickerView控件设置dataSource和delegate
     
 }
 
 //选择了某个cell
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-//- (void)collectionView:(UICollectionView *)collectionView :(NSIndexPath *)indexPath
+
 {
     
     CLog(@"%ld row %ld",indexPath.section,indexPath.row);

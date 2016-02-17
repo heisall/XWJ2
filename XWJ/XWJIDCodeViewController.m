@@ -41,9 +41,9 @@
     [self setStatusBar];
     timeTick = 61;
     self.navigationItem.title = @"注册";
-
+    
     code  = -1;
-//    [self setNavigationBar];
+    //    [self setNavigationBar];
     self.txtFieldIDCode.delegate = self;
     self.txtFieldPhoneNumber.delegate = self;
     
@@ -69,12 +69,12 @@
 
 -(void)sendCodeRes{
     
-////    dispatch_async(dispatch_get_main_queue(),^{
-//        _btnGetcode.enabled = NO;
-////    });
-//    _btnGetcode.titleLabel.text = @"";
-//    _numlabel.hidden = NO;
-//    _numlabel.text = [NSString stringWithFormat:@"60秒后重新发送"];
+    ////    dispatch_async(dispatch_get_main_queue(),^{
+    //        _btnGetcode.enabled = NO;
+    ////    });
+    //    _btnGetcode.titleLabel.text = @"";
+    //    _numlabel.hidden = NO;
+    //    _numlabel.text = [NSString stringWithFormat:@"60秒后重新发送"];
     
     if(self.txtFieldPhoneNumber.text.length!=11){
         [ProgressHUD showError:@"请输入正确手机号码"];
@@ -94,10 +94,10 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer new];
-
+    
     [manager GET:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-//        _btnGetcode.enabled = NO;
+        //        _btnGetcode.enabled = NO;
         CLog(@"success");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -117,7 +117,7 @@
         _btnGetcode.enabled = YES;
         timeTick = 61;
         [_btnGetcode setTitle:@"重新发送验证码" forState:UIControlStateNormal];
-//        [_btnGetcode setTitle:@"获取验证码" forState:UIControlStateNormal];
+        //        [_btnGetcode setTitle:@"获取验证码" forState:UIControlStateNormal];
         
     }else
     {
@@ -127,20 +127,20 @@
         }
         _numlabel.text = str;
         self.btnGetcode.titleLabel.text = @"";
-//        [_btnGetcode setTitle:str forState:UIControlStateNormal];
+        //        [_btnGetcode setTitle:str forState:UIControlStateNormal];
     }
 }
 
 - (IBAction)getIDCode:(id)sender {
-  
+    
     [self sendCodeRes];
     
 }
 - (IBAction)verifyIDcode:(id)sender {
-//    UIStoryboard *storyboard = [UIStoryboard  storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
-//    UIViewController *resetPassword = [storyboard instantiateViewControllerWithIdentifier:@"resetpwd"]          ;
-//    [self.navigationController pushViewController:resetPassword animated:YES];
-
+    //    UIStoryboard *storyboard = [UIStoryboard  storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
+    //    UIViewController *resetPassword = [storyboard instantiateViewControllerWithIdentifier:@"resetpwd"]          ;
+    //    [self.navigationController pushViewController:resetPassword animated:YES];
+    
     
     if (code == [self.txtFieldIDCode.text intValue]) {
         NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
@@ -158,7 +158,7 @@
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertview show];
     }
- 
+    
     
 }
 
@@ -193,13 +193,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

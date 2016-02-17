@@ -28,6 +28,7 @@
     _telPhone.text = [XWJAccount instance].account;
     
 }
+//报名信息
 - (IBAction)baoming:(id)sender {
     
     
@@ -70,10 +71,6 @@
         CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
-    
-    
-
-    
     
 }
 -(void)viewWillAppear:(BOOL)animated{

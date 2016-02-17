@@ -32,21 +32,12 @@
     [super viewDidLoad];
     self.title = @"兴趣爱好";
     _buttonSource = [NSMutableArray array];
-
-//    [self createUI];
-//    [EmoAndHobbyStatus getHobbyDataSuccess:^(id aa) {
-//        
-//    } failure:^(NSError *lal) {
-//        
-//    }];
     [self downLoadData];
 }
 
 -(void)createUIWithArr:(NSArray *)arr{
     int n = 0;
-//    NSArray *array = @[@"唱歌",@"跳舞",@"电影",@"旅游"];
     for (int i = 0; i < arr.count; i ++) {
-//        CGRectMake(30, 140 + 50*i, WIDTH - 60, 30)
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         CGRect frame = CGRectMake(WIDTH/4 *n + 10, 50 * (i/4)+100, (WIDTH - 40)/4-10, 30);
         n++;
@@ -54,14 +45,11 @@
             n = 0;
         }
         btn.frame = frame;
-//        btn.layer.borderWidth = 1.0;
         btn.backgroundColor = [UIColor orangeColor];
         
         btn.layer.cornerRadius = 5;
-//        btn.backgroundColor = [UIColor colorWithRed:0.60 green:0.68 blue:0.78 alpha:1];
         [btn setBackgroundImage:[UIImage imageNamed:@"agreeButtonUnenbled"] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        [btn setTitle:array[i] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIImage imageNamed:@"agreeButtonSelected@2x"] forState:UIControlStateSelected];
         btn.tag = i +100;
         btn.selected = NO;
@@ -83,7 +71,6 @@
     
 }
 -(void)btnAction:(UIButton *)button{
-  //  CLog(@"btn.titlelabel:%@",button.titleLabel.text);
     if (button.tag != 200) {
         button.selected = !button.selected;
         if (button.selected == YES) {
@@ -95,7 +82,6 @@
                 [_buttonSource removeObject:button.titleLabel.text];
             }
         }
-     //   CLog(@"_buttonSource%@",_buttonSource);
     }else{
         NSString *returnStr = @"";
         for (id str in _buttonSource) {
@@ -118,12 +104,10 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     //点任何空白区域才能收下键盘
     [textF resignFirstResponder];
-    //    [self.view endEditing:YES];
-    
 }
 
+//从服务器请求兴趣爱好的个人信息
 -(void)downLoadData{
-    
     NSString *xingquUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/findHobbies";
   //  http://IP:PORT/appPhone/rest/user/findHobbies
     AFHTTPRequestOperationManager *manager  = [AFHTTPRequestOperationManager manager];
@@ -137,24 +121,11 @@
           //  CLog(@"dict==%@",responseObject);
                 CLog(@"dict==%@",dict);
          NSArray *ary = dict[@"data"];
-//        for (NSDictionary*dic in ary) {
-//            FindModel *model =[[FindModel alloc]init];
-////            model.title = dic[@"memo"];
-//            model.title = [dic objectForKey:@"memo"];
-//            CLog(@"%@",model.title);
-//            [_buttonSource addObject:model];
-//            CLog(@"button==%ld",_buttonSource.count);
             [self createUIWithArr:ary];
-//        }
-        
-        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CLog(@"请求失败");
     }];
-    
-    //    MainViewController * main = [[MainViewController alloc]init];
-    //    [self.navigationController pushViewCon
 }
 
 - (void)didReceiveMemoryWarning {
@@ -162,14 +133,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

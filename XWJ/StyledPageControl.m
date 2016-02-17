@@ -4,33 +4,33 @@
 //
 /**
  * Created by honcheng on 5/14/11.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining 
- * a copy of this software and associated documentation files (the 
- * "Software"), to deal in the Software without restriction, including 
- * without limitation the rights to use, copy, modify, merge, publish, 
- * distribute, sublicense, and/or sell copies of the Software, and to 
- * permit persons to whom the Software is furnished to do so, subject 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject
  * to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be 
+ *
+ * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT 
- * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR 
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT 
- * SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
- * IN CONNECTION WITH THE SOFTWARE OR 
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+ * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+ * SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+ * IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  * @author 		Muh Hon Cheng <honcheng@gmail.com> http://twitter.com/honcheng
  * @copyright	2011	Muh Hon Cheng
- * 
+ *
  */
 
 #import "StyledPageControl.h"
@@ -50,7 +50,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
         [self setBackgroundColor:[UIColor clearColor]];
         
         self._strokeWidth = 2;
@@ -63,14 +62,13 @@
     }
     return self;
 }
-
+//添加手势在引导页上
 - (void)onTapped:(UITapGestureRecognizer*)gesture
 {
     CGPoint touchPoint = [gesture locationInView:[gesture view]];
     
     if (touchPoint.x < self.frame.size.width/2)
     {
-        // move left
         if (self._currentPage>0)
         {
             self._currentPage -= 1;
@@ -79,7 +77,6 @@
     }
     else
     {
-        // move right
         if (self._currentPage<self._numberOfPages-1)
         {
             self._currentPage += 1;
@@ -110,7 +107,7 @@
     }
     
     if (self.strokeNormalColor) _strokeNormalColor = self.strokeNormalColor;
-    else 
+    else
     {
         if (self._pageControlStyle==PageControlStyleDefault && self.coreNormalColor)
         {
@@ -139,16 +136,14 @@
             _strokeSelectedColor = COLOR_GRAY;
         }
     }
-    
-    // Drawing code
     if (hidesForSinglePage && self._numberOfPages==1)
-	{
-		return;
-	}
-	
-	CGContextRef myContext = UIGraphicsGetCurrentContext();
-	
-	int gap = self.gapWidth;
+    {
+        return;
+    }
+    
+    CGContextRef myContext = UIGraphicsGetCurrentContext();
+    
+    int gap = self.gapWidth;
     float _diameter = self.diameter - 2*self._strokeWidth;
     
     if (self.pageControlStyle==PageControlStyleThumb)
@@ -158,42 +153,42 @@
             _diameter = self.thumbImage.size.width;
         }
     }
-	
-	int total_width = self._numberOfPages*_diameter + (self._numberOfPages-1)*gap;
-	
-	if (total_width>self.frame.size.width)
-	{
-		while (total_width>self.frame.size.width)
-		{
-			_diameter -= 2;
-			gap = _diameter + 2;
-			while (total_width>self.frame.size.width) 
-			{
-				gap -= 1;
-				total_width = self._numberOfPages*_diameter + (self._numberOfPages-1)*gap;
-				
-				if (gap==2)
-				{
-					break;
-					total_width = self._numberOfPages*_diameter + (self._numberOfPages-1)*gap;
-				}
-			}
-			
-			if (_diameter==2)
-			{
-				break;
-				total_width = self._numberOfPages*_diameter + (self._numberOfPages-1)*gap;
-			}
-		}
-		
-		
-	}
-	
-	int i;
-	for (i=0; i<self._numberOfPages; i++)
-	{
-		int x = (self.frame.size.width-total_width)/2 + i*(_diameter+gap);
-
+    
+    int total_width = self._numberOfPages*_diameter + (self._numberOfPages-1)*gap;
+    
+    if (total_width>self.frame.size.width)
+    {
+        while (total_width>self.frame.size.width)
+        {
+            _diameter -= 2;
+            gap = _diameter + 2;
+            while (total_width>self.frame.size.width)
+            {
+                gap -= 1;
+                total_width = self._numberOfPages*_diameter + (self._numberOfPages-1)*gap;
+                
+                if (gap==2)
+                {
+                    break;
+                    total_width = self._numberOfPages*_diameter + (self._numberOfPages-1)*gap;
+                }
+            }
+            
+            if (_diameter==2)
+            {
+                break;
+                total_width = self._numberOfPages*_diameter + (self._numberOfPages-1)*gap;
+            }
+        }
+        
+        
+    }
+    
+    int i;
+    for (i=0; i<self._numberOfPages; i++)
+    {
+        int x = (self.frame.size.width-total_width)/2 + i*(_diameter+gap);
+        
         if (self._pageControlStyle==PageControlStyleDefault)
         {
             if (i==_currentPage)
@@ -238,7 +233,7 @@
                 CGContextFillEllipseInRect(myContext, CGRectMake(x,(self.frame.size.height-_currentPageDiameter)/2,_currentPageDiameter,_currentPageDiameter));
                 CGContextSetStrokeColorWithColor(myContext, [_strokeSelectedColor CGColor]);
                 CGContextStrokeEllipseInRect(myContext, CGRectMake(x,(self.frame.size.height-_currentPageDiameter)/2,_currentPageDiameter,_currentPageDiameter));
-            
+                
                 NSString *pageNumber = [NSString stringWithFormat:@"%i", i+1];
                 CGContextSetFillColorWithColor(myContext, [[UIColor whiteColor] CGColor]);
                 [pageNumber drawInRect:CGRectMake(x,(self.frame.size.height-_currentPageDiameter)/2-1,_currentPageDiameter,_currentPageDiameter) withFont:[UIFont systemFontOfSize:_currentPageDiameter-2] lineBreakMode:NSLineBreakByCharWrapping alignment:NSTextAlignmentCenter];
@@ -292,7 +287,7 @@
                 }
             }
         }
-	}
+    }
 }
 
 

@@ -21,15 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
     if ([self.type isEqualToString:@"0"]) {
         self.navigationItem.title = @"物业通知";
     }else{
         self.navigationItem.title = @"社区活动";
     }
     self.navigationItem.title = @"详情";
-
     /*
      ClickCount = 34;
      addTime = "2015-12-10";
@@ -40,36 +37,25 @@
      title = "\U6d77\U4fe1\U201c\U4fe1\U6211\U5bb6\U201d\U667a\U6167\U793e\U533aAPP\U5f00\U59cb\U6d4b\U8bd5\U4e86\U3002";
      types = 0;
      */
-
-//    NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
-//    [dic setValue:@"重要公告寒流来袭，快把装备上全" forKey:KEY_TITLE];
-//    [dic setValue:@"0天前" forKey:KEY_TIME];
-//    [dic setValue:@"这几天，全国大面积降温降雪，一片银装素裹，哆嗦嗦，哆嗦嗦，" forKey:KEY_CONTENT];
-//    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
     
-    
-    
+//    下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
-        
         [self loadNewData];
         
     }];
     [self loadNewData];
-
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
 
+//下载最新的数据
 -(void)loadNewData{
     XWJCity *city =    [XWJCity instance];
     [city getActive:self.type :^(NSArray *arr) {
         CLog(@"room  %@",arr);
         
         if (arr) {
-            
             NSMutableArray *arr2 = [NSMutableArray array];
             
             for (NSDictionary *dic in arr) {
@@ -94,8 +80,6 @@
             UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"暂没有相关内容" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertview show];
         }
-        
-        //        [self.activityIndicatorView stopAnimating];
         
     }];
 }
@@ -126,13 +110,6 @@
     
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 30.0;
-//}
-//- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    return @"物业员工";
-//}
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return cell_height;
 }
@@ -140,7 +117,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10.0;
 }
-
+//将详细的信息在tabelview上展示出来
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     XWJNotcieTableViewCell *cell;
@@ -159,14 +136,8 @@
     cell.contentLabel.text = [dic valueForKey:KEY_AD_CONTENT];
     cell.contentLabel.font = [UIFont systemFontOfSize:16];
     cell.contentLabel.numberOfLines = 1;
-//    cell.clickBtn.titleLabel.text = @""
     [cell.clickBtn setTitle:[dic valueForKey:KEY_AD_CLICKCOUNT]==[NSNull null]?@"":[dic valueForKey:KEY_AD_CLICKCOUNT] forState:UIControlStateNormal];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    //    [cell.dialBtn setImage:[] forState:<#(UIControlState)#>]
-    //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 69, self.view.bounds.size.width,1)];
-    //    view.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
-    //    [cell addSubview:view];
     return cell;
 }
 
@@ -177,7 +148,7 @@
 
 }
 
-
+//下载我的消息的列表信息
 -(void)getDetailAD:(NSInteger)index{
     NSString *url = GETDETAILAD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -195,15 +166,9 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FindStoryboard" bundle:nil];
             
             XWJActivityViewController * acti = [storyboard instantiateViewControllerWithIdentifier:@"activityDetail"];
-            //    acti.actTitle.text = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
-            //    acti.time.text = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_TIME];
-            //    acti.url = [[self.array objectAtIndex:indexPath.row] valueForKey:KEY_URL];
-            //    [acti.btn setTitle:[[self.array objectAtIndex:indexPath.row] valueForKey:KEY_CLICKCOUNT] forState:UIControlStateNormal];
             acti.dic = [dict objectForKey:@"data"];
             acti.type = self.type;
             [self.navigationController showViewController:acti sender:nil];
-            
-            
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -211,15 +176,5 @@
         
     }];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

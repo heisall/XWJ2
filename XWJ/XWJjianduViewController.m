@@ -26,26 +26,12 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-
-    
-
-//    UIView *view =[[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 40.0)];
-////    view.backgroundColor = [UIColor grayColor];
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 100, 30)];
-//    view.backgroundColor = [UIColor whiteColor];
-//    title.text = @"物业员工";
-//    title.textColor  = MJColor(0, 147, 141);
-//    [view addSubview:title];
-//    self.tableView.tableHeaderView = view;
-    
     self.work = [NSMutableArray array];
     self.yuangong = [NSMutableArray array];
-
-//    self.scrollview.frame = CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, SCREEN_SIZE.height/7);
 }
-
+//点击进入物业监督的广告详情
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
-        
+    
     XWJjianduDetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"jiandudetail2"];
     detail.dic = [self.work objectAtIndex:index];
     [self.navigationController showViewController:detail sender:nil];
@@ -56,37 +42,19 @@
     self.navigationItem.title = @"物业监督";
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
-//    self.scrollview.frame = CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, SCREEN_SIZE.height/7);
     [self getWuye];
-
+    
 }
-
+//添加广告视图
 -(void)addViews{
     NSMutableArray *URLs = [NSMutableArray array] ;
     
     for (NSDictionary *dic in self.work) {
         [URLs addObject:[dic objectForKey:@"photo"]];
     }
-//
-//    [self.adScrollView addSubview:({
-//        
-//        LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-//                                                                                self.adScrollView.bounds.size.height)
-//                                    
-//                                                            delegate:self
-//                                                           imageURLs:URLs
-//                                                    placeholderImage:nil
-//                                                       timerInterval:5.0f
-//                                       currentPageIndicatorTintColor:[UIColor redColor]
-//                                              pageIndicatorTintColor:[UIColor whiteColor]];
-//        bannerView;
-//    })];
-    
+    //设置广告页的数量和长宽
     NSInteger count = self.work.count;
-    
     CGFloat height = self.view.bounds.size.width/2;
-//    CGFloat height = self.scrollview.bounds.size.height;
-
     CGFloat width = height/3*4;
     
     self.adScrollView.contentSize = CGSizeMake((width + 10) * count - 20, height);
@@ -101,13 +69,13 @@
         im.tag = i;
         im.userInteractionEnabled = YES;
         [im sd_setImageWithURL:[NSURL URLWithString:URLs[i]]placeholderImage:nil];
-
+        
         UITapGestureRecognizer* singleRecognizer;
         singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click:)];
         //点击的次数
         singleRecognizer.numberOfTapsRequired = 1;
         [im addGestureRecognizer:singleRecognizer];
-      
+        
         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(width - 10 - 60,0, 60, 16)];
         label.textColor = [UIColor whiteColor];
         label.font = [UIFont systemFontOfSize:12];
@@ -125,13 +93,14 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, backView.frame.size.height-52, width - 10, 52 - 10)];
         view.backgroundColor = [UIColor blackColor];
         view.alpha = 0.7;
+        //展示内容
         UILabel * label1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, width - 10 - 10, 12)];
         label1.textColor = [UIColor whiteColor];
         label1.text = [[self.work objectAtIndex:i] valueForKey:@"Content"];
         label1.font = [UIFont systemFontOfSize:12.0];
         label1.lineBreakMode = NSLineBreakByTruncatingTail;
         label1.numberOfLines = 1;
-
+        //展示时间
         UILabel * label2 = [[UILabel alloc] initWithFrame:CGRectMake(5, 28, 100, 12)];
         label2.textColor = [UIColor whiteColor];
         label2.text = [[self.work objectAtIndex:i] valueForKey:@"ReleaseTime"];
@@ -155,9 +124,8 @@
 -(void)click:(UITapGestureRecognizer *)ges{
     
     [self bannerView:nil didClickedImageIndex:ges.view.tag];
-   // CLog(@"click");
 }
-
+//获取物业监督的详细信息
 -(void)getWuye{
     NSString *url = GETWUYE_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -166,8 +134,6 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-      //  CLog(@"%s success ",__FUNCTION__);
-        
         /*
          Name = "\U674e\U56db";
          Phone = 13888888888;
@@ -202,7 +168,7 @@
                 }
                 
                 [self addViews];
-
+                
             }
             
         }
@@ -227,7 +193,7 @@
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if(self.yuangong.count>0)
-    return 1;
+        return 1;
     else
         return 0;
 }
@@ -247,7 +213,7 @@
     
     return self.yuangong.count;
 }
-
+//设置物业员工的详细信息
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     WuyeTableViewCell *cell;
@@ -256,13 +222,6 @@
     if (!cell) {
         cell = [[WuyeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"wuyecell"];
     }
-    // Configure the cell...
-//    cell.headImg.image = [UIImage imageNamed:@"mor_icon_default"];
-//    cell.nameLabel.text = @"王琳";
-//    cell.positionLabel.text = @"主管";
-//    cell.photoLabel.text = @"13666666666";
-
-//    cell.headImg.tag =[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]];
     [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[[self.yuangong objectAtIndex:indexPath.row] objectForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
     cell.headImg.layer.cornerRadius = cell.headImg.frame.size.width/2;
     cell.headImg.layer.masksToBounds = YES;
@@ -272,17 +231,13 @@
     
     cell.dialBtn.tag = indexPath.row;
     [cell.dialBtn addTarget:self action:@selector(dial:) forControlEvents:UIControlEventTouchUpInside];
-//    [cell.dialBtn setImage:[] forState:<#(UIControlState)#>]
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 69, self.view.bounds.size.width,1)];
-//    view.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    [cell addSubview:view];
     return cell;
 }
 
 -(void)dial:(UIButton *)sender{
     NSString *phone=  [[self.yuangong objectAtIndex:sender.tag] objectForKey:@"Phone"];
-
+    
     NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",phone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
@@ -290,20 +245,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 4) {
-        
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MineStoryboard" bundle:nil];
-//        [self.navigationController showViewController:[storyboard instantiateViewControllerWithIdentifier:@"suggestStory"] sender:nil];
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -40,7 +40,6 @@ static NSString *kcellIdentifier = @"cell";
     self.msgArr = [[NSMutableArray alloc]init];
     self.idArray = [[NSMutableArray alloc]init];
     self.finddetailArr = [[NSMutableArray alloc]init];
-//    _msgArr = [NSMutableArray arrayWithObjects:@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3",@"mymsg1",@"mymsg2",@"mymsg3", nil];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -51,10 +50,9 @@ static NSString *kcellIdentifier = @"cell";
         [self downLoadData];
         
     }];
-    
     [self.view addSubview:_tableView];
 }
-
+//下载我的消息的详细信息
 -(void)downLoadData{
     NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/myMsg";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -82,7 +80,6 @@ static NSString *kcellIdentifier = @"cell";
             [_idArray removeAllObjects];
             for (NSMutableDictionary *d in array) {
                 [_subTitles addObject:[d objectForKey:@"title"]];
-                //                [_msgArr addObject:[d objectForKey:@"msg"]];
                 [_msgArr addObject:@"mymsg2"];
                 [_sendTime addObject:[d objectForKey:@"sendTime"]];
                 [_titles addObject:@"有人评论了你的帖子"];
@@ -100,7 +97,6 @@ static NSString *kcellIdentifier = @"cell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-  //  self.tabBarController.tabBar.hidden =YES;
     [self downLoadData];
     
 }
@@ -111,7 +107,7 @@ static NSString *kcellIdentifier = @"cell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.titles.count;
 }
-
+//将消息的内容展示
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell;
     cell = [tableView dequeueReusableCellWithIdentifier:@""];

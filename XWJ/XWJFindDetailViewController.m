@@ -75,7 +75,7 @@
     [dic setValue:@"保养几次了什么时候方便看车" forKey:KEY_CONTENT];
     [self getFind:0];
     self.textView.placeholder = @"在此发表评论";
-
+    
     [self.phraseBtn addTarget:self action:@selector(phrase:) forControlEvents:UIControlEventTouchUpInside];
     //    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
     
@@ -125,20 +125,20 @@
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:requestAddress parameters:@{
-                                             @"id":[self.dic valueForKey:@"id"],
-                                             @"code":self.codeStr
-                                             }
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             CLog(@"------%@",responseObject);
-             
-             if ([[responseObject objectForKey:@"result"] intValue]) {
-                 
-             }else{
-                 
-             }
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             CLog(@"失败===%@", error);
-         }];
+                                              @"id":[self.dic valueForKey:@"id"],
+                                              @"code":self.codeStr
+                                              }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              CLog(@"------%@",responseObject);
+              
+              if ([[responseObject objectForKey:@"result"] intValue]) {
+                  
+              }else{
+                  
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              CLog(@"失败===%@", error);
+          }];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -152,7 +152,7 @@
     self.tabBarController.tabBar.hidden = NO;
     
 }
-
+//设置不能重复点赞
 -(void)phrase:(UIButton *)sender{
     
     if(sender.selected){
@@ -160,14 +160,14 @@
     }else{
         
         sender.selected=YES;
-    NSInteger count = [sender.titleLabel.text integerValue];
-    count++;
-//    sender.enabled = NO;
-    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
-    [self pubCommentLword:@"" type:@"点赞"];
+        NSInteger count = [sender.titleLabel.text integerValue];
+        count++;
+        //    sender.enabled = NO;
+        [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
+        [self pubCommentLword:@"" type:@"点赞"];
     }
 }
-
+//将评论发布到服务器
 -(void)pubCommentLword:(NSString *)leaveword type:(NSString *)types{
     NSString *url = GETFINDPUBCOM_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -207,14 +207,6 @@
                     [ProgressHUD showSuccess:@"点赞成功"];
                 }else
                     [ProgressHUD showSuccess:@"评论成功"];
-                
-                //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                //                alertview.delegate = self;
-                //                [alertview show];
-//                self.textView.text = @"在此发表评论";
-                //                [self.navigationController popViewControllerAnimated:NO];
-                
-                
             }
             
         }
@@ -225,7 +217,7 @@
         
     }];
 }
-
+//广告的横幅
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index{
     XWJWebViewController * web = [[XWJWebViewController alloc] init];
     NSString *urls = [self.dic objectForKey:@"Photo"]==[NSNull null]?@"":[self.dic objectForKey:@"Photo"];
@@ -235,7 +227,7 @@
     self.shareImageStr = [url firstObject];
     [self.navigationController pushViewController:web animated:NO];
 }
-
+//点击选择图片
 -(void)imgclick{
     XWJWebViewController * web = [[XWJWebViewController alloc] init];
     NSString *urls = [self.dic objectForKey:@"Photo"]==[NSNull null]?@"":[self.dic objectForKey:@"Photo"];
@@ -281,15 +273,15 @@
             CLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             if ([res intValue] == 1) {
-            
+                
                 NSDictionary* temDic = responseObject[@"data"];
                 NSDictionary* temDic1 = temDic[@"find"];
-             //   CLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
+                //   CLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
                 NSString *dicstring = [NSString stringWithFormat:@"%@",temDic1];
                 if ([dicstring isEqualToString:@"<null>"]) {
                     return ;
                 }
-
+                
                 self.shareUrl =[NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=%@",temDic1[@"id"]];
                 /*
                  
@@ -346,8 +338,8 @@
     CLog(@"%@",self.dic);
     NSString * zanCount = [self.dic objectForKey:@"ClickPraiseCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ClickPraiseCount"]];
     NSString *  leaveCount= [self.dic objectForKey:@"LeaveWordCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"LeaveWordCount"]];
-//    NSString * qqCount = [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ShareQQCount"]];
-        NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareWXCount"]==[NSNull null]?@"0":[self.dic objectForKey:@"ShareWXCount"]];
+    //    NSString * qqCount = [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"ShareQQCount"]];
+    NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareWXCount"]==[NSNull null]?@"0":[self.dic objectForKey:@"ShareWXCount"]];
     
     [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
     [_CommentBtn setTitle:leaveCount forState:UIControlStateNormal];
@@ -408,34 +400,34 @@
         singleRecognizer.numberOfTapsRequired = 1;
         [self.imageView addGestureRecognizer:singleRecognizer];
     }else
-    [self.imageView addSubview:({
-        CGFloat time = 5.0f;
-        
-        if (url.count==1) {
-            time = MAXFLOAT;
-        }
-        
-        LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-                                                                                  self.imageView.bounds.size.height)
-                                    
-                                                              delegate:self
-                                                             imageURLs:url
-                                                      placeholderImage:nil
-                                                         timerInterval:time
-                                         currentPageIndicatorTintColor:XWJGREENCOLOR
-                                                pageIndicatorTintColor:[UIColor whiteColor]
-                                                                      :UIViewContentModeScaleAspectFit];
-        //            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,
-        //                                                                                    self.imageView.bounds.size.height)
-        //
-        //                                                                delegate:self
-        //                                                               imageURLs:url
-        //                                                        placeholderImage:@"devAdv_default"
-        //                                                           timerInterval:time
-        //                                           currentPageIndicatorTintColor:XWJGREENCOLOR
-        //                                                  pageIndicatorTintColor:[UIColor whiteColor]];
-        bannerView;
-    })];
+        [self.imageView addSubview:({
+            CGFloat time = 5.0f;
+            
+            if (url.count==1) {
+                time = MAXFLOAT;
+            }
+            
+            LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+                                                                                      self.imageView.bounds.size.height)
+                                        
+                                                                  delegate:self
+                                                                 imageURLs:url
+                                                          placeholderImage:nil
+                                                             timerInterval:time
+                                             currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                    pageIndicatorTintColor:[UIColor whiteColor]
+                                                                          :UIViewContentModeScaleAspectFit];
+            //            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,
+            //                                                                                    self.imageView.bounds.size.height)
+            //
+            //                                                                delegate:self
+            //                                                               imageURLs:url
+            //                                                        placeholderImage:@"devAdv_default"
+            //                                                           timerInterval:time
+            //                                           currentPageIndicatorTintColor:XWJGREENCOLOR
+            //                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+            bannerView;
+        })];
     
     //    [_imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
 }
@@ -482,7 +474,7 @@
     }
     // Configure the cell...
     NSDictionary *dic = (NSDictionary *)self.array[indexPath.row];
-
+    
     /*
      
      "A_id" = 1;
@@ -503,9 +495,9 @@
         cell.headImgView.layer.cornerRadius = width/2;
         cell.headImgView.layer.masksToBounds = YES;
         if(image)
-        [cell.headImgView  setImage:[image transformWidth:width height:width]];
+            [cell.headImgView  setImage:[image transformWidth:width height:width]];
         else{
-                UIImage * img = [UIImage imageNamed:@"headDefaultImg"] ;
+            UIImage * img = [UIImage imageNamed:@"headDefaultImg"] ;
             [cell.headImgView  setImage:[img transformWidth:width height:width]];
         }
         

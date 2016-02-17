@@ -23,7 +23,7 @@
     UIView *backview;
     UIScrollView *helperView;
     UIImageView *imgView;
-
+    
 }
 @property(nonatomic)UIImagePickerController *picker;
 @property (nonatomic, assign) LGShowImageType showType;
@@ -47,15 +47,15 @@
     
     self.typeBackView.layer.borderWidth =0.5;
     self.typeBackView.layer.borderColor = [[UIColor colorWithWhite:0.8  alpha:1] CGColor];
-//    self.tableView.delegate = self;
-//    self.tableView.dataSource = self;
-//    self.dataSource = [NSArray arrayWithObjects:@"二手市场",@"帮帮忙",@"个人商店", nil];
-//    [self.dataSource removeObjectAtIndex:0];
+    //    self.tableView.delegate = self;
+    //    self.tableView.dataSource = self;
+    //    self.dataSource = [NSArray arrayWithObjects:@"二手市场",@"帮帮忙",@"个人商店", nil];
+    //    [self.dataSource removeObjectAtIndex:0];
     self.contentTextView.delegate = self;
     self.select = -1;
     self.imageArray = [NSMutableArray array];
 }
-
+//添加发现选择图片的视图
 -(void)addImgView{
     if (self.imageArray.count) {
         CLog(@"剩下的数组----%ld",self.imageArray.count);
@@ -86,9 +86,6 @@
             deleImageBtn.alpha = 0.3;
             deleImageBtn.titleLabel.font = [UIFont systemFontOfSize:14];
             
-            //                [imgView addSubview:deleImageBtn];
-            //                [self.imageScroll addSubview:imgView];
-            
             [self.imageScroll addSubview:deleImageBtn];
         }
     }else{
@@ -98,7 +95,6 @@
 
 -(void)showSortView:(UIButton *)btn{
     //添加半透明背景图
-
     backview=[[UIView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.window.frame.size.height)];
     backview.backgroundColor=[UIColor colorWithWhite:0 alpha:0.6];
     backview.tag=4444;
@@ -139,10 +135,6 @@
         [button addSubview:label];
         
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(button.frame.size.width-20-10, 10, 20, 20)];
-        //       imageView.image=[UIImage imageNamed:@"tcpUnselect"];
-        //        if (sortSelected==i) {
-        //            imageView.image=[UIImage imageNamed:@"tcpSelect"];
-        //        }
         imageView.tag=7001;
         [button addSubview:imageView];
         
@@ -169,24 +161,22 @@
     helperView.contentSize = CGSizeMake(0, 40*(count+1));
     
 }
-
+//发布类型的选择
 -(void)sortTypeButtonClicked:(UIButton *)button{
     
     [self closeButtonClicked];
     
     NSInteger index = button.tag - 60001;
     self.select = index;
-
+    
     [self.typeBtn setTitle:[[self.dataSource objectAtIndex:index] valueForKey:@"memo"] forState:UIControlStateNormal];
     CLog(@"selcet id %ld",index);
     
 }
 
 -(void)confirmbuttonClick:(UIButton *)button{
-    
+    //使用异步下载
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        
         if (button.tag==50001) {
             
         }else{
@@ -198,7 +188,6 @@
 }
 
 -(void)closeButtonClicked{
-    //    UIView *backview=[self.view.window viewWithTag:3333];
     [backview removeFromSuperview];
 }
 
@@ -210,7 +199,7 @@
     [btn setTitle:@"发布" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
-//    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    //    [btn setBackgroundImage:image forState:UIControlStateNormal];
     self.rightBarItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     
@@ -245,9 +234,6 @@
     if (count>6) {
         return;
     }
-//    UIImageView *imageView = [self.imageScroll viewWithTag:imgtag+count];
-//    
-//    imageView.image = image;
     
     NSData *data = UIImageJPEGRepresentation(image,0.4);
     
@@ -261,6 +247,7 @@
     
     [self dismissViewControllerAnimated:NO completion:nil];
 }
+//照片的获取
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     CLog(@"已取消选择");
@@ -290,8 +277,8 @@
         }
         for (NSInteger i=0; i<count; i++) {
             LGPhotoAssets *asset = [assets objectAtIndex:i];
-//            UIImageView *imageView = [self.imageScroll viewWithTag:imgtag+i+imgCount];
-//            imageView.image = asset.compressionImage;
+            //            UIImageView *imageView = [self.imageScroll viewWithTag:imgtag+i+imgCount];
+            //            imageView.image = asset.compressionImage;
             NSData *data = UIImageJPEGRepresentation(asset.compressionImage,0.4);
             
             NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
@@ -322,10 +309,11 @@
             
             [self.imageArray removeObjectAtIndex:self.willDeleImage];
         }
- 
+        
         [self addImgView];
     }
 }
+//个人的发现的提交发布
 -(void)submit{
     
     if (!self.contentTextView.text.length>0) {
@@ -365,12 +353,12 @@
     [dict setValue:[XWJAccount instance].uid forKey:@"appId"];
     [dict setValue:self.contentTextView.text forKey:@"content"];
     [dict setValue:[[self.dataSource objectAtIndex:self.select] objectForKey:@"dictValue"] forKey:@"types"];
-//    [dict s];
+    //    [dict s];
     NSInteger count = self.imageArray.count;
     for (int i=0; i<count; i++) {
         [dict setObject:[self.imageArray objectAtIndex:i] forKey:[NSString stringWithFormat:@"pic%d",i+1]] ;
     }
-
+    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -410,9 +398,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+//选择图片是从相册还是从相机
 - (IBAction)selectImage:(UIButton *)sender {
-//    [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
-
+    //    [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+    
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"请选择" message:nil preferredStyle:0];
     [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -451,8 +440,8 @@
     // Configure the cell...
     cell.textLabel.text = [self.dataSource[indexPath.row] objectForKey:@"memo"];
     cell.textLabel.textColor =[UIColor colorWithRed:68.0/255.0 green:70.0/255.0 blue:71.0/255.0 alpha:1.0];
-//    celt.imageView.image = [];
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    //    celt.imageView.image = [];
+    //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, cell.bounds.size.height-1, self.view.bounds.size.width,1)];
     view.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
     [cell addSubview:view];
@@ -488,20 +477,11 @@
 
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.size.width, 40)];
-//    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
-//    label.text = @"请选择信息分类";
+    //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.size.width, 40)];
+    //    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    //    label.text = @"请选择信息分类";
     return @"请选择信息分类";
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

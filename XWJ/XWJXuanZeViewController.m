@@ -47,13 +47,12 @@
     self.view.backgroundColor = [UIColor colorWithRed:238/255.0 green:240/255.0 blue:239/255.0 alpha:1.0];
 
 }
-#pragma bindhouse delegate
+#pragma bindhouse delegate //登录信息的选择
 -(void)didSelectAtIndex:(NSInteger)index Type:(HouseMode)type{
     switch (type) {
         case HouseCity:{
             XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
             bind.title = @"小区选择";
-//            bind.dataSource = [NSArray arrayWithObjects:@"湖岛世家",@"花瓣里",@"依云小镇",@"湖岛世家",@"花瓣里",@"依云小镇",@"湖岛世家",@"花瓣里",@"依云小镇",@"湖岛世家",@"花瓣里",@"依云小镇", nil];
             bind.delegate = self;
             bind->mode = HouseCommunity;
             
@@ -85,19 +84,6 @@
         }
             break;
         case HouseRoomNumber:{
-            //            self.tabBarController.tabBar.hidden = NO;
-            
-            //            XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-            //            UIWindow *window = [UIApplication sharedApplication].keyWindow;
-            //            window.rootViewController = tab;
-            
-            //                        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            //                        [UIApplication sharedApplication].keyWindow.rootViewController = [story instantiateInitialViewController];
-            //                XWJBingHouseViewController *bind = [[XWJBingHouseViewController alloc] initWithNibName:@"XWJBingHouseViewController" bundle:nil];
-            
-//            self.isBind = TRUE;
-            
-
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"XWJLoginStoryboard" bundle:nil];
                 [self.navigationController showViewController:[story instantiateViewControllerWithIdentifier:@"bindhouse1"] sender:nil];
 //            }
@@ -107,11 +93,10 @@
             break;
     }
 }
-
+//绑定城市的选择
 - (IBAction)bind:(UIButton *)sender {
     XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
     bind.title = @"城市选择";
-//    bind.dataSource = [NSArray arrayWithObjects:@"青岛市",@"济南市",@"威海市",@"烟台市",@"临沂市", nil];
     bind.delegate = self;
     bind->mode = HouseCity;
     self.isYouke = NO;
@@ -119,14 +104,9 @@
         
 }
 - (IBAction)xuanze:(UIButton *)sender {
-//    [XWJAccount instance].aid = @"1";
-//    XWJTabViewController *tab = [[XWJTabViewController alloc] init];
-//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//    self.view.window.rootViewController = tab;
 
     XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
     bind.title = @"城市选择";
-    //    bind.dataSource = [NSArray arrayWithObjects:@"青岛市",@"济南市",@"威海市",@"烟台市",@"临沂市", nil];
     bind.delegate = self;
     bind->mode = HouseCity;
     self.isYouke = YES;

@@ -16,7 +16,7 @@
 #import "XWJWebViewController.h"
 #import "UMSocial.h"
 
-#define MYTV_MESSAGE_COMMANTS_FONT [UIFont boldSystemFontOfSize:14.0f] // 
+#define MYTV_MESSAGE_COMMANTS_FONT [UIFont boldSystemFontOfSize:14.0f] //
 #define LONGIN_TEXTVIEW_SELECTED_BORDER_COLOR [UIColor colorWithRed:50/255.0 green:176/255.0 blue:178/255.0 alpha:1].CGColor // 用户名和密码框选中的时候边框颜色
 #define TEXT_VIEW_MIN_HEIGH 44
 
@@ -42,7 +42,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self registerForKeyboardNotifications];
     self.commentTextView.delegate = self;
     self.tableView.delegate = self;
@@ -53,7 +52,6 @@
     self.headLabel.textColor = XWJGREENCOLOR;
     self.headLabel.backgroundColor = self.backScroll.backgroundColor;
     self.headLabel.text = @"最新评论 ";
-//    self.tableView.tableHeaderView  = self.headLabel;
     NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
     
     UIImage *image = [UIImage imageNamed:@"mor_icon_default"];
@@ -61,25 +59,17 @@
     [dic setValue:@"小宝" forKey:KEY_TITLE];
     [dic setValue:@"2015-11-11" forKey:KEY_TIME];
     [dic setValue:@"保养几次了什么时候方便看车" forKey:KEY_CONTENT];
-    
-    
     [self initView];
     [self getWuyeDetail];
-    
-//    self.array = [NSArray arrayWithObjects:dic,dic,dic,dic,dic,dic,dic, nil];
-    
 }
 
 -(void)addDianJi{
 
-//    NSInteger count = [self.comBtn.titleLabel.text integerValue];
-   // count++;
-   // [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:  animated];
     self.center = self.bottomView.center;
-
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -92,14 +82,8 @@
 }
 - (IBAction)commect:(id)sender {
     
-//    NSInteger count = [self.comBtn.titleLabel.text integerValue];
-//    count++;
-//    [self.comBtn setTitle:[NSString stringWithFormat:@"%ld",count] forState:UIControlStateNormal];
-   // [self pubCommentLword:@"" type:@"留言"];
 }
 - (IBAction)zan:(UIButton *)sender {
-
-//    sender.enabled = NO;
     
     if (sender.selected) {
         [ProgressHUD showError:@"不能重复点赞"];
@@ -107,12 +91,10 @@
     }else{
         sender.selected = YES;
     }
-//    NSInteger count = [sender.titleLabel.text integerValue];
-//    count++;
-//    [sender setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
     [self pubCommentLword:@"" type:@"点赞"];
-
+    
 }
+//分享功能（友盟分享）
 - (IBAction)share:(UIButton *)sender {
     CLog(@"----%@",[self.dic objectForKey:@"id"]);
     UIImageView* temIV = [[UIImageView alloc] init];
@@ -156,20 +138,20 @@
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:requestAddress parameters:@{
-                                             @"id":[self.dic valueForKey:@"id"],
-                                             @"code":self.codeStr
-                                             }
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             CLog(@"------%@",responseObject);
-             
-             if ([[responseObject objectForKey:@"result"] intValue]) {
-                 
-             }else{
-                 
-             }
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             CLog(@"失败===%@", error);
-         }];
+                                              @"id":[self.dic valueForKey:@"id"],
+                                              @"code":self.codeStr
+                                              }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              CLog(@"------%@",responseObject);
+              
+              if ([[responseObject objectForKey:@"result"] intValue]) {
+                  
+              }else{
+                  
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              CLog(@"失败===%@", error);
+          }];
 }
 
 -(void)wuyeshareI{
@@ -189,7 +171,7 @@
      leixing	区别是物业还是发现	String,find/supervise
      */
     
-
+    
     XWJAccount *account = [XWJAccount instance];
     [dictp setValue:[self.dic valueForKey:@"id"]  forKey:@"findId"];
     [dictp setValue:types  forKey:@"types"];
@@ -207,31 +189,24 @@
             CLog(@"dic %@",dict);
             NSNumber *res =[dict objectForKey:@"result"];
             [self cleanText];
-
-
+            
+            
             if ([res intValue] == 1) {
                 
                 NSString *errCode = [dict objectForKey:@"errorCode"];
-//                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//                alertview.delegate = self;
-//                [alertview show];
+                //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                //                alertview.delegate = self;
+                //                [alertview show];
                 if ([types isEqualToString:@"点赞"]) {
-//                        [ProgressHUD showSuccess:[dict objectForKey:@"errorCode"]];
-                        NSInteger count = [self.zanBtn.titleLabel.text integerValue];
-                        count++;
-                        [self.zanBtn setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
+                    NSInteger count = [self.zanBtn.titleLabel.text integerValue];
+                    count++;
+                    [self.zanBtn setTitle:[NSString stringWithFormat:@"%ld",(long)count] forState:UIControlStateNormal];
                     [ProgressHUD showSuccess:@"点赞成功"];
                 }else{
                     [ProgressHUD showSuccess:@"评论成功"];
-                
+                    
                     [self getWuyeDetail];
                 }
-//                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
-                 //   [self.navigationController popViewControllerAnimated:YES];
-//                });
-                
-                
             }else{
                 [ProgressHUD showError:[dict objectForKey:@"errorCode"]];
             }
@@ -241,13 +216,12 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CLog(@"%s fail %@",__FUNCTION__,error);
-
+        
     }];
 }
 
 -(void)cleanText{
     self.commentTextView.text  = @"";
-//    self.commentTextView.text = @"请输入评论内容";
 }
 
 -(void)imgclick{
@@ -269,7 +243,7 @@
     self.shareImageStr = [url firstObject];
     [self.navigationController pushViewController:web animated:NO];
 }
-
+//获取物业监督的详情信息
 -(void)getWuyeDetail{
     NSString *url = GETWUYEDETAIL_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -280,8 +254,6 @@
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     //   CLog(@"%s success ",__FUNCTION__);
-        
         /*
          "A_id" = 1;
          FindID = 9;
@@ -296,7 +268,6 @@
          */
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
-           // CLog(@"dic------ %@",dic);
             self.array = [NSMutableArray arrayWithArray:[dic objectForKey:@"comments"]];
             
             
@@ -304,11 +275,6 @@
                 
                 self.headLabel.text = [NSString stringWithFormat:@"最新评论 (%ld)",(unsigned long)self.array.count];
             }
-//            [self.array sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-//                NSDictionary * d1 = (NSDictionary *)obj1;
-//                NSDictionary * d2 = (NSDictionary *)obj2;
-//                return [[d2 valueForKey:@"ReleaseTime"]compare:[d1 valueForKey:@"ReleaseTime"]];
-//            }];
             
             self.dicWork = [[dic objectForKey:@"work"] objectForKey:@"clicks"];
             
@@ -329,29 +295,28 @@
                     singleRecognizer.numberOfTapsRequired = 1;
                     [self.imgView addGestureRecognizer:singleRecognizer];
                 }else
-                if (!(self.imgView.subviews&&self.imgView.subviews.count>0)) {
-                    
-                    
-                    CGFloat time = 5.0f;
-                    
-                    if (URLs.count==1) {
-                        time = MAXFLOAT;
-                    }
-                    [self.imgView addSubview:({
+                    if (!(self.imgView.subviews&&self.imgView.subviews.count>0)) {
                         
-                        LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imgView.bounds.size.width,
-                                                                                                self.imgView.bounds.size.height)
-                                                    
-                                                                            delegate:self
-                                                                           imageURLs:URLs
-                                                                    placeholderImage:@"devAdv_default"
-                                                                       timerInterval:time
-                                                       currentPageIndicatorTintColor:XWJGREENCOLOR
-                                                              pageIndicatorTintColor:[UIColor whiteColor]];
-                        bannerView;
-                    })];
-                }
-        //    CLog(@"*****%@",self.dicWork);
+                        
+                        CGFloat time = 5.0f;
+                        
+                        if (URLs.count==1) {
+                            time = MAXFLOAT;
+                        }
+                        [self.imgView addSubview:({
+                            
+                            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imgView.bounds.size.width,
+                                                                                                    self.imgView.bounds.size.height)
+                                                        
+                                                                                delegate:self
+                                                                               imageURLs:URLs
+                                                                        placeholderImage:@"devAdv_default"
+                                                                           timerInterval:time
+                                                           currentPageIndicatorTintColor:XWJGREENCOLOR
+                                                                  pageIndicatorTintColor:[UIColor whiteColor]];
+                            bannerView;
+                        })];
+                    }
             
             NSString *istalk = [NSString stringWithFormat:@"%@",[self.dicw objectForKey:@"iftalk"]];
             if ([istalk isEqualToString:@"0"]) {
@@ -365,42 +330,30 @@
                 [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
             }
             self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+200);
-           // [self addDianJi];
         }
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       // CLog(@"%s fail %@",__FUNCTION__,error);
+
         
     }];
 }
+//展示评论点赞分享的数据
 -(void)initView{
     
     NSString * zanCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ClickPraiseCount"]];
     NSString *  leaveCount= [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"LeaveWordCount"]];
-//    NSString * qqCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareQQCount"]];
     NSString * wxCount = [NSString stringWithFormat:@"%@", [self.dic objectForKey:@"ShareQQCount"]==[NSNull null]?@"0":[self.dic objectForKey:@"ShareQQCount"]];
     
     [_zanBtn setTitle:zanCount forState:UIControlStateNormal];
     [_comBtn setTitle:leaveCount forState:UIControlStateNormal];
     [_shareBtn setTitle:wxCount forState:UIControlStateNormal];
-//    [_zanBtn setTitle:zanCount forState:UIControlStateNormal];
+    //    [_zanBtn setTitle:zanCount forState:UIControlStateNormal];
     
     NSString *type = [self.dic objectForKey:@"Types"];
     _timeLabel.text = [self.dic objectForKey:@"ReleaseTime"];
-//    _timeLabel.font = [UIFont systemFontOfSize:12];
     _titleLabel.text=[self.dic objectForKey:@"Content"];
-//    _titleLabel.numberOfLines = 0;
-//    _titleLabel.font = [UIFont systemFontOfSize:12];
     _typeLabel.text = type;
-    
-    
-//    if ([[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"iftalk"]] isEqualToString:@"1"]) {
-    
-//        self.zanBtn.selected = YES;
-//    }else{
-//        self.zanBtn.selected = NO;
-//    }
     
     if ([type isEqualToString:@"工作进展"]) {
         _typeLabel.backgroundColor = XWJColor(67, 164, 83);
@@ -455,21 +408,21 @@
     }else{
         url = @"";
     }
-
+    
     [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
     cell.headImgView.layer.cornerRadius = cell.headImgView.frame.size.width/2;
     cell.headImgView.layer.masksToBounds = YES;
     
-//    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
+    //    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
     cell.commenterLabel.text = ([dic valueForKey:@"NickName"]==[NSNull null])?@"小王":[dic valueForKey:@"NickName"];
     cell.timeLabel.text = [dic valueForKey:@"ReleaseTime"];
     NSString *leave  = [dic valueForKey:@"LeaveWord"];
-//    [leave ]
+    //    [leave ]
     cell.contentLabel.text = leave;
-//    cell.contentLabel.backgroundColor = [UIColor redColor];
-//    cell.contentLabel.textColor = [UIColor blackColor];
+    //    cell.contentLabel.backgroundColor = [UIColor redColor];
+    //    cell.contentLabel.textColor = [UIColor blackColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    
     //    [cell.dialBtn setImage:[] forState:<#(UIControlState)#>]
     //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 69, self.view.bounds.size.width,1)];
     //    view.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
@@ -482,7 +435,7 @@
         for (UIView *view in [[button superview] subviews]) {
             if ([view isKindOfClass:[UIPlaceHolderTextView class]]) {
                 if (![((UITextView *)view).text isEqual:@""]) {
-
+                    
                     [view resignFirstResponder];
                     [self.inputTextField resignFirstResponder];
                 }
@@ -522,13 +475,13 @@
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//得到鍵盤的高度
     CLog(@"hight_hitht:%f",kbSize.height);
     
-//    self.bottomRect = self.bottomView.frame ;
-//    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height) -45, self.bottomRect.size.width, self.bottomRect.size.height);
+    //    self.bottomRect = self.bottomView.frame ;
+    //    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height) -45, self.bottomRect.size.width, self.bottomRect.size.height);
     
     self.bottomRect = self.bottomView.bounds;
     
-//    self.bottomView.center = CGPointMake(self.center.x
-//                                         , self.center.y-kbSize.height);
+    //    self.bottomView.center = CGPointMake(self.center.x
+    //                                         , self.center.y-kbSize.height);
     CGFloat keyboardhight;
     if(kbSize.height == 216)
     {
@@ -547,8 +500,8 @@
 //当键盘隐藏的时候
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
-//    self.bottomView.frame = self.bottomRect;
-//    self.bottomView.bounds = self.bottomRect;
+    //    self.bottomView.frame = self.bottomRect;
+    //    self.bottomView.bounds = self.bottomRect;
     self.bottomView.center =self.center;
     [self.commentTextView resignFirstResponder];
     //do something
@@ -567,29 +520,29 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     
     //        讲textField向上移动100个单位
-//    CGPoint point = self.commentTextView.center;
-//    point.y -= 200;
-//    self.commentTextView.center = point;
+    //    CGPoint point = self.commentTextView.center;
+    //    point.y -= 200;
+    //    self.commentTextView.center = point;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
     [btn setTitle:@"完成" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [btn addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-//    btn.tag = 999;
-//    CGPoint pointButton = btn.center;
-//    pointButton.y = 200;
-//    btn.center = pointButton;
+    //    btn.tag = 999;
+    //    CGPoint pointButton = btn.center;
+    //    pointButton.y = 200;
+    //    btn.center = pointButton;
     UIBarButtonItem *done= [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = done;
 }
 //编辑结束之后
 //- (void)textFieldDidEndEditing:(UITextField *)textField{
-//    
+//
 //        CGPoint point = self.commentTextView.center;
 //        point.y += 200;
 //        self.commentTextView.center = point;
-//        
+//
 //        //        找到button
 //        UIButton *button = (UIButton *)[self.view viewWithTag:999];
 //        //        将button移动到距离上面170单位处
@@ -617,13 +570,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

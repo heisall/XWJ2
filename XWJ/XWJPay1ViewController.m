@@ -56,6 +56,7 @@
     }
     
 }
+//获取用户的界面的详细信息
 -(void)headAD{
     NSString *url = GETGUANJIAAD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -70,17 +71,14 @@
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             CLog(@"dic哈哈哈 %@",dic);
-            
             self.roomDic = [dic objectForKey:@"room"];
         }
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CLog(@"%s fail %@",__FUNCTION__,error);
         
     }];
 }
-
+//获取管家界面的详细信息
 -(void)getGuanjiaAD{
     NSString *url = GETGUANJIAAD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -100,13 +98,11 @@
             
             self.roomDic = [dic objectForKey:@"room"];
              CLog(@"dic %@",self.roomDic);
-//            [self.userImageView sd_setImageWithURL:[NSURL URLWithString:[self.dicuser objectForKey:@"Photo"]] placeholderImage:[UIImage imageNamed:@"demo"]];
             if([XWJAccount instance].isYouke){
 
             }else{
                 self.zoneLabel.text = [self.roomDic objectForKey:@"A_name"];
                 self.doorLabel.text = [NSString stringWithFormat:@"%@号楼%@单元%@",[self.roomDic objectForKey:@"b_id"],[self.roomDic objectForKey:@"r_dy"],[self.roomDic objectForKey:@"r_id"]];
-//                [self.userImageView set]
                 [self getZhangDan];
             }
         }
@@ -119,7 +115,7 @@
     
 
 }
-
+//获取详细的账单
 -(void)getZhangDan{
     /*
      a_id	小区a_id
@@ -130,16 +126,6 @@
         NSString *url = GETFZHANGDAN_URL;
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        
-//        XWJAccount *account = [XWJAccount instance];
-//        //    [dict setValue:account.uid forKey:@"userid"];
-//        [dict setValue:@"1" forKey:@"userid"];
-//        
-//        if (self.type==1) {
-//            
-//            [dict setValue:@"维修" forKey:@"type"];
-//        }else
-//            [dict setValue:@"投诉" forKey:@"type"];
     
         [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
     
@@ -167,10 +153,6 @@
             CLog(@"%s fail %@",__FUNCTION__,error);
             
         }];
-    
-    
-    
-    
 }
 
 #pragma mark - Table view data source
@@ -184,11 +166,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-//    if (section == 0) {
         return self.payListArr.count/3;
-//    }
-//    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -200,27 +178,6 @@
     if (!cell) {
         cell = [[XWJPay1TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pay1cell"];
     }
-    // Configure the cell...
-//    cell.headImageView.image = [UIImage imageNamed:@"xinfangbackImg"];
-    
-
-    
-//    cell.imageView.image = [UIImage imageNamed:@"wuyezhangdan1"];
-//    cell.imageView.highlightedImage = [UIImage imageNamed:@"wuyezhangdan2"];
-
-  ////重要标记下面两行
-//    cell.imageView.image = [UIImage imageNamed:@"wuyezhangdan1"];
-//    cell.imageView.highlightedImage = [UIImage imageNamed:@"wuyezhangdan2"];
-//    cell.label1.text = [self.payListArr[indexPath.row] objectForKey:@"t_date"];
-//    cell.label1.text = @"2012.5";
-//    cell.label2.text = @"物业费";
-//    cell.label3.text = @"2000.10";
-//    cell.label4.text = @"水电费";
-//    cell.label5.text = @"1999.10";
-//    cell.label6.text = @"1999.10";
-//    cell.label7.text = @"1999.10";
-
-
     /*
      "a_id" = 1;
      "b_id" = 4;
@@ -240,8 +197,6 @@
     cell.label5.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+1] valueForKey:@"t_money"]];
     cell.label6.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+2] valueForKey:@"t_item"]];
     cell.label7.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+2] valueForKey:@"t_money"]];
-    
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
 }
@@ -319,15 +274,5 @@
     [super didReceiveMemoryWarning];
     //r Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

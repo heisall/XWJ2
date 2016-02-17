@@ -129,19 +129,13 @@
         if (indexPath.row + 1 == (Arr.count +1)/2) {
             cell.View2.hidden = YES;
             titleLabel1.text = Arr[2*indexPath.row][@"Memo"];
-            //            titleLabel2.text = Arr[2*indexPath.row + 1][@""];
             NSURL *photo = [NSURL URLWithString:Arr[indexPath.row * 2][@"Photo"]];
-            //            NSURL *photo2 = [NSURL URLWithString:Arr[indexPath.row * 2 + 1][@"photo"]];
             [img1 sd_setImageWithURL:photo];
-            //            [img2 sd_setImageWithURL:photo2];
             carLabel1.text = Arr[indexPath.row * 2][@"content"];
-            //            carLabel2.text = Arr[indexPath.row * 2 + 1][@"content"];
             
             comLabel1.text = [NSString stringWithFormat:@"%@", Arr[indexPath.row * 2][@"LeaveWordCount"]];
-//            comLabel2.text = [NSString stringWithFormat:@"%@", Arr[indexPath.row * 2 + 1][@"LeaveWordCount"]];
-            
             time1.text = Arr[indexPath.row *2][@"ReleaseTime"];
-            //            time2.text = Arr[indexPath.row *2 + 1][@"ReleaseTime"];
+    
         }else{
             if (indexPath.row == 0) {
                 titleLabel1.text = Arr[indexPath.row][@"Memo"];
@@ -206,9 +200,6 @@
     NSString *url = @"http://www.hisenseplus.com:8100/appPhone/rest/user/myFind";
 //    NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/myMsg";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
-    NSString *userid = [usr valueForKey:@"username"];
-    NSString *a_id = [usr valueForKey:@"a_id"];
     CLog(@"----->%@,%@",userid,a_id);
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -216,8 +207,6 @@
     [dict setObject:@"20" forKey:@"countperpage"];
     [dict setObject:[XWJAccount instance].uid  forKey:@"userid"];
     [dict setObject:[XWJAccount instance].aid forKey:@"a_id"];
-//    [dict setObject:@""  forKey:@"userid"];
-//    [dict setObject:@"" forKey:@"a_id"];
     
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];

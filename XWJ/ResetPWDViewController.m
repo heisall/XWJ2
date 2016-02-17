@@ -58,11 +58,7 @@
 
 -(void)setNavigationBar{
     self.navigationController.navigationBar.hidden = NO;
-    
-    //set navigationitem title titlecolor
     self.navigationItem.title = @"找回密码";
-    
-    //set navigationitem titlecolor
     UIColor * color = [UIColor whiteColor];
     //这里我们设置的是颜色，还可以设置shadow等，具体可以参见api
     NSDictionary * dict = [NSDictionary dictionaryWithObject:color forKey:NSForegroundColorAttributeName];
@@ -74,7 +70,7 @@
     //set navigation bar background color
     self.navigationController.navigationBar.barTintColor  = [UIColor colorWithRed:20.0/255.0 green:157.0/255.0 blue:150.0/255.0 alpha:1.0];
 }
-
+//短信验证码的发送
 - (IBAction)getIDCode:(id)sender {
     [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS
      //这个参数可以选择是通过发送验证码还是语言来获取验证码

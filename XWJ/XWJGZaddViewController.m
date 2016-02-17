@@ -29,14 +29,14 @@
 @end
 
 @implementation XWJGZaddViewController{
-
+    
     UILabel *_label;
 }
 #define imgtag 100
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
     if (self.type == 1) {
         self.navigationItem.title = @"报修";
     }else{
@@ -81,14 +81,14 @@
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
-
-//        [self LoadImageWith:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        //        [self LoadImageWith:UIImagePickerControllerSourceTypePhotoLibrary];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
     
-
-
+    
+    
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -141,14 +141,14 @@
 {
     //获取图片并编码；
     UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
-
+    
     NSUInteger count = self.imageDatas.count;
     
     if (count>6) {
         return;
     }
     UIImageView *imageView = [self.scrollView viewWithTag:imgtag+count];
-
+    
     imageView.image = image;
     
     NSData *data = UIImageJPEGRepresentation(imageView.image,0.4);
@@ -160,9 +160,10 @@
         [self.imageDatas addObject:encodeResult];
     }
     self.scrollView.contentSize =CGSizeMake((IMAGE_WIDTH+spacing) * self.imageDatas.count, IMAGE_WIDTH);
-
+    
     [self dismissViewControllerAnimated:NO completion:nil];
 }
+//取消时结束图片的获取
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     CLog(@"已取消选择");
@@ -196,8 +197,8 @@
             imageView.image = asset.compressionImage;
             
             NSData *data = UIImageJPEGRepresentation(imageView.image,0.4);
-
-
+            
+            
             NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
             if (encodeResult) {
                 
@@ -216,7 +217,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    
     self.tabBarController.tabBar.hidden =YES;
 }
 
@@ -233,7 +234,7 @@
 
 -(void)showSortView:(UIButton *)btn{
     //添加半透明背景图
-
+    
     backview=[[UIView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.window.frame.size.height)];
     backview.backgroundColor=[UIColor colorWithWhite:0 alpha:0.6];
     backview.tag=4444;
@@ -262,10 +263,10 @@
     
     NSMutableArray *array = [NSMutableArray array];
     NSInteger  count = 0  ;
-
+    
     count = self.lp.count;
-            [array addObjectsFromArray:self.lp];
-
+    [array addObjectsFromArray:self.lp];
+    
     for (int i=0; i<count; i++) {
         UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
         button.frame=CGRectMake(0, 40+40*i, helperView.frame.size.width, 40);
@@ -310,7 +311,7 @@
     NSString *jsonString = nil;
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                       options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     if (! jsonData) {
         CLog(@"Got an error: %@", error);
@@ -333,79 +334,79 @@
         [alert show];
         
     }else{
-    [ProgressHUD show:@"正在发布" Interaction:YES];
-
-    [self.guzhangTV resignFirstResponder];
-    NSString *url = GETFGUZHANADD_URL;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    /*
-    	
-     private String userid;
-     private String type;
-     private String content;
-     private String []pics;
-     private String onDoorTime;
-     */
-
-    XWJAccount *account = [XWJAccount instance];
-    
-    
-    
-    
-    
-    
-    [dict setValue:self.guzhangTV.text forKey:@"content"];
-    
-    if (self.imageDatas&&self.imageDatas.count>0) {
-        [dict setObject:self.imageDatas forKey:@"pics"];
-    }
-    [dict setObject:account.uid forKey:@"userid"];
-    if (self.type ==1) {
-        [dict setValue:@"维修" forKey:@"type"];
-    }else
-        [dict setValue:@"投诉" forKey:@"type"];
-    
-    [dict setValue:[self.lp objectAtIndex:self.lpIndex] forKey:@"onDoorTime"];
-    NSString * str = [self DataTOjsonString:dict];
-    
-
-    NSMutableDictionary *guzhang = [NSMutableDictionary dictionary];
-    [guzhang setObject:str forKey:@"complain"];
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager PUT:url parameters:guzhang success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        CLog(@"%s success ",__FUNCTION__);
+        [ProgressHUD show:@"正在发布" Interaction:YES];
         
-        if(responseObject){
-            NSDictionary *dic = (NSDictionary *)responseObject;
+        [self.guzhangTV resignFirstResponder];
+        NSString *url = GETFGUZHANADD_URL;
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        
+        /*
+         
+         private String userid;
+         private String type;
+         private String content;
+         private String []pics;
+         private String onDoorTime;
+         */
+        
+        XWJAccount *account = [XWJAccount instance];
+        
+        
+        
+        
+        
+        
+        [dict setValue:self.guzhangTV.text forKey:@"content"];
+        
+        if (self.imageDatas&&self.imageDatas.count>0) {
+            [dict setObject:self.imageDatas forKey:@"pics"];
+        }
+        [dict setObject:account.uid forKey:@"userid"];
+        if (self.type ==1) {
+            [dict setValue:@"维修" forKey:@"type"];
+        }else
+            [dict setValue:@"投诉" forKey:@"type"];
+        
+        [dict setValue:[self.lp objectAtIndex:self.lpIndex] forKey:@"onDoorTime"];
+        NSString * str = [self DataTOjsonString:dict];
+        
+        
+        NSMutableDictionary *guzhang = [NSMutableDictionary dictionary];
+        [guzhang setObject:str forKey:@"complain"];
+        //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        
+        manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+        [manager PUT:url parameters:guzhang success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            CLog(@"%s success ",__FUNCTION__);
             
-            NSNumber *res =[dic objectForKey:@"result"];
-            [ProgressHUD dismiss];
-            if ([res intValue] == 1) {
+            if(responseObject){
+                NSDictionary *dic = (NSDictionary *)responseObject;
                 
-                NSString *errCode = [dic objectForKey:@"errorCode"];
-                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                alertview.delegate = self;
-                [alertview show];
+                NSNumber *res =[dic objectForKey:@"result"];
+                [ProgressHUD dismiss];
+                if ([res intValue] == 1) {
+                    
+                    NSString *errCode = [dic objectForKey:@"errorCode"];
+                    UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    alertview.delegate = self;
+                    [alertview show];
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                    
+                }
                 
-                [self.navigationController popViewControllerAnimated:YES];
-                
-                
+                CLog(@"dic %@",dic);
             }
             
-            CLog(@"dic %@",dic);
-        }
-        
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        CLog(@"%s fail %@",__FUNCTION__,error);
-        
-    }];
-}
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            CLog(@"%s fail %@",__FUNCTION__,error);
+            
+        }];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -413,13 +414,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

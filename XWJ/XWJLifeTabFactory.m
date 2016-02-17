@@ -19,12 +19,6 @@
  */
 -(UIViewController *)createControllerInstance{
     
-//        UIViewController * life = [[XWJLifeViewController alloc] init];
-//    UIStoryboard * lifeS = [UIStoryboard storyboardWithName:@"LifeStoryboard" bundle:nil];
-//    UIViewController *life = [lifeS instantiateInitialViewController];
-
-//    UIStoryboard * lifeS = [UIStoryboard storyboardWithName:@"XWJShangchengStoryboard" bundle:nil];
-//    UIViewController *life = [lifeS instantiateInitialViewController];
     XWJSHuoViewController *life = [[XWJSHuoViewController alloc] init];
     return life;
 }

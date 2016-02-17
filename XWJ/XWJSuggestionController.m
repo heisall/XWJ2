@@ -29,15 +29,6 @@
     
     textv = [[UITextView alloc]init];
     textv.frame = CGRectMake(5, 90, WIDTH - 10,100);
-    //    UITextField * textField = (UITextField *)[self.view viewWithTag:1];
-    //textF.placeholder = @"请修改建议";
-    //    //    设置文本的字体类型和大小
-    //textv.font = [UIFont italicSystemFontOfSize:15];
-    //    //    设置字体颜色(默认为黑色)
-    //    textField.textColor = [UIColor redColor];
-    
-    //textv.adjustsFontSizeToFitWidth = YES;
-    //textv.borderStyle = UITextBorderStyleRoundedRect;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:textv];
     
@@ -116,29 +107,11 @@
     parameters[@"content"] = textv.text;
     
     [manager PUT:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //解析服务器返回的数据responseObject
-//        NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        CLog(@"------%@",str);
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-        CLog(@"租售数据%@",dict);
-         CLog(@"成功");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CLog(@"请求失败==%@",error);
     }];
-//    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        //解析服务器返回的数据responseObject
-//        //    NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        //  CLog(@"------%@",str);
-//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-//        CLog(@"租售数据%@",dict);
-//         CLog(@"成功");
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        CLog(@"请求失败==%@",error);
-//    }];
-
-
     
 }
 

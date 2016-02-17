@@ -36,10 +36,9 @@
         self.navigationItem.title = @"物业投诉";
     }
     self.guzhangArr = [NSMutableArray array];
-//    [self getGuzhang];
+//使用mj的刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
-        
         [self getGuzhang];
         
     }];
@@ -59,6 +58,7 @@
     self.tabBarController.tabBar.hidden =NO;
     
 }
+//设置报修投诉的头标题
 -(void)setNavRightItem{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
@@ -104,7 +104,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    CLog(@"index path %ld",(long)indexPath.row);
+
     XWJGZTableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -112,12 +112,6 @@
         cell = [[XWJGZTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
 
-//    UILabel *label1 = [cell viewWithTag:1];
-//    UILabel *label2 = [cell viewWithTag:2];
-//    UILabel *label3 = [cell viewWithTag:3];
-//    UILabel *label4 = [cell viewWithTag:4];
-//    UIView *rate = [cell viewWithTag:5];
-//    UIButton *btn  = [cell viewWithTag:6];
     /*
      code = "4-20151220001";
      createtime = "12-20 10:17";
@@ -186,13 +180,13 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
  userid	登录用户id	String
  type	类型（维修、投诉）	String
  */
+//下载故障列表
 -(void)getGuzhang{
     NSString *url = GETFGUZHANG_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -200,7 +194,6 @@
 
     XWJAccount *account = [XWJAccount instance];
     [dict setValue:account.uid forKey:@"userid"];
-//        [dict setValue:@"1" forKey:@"userid"];
 
     if (self.type==1) {
  
@@ -209,8 +202,6 @@
         [dict setValue:@"投诉" forKey:@"type"];
 
     [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
-
-//    [dict setValue:@"1" forKey:@"a_id"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -236,16 +227,7 @@
         
     }];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//常见投诉报修的提交按钮
 -(void)createButton{
 
     UIButton *button  = [[UIButton alloc]initWithFrame:CGRectMake(20, [UIScreen mainScreen].bounds.size.height - 50, [UIScreen mainScreen].bounds.size.width - 40, 30)];

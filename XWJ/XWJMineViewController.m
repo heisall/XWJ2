@@ -48,7 +48,6 @@ NSArray *myImgs;
    
     NSDictionary *dicuser = [[NSDictionary alloc]init];
     [self downLoadData];
-//    self.tableData = [NSArray arrayWithObjects:@"关于信我家",@"修改密码",@"版本检查",@"修改建议" ,@"退出登录" ,nil];
 
     self.tableData = [NSArray arrayWithObjects:@"关于信我家",@"修改密码",@"修改建议" ,@"退出登录" ,nil];
 
@@ -85,10 +84,8 @@ NSArray *myImgs;
     
     self.scrollView.contentSize = CGSizeMake(0, SCREEN_SIZE.height+100);
 }
-
+//获取个人信息
 -(void)downLoadData{
-    
-    
     NSString *url = LOGIN_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -120,6 +117,7 @@ NSArray *myImgs;
         CLog(@"请求失败");
     }];
 }
+//点击图片的时候可以跳转到修改信息界面
 -(void)whenClickImage{
 
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineStoryboard" bundle:nil];
@@ -128,7 +126,7 @@ NSArray *myImgs;
     
 }
 
-
+//修改个人信息的方法
 -(void)getPersonInfo{
     NSUserDefaults *usr = [NSUserDefaults standardUserDefaults];
     NSString *imgstr = [usr valueForKey:@"photo"];
@@ -278,57 +276,8 @@ NSArray *myImgs;
             addr.con =nil;
             [self.navigationController pushViewController:addr animated:YES];
         }
-//                else{
-//                        UIViewController * con = [_mine objectAtIndex:indexPath.row];
-//                        [self.navigationController showViewController:con sender:nil];
-//                    }
-        
 
     }
-    
-    
-    
-    
-    
-//    switch (indexPath.row) {
-//        case 1:
-//            [self.tabBarController setSelectedIndex:3];
-//            break;
-//    
-//        default:{
-//           
-//           
-//
-////            CLog(@"==>%ld",(long)indexPath.row);
-//            if(indexPath.section == 1){
-////                if (indexPath.row == 0) {
-////                 
-////                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GuzhanStoryboard" bundle:[NSBundle mainBundle]];
-////                UIViewController *baoxiu = [storyboard instantiateViewControllerWithIdentifier:@"guzhangbaoxiu"];
-////                [self.navigationController showViewController:baoxiu sender:nil];
-////                }
-//                if(indexPath.row == 0){
-//                    UIStoryboard *guzhang = [UIStoryboard storyboardWithName:@"GuzhanStoryboard" bundle:nil];
-//                    XWJGuzhangViewController *gz2 = [guzhang instantiateInitialViewController];
-//                    gz2.type = 2;
-//                    [self.navigationController showViewController:gz2 sender:nil];
-//                    
-//                }
-//            }
-//            
-//            else{
-//                UIViewController * con = [_mine objectAtIndex:indexPath.row];
-//                [self.navigationController showViewController:con sender:nil];
-//            }
-//        }
-//            break;
-//    }
-//
-//
-//    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-//    [cell setBackgroundColor:[UIColor greenColor]];
-    
-    
 }
 
 #pragma mark - Table view data source

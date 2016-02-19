@@ -48,8 +48,9 @@
     [super viewDidLoad];
     
  self.tableData = [NSMutableArray array];
-    self.tableData1 = [NSMutableArray arrayWithObjects:@"开       盘",@"地       址",
-                       @"状       态",@"优       惠",@"特       点",@"最新动态",@"周边配套",@"详细信息", nil];
+//    初始化楼盘信息的数组
+    
+    self.tableData1 = [NSMutableArray arrayWithObjects:@"开       盘",@"地       址",@"状       态",@"优       惠",@"特       点",@"最新动态",@"周边配套",@"详细信息", nil];
 
     self.photos = [NSMutableArray array];
     

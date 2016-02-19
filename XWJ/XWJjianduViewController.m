@@ -105,6 +105,7 @@
         label2.textColor = [UIColor whiteColor];
         label2.text = [[self.work objectAtIndex:i] valueForKey:@"ReleaseTime"];
         label2.font = [UIFont systemFontOfSize:12];
+        //展示点击的次数
         UILabel * label3 = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 105, 28, 100, 12)];
         label3.textColor = [UIColor whiteColor];
         label3.textAlignment = NSTextAlignmentRight;

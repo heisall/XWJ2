@@ -129,9 +129,10 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     
 }
 /**
- id	二手房id	String
- userid	登录用户id	String
- */
+*id	二手房id	String
+* userid	登录用户id	String
+*/
+//获取二手房的详细信息
 -(void)get2Fangdetail{
     NSString *url = GET2HANDDETAIL_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

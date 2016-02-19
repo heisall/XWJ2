@@ -28,11 +28,9 @@
     
     [self getGuanjiaAD ];
     self.payListArr = [[NSMutableArray alloc]init];
-    // Do any additional setup after loading the view.
     self.navigationItem.title = @"物业账单";
     self.tabBarController.tabBar.hidden = YES;
     self.tableView.delegate = self;
-    self.tableView.dataSource = self;
     self.tableView.dataSource = self;
 
     self.listUnpayBtn.selected = YES;
@@ -132,7 +130,9 @@
             NSString * bid =[self.roomDic valueForKey:@"b_id"]==[NSNull null]?@"":[self.roomDic valueForKey:@"b_id"];
     NSString *rdy=
     [self.roomDic valueForKey:@"r_dy"]==[NSNull null]?@"":[self.roomDic valueForKey:@"r_dy"];
+//    通过三目运算符来判断是否为空，如果为null数据就用空的字符串来代替，如果不为null就直接为真实的数据
     NSString *rid= [self.roomDic valueForKey:@"r_id"]==[NSNull null]?@"":[self.roomDic valueForKey:@"r_id"];
+    
         [dict setValue:bid forKey:@"b_id"];
         [dict setValue:rdy forKey:@"r_dy"];
         [dict setValue:rid forKey:@"r_id"];
@@ -209,6 +209,7 @@
     sender.selected = !sender.selected;
     self.listAllBtn.selected = !sender.selected;
 }
+//全部选择按钮
 - (IBAction)quanXuan:(UIButton *)sender {
     sender.selected = !sender.selected;
     

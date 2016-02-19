@@ -58,6 +58,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     if (self.type == HOUSEZU) {
         self.teseView.hidden = YES;
         self.collectionIView.hidden = NO;
+//        初始化基础设施的数组
         self.collectionData = [NSArray arrayWithObjects:@"床",@"衣柜",@"空调",@"电视",@"冰箱",@"洗衣机",@"天然气",@"暖气",@"热水器",@"宽带",nil];
         [self.collectionIView registerNib:[UINib nibWithNibName:@"ZFCollectionCell" bundle:nil] forCellWithReuseIdentifier:kcellIdentifier];
         [self.collectionIView registerNib:[UINib nibWithNibName:@"XWJSupplementaryView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kheaderIdentifier];
@@ -116,6 +117,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
  id	二手房id	String
  userid	登录用户id	String
 */
+//获取二手房的详情信息
 -(void)get2Fangdetail{
     NSString *url = GET2HANDDETAIL_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -143,7 +145,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
         
     }];
 }
-
+//获取租房的详细信息
 -(void)getZFdetail{
     NSString *url = GETCHUZUDETAIL_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -177,6 +179,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
 -(void)popView{
     [self.navigationController popViewControllerAnimated:NO];
 }
+//添加返回按钮
 -(void)addBackBtn{
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *image  = [UIImage imageNamed:@"back"];
@@ -185,6 +188,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
     [self.adView addSubview:back];
 }
+//更新视图数据
 -(void)updateView{
     
     if ([self.datailDic isEqual:[NSNull null]]){

@@ -27,7 +27,7 @@
 -(void)showList{
     
 }
-
+//设置头标题的城市名称
 -(void)setNavigationBar2{
     
     self.navigationItem.title = @"XX城";

@@ -259,7 +259,7 @@
     //    self.showType = style;
     [pickerVc showPickerVc:self];
 }
-
+//通过获取图片数量来确定生成的imageView的数量
 - (void)pickerViewControllerDoneAsstes:(NSArray *)assets isOriginal:(BOOL)original{
     
     if (assets&&assets.count>0) {

@@ -21,6 +21,7 @@
 @implementation XWJNewHouseInfoViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.dict = [NSMutableDictionary dictionary];

@@ -35,7 +35,9 @@
     if ((NSNull *)[self.dic valueForKey:KEY_AD_TITLE]!=[NSNull null]) {
         
         self.actTitle.text = [self.dic valueForKey:KEY_AD_TITLE];
+        
     }else{
+        
         self.actTitle.text = @"";
         
     }

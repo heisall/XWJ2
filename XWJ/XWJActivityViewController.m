@@ -25,8 +25,8 @@
 }
 -(void)viewDidLoad{
     [super viewDidLoad];
+//    使用通知来设置是否已经报名
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yibaoming) name:@"baoming" object:nil];
-    //    CLog(@"dic,%@",self.dic);
     NSString *sr = [NSString stringWithFormat:@"%ld",(long)self.dic];
     NSString *str = [[NSUserDefaults standardUserDefaults] valueForKey:sr];
     if ([str isEqualToString:@"yibaoming"]) {

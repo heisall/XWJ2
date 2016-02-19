@@ -162,6 +162,7 @@
     NSString *url = GETFINDPUBCOM_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dictp = [NSMutableDictionary dictionary];
+    
     /*
      findId	发现id	String
      types	类型	String,留言/点赞
@@ -170,7 +171,6 @@
      findType	发现类别	String
      leixing	区别是物业还是发现	String,find/supervise
      */
-    
     
     XWJAccount *account = [XWJAccount instance];
     [dictp setValue:[self.dic valueForKey:@"id"]  forKey:@"findId"];
@@ -194,9 +194,6 @@
             if ([res intValue] == 1) {
                 
                 NSString *errCode = [dict objectForKey:@"errorCode"];
-                //                UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:errCode delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                //                alertview.delegate = self;
-                //                [alertview show];
                 if ([types isEqualToString:@"点赞"]) {
                     NSInteger count = [self.zanBtn.titleLabel.text integerValue];
                     count++;
@@ -235,6 +232,7 @@
 }
 
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index{
+//    物业监督图片选择的webview的展示
     XWJWebViewController * web = [[XWJWebViewController alloc] init];
     NSString *urls = [self.dicw objectForKey:@"photo"]==[NSNull null]?@"":[self.dicw objectForKey:@"photo"];
     
@@ -243,7 +241,7 @@
     self.shareImageStr = [url firstObject];
     [self.navigationController pushViewController:web animated:NO];
 }
-//获取物业监督的详情信息
+//    获取物业监督的详情信息
 -(void)getWuyeDetail{
     NSString *url = GETWUYEDETAIL_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -264,7 +262,6 @@
          Photo = "<null>";
          ReleaseTime = "12-15 0:00";
          Types = "\U7559\U8a00";
-         
          */
         if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -422,11 +419,6 @@
     //    cell.contentLabel.backgroundColor = [UIColor redColor];
     //    cell.contentLabel.textColor = [UIColor blackColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    //    [cell.dialBtn setImage:[] forState:<#(UIControlState)#>]
-    //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 69, self.view.bounds.size.width,1)];
-    //    view.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
-    //    [cell addSubview:view];
     return cell;
 }
 

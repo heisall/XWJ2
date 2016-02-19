@@ -47,8 +47,9 @@ NSArray *myImgs;
 -(void)viewDidLoad{
    
     NSDictionary *dicuser = [[NSDictionary alloc]init];
+//    下载最新数据
     [self downLoadData];
-
+//    搭建UI界面
     self.tableData = [NSArray arrayWithObjects:@"关于信我家",@"修改密码",@"修改建议" ,@"退出登录" ,nil];
 
     self.tableview.dataSource = self;
@@ -66,8 +67,6 @@ NSArray *myImgs;
     UIViewController *m3 = [self.storyboard instantiateViewControllerWithIdentifier:@"zscontroller"];
     UIViewController *m4 = [[XWJGZaddViewController alloc]init];
     _mine = [NSArray arrayWithObjects:m1,m2,m3,m4,nil];
-//    XWJMyInfoViewController *info = [[XWJMyInfoViewController alloc] init];
-//    [self getPersonInfo];
     
 //    给我的头的图片增加手势
     UIImageView *imageV  = (UIImageView *)[self.view viewWithTag:1993];

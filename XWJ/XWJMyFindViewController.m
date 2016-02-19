@@ -200,7 +200,6 @@
     NSString *url = @"http://www.hisenseplus.com:8100/appPhone/rest/user/myFind";
 //    NSString *messageUrl = @"http://www.hisenseplus.com:8100/appPhone/rest/user/myMsg";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    CLog(@"----->%@,%@",userid,a_id);
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setObject:@"0" forKey:@"pageindex"];
@@ -221,8 +220,7 @@
 //            CLog(@"arr:%@",arr);
             NSString *result = [dic valueForKey:@"result"];
             if ([result isEqualToString:@"1"]) {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"修改完成" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//                [alert show];
+
                 success(arr);
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"修改失败" message:@"服务器请求异常，请稍后重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

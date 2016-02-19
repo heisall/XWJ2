@@ -38,9 +38,10 @@ static NSString *kcellIdentifier = @"cell";
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+//    获取房产的信息数据
     [self downLoadData];
     self.navigationItem.title = @"我的房产";
-    
+//    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -71,7 +72,7 @@ static NSString *kcellIdentifier = @"cell";
     [self.view addSubview:_tableView];
 }
 
-
+//绑定城市
 -(void)bind{
     
     XWJBindHouseTableViewController *bind = [[XWJBindHouseTableViewController alloc] init];
@@ -82,7 +83,7 @@ static NSString *kcellIdentifier = @"cell";
     [self.navigationController showViewController:bind sender:nil];
 
 }
-#pragma bindhouse delegate
+#pragma bindhouse delegate//选择小区楼座和单元等具体详细信息
 -(void)didSelectAtIndex:(NSInteger)index Type:(HouseMode)type{
     XWJCity *city = [XWJCity instance];
     switch (type) {
@@ -175,20 +176,9 @@ static NSString *kcellIdentifier = @"cell";
     return self.titles.count;
 }
 
-// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //    UITableViewCell *cell;
-    //    cell = [_tableView dequeueReusableCellWithIdentifier:kcellIdentifier forIndexPath:indexPath];
-    XWJMyHouseCell *cell = [XWJMyHouseCell xwjMyHouseCellInitWithTableView:tableView];
-    //    UILabel *title = (UILabel *)[cell viewWithTag:1];
-    //    UILabel *subtitle = (UILabel *)[cell viewWithTag:2];
-    //
-    //    title.text = [_titles objectAtIndex:indexPath.row];
-    //    subtitle.text = [NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
-    //
-    //    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+      XWJMyHouseCell *cell = [XWJMyHouseCell xwjMyHouseCellInitWithTableView:tableView];
     cell.titleLabel.text = [_titles objectAtIndex:indexPath.row];
     cell.DetailLabel.text =[NSString stringWithFormat:@"%@%@单元%@",[_subTitles objectAtIndex:indexPath.row],[_danyuan objectAtIndex:indexPath.row],[_louhao objectAtIndex:indexPath.row]];
     CLog(@"_isDefault:%@",_isDefault);
@@ -212,7 +202,6 @@ static NSString *kcellIdentifier = @"cell";
         }
     }
     XWJMyHouseCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    //    UIImageView *image = cell.imageView;
     cell.imageview.hidden = NO;
     
     //向服务器发送数据请求把房产信息传到服务器
@@ -225,7 +214,6 @@ static NSString *kcellIdentifier = @"cell";
     XWJAccount *account = [XWJAccount instance];
     [housedict setValue:account.uid forKey:@"userid"];
     [housedict setValue:self.JURID[indexPath.row] forKey:@"JU_RID"];
-    //    CLog(@"哈哈哈%@",self.JURID[indexPath.row]);
     [manager POST:changeUrl parameters:housedict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             CLog(@"%@",responseObject);
         if(responseObject){
@@ -239,6 +227,7 @@ static NSString *kcellIdentifier = @"cell";
 
     [self login:[XWJAccount instance].account :[XWJAccount instance].password];;
 }
+//通过用户名与密码来登陆注册
 -(void)login:(NSString *)username :(NSString *)pwd{
     if (username.length>0&&pwd.length>0) {
         

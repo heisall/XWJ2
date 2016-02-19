@@ -218,7 +218,7 @@ NSArray *footer;
  }
  );
  */
-//获取详细的信息
+//获取广告栏的详细信息
 -(void)getAd{
     NSString *url = GETAD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -303,15 +303,17 @@ NSArray *footer;
     
     UIStoryboard *guzhang = [UIStoryboard storyboardWithName:@"GuzhanStoryboard" bundle:nil];
     XWJGuzhangViewController *gz = [guzhang instantiateInitialViewController];
+//    故障的类型为1的时候就是故障报修
     gz.type = 1;
     
     XWJGuzhangViewController *gz2 = [guzhang instantiateInitialViewController];
+//    故障类型为2时候就是物业投诉
     gz2.type = 2;
     self.isBind = [XWJAccount instance].aid?YES:NO;
     NSArray *jump = [NSArray arrayWithObjects:notice,notice2,wu,gz,gz2,pay, nil];
     
     if ([XWJAccount instance].isYouke&&((sender.tag-TAG == 3)||(sender.tag - TAG == 5)||(sender.tag - TAG == 4))) {
-
+        
         UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:@"您还没有绑定房间，请绑定后使用。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         alertview.delegate = self;
         [alertview show];
@@ -332,7 +334,7 @@ NSArray *footer;
     [self.navigationController showViewController:bind sender:nil];
 }
 
-#pragma bindhouse delegate
+#pragma bindhouse delegate//绑定城市的代理函数
 -(void)didSelectAtIndex:(NSInteger)index Type:(HouseMode)type{
     XWJCity *city = [XWJCity instance];
     switch (type) {
@@ -381,7 +383,7 @@ NSArray *footer;
             break;
     }
 }
-
+//获取界面的详细的信息
 -(void)getDetailAD:(NSInteger)index{
     NSString *url = GETDETAILAD_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -411,16 +413,16 @@ NSArray *footer;
         
     }];
 }
-
+//选择首页广告栏的图片时的广告的详情页的选中
 - (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
     
     CLog(@"you clicked image in %@ at index: %ld", bannerView, (long)index);
     if (bannerView.titles) {
         
         [self getDetailAD:index];
-          CLog(@"notice click");
+        CLog(@"notice click");
     }else{
-
+        
         XWJADViewController *acti= [[XWJADViewController alloc] init];
         acti.dic  = [self.shows objectAtIndex:index];
         //        acti.type = [acti.dic valueForKey:@"Types"];
@@ -518,7 +520,7 @@ NSArray *footer;
         
     }else{
         cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:kcellIdentifier4 forIndexPath:indexPath];
-
+        
         for (int i= 0; i<5; i++) {
             UIView *view = (UIView *)[cell viewWithTag:i+1];
             view.userInteractionEnabled = YES;
@@ -543,7 +545,7 @@ NSArray *footer;
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
- 
+    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         CLog(@"%s success ",__FUNCTION__);
@@ -678,7 +680,7 @@ NSArray *footer;
     
 }
 -(void)colleciotnCellclick:(UIButton *)btn{
-
+    
     CLog(@"title %@ tag %lu",btn.titleLabel.text,btn.tag);
     
     int section = [btn.titleLabel.text intValue];

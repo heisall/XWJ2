@@ -187,6 +187,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
             [self.findlistArr addObjectsFromArray:arr];
             
             NSArray *mes = [dic2 objectForKey:@"message"];
+            
             [self.finddetailArr removeAllObjects];
             [self.finddetailArr addObjectsFromArray:mes] ;
             [self.collectionView reloadData];

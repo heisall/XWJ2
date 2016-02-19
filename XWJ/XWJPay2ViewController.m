@@ -65,7 +65,7 @@
     return self.array.count;
     
 }
-
+//某一行的物业物业水电费和电梯的费用
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     

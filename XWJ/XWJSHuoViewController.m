@@ -78,6 +78,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+//    将要开始启动动画
     [super viewWillAppear:animated];
     UIImage *image = [UIImage imageNamed:@"gouwuche"];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -105,7 +106,7 @@
             }
         }
 }
-
+//挑战到展示列表页
 -(void)showList{
     UIViewController * con = [[XWJMyMessageController alloc] init];
     [self.navigationController showViewController:con sender:nil];

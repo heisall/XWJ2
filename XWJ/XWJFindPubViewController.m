@@ -47,10 +47,6 @@
     
     self.typeBackView.layer.borderWidth =0.5;
     self.typeBackView.layer.borderColor = [[UIColor colorWithWhite:0.8  alpha:1] CGColor];
-    //    self.tableView.delegate = self;
-    //    self.tableView.dataSource = self;
-    //    self.dataSource = [NSArray arrayWithObjects:@"二手市场",@"帮帮忙",@"个人商店", nil];
-    //    [self.dataSource removeObjectAtIndex:0];
     self.contentTextView.delegate = self;
     self.select = -1;
     self.imageArray = [NSMutableArray array];
@@ -111,7 +107,7 @@
     helperView.layer.cornerRadius=5;
     helperView.tag=1002;
     helperView.clipsToBounds=YES;
-    //    helperView.contentSize = CGSizeMake(helperView.frame.size.width, 500);
+    
     [backview addSubview:helperView];
     
     UILabel *titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 200, 40)];
@@ -126,7 +122,7 @@
     
     array = self.dataSource;
     NSInteger  count = array.count  ;
-    //    [array addObjectsFromArray:self.findlistArr];
+//    创建选择图片的imageView的数量
     for (int i=0; i<count; i++) {
         UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
         button.frame=CGRectMake(0, 40+40*i, helperView.frame.size.width, 40);
@@ -146,7 +142,7 @@
         
         [helperView addSubview:button];
     }
-    
+//    关闭按钮
     UIButton *closeButton=[UIButton buttonWithType:UIButtonTypeCustom];
     closeButton.frame=CGRectMake(self.view.window.frame.size.width-kHelperOrign_X-32/2, kHelperOrign_Y-32/2, 32, 32);
     [backview addSubview:closeButton];
@@ -193,13 +189,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+//    创建发布的提交按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
     [btn setTitle:@"发布" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
-    //    [btn setBackgroundImage:image forState:UIControlStateNormal];
     self.rightBarItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = self.rightBarItem;
     
@@ -277,8 +272,6 @@
         }
         for (NSInteger i=0; i<count; i++) {
             LGPhotoAssets *asset = [assets objectAtIndex:i];
-            //            UIImageView *imageView = [self.imageScroll viewWithTag:imgtag+i+imgCount];
-            //            imageView.image = asset.compressionImage;
             NSData *data = UIImageJPEGRepresentation(asset.compressionImage,0.4);
             
             NSString* encodeResult = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];

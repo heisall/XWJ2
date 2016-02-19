@@ -76,9 +76,9 @@
     web.url = url;
     [self.navigationController  showViewController:web sender:self];
 }
-
+//添加视图
 -(void)addView{
-//    adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
+
     adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.width/2)];
 
     self.btn = [NSMutableArray array];
@@ -90,10 +90,6 @@
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0,  i*(BTN_HEIGHT+1), BTN_WIDTH, BTN_HEIGHT);
         [btn setTitle:[[self.thumbArr objectAtIndex:i] objectForKey:@"cateName"] forState:UIControlStateNormal];
-        
-
-        
-//        [btn setBackgroundImage:[UIImage imageNamed:@"shuoselect"] forState:UIControlStateSelected];
         [btn setBackgroundImage:[UIImage imageNamed:@"shuonormal"] forState:UIControlStateNormal];
         
         [btn setTitleColor:XWJColor(77, 78, 79) forState:UIControlStateNormal];
@@ -120,9 +116,6 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(BTN_WIDTH, scroll.frame.origin.y, SCREEN_SIZE.width-BTN_WIDTH, scroll.bounds.size.height)];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJShuoTableCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJTuangouCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
-
-
-//    table.backgroundColor = [UIColor grayColor];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.hidden = YES;
@@ -154,10 +147,7 @@
     [dict setValue:[[self.thumbArr objectAtIndex:index] objectForKey:@"id"] forKey:@"cateId"];
     [dict setValue:@"0" forKey:@"pageindex"];
     [dict setValue:@"20" forKey:@"countperpage"];
-    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
     
-    //    [dict setValue:@"1" forKey:@"a_id"];
-    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
     /*
      pageindex	第几页	String,从0开始
      countperpage	每页条数	String

@@ -87,7 +87,9 @@ static NSString *kcellIdentifier = @"cell";
             }
             CLog(@"dic++++++ %@",_idArray);
         }
+//        在此结束刷新
         [self.tableView.mj_header endRefreshing];
+//        重新加载数据
         [_tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CLog(@"%s fail %@",__FUNCTION__,error);

@@ -59,13 +59,6 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    //    UIControl *controlView = [[UIControl alloc] initWithFrame:self.view.frame];
-    //    [controlView addTarget:self action:@selector(leaveEditMode) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view insertSubview:controlView atIndex:0];
-    //    controlView.backgroundColor = [UIColor clearColor];
-    
-    //    [self initView];
     NSMutableDictionary  *dic = [NSMutableDictionary dictionary];
     
     UIImage *image = [UIImage imageNamed:@"mor_icon_default"];
@@ -120,7 +113,6 @@
 }
 #pragma mark - 分享请求
 - (void)createShareSuccessRequest{
-    CLog(@"请求的参数----%@\n----%@\n",[self.dic valueForKey:@"id"],FINDSUCCESSSHARE);
     NSString* requestAddress = FINDSUCCESSSHARE;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
@@ -237,7 +229,7 @@
     self.shareImageStr = [url firstObject];
     [self.navigationController pushViewController:web animated:NO];
 }
-
+//获得发现的详细的信息
 -(void)getFind:(NSInteger )index{
     
     NSString *url = GETFIND_URL;
@@ -305,18 +297,6 @@
                     CLog(@"%@",self.dic);
                     [self initView];
                 }
-                
-                
-                
-                //                dispatch_async(dispatch_get_main_queue(), ^{
-                //
-                //                    self.tableView.frame = CGRectMake(0
-                //                                                      , self.tableView.frame.origin.y, SCREEN_SIZE.width, 100*self.array.count);
-                ////                    [self.view setNeedsLayout];
-                //                });
-                //                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
-                //                [self.comBtn setTitle:[NSString stringWithFormat:@"%@",self.dicWork] forState:UIControlStateNormal];
-                //                self.backScroll.contentSize =CGSizeMake(0, self.tableView.frame.origin.y+self.tableView.frame.size.height+200);
                 self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
                 [self.tableView reloadData];
                 self.scrollView.contentSize = CGSizeMake(0,self.phraseBtn.frame.origin.y +60+100*self.array.count);
@@ -344,8 +324,9 @@
     [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
     [_CommentBtn setTitle:leaveCount forState:UIControlStateNormal];
     [self.shareBtn setTitle:wxCount forState:UIControlStateNormal];
-    //    [_shareBtn setTitle:qqCount forState:UIControlStateNormal];
-    //    [_phraseBtn setTitle:zanCount forState:UIControlStateNormal];
+/*
+       使用三目运算符来处理nsnull类型的字符串，用空的字符串来替换NSNull数据，使得NSNull不至于显示出来，或者是因为缺少字段数据而导致程序的崩溃
+*/
     NSString * name = [self.dic objectForKey:@"NickName"]==[NSNull null]?@" ":[NSString stringWithFormat:@"%@",[self.dic objectForKey:@"NickName"]];
     
     [_infoBtn setTitle:name forState:UIControlStateNormal];
@@ -360,6 +341,7 @@
     }else{
         self.phraseBtn.selected = NO;
     }
+//   判断发现的类型
     NSString *type = [self.dic objectForKey:@"Memo"];
     if ([type isEqualToString:@"社区分享"]) {
         _typeLabel.backgroundColor = XWJColor(255,44, 56);
@@ -372,22 +354,12 @@
     NSString * userP = [self.dic objectForKey:@"userP"]==[NSNull null]?nil:[self.dic objectForKey:@"userP"];
     if (userP) {
         [_infoBtn.imageView sd_setImageWithURL:[NSURL URLWithString:userP] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            
-            
-            //        _infoBtn.imageView.contentMode = UIViewContentModeCenter;
-            //        _infoBtn.imageView.frame = CGRectMake(_infoBtn.imageView.frame.origin.x, _infoBtn.imageView.frame.origin.y, _infoBtn.bounds.size.height, _infoBtn.bounds.size.height);
-            
             CGFloat width=  _infoBtn.bounds.size.height-5;
             _infoBtn.imageView.layer.cornerRadius = width/2;
             [_infoBtn setImage:[image transformWidth:width height:width] forState:UIControlStateDisabled];
             
         }];
     }
-    
-    
-    //    [_infoBtn.imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
-    
-    
     NSString *urls = [self.dic objectForKey:@"Photo"]==[NSNull null]?@"":[self.dic objectForKey:@"Photo"];
     
     NSArray *url = [urls componentsSeparatedByString:@","];
@@ -417,35 +389,11 @@
                                              currentPageIndicatorTintColor:XWJGREENCOLOR
                                                     pageIndicatorTintColor:[UIColor whiteColor]
                                                                           :UIViewContentModeScaleAspectFit];
-            //            LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,
-            //                                                                                    self.imageView.bounds.size.height)
-            //
-            //                                                                delegate:self
-            //                                                               imageURLs:url
-            //                                                        placeholderImage:@"devAdv_default"
-            //                                                           timerInterval:time
-            //                                           currentPageIndicatorTintColor:XWJGREENCOLOR
-            //                                                  pageIndicatorTintColor:[UIColor whiteColor]];
             bannerView;
         })];
     
     //    [_imageView sd_setImageWithURL:[NSURL URLWithString:userP] placeholderImage:[UIImage imageNamed: @"demo"]];
 }
-
-/*
- "a_id" = "<null>";
- appID = 12;
- clickPraiseCount = 0;
- content = "\U661f\U5df4\U514b\U4e4b\U9ebb\U8fa3\U706b\U9505";
- id = 10;
- leaveWordCount = 0;
- nickName = "<null>";
- photo = "http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535403.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535601.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535471.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535433.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535420.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535552.jpg";
- releaseTime = "12-08 20:13";
- shareQQCount = 0;
- shareWXCount = 0;
- types = "\U597d\U4eba\U597d\U4e8b";
- */
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -508,18 +456,9 @@
     cell.timeLabel.text = [dic objectForKey:@"ReleaseTime"]==[NSNull null]?@" ":[dic objectForKey:@"ReleaseTime"];
     cell.contentLabel.text = [dic objectForKey:@"LeaveWord"]==[NSNull null]?@" ":[dic objectForKey:@"LeaveWord"];
     
-    //    cell.headImgView.image = [dic objectForKey:KEY_HEADIMG];
-    //    cell.commenterLabel.text = [dic valueForKey:KEY_TITLE];
-    //    cell.timeLabel.text = [dic valueForKey:KEY_TIME];
-    //    cell.contentLabel.text = [dic valueForKey:KEY_CONTENT];
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    //    [cell.dialBtn setImage:[] forState:<#(UIControlState)#>]
-    //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 69, self.view.bounds.size.width,1)];
-    //    view.backgroundColor  = [UIColor colorWithRed:206.0/255.0 green:207.0/255.0 blue:208.0/255.0 alpha:1.0];
-    //    [cell addSubview:view];
-    return cell;
+        return cell;
 }
 
 - (void)registerForKeyboardNotifications
@@ -550,10 +489,6 @@
     CLog(@"hight_hitht:%f",kbSize.height);
     
     self.bottomRect = self.bottomView.frame ;
-    //    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-(kbSize.height-self.bottomRect.size.height), self.bottomRect.size.width, self.bottomRect.size.height);
-    
-    //    self.bottomView.frame = CGRectMake(self.bottomRect.origin.x, self.bottomRect.origin.y-kbSize.height, self.bottomRect.size.width, self.bottomRect.size.height);
-    
     self.textView.text = @"";
     CGFloat keyboardhight;
     if(kbSize.height == 216)

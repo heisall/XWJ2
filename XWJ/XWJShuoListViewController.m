@@ -76,6 +76,7 @@
     web.url = url;
     [self.navigationController  showViewController:web sender:self];
 }
+
 //添加视图
 -(void)addView{
 

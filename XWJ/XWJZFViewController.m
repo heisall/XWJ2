@@ -587,7 +587,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 
 //    [dict setValue:@"1" forKey:@"a_id"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"10"  forKey:@"countperpage"];
+    [dict setValue:@"200"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

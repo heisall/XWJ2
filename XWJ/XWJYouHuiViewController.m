@@ -20,15 +20,14 @@
     self.navigationItem.title = @"优惠政策";
     
 
-    CGSize size = CGSizeMake(self.view.frame.size.width,CGFLOAT_MAX);
-    UIFont* theFont = [UIFont systemFontOfSize:12];
+    CGSize size = CGSizeMake(self.view.frame.size.width - 10,CGFLOAT_MAX);
+    UIFont* theFont = [UIFont systemFontOfSize:16];
 
     //计算文字所占区域
     CGSize labelSize = [self.zhengce boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : theFont} context:nil].size;
-//    UILabel * labl = [[UILabel alloc] initWithFrame:CGRectMake(5, 70, self.view.frame.size.width -10, 250)];
-    UILabel * labl = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, self.view.frame.size.width , labelSize.height+100)];
+    UILabel * labl = [[UILabel alloc] initWithFrame:CGRectMake(5, 70, self.view.frame.size.width -10 , labelSize.height+10)];
+    labl.font = [UIFont systemFontOfSize:16];
     labl.text = self.zhengce;
-//    labl.numberOfLines = 0;
     [labl setNumberOfLines:0];
     labl.lineBreakMode = NSLineBreakByWordWrapping;
     [self.view addSubview:labl];

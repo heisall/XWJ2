@@ -439,7 +439,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     NSURL *url = [NSURL URLWithString:[[urls componentsSeparatedByString:@","] objectAtIndex:0]];
     [imageView sd_setImageWithURL:url
                   placeholderImage:[UIImage imageNamed: @"demo"]];
-                                    //    imageView.image = [UIImage imageNamed:@"demo"];
+    //    imageView.image = [UIImage imageNamed:@"demo"];
     imageView2.image = [UIImage imageNamed:@"findCellMsgIcon"];
     
     

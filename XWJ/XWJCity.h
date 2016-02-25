@@ -123,6 +123,7 @@ id = 9788;
  types = 0;
  */
 -(void)getActive:(NSString *)type :(void (^)(NSArray *arr))success;
+-(void)getActive:(NSString *)type WithPage:(NSString*)pageStr :(void (^)(NSArray *arr))success;
 
 /*
  data =     {

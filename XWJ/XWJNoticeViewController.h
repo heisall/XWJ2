@@ -15,6 +15,6 @@
 #define KEY_AD_ID  @"id"
 
 @interface XWJNoticeViewController : XWJBaseViewController
-@property(nonatomic)NSArray *array;
+@property(nonatomic)NSMutableArray *array;
 @property NSString *type;
 @end

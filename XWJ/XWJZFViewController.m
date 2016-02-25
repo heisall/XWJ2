@@ -577,7 +577,6 @@ typedef NS_ENUM(NSUInteger, selecttype) {
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         CLog(@"%s fail %@",__FUNCTION__,error);
-        
     }];
 }
 //上拉加载二手房列表信息

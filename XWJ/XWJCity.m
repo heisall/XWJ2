@@ -318,7 +318,7 @@
 //        [dict setValue:@"1"  forKey:@"a_id"];
     [dict setValue:type  forKey:@"types"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"100"  forKey:@"countperpage"];
+    [dict setValue:@"15"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -351,6 +351,48 @@
         //        window.rootViewController = tab;            //        });
     }];
 }
+-(void)getActive:(NSString *)type WithPage:(NSString*)pageStr :(void (^)(NSArray *arr))success{
+    NSString *url = GETACTIVE_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
+    //        [dict setValue:@"1"  forKey:@"a_id"];
+    [dict setValue:type  forKey:@"types"];
+    [dict setValue:pageStr forKey:@"pageindex"];
+    [dict setValue:@"15"  forKey:@"countperpage"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            
+            //            NSMutableArray * array = [NSMutableArray array];
+            //            XWJCity *city  = [[XWJCity alloc] init];
+            
+            NSArray *arr  = [dic objectForKey:@"data"];
+            for (NSDictionary *d in arr) {
+                CLog(@"dic %@",d);
+            }
+            
+            success(arr);
+            CLog(@"dic %@",dic);
+        }
+        //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+        //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        //        window.rootViewController = tab;
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        //        dispatch_async(dispatch_get_main_queue(), ^{
+        //        XWJTabViewController *tab = [[XWJTabViewController alloc] init];
+        //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        //        window.rootViewController = tab;            //        });
+    }];
+}
+
 
 -(void)getRoom:(void (^)(NSArray *arr))success{
     NSString *url = GETROOM_URL;

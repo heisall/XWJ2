@@ -28,9 +28,14 @@
 }
 
 @end
-@implementation XWJFindViewController
+@implementation XWJFindViewController{
+
+        NSInteger _currentPage;
+}
 static NSString *kcellIdentifier = @"findcollectionCellID";
 -(void)viewDidLoad{
+    
+    _currentPage = 0;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
@@ -43,12 +48,24 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 
     self.select = -1;
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _currentPage = 0;
         // 进入刷新状态后会自动调用这个block
         if (self.select>=0) {
             [self getFindList:[[self.findlistArr objectAtIndex:self.select] valueForKey:@"dictValue"]];
         }else{
             [self getFindList:nil];
         }
+    }];
+    self.collectionView.mj_footer  = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        // 进入加载状态后会自动调用这个block
+        _currentPage ++;
+        NSString *pageStr  = [NSString stringWithFormat:@"%ld",_currentPage];
+        if (self.select>=0) {
+            [self getFindList:[[self.findlistArr objectAtIndex:self.select] valueForKey:@"dictValue"] withPage:pageStr];
+        }else{
+            [self getFindList:nil withPage:pageStr];
+        }
+        [self.collectionView.mj_footer endRefreshing];
     }];
 
 //    [self getFindList:nil];
@@ -155,7 +172,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 
 //参数：pageindex：第几页（从0开始）countperpage：每页条数 a_id ：小区id，types:类型 userid:用户id
 //发现页面列表的信息
--(void)getFindList:(NSString *)type{
+-(void)getFindList:(NSString *)type withPage:(NSString *)pageStr{
     NSString *url = GETFINDLIST_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -164,8 +181,8 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
     if (type) {
         [dict setValue:type  forKey:@"types"];
     }
-    [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"20"  forKey:@"countperpage"];
+    [dict setValue:pageStr forKey:@"pageindex"];
+    [dict setValue:@"1"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -182,13 +199,13 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
             NSMutableDictionary *quanbu = [NSMutableDictionary dictionary];
             [quanbu setValue:@"全部" forKey:@"memo"];
             
-            [self.findlistArr removeAllObjects];
+ //           [self.findlistArr removeAllObjects];
             [self.findlistArr addObject:quanbu];
             [self.findlistArr addObjectsFromArray:arr];
             
             NSArray *mes = [dic2 objectForKey:@"message"];
             
-            [self.finddetailArr removeAllObjects];
+//            [self.finddetailArr removeAllObjects];
             [self.finddetailArr addObjectsFromArray:mes] ;
             [self.collectionView reloadData];
             
@@ -213,6 +230,65 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
 
     }];
 }
+-(void)getFindList:(NSString *)type{
+    NSString *url = GETFINDLIST_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[XWJAccount instance].aid  forKey:@"a_id"];
+    
+    if (type) {
+        [dict setValue:type  forKey:@"types"];
+    }
+    [dict setValue:@"0" forKey:@"pageindex"];
+    [dict setValue:@"1"  forKey:@"countperpage"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        [self.collectionView.mj_header endRefreshing];
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            
+            NSDictionary *dic2  = [dic objectForKey:@"data"];
+            NSArray * arr = [dic2 objectForKey:@"types"];
+            
+            NSMutableDictionary *quanbu = [NSMutableDictionary dictionary];
+            [quanbu setValue:@"全部" forKey:@"memo"];
+            
+            [self.findlistArr removeAllObjects];
+            [self.findlistArr addObject:quanbu];
+            [self.findlistArr addObjectsFromArray:arr];
+            
+            NSArray *mes = [dic2 objectForKey:@"message"];
+            
+            [self.finddetailArr removeAllObjects];
+            [self.finddetailArr addObjectsFromArray:mes];
+            [self.collectionView reloadData];
+            
+            
+            if (self.select>=0) {
+                self.typeLabel.text = [[self.findlistArr objectAtIndex:self.select] valueForKey:@"memo"];
+            }else{
+                self.typeLabel.text = [[self.findlistArr objectAtIndex:0] valueForKey:@"memo"];
+            }
+            
+            if([self.typeLabel.text isEqualToString:@"全部" ]){
+                self.typeLabel.text = @"信息类别";
+            }
+            
+            CLog(@"dic %@",dic);
+        }
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 
 -(void)getFind:(NSInteger )index{
     

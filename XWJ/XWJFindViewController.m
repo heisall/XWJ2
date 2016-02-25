@@ -182,7 +182,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         [dict setValue:type  forKey:@"types"];
     }
     [dict setValue:pageStr forKey:@"pageindex"];
-    [dict setValue:@"1"  forKey:@"countperpage"];
+    [dict setValue:@"20"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -240,7 +240,7 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
         [dict setValue:type  forKey:@"types"];
     }
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"1"  forKey:@"countperpage"];
+    [dict setValue:@"20"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {

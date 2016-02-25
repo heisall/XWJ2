@@ -120,7 +120,7 @@
             
             self.dict  = [dic objectForKey:@"data"];
 
-//            [self updateView];
+            //            [self updateView];
             //            [self.houseArr addObjectsFromArray:arr];
             //            [self.tableView reloadData];
             CLog(@"dic %@",dic);

@@ -48,7 +48,10 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 @property NSString * searchStr;
 @end
 
-@implementation XWJZFViewController
+@implementation XWJZFViewController{
+
+        NSInteger _currentPage;
+}
 
 - (void)viewDidLoad {
     
@@ -56,6 +59,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     /**
      *  注册所有的
      */
+    _currentPage = 0;
     UIControl *controlView = [[UIControl alloc] initWithFrame:self.view.frame];
     [controlView addTarget:self action:@selector(resiginTextFields) forControlEvents:UIControlEventTouchUpInside];
     [self.view.window addSubview:controlView];
@@ -122,9 +126,12 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
-        
         [self loadData];
         
+    }];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        //进入加载状态后会自动调用这个block
+        [self loadNextPageDate];
     }];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -158,7 +165,10 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     self.navigationItem.title = title;
 }
+
+//下载数据
 -(void)loadData{
+    _currentPage = 0;
     switch (self.type) {
         case HOUSENEW:{
             
@@ -166,6 +176,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
                 [self getXinFang:self.searchStr];
             }else{
                 [self getXinFang:nil];
+                [self.tableView.mj_header endRefreshing];
             }
         }
             break;
@@ -173,10 +184,47 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             
             if (self.searchStr&&self.searchStr.length>0) {
                 [self get2handfang:self.searchStr];
-
-            }else
+            }else{
                 [self get2handfang:nil];
+            [self.tableView.mj_header endRefreshing];
+            }
+        }
+            break;
+        case HOUSEZU:{
+            if (self.searchStr&&self.searchStr.length>0) {
+                [self getZFang:self.searchStr];
+            }else{
+                [self getZFang:nil];
+            [self.tableView.mj_header endRefreshing];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+-(void)loadNextPageDate{
+    _currentPage ++;
+    NSString *str = [NSString stringWithFormat:@"%ld",_currentPage];
+    switch (self.type) {
+        case HOUSENEW:{
             
+            if (self.searchStr&&self.searchStr.length>0) {
+                [self getXinFang:self.searchStr WithType:nil];
+            }else{
+                [self getXinFang:nil WithType:str];
+                [self.tableView.mj_footer endRefreshing];
+            }
+        }
+            break;
+        case HOUSE2:{
+            
+            if (self.searchStr&&self.searchStr.length>0) {
+                [self get2handfang:self.searchStr];
+                
+            }else
+                [self get2handfang:nil WithType:str];
+            [self.tableView.mj_footer endRefreshing];
             
         }
             break;
@@ -184,12 +232,15 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             if (self.searchStr&&self.searchStr.length>0) {
                 [self getZFang:self.searchStr];
             }else
-                [self getZFang:nil];
+                [self getZFang:nil WithType:str];
+            [self.tableView.mj_footer endRefreshing];
         }
             break;
         default:
             break;
     }
+
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -403,7 +454,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     self.searchStr = ser.text;
     switch (self.type) {
         case HOUSENEW:{
-            [self getXinFang:ser.text];
+            [self getXinFang:ser.text WithType:nil];
         }
             break;
         case HOUSE2:{
@@ -503,7 +554,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     [dict setValue:[[self.mianji objectAtIndex:self.mianjiIndex] objectForKey:@"dicKey"] forKey:@"square"];
     [dict setValue:[[self.huxing objectAtIndex:self.huxingIndex] objectForKey:@"dicKey"] forKey:@"style"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"200"  forKey:@"countperpage"];
+    [dict setValue:@"10"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -518,8 +569,6 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             NSArray *arr  = [dic objectForKey:@"data"];
             [self.houseArr removeAllObjects];
             [self.houseArr addObjectsFromArray:arr];
-            
-            [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
             CLog(@"dic %@",dic);
         }
@@ -531,12 +580,55 @@ typedef NS_ENUM(NSUInteger, selecttype) {
         
     }];
 }
-
+//上拉加载二手房列表信息
+-(void)get2handfang:(NSString *)tex WithType:(NSString *)str{
+    NSString *url = GET2HAND_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    if (tex) {
+        [dict setValue:tex forKey:@"buildingInfo"];
+    }
+    
+    if (self.quyuIndex==0) {
+        
+    }else
+        [dict setValue:[[self.quyu objectAtIndex:self.quyuIndex] objectForKey:@"dicValue"] forKey:@"district"];
+    [dict setValue:[[self.price objectAtIndex:self.priceIndex] objectForKey:@"dicKey"]  forKey:@"price"];
+    [dict setValue:[[self.mianji objectAtIndex:self.mianjiIndex] objectForKey:@"dicKey"] forKey:@"square"];
+    [dict setValue:[[self.huxing objectAtIndex:self.huxingIndex] objectForKey:@"dicKey"] forKey:@"style"];
+    [dict setValue:str forKey:@"pageindex"];
+    [dict setValue:@"10"  forKey:@"countperpage"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            
+            //            NSMutableArray * array = [NSMutableArray array];
+            //            XWJCity *city  = [[XWJCity alloc] init];
+            
+            NSArray *arr  = [dic objectForKey:@"data"];
+            [self.houseArr addObjectsFromArray:arr];
+            [self.tableView reloadData];
+            CLog(@"dic %@",dic);
+        }
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+//获取租房信息列表
 -(void)getZFang:(NSString *)area{
     NSString *url = GETCHUZU_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-
+    
     if (area) {
         [dict setValue:area  forKey:@"buildingInfo"];
     }
@@ -546,7 +638,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     [dict setValue:[[self.mianji objectAtIndex:self.mianjiIndex] objectForKey:@"dicKey"] forKey:@"fkfs"];
     [dict setValue:[[self.huxing objectAtIndex:self.huxingIndex] objectForKey:@"dicKey"] forKey:@"hx"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"200"  forKey:@"countperpage"];
+    [dict setValue:@"10"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -561,7 +653,46 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             NSArray *arr  = [dic objectForKey:@"data"];
             [self.houseArr removeAllObjects];
             [self.houseArr addObjectsFromArray:arr];
-            [self.tableView.mj_header endRefreshing];
+            [self.tableView reloadData];
+            CLog(@"dic %@",dic);
+        }
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+//加载租房信息列表
+-(void)getZFang:(NSString *)area WithType:(NSString *)str{
+    NSString *url = GETCHUZU_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+
+    if (area) {
+        [dict setValue:area  forKey:@"buildingInfo"];
+    }
+    
+    [dict setValue:[[self.quyu objectAtIndex:self.quyuIndex] objectForKey:@"dicKey"] forKey:@"area"];  
+    [dict setValue:[[self.price objectAtIndex:self.priceIndex] objectForKey:@"dicKey"]  forKey:@"zujin"];
+    [dict setValue:[[self.mianji objectAtIndex:self.mianjiIndex] objectForKey:@"dicKey"] forKey:@"fkfs"];
+    [dict setValue:[[self.huxing objectAtIndex:self.huxingIndex] objectForKey:@"dicKey"] forKey:@"hx"];
+    [dict setValue:str forKey:@"pageindex"];
+    [dict setValue:@"10"  forKey:@"countperpage"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            
+            //            NSMutableArray * array = [NSMutableArray array];
+            //            XWJCity *city  = [[XWJCity alloc] init];
+            
+            NSArray *arr  = [dic objectForKey:@"data"];
+            [self.houseArr addObjectsFromArray:arr];
             [self.tableView reloadData];
             CLog(@"dic %@",dic);
         }
@@ -574,7 +705,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     }];
 }
 //获取新房的信息列表
--(void)getXinFang:(NSString *)area{
+-(void)getXinFang:(NSString *)area {
     NSString *url = GETXINFANG_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -587,7 +718,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
 
 //    [dict setValue:@"1" forKey:@"a_id"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"200"  forKey:@"countperpage"];
+    [dict setValue:@"10"  forKey:@"countperpage"];
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -602,7 +733,8 @@ typedef NS_ENUM(NSUInteger, selecttype) {
             NSArray *arr  = [dic objectForKey:@"data"];
             [self.houseArr removeAllObjects];
             [self.houseArr addObjectsFromArray:arr];
-            [self.tableView.mj_header endRefreshing];
+            CLog(@"dic打印 %@",dic);
+           
             [self.tableView reloadData];
             
             CLog(@"dic %@",dic);
@@ -615,6 +747,48 @@ typedef NS_ENUM(NSUInteger, selecttype) {
         
     }];
 }
+//加载新房下一页信息列表
+-(void)getXinFang:(NSString *)area WithType:(NSString *)str{
+    NSString *url = GETXINFANG_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    if (area) {
+        [dict setValue:area  forKey:@"area"];
+    }
+    
+    [dict setValue:[XWJAccount instance].aid forKey:@"a_id"];
+    
+    //    [dict setValue:@"1" forKey:@"a_id"];
+    [dict setValue:str forKey:@"pageindex"];
+    [dict setValue:@"10"  forKey:@"countperpage"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            
+            //            NSMutableArray * array = [NSMutableArray array];
+            //            XWJCity *city  = [[XWJCity alloc] init];
+            
+            NSArray *arr  = [dic objectForKey:@"data"];
+            [self.houseArr addObjectsFromArray:arr];
+            
+            [self.tableView reloadData];
+            
+            CLog(@"dic %@",dic);
+        }
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 //设置正确的头标题
 -(void)setRigthNavItem:(int)d{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -121,13 +121,13 @@
 }
 //参数：id:通知/活动id ，account:用户账号，phone：手机号码， name:姓名
 - (IBAction)enroll:(UIButton *)sender {
-    
-    
+
     UIStoryboard *st =[UIStoryboard storyboardWithName:@"HomeStoryboard" bundle:nil];
     XWJBMViewController *bm = [st instantiateViewControllerWithIdentifier:@"baoming"];
     bm.houdongId = [self.dic valueForKey:KEY_AD_ID];
     [self.navigationController showViewController:bm sender:nil];
     CLog(@"baoming");
+    
 }
 
 @end

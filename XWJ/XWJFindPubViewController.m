@@ -280,7 +280,6 @@
                 [self.imageArray addObject:encodeResult];
             }else{
                 [self.imageArray addObject:data];
-                
             }
             
         }

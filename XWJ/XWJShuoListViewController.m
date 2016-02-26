@@ -52,7 +52,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
     self.tabBarController.tabBar.hidden = YES;
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -286,6 +286,10 @@
     footer.textLabel.font = [UIFont fontWithName:@"Arial" size:14.0];
 }
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if(section ==0){
+        return  @"商户列表";
+    }
+
     if(section ==1){
         return  @"团购商品";
     }

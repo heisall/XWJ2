@@ -688,9 +688,23 @@ NSArray *footer;
         case 0:
         {
             XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
+            if (btn.tag - 1 == 3 ){
+//鲜花跳转
+                XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
+                //            list.dic = [self.thumb objectAtIndex:index-1000];
+                list.dic = [self.shanghuArr objectAtIndex:3];
+                [self.navigationController showViewController:list sender:self];
+            }else if(btn.tag - 1 == 4){
+//蛋糕跳转
+                XWJShuoListViewController * list= [[XWJShuoListViewController alloc] init];
+                //            list.dic = [self.thumb objectAtIndex:index-1000];
+                list.dic = [self.shipinArr objectAtIndex:2];
+                [self.navigationController showViewController:list sender:self];
+            }else{
             //            list.dic = [self.thumb objectAtIndex:index-1000];
             list.dic = [self.shuoArr objectAtIndex:btn.tag-1];
             [self.navigationController showViewController:list sender:self];
+            }
             
             //            [self.tabBarController setSelectedIndex:2];
         }

@@ -282,7 +282,7 @@
             [button setBackgroundColor:XWJColor(252, 150, 146)];
         }
         else{
-            [button setTitle:@"商城优惠" forState:UIControlStateNormal];
+            [button setTitle:@"商户优惠" forState:UIControlStateNormal];
             [button setBackgroundColor:XWJColor(144, 167, 237)];
             
         }
@@ -308,7 +308,7 @@
             
         }
         else{
-            [button setTitle:@"海信商城" forState:UIControlStateNormal];
+            [button setTitle:@"海信电器" forState:UIControlStateNormal];
             [button setBackgroundColor:XWJColor(252, 177, 133)];
             
         }

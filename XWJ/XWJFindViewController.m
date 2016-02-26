@@ -219,7 +219,6 @@ static NSString *kcellIdentifier = @"findcollectionCellID";
             if([self.typeLabel.text isEqualToString:@"全部" ]){
                 self.typeLabel.text = @"信息类别";
             }
-
             CLog(@"dic %@",dic);
         }
 

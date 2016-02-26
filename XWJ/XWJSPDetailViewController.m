@@ -149,7 +149,7 @@
                 NSArray *imgs = [prop componentsSeparatedByString:@","];
                 view.arr = imgs;
             }
-            [self.navigationController pushViewController:view animated:NO];
+            [self.navigationController pushViewController:view animated:YES];
         }
             break;
         case 1:
@@ -173,7 +173,7 @@
 
 -(void)addView{
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
-    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width-60)];
+    adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width-110)];
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, adView.frame.origin.y+adView.frame.size.height-25, SCREEN_SIZE.width, 25)];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.backgroundColor = [UIColor darkGrayColor];
@@ -186,9 +186,9 @@
     shichangjiaLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, label.frame.origin.y+label.bounds.size.height, 120, 30)];
     xiaoliangLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-80,adView.frame.origin.y+adView.bounds.size.height, 80, 30)];
     
-    contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, shichangjiaLabel.frame.origin.y+shichangjiaLabel.frame.size.height, SCREEN_SIZE.width-20, 60)];
+    contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, shichangjiaLabel.frame.origin.y+shichangjiaLabel.frame.size.height, SCREEN_SIZE.width-20, 100)];
     contentLabel.font = [UIFont systemFontOfSize:14];
-    contentLabel.numberOfLines = 3;
+    contentLabel.numberOfLines = 0;
     shichangjiaLabel.font = [UIFont systemFontOfSize:14.0];
     xiaoliangLabel.font = [UIFont systemFontOfSize:14.0];
     

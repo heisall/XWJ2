@@ -8,7 +8,7 @@
 
 #import "XWJSPinfoViewController.h"
 
-#define HEIGHT_VIEW2 400
+#define HEIGHT_VIEW2 280
 
 @interface XWJSPinfoViewController ()
 
@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title  = @"详情";
-    UIScrollView *scoll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_SIZE.width, SCREEN_SIZE.height)];
+    UIScrollView *scoll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_SIZE.width, SCREEN_SIZE.height - 5 )];
     
     [self.view addSubview:scoll];
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW2)];
@@ -29,11 +29,11 @@
   
         NSArray *imgs = self.arr;
         
-//        view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, HEIGHT_VIEW2*imgs.count);
-        for (int i =0; i<imgs.count; i++) {
+ //       view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, HEIGHT_VIEW2*imgs.count);
+        for (int i = 0; i<imgs.count; i++) {
 
-            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0,HEIGHT_VIEW2*i, SCREEN_SIZE.width, HEIGHT_VIEW2)];
-//            img.contentMode  = UIViewContentModeRedraw;
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0,(HEIGHT_VIEW2)*i, SCREEN_SIZE.width, HEIGHT_VIEW2)];
+            img.contentMode  = UIViewContentModeRedraw;
             
             NSString *str = [imgs objectAtIndex:i];
 
@@ -41,13 +41,12 @@
                 if(image){
                     img.frame = CGRectMake(img.frame.origin.x, img.frame.origin.y, img.frame.size.width, img.frame.size.width*image.size.height/image.size.width);
                     img.image = image;
-                    height = height + img.frame.size.height;
-        //                view.frame =
-                    scoll.contentSize =  CGSizeMake(0,66+height);
+                    height = height + img.frame.size.height-66;
+                    scoll.contentSize =  CGSizeMake(0,height);
                 }
             }];
             
-//            [view addSubview:img];
+   //         [view addSubview:img];
             [scoll addSubview:img];
         }
 

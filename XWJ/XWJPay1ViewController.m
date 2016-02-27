@@ -9,13 +9,22 @@
 #import "XWJPay1ViewController.h"
 #import "XWJPay1TableViewCell.h"
 #import "XWJAccount.h"
-
+#import "WXApi.h"
+#import "CommonUtil.h"
+#import "ReturnIP.h"
 @interface XWJPay1ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
 @property NSMutableArray *payListArr;
 @property NSMutableDictionary *roomDic;
 @property NSMutableArray *selection;
 
+
+@property(nonatomic,copy)NSString* ipStr;
+@property(nonatomic,copy)NSString* prePayIdStr;
+@property(nonatomic,copy)NSString* myNoncestr;
+@property(nonatomic,copy)NSString* apikeystr;
+@property(nonatomic,copy)NSString* appid;
+@property(nonatomic,copy)NSString* parterid;
 @end
 
 @implementation XWJPay1ViewController
@@ -26,6 +35,8 @@
 //    [self getZhangDan];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.ipStr = [ReturnIP deviceIPAdress];
+
     [self getGuanjiaAD ];
     self.payListArr = [[NSMutableArray alloc]init];
     self.navigationItem.title = @"物业账单";
@@ -52,8 +63,18 @@
         self.userImageView.contentMode =UIViewContentModeScaleToFill;
         self.userImageView.image = img;
     }
-    
+//    [self countPrice];
+
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden = NO;
+}
+
 //获取用户的界面的详细信息
 -(void)headAD{
     NSString *url = GETGUANJIAAD_URL;
@@ -145,7 +166,19 @@
             NSDictionary *dic = (NSDictionary *)responseObject;
             CLog(@"+++==dic%@",dic);
             self.payListArr = [dic objectForKey:@"data"];
+                
+                
             [self.tableView reloadData];
+
+                if (self.payListArr.count>0) {
+
+                int count = self.payListArr.count/3;
+                for (int i=0; i<count; i++) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+                    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+                }
+            }
                 CLog(@"dic ++++%@",self.payListArr);
             }
             
@@ -170,7 +203,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     
     XWJPay1TableViewCell *cell;
     
@@ -229,6 +261,127 @@
             [self tableView:self.tableView didDeselectRowAtIndexPath:indexPath];
         }
     }
+}
+
+#pragma mark - 数据请求
+- (void)createPayRequest:(NSString*)orderid{
+    CLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
+    NSString* requestAddress = GETPAYINFO;
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:requestAddress parameters:@{
+                                              @"orderId":orderid,
+                                              @"ip":self.ipStr
+                                              }
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              CLog(@"成功-----%@",responseObject);
+              if ([responseObject[@"result"] intValue]) {
+                  NSDictionary* dict = responseObject[@"data"];
+                  self.prePayIdStr = dict[@"prepay_id"];
+                  CLog(@"-----预订单----%@",self.prePayIdStr);
+                  self.myNoncestr = dict[@"nonce_str"];
+                  self.apikeystr = dict[@"apiKey"];
+                  self.appid = dict[@"appid"];
+                  self.parterid = dict[@"mch_id"];
+                  [self getWeChatPay];
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              CLog(@"失败===%@", error);
+          }];
+}
+
+// 调起微信支付，传进来商品名称和价格
+- (void)getWeChatPay{
+    NSString *prePayid;
+    prePayid = self.prePayIdStr;
+    //---------------------------获取prePayId结束------------------------------
+    
+    if(prePayid){
+        NSString *timeStamp = [self genTimeStamp];
+        // 调起微信支付
+        PayReq *request = [[PayReq alloc] init];
+        request.partnerId = self.parterid;
+        request.prepayId = prePayid;
+        request.package = @"Sign=WXPay";
+        request.nonceStr = self.myNoncestr;
+        request.timeStamp = [timeStamp intValue];
+        
+        // 这里要注意key里的值一定要填对， 微信官方给的参数名是错误的，不是第二个字母大写
+        NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
+        [signParams setObject: self.appid               forKey:@"appid"];
+        [signParams setObject: self.parterid           forKey:@"partnerid"];
+        [signParams setObject: request.nonceStr      forKey:@"noncestr"];
+        [signParams setObject: request.package       forKey:@"package"];
+        [signParams setObject: timeStamp             forKey:@"timestamp"];
+        [signParams setObject: request.prepayId      forKey:@"prepayid"];
+        //生成签名
+        NSString *sign  = [self genSign:signParams];
+        //添加签名
+        request.sign = sign;
+        [WXApi sendReq:request];
+    } else{
+        CLog(@"*************7*********获取prePayId失败！");
+    }
+}
+#pragma mark - 生成各种参数
+
+- (NSString *)genTimeStamp
+{
+    return [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+}
+
+/**
+ * 注意：商户系统内部的订单号,32个字符内、可包含字母,确保在商户系统唯一
+ */
+- (NSString *)genNonceStr
+{
+    return [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]];
+}
+
+/**
+ * 建议 traceid 字段包含用户信息及订单信息，方便后续对订单状态的查询和跟踪
+ */
+- (NSString *)genTraceId
+{
+    return [NSString stringWithFormat:@"myt_%@", [self genTimeStamp]];
+}
+
+- (NSString *)genOutTradNo
+{
+    return [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]];
+}
+
+#pragma mark - 签名
+/** 签名 */
+- (NSString *)genSign:(NSDictionary *)signParams
+{
+    // 排序, 因为微信规定 ---> 参数名ASCII码从小到大排序
+    NSArray *keys = [signParams allKeys];
+    NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2 options:NSNumericSearch];
+    }];
+    
+    //生成 ---> 微信规定的签名格式
+    NSMutableString *sign = [NSMutableString string];
+    for (NSString *key in sortedKeys) {
+        [sign appendString:key];
+        [sign appendString:@"="];
+        [sign appendString:[signParams objectForKey:key]];
+        [sign appendString:@"&"];
+    }
+    NSString *signString = [[sign copy] substringWithRange:NSMakeRange(0, sign.length - 1)];
+    
+    // 拼接API密钥
+    NSString *result = [NSString stringWithFormat:@"%@&key=%@", signString, self.apikeystr];
+    // 打印检查
+    CLog(@"*********1***********result = %@", result);
+    // md5加密
+    NSString *signMD5 = [CommonUtil md5:result];
+    // 微信规定签名英文大写
+    signMD5 = signMD5.uppercaseString;
+    // 打印检查
+    CLog(@"*********2***********signMD5 = %@", signMD5);
+    return signMD5;
 }
 
 -(void)countPrice{

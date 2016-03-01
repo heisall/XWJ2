@@ -683,9 +683,20 @@
         [self.navigationController showViewController:view sender:nil];
         
     }else if([butn.titleLabel.text isEqualToString:@"优惠政策"]){
-        XWJYouHuiViewController *con = [[XWJYouHuiViewController alloc] init];
-        con.zhengce = [self.goodsDic objectForKey:@"policy"];
-        [self.navigationController showViewController:con sender:nil];
+//        XWJYouHuiViewController *con = [[XWJYouHuiViewController alloc] init];
+//        con.zhengce = [self.goodsDic objectForKey:@"policy"];
+//        [self.navigationController showViewController:con sender:nil];
+        NSString *str = [[NSString alloc]init];
+        str = [self.goodsDic objectForKey:@"policy"];
+        if ([str isEqualToString:@""]) {
+            str = @"暂时无优惠政策";
+        }else{
+            str = [self.goodsDic objectForKey:@"policy"];
+            
+        }
+        UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alertview.delegate = self;
+        [alertview show];
         
     }else if([butn.titleLabel.text isEqualToString:@"立即购买"]){
         //        UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];

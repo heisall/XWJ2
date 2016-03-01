@@ -25,7 +25,7 @@
 @property UIView *adView;
 @property UIScrollView *scroll;
 @property UITableView *tableView;
-@property NSArray *goodsArr;
+@property NSMutableArray *goodsArr;
 @property NSMutableArray *cates;
 @property UIButton *typeBtn ;
 @property UILabel *typeLabel;
@@ -34,12 +34,16 @@
 @property NSInteger lpIndex;
 
 @end
-@implementation XWJMerDetailListController
+@implementation XWJMerDetailListController{
+
+    NSInteger _currentPage;
+}
 
 @synthesize scroll,typeBtn,typeLabel,imgView;
 -(void)viewDidLoad{
     
     [super viewDidLoad];
+    _currentPage = 0;
 //    self.thumbArr = [NSMutableArray array];
 //    self.adArr = [NSMutableArray array];
 //    tabledata = [NSMutableArray array];
@@ -54,22 +58,34 @@
 //    self.adView.backgroundColor =[UIColor blackColor];
     [scroll addSubview:self.adView];
     
-
+//添加返回按钮
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     back.frame = CGRectMake(10, 5, 30, 30);
     [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    
     [self.adView addSubview:back];
     [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     [self addView];
     [self.tableView registerNib:[UINib nibWithNibName:@"XWJShanghuCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 
+    self.scroll.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        _currentPage = 0 ;
+        [self getShanghuoDetailNew:0];
+        [self.scroll.mj_header endRefreshing];
+        
+    }];
+    self.scroll.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        //进入加载状态后会自动调用这个block
+        _currentPage ++ ;
+        NSString *str  = [NSString stringWithFormat:@"%ld",_currentPage];
+        [self getShanghuoDetailNew:0 WithPage:str];
+        [self.scroll.mj_footer endRefreshing];
+    }];
     self.tableView.delegate =self;
     self.tableView.dataSource =self;
-    scroll.contentSize =CGSizeMake(0, 800);
+    scroll.contentSize =CGSizeMake(0, SCREEN_SIZE.height);
     [self.view addSubview:scroll];
 }
 -(void)popView{
@@ -147,8 +163,161 @@
     [self.navigationController showViewController:list sender:self];
 }
 
-//0 zx 1 xl 2 jp
+//刷新当前也的数据
 -(void)getShanghuoDetailNew:(NSInteger)type{
+    NSString *url = GETLIFESTORE_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setValue:@"1" forKey:@"store_id"];
+    if (self.storeid) {
+        [dict setValue:[NSString stringWithFormat:@"%@",self.storeid]forKey:@"store_id"];
+        //        [dict setValue:@"103" forKey:@"store_id"];
+    }else
+        [dict setValue:[self.dic objectForKey:@"id"] forKey:@"store_id"];
+    switch (type) {
+        case 0:
+            [dict setValue:@"0" forKey:@"zx"];
+            break;
+        case 1:
+            [dict setValue:@"0" forKey:@"xl"];
+            break;
+        case 2:
+            [dict setValue:@"0" forKey:@"jg"];
+            break;
+        default:
+            break;
+    }
+    //    [ProgressHUD show:@""];
+    if (self.lpIndex !=0) {
+        
+        [dict setValue:[[self.cates objectAtIndex:self.lpIndex] objectForKey:@"cate_id"] forKey:@"cateId"];
+    }
+    [dict setValue:@"0" forKey:@"pageindex"];
+    [dict setValue:@"10" forKey:@"countperpage"];
+    //    [dict setValue:[XWJAccount instance].account forKey:@"account"];
+    /*
+     
+     store_id	商户id	String
+     zx	最新排序字段	String,0正序1,倒序
+     xl	销量排序字段	String,0正序1,倒序
+     jg	价格排序字段	String,0正序1,倒序
+     pageindex	第几页	String,从0开始
+     countperpage	每页几条	String
+     */
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        [ProgressHUD dismiss];
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            CLog(@"dic %@",dic);
+            
+        //    self.goodsArr = [dic objectForKey:@"goods"];
+            NSArray *arr1  = [dic objectForKey:@"goods"];
+            self.goodsArr = [[NSMutableArray alloc]init];
+            [self.goodsArr removeAllObjects];
+            [self.goodsArr addObjectsFromArray:arr1];
+            self.store = [dic objectForKey:@"store"];
+            self.cates = [NSMutableArray arrayWithArray:[dic objectForKey:@"cates"]];
+            NSDictionary *di = [NSDictionary dictionaryWithObjectsAndKeys:@"全部",@"cate_name",@"",@"cate_id", nil];
+            if (self.cates.count>0) {
+                
+                [self.cates insertObject:di atIndex:0];
+            }
+            if (self.goodsArr.count>0) {
+                
+                [self.tableView reloadData];
+                
+                self.tableView.frame  =CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y
+                                                  , self.tableView.frame
+                                                  .size.width, mercellheight*self.goodsArr.count);
+                self.scroll.contentSize = CGSizeMake(0, mercellheight*self.goodsArr.count+200);
+            }
+            //            self.adArr = [dic objectForKey:@"ad"];
+            //            self.thumb = [dic objectForKey:@"thumb"];
+            NSMutableArray *URLs = [NSMutableArray array];
+            
+            if (!self.store.count>0) {
+                return ;
+            }
+            
+            
+            NSString *url;
+            if ([self.store valueForKey:@"store_banner"] ==[NSNull null]){
+                url = @"";
+            }else{
+                url = [self.store valueForKey:@"store_banner"];
+            }
+            [URLs addObject:url];
+            
+            //            [self addView];
+            //            if(URLs&&URLs.count>0)
+            //                [self.adView addSubview:({
+            //
+            //                    LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
+            //                                                                                            self.adView.bounds.size.height)
+            //
+            //                                                                        delegate:self
+            //                                                                       imageURLs:URLs
+            //                                                                placeholderImage:nil
+            //                                                                   timerInterval:3.0f
+            //                                                   currentPageIndicatorTintColor:[UIColor redColor]
+            //                                                          pageIndicatorTintColor:[UIColor whiteColor]];
+            //
+            //                    bannerView;
+            //                })];
+            
+            UIImageView *logoImgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,                                                                                           self.adView.bounds.size.height)];
+            logoImgV.contentMode  = UIViewContentModeRedraw;
+            [logoImgV sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"demo"]];
+            UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+            back.frame = CGRectMake(10, 5, 30, 30);
+            [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+            
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.adView.bounds
+                                                                            .size.height-30, SCREEN_SIZE.width, 30)];
+            titleLabel.textAlignment  = NSTextAlignmentCenter;
+            titleLabel.backgroundColor = [UIColor blackColor];
+            titleLabel.alpha = 0.4;
+            titleLabel.text = [self.store valueForKey:@"store_name"];
+            titleLabel.textColor = [UIColor whiteColor];
+            titleLabel.font = [UIFont systemFontOfSize:15];
+            [self.adView addSubview:logoImgV];
+            [self.adView addSubview:titleLabel];
+            [self.adView addSubview:back];
+            [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
+            
+            if ([self.store valueForKey:@"store_ad"] ==[NSNull null]){
+                return;
+            }
+            //            [imgView sd_setImageWithURL:[NSURL URLWithString:[self.store valueForKey:@"store_ad"]] placeholderImage:[UIImage imageNamed:@"demo"]];
+        }else{
+            UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+            back.frame = CGRectMake(10, 5, 30, 30);
+            [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+            
+            [self.adView addSubview:back];
+            [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        [ProgressHUD dismiss];
+        UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+        back.frame = CGRectMake(10, 5, 30, 30);
+        [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        
+        [self.adView addSubview:back];
+        [back addTarget:self action:@selector(popView) forControlEvents:UIControlEventTouchUpInside];
+    }];
+}
+
+//加载下一页数据
+//0 zx 1 xl 2 jp
+-(void)getShanghuoDetailNew:(NSInteger)type WithPage:(NSString*)nextPage{
     
     NSString *url = GETLIFESTORE_URL;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -177,8 +346,8 @@
 
         [dict setValue:[[self.cates objectAtIndex:self.lpIndex] objectForKey:@"cate_id"] forKey:@"cateId"];
     }
-    [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"100" forKey:@"countperpage"];
+    [dict setValue:nextPage forKey:@"pageindex"];
+    [dict setValue:@"10" forKey:@"countperpage"];
 //    [dict setValue:[XWJAccount instance].account forKey:@"account"];
     /*
      
@@ -199,8 +368,8 @@
             NSDictionary *dic = (NSDictionary *)responseObject;
             CLog(@"dic %@",dic);
             
-            
-            self.goodsArr = [dic objectForKey:@"goods"];
+            NSArray *arr2  = [dic objectForKey:@"goods"];
+            [self.goodsArr addObjectsFromArray:arr2];
             self.store = [dic objectForKey:@"store"];
             self.cates = [NSMutableArray arrayWithArray:[dic objectForKey:@"cates"]];
             NSDictionary *di = [NSDictionary dictionaryWithObjectsAndKeys:@"全部",@"cate_name",@"",@"cate_id", nil];
@@ -214,7 +383,7 @@
                 
                 self.tableView.frame  =CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y
                                                   , self.tableView.frame
-                                                  .size.width, mercellheight*self.goodsArr.count);
+                                                  .size.width, mercellheight*self.goodsArr.count - 50);
                 self.scroll.contentSize = CGSizeMake(0, mercellheight*self.goodsArr.count+200);
             }
 //            self.adArr = [dic objectForKey:@"ad"];

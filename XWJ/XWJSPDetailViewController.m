@@ -44,7 +44,7 @@
 @end
 
 #define PADDINGTOP 64
-#define HEIGHT_VIEW1 (SCREEN_SIZE.width+60)
+#define HEIGHT_VIEW1 (SCREEN_SIZE.width + 190)
 //#define HEIGHT_VIEW2 400
 #define HEIGHT_VIEW3 250
 #define HEIGHT_VIEW2 40
@@ -100,6 +100,7 @@
     [scrollView addSubview:tableView];
 }
 -(void)addView2{
+ //   UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+10, SCREEN_SIZE.width, HEIGHT_VIEW2)];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+10, SCREEN_SIZE.width, HEIGHT_VIEW2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, (HEIGHT_VIEW2-20)/2, 100, 20)];
     shangpinImg = [[UIImageView alloc] initWithFrame:CGRectMake(80, 5, SCREEN_SIZE.width-4-160, HEIGHT_VIEW2)];
@@ -173,6 +174,12 @@
 
 -(void)addView{
     UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
+//    根据文字的大小和数量自定义label的高度的代码
+    CGSize size = CGSizeMake(self.view.frame.size.width - 10,CGFLOAT_MAX);
+    UIFont* theFont = [UIFont systemFontOfSize:14];
+    
+//计算文字所占区域
+    CGSize labelSize = [self.contentLabel.text boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : theFont} context:nil].size;
     adView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.width-110)];
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, adView.frame.origin.y+adView.frame.size.height-25, SCREEN_SIZE.width, 25)];
     titleLabel.textColor = [UIColor whiteColor];
@@ -186,7 +193,7 @@
     shichangjiaLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, label.frame.origin.y+label.bounds.size.height, 120, 30)];
     xiaoliangLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-80,adView.frame.origin.y+adView.bounds.size.height, 80, 30)];
     
-    contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, shichangjiaLabel.frame.origin.y+shichangjiaLabel.frame.size.height, SCREEN_SIZE.width-20, 100)];
+    contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, shichangjiaLabel.frame.origin.y+shichangjiaLabel.frame.size.height, SCREEN_SIZE.width-20, labelSize.height  +100)];
     contentLabel.font = [UIFont systemFontOfSize:14];
     contentLabel.numberOfLines = 0;
     shichangjiaLabel.font = [UIFont systemFontOfSize:14.0];
@@ -676,9 +683,20 @@
         [self.navigationController showViewController:view sender:nil];
         
     }else if([butn.titleLabel.text isEqualToString:@"优惠政策"]){
-        XWJYouHuiViewController *con = [[XWJYouHuiViewController alloc] init];
-        con.zhengce = [self.goodsDic objectForKey:@"policy"];
-        [self.navigationController showViewController:con sender:nil];
+//        XWJYouHuiViewController *con = [[XWJYouHuiViewController alloc] init];
+//        con.zhengce = [self.goodsDic objectForKey:@"policy"];
+//        [self.navigationController showViewController:con sender:nil];
+        NSString *str = [[NSString alloc]init];
+        str = [self.goodsDic objectForKey:@"policy"];
+        if ([str isEqualToString:@""]) {
+            str = @"暂时无优惠政策";
+        }else{
+            str = [self.goodsDic objectForKey:@"policy"];
+            
+        }
+        UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:nil message:str delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alertview.delegate = self;
+        [alertview show];
         
     }else if([butn.titleLabel.text isEqualToString:@"立即购买"]){
         //        UIStoryboard *car  = [UIStoryboard storyboardWithName:@"XWJCarStoryboard" bundle:nil];

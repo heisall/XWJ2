@@ -43,12 +43,12 @@
     self.adArr = [NSMutableArray array];
     tabledata = [NSMutableArray array];
     self.starArr = [[NSMutableArray alloc] init];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.navigationItem.title = @"商户列表";
     [self getShuoMore];
 
-//    [self addView];
+  //  [self addView];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -198,7 +198,7 @@
             CLog(@"dic %@",dic);
             
             self.adArr = [dic objectForKey:@"ad"];
-                        self.thumbArr = [dic objectForKey:@"thumb"];
+            self.thumbArr = [dic objectForKey:@"thumb"];
             [self addView];
             
             NSMutableArray *URLs = [NSMutableArray array];

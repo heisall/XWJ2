@@ -114,6 +114,9 @@
 //order
 #define GETORDER_URL  XWJBASEURL"order/myOrders"
 #define GETORDERCONFIRM_URL  XWJBASEURL"order/changeOrderStatus"
+
+#define GETCHANGEORDER_URL  XWJBASEURL"bill/changeOrder"
+
 //订单详情接口
 #define MYORDERDETAIL  XWJBASEURL"order/orderDetails"
 
@@ -149,6 +152,8 @@
 #define JIFENDUIHUAN_URL  XWJBASEURL"order/directBuy"
 //获取支付信息
 #define GETPAYINFO  XWJBASEURL"order/perPay"
+
+#define GETWUYEBILLINFO  XWJBASEURL"bill/perPay"
 
 //发现分享
 #define FINDSUCCESSSHARE  XWJBASEURL"user/modifyFind"

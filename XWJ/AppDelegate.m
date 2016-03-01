@@ -406,6 +406,57 @@
     return [WXApi handleOpenURL:url delegate:self];
 }
 
+-(void)changOrder:(NSString *)orderId{
+    
+    NSString *url = GETCHANGEORDER_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict setValue:orderId forKey:@"orderId"];
+//    [dict setValue:status forKey:@"status"];
+    
+    //    NSString *aid = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_id"];
+    
+    //    [dict setValue:@"1" forKey:@"a_id"];
+    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    /*
+     pageindex	第几页	String,从0开始
+     countperpage	每页条数	String
+     cateId	商户分类	String
+     */
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            CLog(@"dic %@",dict);
+            NSString *res = [ NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
+            //            self.orderArr = [dict objectForKey:@"orders"];
+            if ([res isEqualToString:@"1"]) {
+                //当delegate中  支付回调成功了  然后调修改订单状态接口   当修改订单状态成功了  那就发通知去修改之前支付地方的数据源（删除）  如果是订单列表那就删掉当前数据源并且代付款数量-1  代收货数量+1
+//                CLog(@"订单状态修改");
+//                NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
+//                NSString *payindex  =[[NSUserDefaults standardUserDefaults] valueForKey:@"payorderindex"];
+//                //添加 字典，将label的值通过key值设置传递
+//                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:orderid,@"paySuccess",payindex,@"payorderindex", nil];
+//                //创建通知
+//                NSNotification *notification =[NSNotification notificationWithName:@"paySuccess" object:nil userInfo:dict];
+//                //通过通知中心发送通知
+//                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+            }
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 -(void)confirmOrder:(NSString *)status :(NSString *)orderId{
     
     NSString *url = GETORDERCONFIRM_URL;
@@ -469,7 +520,10 @@
             case 0:{
                 NSString *orderid  =[[NSUserDefaults standardUserDefaults] valueForKey:@"orderid"];
                 CLog(@"=====%@",orderid);
+                
+                //不做判断直接修改状态
                 [self confirmOrder:@"30" :orderid];
+                [self changOrder:orderid];
             }
                 break;
             default:

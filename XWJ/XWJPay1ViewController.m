@@ -232,6 +232,28 @@
 
     return cell;
 }
+
+- (IBAction)jiaoFei:(id)sender {
+    
+    float total= 0;
+    NSMutableString *orderIds = [NSMutableString string];
+    for (NSIndexPath *path in selection) {
+        
+        
+        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row*3] ;
+        NSDictionary *dic2  = [self.payListArr objectAtIndex:path.row*3+1] ;
+        NSDictionary *dic3  = [self.payListArr objectAtIndex:path.row*3+2] ;
+        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue] +[[dic3  objectForKey:@"t_money"] floatValue];
+        
+        [orderIds appendFormat:@",%@,%@,%@",[dic1  objectForKey:@"id"],[dic2  objectForKey:@"id"],[dic3  objectForKey:@"id"]];
+    }
+    NSString *totalPrice = [NSString stringWithFormat:@"%.2f",total];
+    [orderIds deleteCharactersInRange:NSMakeRange(0, 1)];
+//    [orderIds appendString:@","];
+    [self createPayRequest:orderIds money:totalPrice];
+
+}
+
 - (IBAction)qubuZD:(id)sender {
     UIButton *btn = (UIButton *)sender;
     btn.selected = !btn.selected;
@@ -264,15 +286,17 @@
 }
 
 #pragma mark - 数据请求
-- (void)createPayRequest:(NSString*)orderid{
-    CLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETPAYINFO,self.ipStr,orderid);
-    NSString* requestAddress = GETPAYINFO;
+- (void)createPayRequest:(NSString*)orderid money:(NSString *)money{
+    CLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETWUYEBILLINFO,self.ipStr,orderid);
+    NSString* requestAddress = GETWUYEBILLINFO;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager POST:requestAddress parameters:@{
-                                              @"orderId":orderid,
-                                              @"ip":self.ipStr
-                                              }
+    NSDictionary *dicPara  = @{
+                           @"orderId":orderid,
+                           @"ip":self.ipStr,
+                           @"money":money
+                           };
+    [manager POST:requestAddress parameters:dicPara
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               CLog(@"成功-----%@",responseObject);
               if ([responseObject[@"result"] intValue]) {
@@ -283,6 +307,10 @@
                   self.apikeystr = dict[@"apiKey"];
                   self.appid = dict[@"appid"];
                   self.parterid = dict[@"mch_id"];
+                  
+                  [[NSUserDefaults standardUserDefaults] setValue:dict[@"orderId"] forKey:@"orderid"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  
                   [self getWeChatPay];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -390,9 +418,9 @@
     for (NSIndexPath *path in selection) {
         
 
-        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row] ;
-        NSDictionary *dic2  = [self.payListArr objectAtIndex:path.row+1] ;
-        NSDictionary *dic3  = [self.payListArr objectAtIndex:path.row+2] ;
+        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row*3] ;
+        NSDictionary *dic2  = [self.payListArr objectAtIndex:path.row*3+1] ;
+        NSDictionary *dic3  = [self.payListArr objectAtIndex:path.row*3+2] ;
         total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue] +[[dic3  objectForKey:@"t_money"] floatValue];
         
     }

@@ -780,6 +780,9 @@
                                         <state key="normal" title="缴费">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="jiaoFei:" destination="JeB-Z5-jDD" eventType="touchUpInside" id="Mme-Ho-euN"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总计:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWV-au-iuh">
                                         <rect key="frame" x="30" y="20" width="39" height="20"/>

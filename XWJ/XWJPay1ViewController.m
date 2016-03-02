@@ -12,12 +12,12 @@
 #import "WXApi.h"
 #import "CommonUtil.h"
 #import "ReturnIP.h"
+#import "ProgressHUD/ProgressHUD.h"
 @interface XWJPay1ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
 @property NSMutableArray *payListArr;
 @property NSMutableDictionary *roomDic;
 @property NSMutableArray *selection;
-
 
 @property(nonatomic,copy)NSString* ipStr;
 @property(nonatomic,copy)NSString* prePayIdStr;
@@ -25,9 +25,13 @@
 @property(nonatomic,copy)NSString* apikeystr;
 @property(nonatomic,copy)NSString* appid;
 @property(nonatomic,copy)NSString* parterid;
+
+@property float totalPrice;
+@property NSMutableString* orderIds;
 @end
 
 @implementation XWJPay1ViewController
+const int payNum = 2;
 @synthesize selection;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,7 +41,7 @@
     
     self.ipStr = [ReturnIP deviceIPAdress];
 
-    [self getGuanjiaAD ];
+//    [self getGuanjiaAD ];
     self.payListArr = [[NSMutableArray alloc]init];
     self.navigationItem.title = @"物业账单";
     self.tabBarController.tabBar.hidden = YES;
@@ -63,13 +67,26 @@
         self.userImageView.contentMode =UIViewContentModeScaleToFill;
         self.userImageView.image = img;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSuccess) name:@"changeSuccess" object:nil];
+
 //    [self countPrice];
 
+}
+
+-(void)viewDidUnload{
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:@"changeSuccess"];
+}
+-(void)changeSuccess{
+    [self getGuanjiaAD];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [self getGuanjiaAD ];
+
 }
 - (void)viewWillDisappear:(BOOL)animated{
     self.tabBarController.tabBar.hidden = NO;
@@ -122,7 +139,7 @@
             }else{
                 self.zoneLabel.text = [self.roomDic objectForKey:@"A_name"];
                 self.doorLabel.text = [NSString stringWithFormat:@"%@号楼%@单元%@",[self.roomDic objectForKey:@"b_id"],[self.roomDic objectForKey:@"r_dy"],[self.roomDic objectForKey:@"r_id"]];
-                [self getZhangDan];
+                [self getZhangDanType:@"0"];
             }
         }
         
@@ -135,7 +152,9 @@
 
 }
 //获取详细的账单
--(void)getZhangDan{
+-(void)getZhangDanType:(NSString *) type{
+    
+    selection = [NSMutableArray array];
     /*
      a_id	小区a_id
      b_id	楼座b_id
@@ -158,6 +177,9 @@
         [dict setValue:rdy forKey:@"r_dy"];
         [dict setValue:rid forKey:@"r_id"];
     
+    if (type) {
+        [dict setValue:type forKey:@"sign"];
+    }
         manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
         [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             CLog(@"%s success ",__FUNCTION__);
@@ -169,15 +191,15 @@
                 
                 
             [self.tableView reloadData];
-
+            self.totalLabel.text = @"";
                 if (self.payListArr.count>0) {
 
-                int count = self.payListArr.count/3;
-                for (int i=0; i<count; i++) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
-                    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
-                }
+//                int count = self.payListArr.count/payNum;
+//                for (int i=0; i<count; i++) {
+//                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//                    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+//                    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+//                }
             }
                 CLog(@"dic ++++%@",self.payListArr);
             }
@@ -199,7 +221,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-        return self.payListArr.count/3;
+    
+    NSInteger count;
+    if (self.payListArr.count&&self.payListArr.count<payNum) {
+        count = 1;
+    }else{
+        count = (int)ceilf((float)self.payListArr.count/(float)payNum);
+    }
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -210,6 +239,9 @@
     if (!cell) {
         cell = [[XWJPay1TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pay1cell"];
     }
+    
+    cell.selectionStyle = self.listUnpayBtn.selected?UITableViewCellSelectionStyleDefault: UITableViewCellSelectionStyleNone;
+    cell.selectImgView.hidden = !self.listUnpayBtn.selected;
     /*
      "a_id" = 1;
      "b_id" = 4;
@@ -222,35 +254,55 @@
      "t_sign" = 1;
      "t_thisdate" = "2015-07-31";
      */
-    cell.label1.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3] valueForKey:@"t_date"]];
-    cell.label2.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3] valueForKey:@"t_item"]];
-    cell.label3.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3] valueForKey:@"t_money"]];
-    cell.label4.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+1] valueForKey:@"t_item"]];
-    cell.label5.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+1] valueForKey:@"t_money"]];
-    cell.label6.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+2] valueForKey:@"t_item"]];
-    cell.label7.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*3+2] valueForKey:@"t_money"]];
+    cell.label1.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*payNum] valueForKey:@"t_date"]];
+    cell.label2.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*payNum] valueForKey:@"t_item"]];
+    cell.label3.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*payNum] valueForKey:@"t_money"]];
+    
+
+    NSUInteger payType1Count = indexPath.row*payNum+1;
+//    NSUInteger payType2Count = indexPath.row*payNum+2;
+
+    if (payType1Count>=self.payListArr.count) {
+        cell.label4.text = @"";
+        cell.label5.text = @"";
+        return cell;
+    }
+    cell.label4.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:payType1Count] valueForKey:@"t_item"]];
+    cell.label5.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:payType1Count] valueForKey:@"t_money"]];
+    
+//    if (payType2Count>=self.payListArr.count) {
+//        return cell;
+//    }
+//    cell.label6.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:payType2Count] valueForKey:@"t_item"]];
+//    cell.label7.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:payType2Count] valueForKey:@"t_money"]];
 
     return cell;
 }
 
 - (IBAction)jiaoFei:(id)sender {
     
-    float total= 0;
-    NSMutableString *orderIds = [NSMutableString string];
-    for (NSIndexPath *path in selection) {
-        
-        
-        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row*3] ;
-        NSDictionary *dic2  = [self.payListArr objectAtIndex:path.row*3+1] ;
-        NSDictionary *dic3  = [self.payListArr objectAtIndex:path.row*3+2] ;
-        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue] +[[dic3  objectForKey:@"t_money"] floatValue];
-        
-        [orderIds appendFormat:@",%@,%@,%@",[dic1  objectForKey:@"id"],[dic2  objectForKey:@"id"],[dic3  objectForKey:@"id"]];
-    }
-    NSString *totalPrice = [NSString stringWithFormat:@"%.1f",total];
-    [orderIds deleteCharactersInRange:NSMakeRange(0, 1)];
+//    float total= 0;
+//    NSMutableString *orderIds = [NSMutableString string];
+//    for (NSIndexPath *path in selection) {
+//        
+//        
+//        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row*payNum] ;
+//        NSDictionary *dic2  = [self.payListArr objectAtIndex:path.row*payNum+1] ;
+//        NSDictionary *dic3  = [self.payListArr objectAtIndex:path.row*payNum+2] ;
+//        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue] +[[dic3  objectForKey:@"t_money"] floatValue];
+//        
+//        [orderIds appendFormat:@",%@,%@,%@",[dic1  objectForKey:@"id"],[dic2  objectForKey:@"id"],[dic3  objectForKey:@"id"]];
+//    }
+//    NSString *totalPrice = [NSString stringWithFormat:@"%.2f",total];
+//    [orderIds deleteCharactersInRange:NSMakeRange(0, 1)];
 //    [orderIds appendString:@","];
-    [self createPayRequest:orderIds money:totalPrice];
+    
+    if (self.listUnpayBtn.selected) {
+        NSString *totalPrice = [NSString stringWithFormat:@"%.2f",_totalPrice];
+        
+
+        [self createPayRequest:_orderIds money:totalPrice];
+    }
 
 }
 
@@ -258,38 +310,55 @@
     UIButton *btn = (UIButton *)sender;
     btn.selected = !btn.selected;
     self.listUnpayBtn.selected = !btn.selected;
+    
+    
+    [self getZhangDanType:nil];
 }
 - (IBAction)weijiao:(UIButton *)sender {
     sender.selected = !sender.selected;
     self.listAllBtn.selected = !sender.selected;
+    [self getZhangDanType:@"0"];
+
 }
 //全部选择按钮
 - (IBAction)quanXuan:(UIButton *)sender {
-    sender.selected = !sender.selected;
     
-    NSInteger count = self.payListArr.count/3;
-    for (int i=0; i<count; i++) {
+    if(self.listUnpayBtn.selected){
         
-        if (sender.selected) {
-            
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
-            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
-        }else{
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
-            [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        selection = [NSMutableArray new];
+        sender.selected = !sender.selected;
 
-            [self tableView:self.tableView didDeselectRowAtIndexPath:indexPath];
+        NSInteger count;
+        if (self.payListArr.count&&self.payListArr.count<payNum) {
+            count = 1;
+        }else
+            count = self.payListArr.count/payNum;
+        for (int i=0; i<count; i++) {
+            
+            if (sender.selected) {
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+                [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+            }else{
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        //            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+                [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+                [self tableView:self.tableView didDeselectRowAtIndexPath:indexPath];
+            }
         }
     }
 }
 
 #pragma mark - 数据请求
 - (void)createPayRequest:(NSString*)orderid money:(NSString *)money{
+    [ProgressHUD show:@""];
+
     CLog(@"请求的参数----%@\n-----%@\n-----%@\n",GETWUYEBILLINFO,self.ipStr,orderid);
     NSString* requestAddress = GETWUYEBILLINFO;
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     NSDictionary *dicPara  = @{
                            @"orderId":orderid,
@@ -313,8 +382,12 @@
                   
                   [self getWeChatPay];
               }
+              [ProgressHUD dismiss];
+
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               CLog(@"失败===%@", error);
+              [ProgressHUD dismiss];
+
           }];
 }
 
@@ -415,16 +488,47 @@
 -(void)countPrice{
     
     float total= 0;
+    
+    _orderIds = [NSMutableString new];
     for (NSIndexPath *path in selection) {
         
 
-        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row*3] ;
-        NSDictionary *dic2  = [self.payListArr objectAtIndex:path.row*3+1] ;
-        NSDictionary *dic3  = [self.payListArr objectAtIndex:path.row*3+2] ;
-        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue] +[[dic3  objectForKey:@"t_money"] floatValue];
+        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row*payNum] ;
         
+        NSUInteger payType1Count = path.row*payNum+1;
+//        NSUInteger payType2Count = path.row*payNum+2;
+        
+        NSDictionary *dic2 = nil;
+        if (payType1Count>=self.payListArr.count) {
+            
+        }else
+             dic2 = [self.payListArr objectAtIndex:path.row*payNum+1] ;
+        
+        
+        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue];
+        
+        if (dic2) {
+            [_orderIds appendFormat:@",%@,%@",[dic1  objectForKey:@"id"],[dic2  objectForKey:@"id"]];
+        }else
+            [_orderIds appendFormat:@",%@",[dic1  objectForKey:@"id"]];
+        
+//        NSDictionary *dic3;
+//        if (payType2Count >= self.payListArr.count) {
+//            
+//        }else
+//            dic3= [self.payListArr objectAtIndex:path.row*payNum+2] ;
+        
+//        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue] +[[dic3  objectForKey:@"t_money"] floatValue];
+//        
+//        [_orderIds appendFormat:@",%@,%@,%@",[dic1  objectForKey:@"id"],[dic2  objectForKey:@"id"],[dic3  objectForKey:@"id"]];
     }
-    self.totalLabel.text = [NSString stringWithFormat:@"￥%.1f",total];
+
+    if ([_orderIds hasPrefix:@","]) {
+        [_orderIds deleteCharactersInRange:NSMakeRange(0, 1)];
+    }
+
+    _totalPrice = total;
+    self.totalLabel.text = [NSString stringWithFormat:@"￥%.2f",total];
 }
 #pragma mark - Table view delegate
 
@@ -436,7 +540,9 @@
     //        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
     //    } else
     //        oneCell.accessoryType = UITableViewCellAccessoryNone;
-    [self countPrice];
+    if (self.listUnpayBtn.selected ) {
+        [self countPrice];
+    }
     CLog(@"didSelectRowAtIndexPath %@",selection);
 }
 
@@ -449,7 +555,10 @@
     //    } else
     //        oneCell.accessoryType = UITableViewCellAccessoryNone;
     CLog(@"didDeselectRowAtIndexPath %@",selection);
-    [self countPrice];
+    
+    if (self.listUnpayBtn.selected ) {
+        [self countPrice];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -426,7 +426,7 @@
      */
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
-    [manager PUT:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
@@ -442,9 +442,9 @@
 //                //添加 字典，将label的值通过key值设置传递
 //                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:orderid,@"paySuccess",payindex,@"payorderindex", nil];
 //                //创建通知
-//                NSNotification *notification =[NSNotification notificationWithName:@"paySuccess" object:nil userInfo:dict];
-//                //通过通知中心发送通知
-//                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                NSNotification *notification =[NSNotification notificationWithName:@"changeSuccess" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
                 
             }
             

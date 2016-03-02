@@ -143,9 +143,9 @@ NSArray *footer;
     CLog(@"scrolview width %f height %f",self.scrollView.bounds.size.width,self.scrollView.bounds.size.height);
     CLog(@"view width %f height %f",self.view.bounds.size.width,self.view.bounds.size.height);
     
-    NSArray * arr= [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉",nil];
+    NSArray * arr= [NSArray arrayWithObjects:@"物业通知",@"社区活动",@"物业监督",@"物业报修",@"物业投诉",@"物业账单",nil];
     
-    NSArray * business= [NSArray arrayWithObjects:@"hometongzhi",@"homehuodong",@"homewy",@"homegz",@"homets",nil];
+    NSArray * business= [NSArray arrayWithObjects:@"hometongzhi",@"homehuodong",@"homewy",@"homegz",@"homets",@"homejf",nil];
     
     NSInteger count = arr.count;
     CGFloat width = self.view.bounds.size.width/4;

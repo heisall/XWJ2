@@ -23,6 +23,9 @@
     self.navigationItem.title  = @"评价";
     
     _bar = [[RatingBar alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-200, 0, 180, 30)];
+    UILabel *label  = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_SIZE.width-60, 30, 40, 20)];
+    label.text = [NSString stringWithFormat:@"%ld",self.bar.starNumber];
+    
     _bar.backgroundColor = XWJColor(235.0, 237.0, 239.0);
 
     self.content.text = self.miaoshu;

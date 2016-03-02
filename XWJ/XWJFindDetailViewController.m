@@ -48,14 +48,32 @@
 @property(nonatomic,copy)NSString* shareUrl;
 @end
 
-@implementation XWJFindDetailViewController
+@implementation XWJFindDetailViewController{
+
+    NSInteger _currentPage;
+}
 @synthesize controlView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    _currentPage = 0;
     self.textView.delegate = self;
     [self registerForKeyboardNotifications];
+    
+    self.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        _currentPage = 0 ;
+        [self getFind:0];
+        [self.scrollView.mj_header endRefreshing];
+        
+    }];
+    self.scrollView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        //进入加载状态后会自动调用这个block
+        _currentPage ++ ;
+        NSString *str  = [NSString stringWithFormat:@"%ld",_currentPage];
+        [self getFind:0 WithPage:str];
+        [self.scrollView.mj_footer endRefreshing];
+    }];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -236,6 +254,8 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
+    [dict setValue:@"0" forKey:@"pageindex"];
+    [dict setValue:@"5" forKey:@"countperpage"];
     
     CLog(@"______%@",self.dic);
     //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
@@ -288,7 +308,11 @@
                  Types = "\U7559\U8a00";
                  */
                 
-                self.array = [NSMutableArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
+//                self.array = [NSMutableArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
+                NSArray *arr1  = [NSMutableArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
+                self.array = [[NSMutableArray alloc]init];
+                [self.array removeAllObjects];
+                [self.array addObjectsFromArray:arr1];
                 
                 
                 if([[dict objectForKey:@"data"] objectForKey:@"find"]!=[NSNull null]){
@@ -311,6 +335,95 @@
         
     }];
 }
+
+
+//获得发现评论的下一页的详细的信息
+-(void)getFind:(NSInteger )index WithPage:(NSString *)nextPage{
+    
+    NSString *url = GETFIND_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
+    [dict setValue:nextPage forKey:@"pageindex"];
+    [dict setValue:@"5" forKey:@"countperpage"];
+    
+    CLog(@"______%@",self.dic);
+    //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        /*
+         find =         {
+         "a_id" = "<null>";
+         appID = 12;
+         clickPraiseCount = 0;
+         content = "\U661f\U5df4\U514b\U4e4b\U9ebb\U8fa3\U706b\U9505";
+         id = 10;
+         leaveWordCount = 0;
+         nickName = "<null>";
+         photo = "http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535403.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535601.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535471.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535433.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535420.jpg,http://www.hisenseplus.com/HisenseUpload/find_photo/imag201512082013535552.jpg";
+         releaseTime = "12-08 20:13";
+         shareQQCount = 0;
+         shareWXCount = 0;
+         types = "\U597d\U4eba\U597d\U4e8b";
+         };
+         */
+        if(responseObject){
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            CLog(@"dic %@",dict);
+            NSNumber *res =[dict objectForKey:@"result"];
+            if ([res intValue] == 1) {
+                
+                NSDictionary* temDic = responseObject[@"data"];
+                NSDictionary* temDic1 = temDic[@"find"];
+                //   CLog(@"-----%@\n----%@",temDic1,temDic1[@"id"]);
+                NSString *dicstring = [NSString stringWithFormat:@"%@",temDic1];
+                if ([dicstring isEqualToString:@"<null>"]) {
+                    return ;
+                }
+                
+                self.shareUrl =[NSString stringWithFormat:@"http://admin.hisenseplus.com/win/t_cm_finddetail.aspx?id=%@",temDic1[@"id"]];
+                /*
+                 
+                 "A_id" = 1;
+                 FindID = 22;
+                 ID = 15;
+                 LeaveWord = "\U671f\U5f85\U5723\U8bde\U8001\U7237\U7237\U7684\U5230\U6765";
+                 NickName = "<null>";
+                 PersonID = 36;
+                 Photo = "<null>";
+                 ReleaseTime = "12-15 0:00";
+                 Types = "\U7559\U8a00";
+                 */
+                
+ //               self.array = [NSMutableArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
+                NSArray *arr2  = [NSMutableArray arrayWithArray:[[dict objectForKey:@"data"] objectForKey:@"comments"]];
+                [self.array addObjectsFromArray:arr2];
+                
+                
+                if([[dict objectForKey:@"data"] objectForKey:@"find"]!=[NSNull null]){
+                    
+                    self.dic = [NSMutableDictionary dictionaryWithDictionary:[(NSDictionary*)[dict objectForKey:@"data"] objectForKey:@"find"]];
+                    CLog(@"%@",self.dic);
+                    [self initView];
+                }
+                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
+                [self.tableView reloadData];
+                self.scrollView.contentSize = CGSizeMake(0,self.phraseBtn.frame.origin.y +60+100*self.array.count);
+                
+            }
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.textView resignFirstResponder];
 }

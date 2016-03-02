@@ -148,6 +148,12 @@
     nameLable.text = self.nickName;
     [cell addSubview:nameLable];
     
+    UILabel * jifenLable  = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(headIV.frame) + 10 + 20, WIDTH - 20, 12)];
+    jifenLable.textAlignment = NSTextAlignmentCenter;
+    jifenLable.font = [UIFont systemFontOfSize:14];
+    jifenLable.text = [NSString stringWithFormat:@"积分：%@",[XWJAccount instance].jifen];
+    [cell addSubview:jifenLable];
+    
     UIButton* signBtn = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH/2 - 130, CGRectGetMaxY(nameLable.frame) + 50, 260, 50)];
     [signBtn addTarget:self action:@selector(signBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [signBtn setTitle:self.btnTitleStr forState:UIControlStateNormal];
@@ -160,6 +166,7 @@
 - (void)signBtnClick{
     CLog(@"签到");
     [self createSignRequest];
+    [_tableView reloadData];
 }
 #pragma mark - tableView行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

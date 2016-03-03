@@ -230,7 +230,7 @@
 //常见投诉报修的提交按钮
 -(void)createButton{
 
-    UIButton *button  = [[UIButton alloc]initWithFrame:CGRectMake(20, [UIScreen mainScreen].bounds.size.height - 50, [UIScreen mainScreen].bounds.size.width - 40, 30)];
+    UIButton *button  = [[UIButton alloc]initWithFrame:CGRectMake(20, [UIScreen mainScreen].bounds.size.height - 60, [UIScreen mainScreen].bounds.size.width - 40, 40)];
     if (self.type == 1) {
         [button setTitle:@"我要报修" forState:UIControlStateNormal];
     }else
@@ -238,7 +238,7 @@
     
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     button.layer.cornerRadius = 5;
-    button.backgroundColor = [UIColor colorWithRed:.27 green:0.82 blue:0.82 alpha:1.00];
+    button.backgroundColor = [UIColor colorWithRed:0.00 green:0.67 blue:0.65 alpha:1.00];
     [button addTarget:self action:@selector(onTousuButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
 }

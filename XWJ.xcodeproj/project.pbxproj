@@ -3328,7 +3328,7 @@
 				8E6CB2011C7FFCA900A8C53A /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DAC4AF391BF0619700D66E76 /* Build configuration list for PBXNativeTarget "XWJ" */ = {
 			isa = XCConfigurationList;
@@ -3338,7 +3338,7 @@
 				8E6CB2021C7FFCA900A8C53A /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DAC4AF3C1BF0619700D66E76 /* Build configuration list for PBXNativeTarget "XWJTests" */ = {
 			isa = XCConfigurationList;
@@ -3348,7 +3348,7 @@
 				8E6CB2031C7FFCA900A8C53A /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

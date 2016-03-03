@@ -140,26 +140,36 @@
     headIV.layer.cornerRadius = 35;
     headIV.layer.masksToBounds = YES;
     [headIV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[XWJAccount instance].headPhoto]] placeholderImage:[UIImage imageNamed:@"devAdv_default"]];
-    [cell addSubview:headIV];
+ //   [cell addSubview:headIV];
     
     UILabel* nameLable  = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(headIV.frame) + 10, WIDTH - 20, 12)];
     nameLable.textAlignment = NSTextAlignmentCenter;
     nameLable.font = [UIFont systemFontOfSize:12];
     nameLable.text = self.nickName;
-    [cell addSubview:nameLable];
+ //   [cell addSubview:nameLable];
     
-    UIButton* signBtn = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH/2 - 130, CGRectGetMaxY(nameLable.frame) + 50, 260, 50)];
+    UILabel * jifenLable  = [[UILabel alloc] initWithFrame:CGRectMake(10, [UIScreen mainScreen].bounds.size.height - 100 , WIDTH - 20, 12)];
+    jifenLable.textAlignment = NSTextAlignmentCenter;
+    jifenLable.font = [UIFont systemFontOfSize:14];
+    jifenLable.text = [NSString stringWithFormat:@"积分：%@",[XWJAccount instance].jifen];
+//    [cell addSubview:jifenLable];
+    [self.view addSubview:jifenLable];
+    
+//    UIButton* signBtn = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH/2 - 130, CGRectGetMaxY(nameLable.frame) + 50, 260, 50)];
+     UIButton* signBtn = [[UIButton alloc] initWithFrame:CGRectMake(WIDTH/2 - 130, [UIScreen mainScreen].bounds.size.height -70, 260, 50)];
     [signBtn addTarget:self action:@selector(signBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [signBtn setTitle:self.btnTitleStr forState:UIControlStateNormal];
     [signBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [signBtn setBackgroundColor:[self colorWithHexString:@"00aaa6"]];
     signBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    [cell addSubview:signBtn];
+ //   [cell addSubview:signBtn];
+    [self.view addSubview:signBtn];
 }
 #pragma mark - 签到
 - (void)signBtnClick{
     CLog(@"签到");
     [self createSignRequest];
+    [_tableView reloadData];
 }
 #pragma mark - tableView行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -174,7 +184,7 @@
             [cell configCellWithModel:model];
         }];
     }
-    return 200;
+    return 400;
 }
 #pragma mark - 广告数据请求
 - (void)createRequest{

@@ -450,12 +450,29 @@
         NSDictionary *dic = [self.tabledata objectAtIndex:indexPath.row];
         if ([dic objectForKey:@"sgrade"]&&[[NSString stringWithFormat:@"%@",[dic objectForKey:@"sgrade"]] isEqualToString:@"4"]) {
             XWJWebViewController *web= [[XWJWebViewController alloc] init];
-            web.url= [dic objectForKey:@"address"];
+          //  web.url= [dic objectForKey:@"address"];
             [self.navigationController showViewController:web sender:self];
 
         }else{
             XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
             list.dic = [self.tabledata objectAtIndex:indexPath.row];
+            NSLog(@"ddddd%@",list.dic);
+            NSDictionary * dict0 = @{@"aaa":@"11",@"bbb":@"22"};
+            NSMutableDictionary * mdict4 = [NSMutableDictionary dictionary];
+       //     [mdict4 setObject:@"\U9752\U5c9b\U5e02\U5e02\U5317\U533a\U9ed1\U9f99\U6c5f\U5357\U8def189\U53f7" forKey:@"address"];
+            [mdict4 setObject:@"387" forKey:@"id"];
+            [mdict4 setObject:@"http://admin.hisenseplus.com/ecmall/data/files/store_387/other/store_logo.jpg" forKey:@"logo"];
+            [mdict4 setObject:@"" forKey:@"prop"];
+            [mdict4 setObject:@"1" forKey:@"sgrade"];
+  //          [mdict4 setObject:@""\U6d77\U4fe1\U5bb6\U7535"" forKey:@"sname"];
+            [mdict4 setObject:@"65533" forKey:@"sorder"];
+            [mdict4 setObject:@"5" forKey:@"star"];
+            [mdict4 setObject:@"0" forKey:@"visits"];
+            
+            
+            NSLog(@"ddddd%@",dict0);
+            NSLog(@"ddddd%@",mdict4);
+
             [self.navigationController showViewController:list sender:self];
         }
     }else{

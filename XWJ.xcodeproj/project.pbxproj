@@ -74,6 +74,7 @@
 		8E82E50A1C48C3EC008D418B /* WuyeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E5091C48C3EC008D418B /* WuyeStoryboard.storyboard */; };
 		8E82E50C1C48C444008D418B /* XWJLoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */; };
 		8EB8CEA91C5C8A4100C20EAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB8CEA81C5C8A4100C20EAE /* AppDelegate.m */; };
+		8EE1392F1C88104D00E0B0C9 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1392E1C88104D00E0B0C9 /* Foundation+Log.m */; };
 		8EEB6E141C3134C9006F572D /* XWJMyFindViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */; };
 		8EEB6E151C3134C9006F572D /* XWJMyFindViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */; };
 		8EEB6E161C3134C9006F572D /* XWJMyFindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEB6E131C3134C9006F572D /* XWJMyFindViewController.m */; };
@@ -541,6 +542,7 @@
 		8E82E50B1C48C444008D418B /* XWJLoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XWJLoginStoryboard.storyboard; sourceTree = "<group>"; };
 		8EB8CEA81C5C8A4100C20EAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8EDADE3B1C72CA0100C57D90 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		8EE1392E1C88104D00E0B0C9 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 		8EEB6E0F1C3134C9006F572D /* XWJMyFindViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJMyFindViewCell.h; sourceTree = "<group>"; };
 		8EEB6E101C3134C9006F572D /* XWJMyFindViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJMyFindViewCell.m; sourceTree = "<group>"; };
 		8EEB6E111C3134C9006F572D /* XWJMyFindViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJMyFindViewCell.xib; sourceTree = "<group>"; };
@@ -1378,6 +1380,7 @@
 		8EDD31891C76B866008FCFB8 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				8EE1392E1C88104D00E0B0C9 /* Foundation+Log.m */,
 				A43929041C303A0E00572F70 /* Header.h */,
 				A43928FF1C3039DA00572F70 /* LocationPickerVC.h */,
 				A43929001C3039DA00572F70 /* LocationPickerVC.m */,
@@ -2898,6 +2901,7 @@
 				A41A1FED1C26F3F2002129DF /* XWJSHuoViewController.m in Sources */,
 				A43810D01C1FD135001D2F29 /* XWJButlerViewController.m in Sources */,
 				A41255751C0F39D20042D8CC /* SDWebImageCompat.m in Sources */,
+				8EE1392F1C88104D00E0B0C9 /* Foundation+Log.m in Sources */,
 				A45DCC091C447A0D001543CE /* XWJAddresCell.m in Sources */,
 				A4DC3CA71C1C8155003D4D18 /* XWJGZTableViewCell.m in Sources */,
 				A43C98241C140C16006A61EE /* XWJZFTableViewCell.m in Sources */,

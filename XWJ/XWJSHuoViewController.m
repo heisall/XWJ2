@@ -18,6 +18,7 @@
 #import "XWJGroupViewController.h"
 #import "XWJWebViewController.h"
 #import "XWJYouhuiController.h"
+#import "XWJMerDetailListController.h"
 #define PADDINGTOP 64.0
 @interface XWJSHuoViewController()<LCBannerViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     CGFloat typeBtnheight;
@@ -46,6 +47,8 @@
 
 @property UITableView *tableView;
 
+@property NSMutableArray *tabledata;
+
 @end
 
 @implementation XWJSHuoViewController
@@ -58,6 +61,7 @@
     array2 =[NSMutableArray array];
     array3 =[NSMutableArray array];
     array4 =[NSMutableArray array];
+    self.tabledata = [NSMutableArray array];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     scroll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
@@ -360,22 +364,53 @@
             }
         }
             break;
+//        case 3:
+//        {
+//            
+//            NSString *url;
+//            
+//            if (self.adrightArr&&self.adrightArr.count>0) {
+//                
+//                url= [[self.adrightArr objectAtIndex:0] valueForKey:@"url"];
+//                XWJWebViewController * web = [[XWJWebViewController alloc] init];
+//                web.url = url;
+//                [self.navigationController showViewController:web sender:nil];
+//                //                [self.navigationController sh:web animated:NO];
+//            }
+//            
+//        }
+//            break;
+            
         case 3:
         {
             
-            NSString *url;
+//            NSDictionary *dic = [self.tabledata objectAtIndex:indexPath.row];
+//            if ([dic objectForKey:@"sgrade"]&&[[NSString stringWithFormat:@"%@",[dic objectForKey:@"sgrade"]] isEqualToString:@"4"]) {
+//                XWJWebViewController *web= [[XWJWebViewController alloc] init];
+//                web.url= [dic objectForKey:@"address"];
+//                [self.navigationController showViewController:web sender:self];
+//                
+//            }else{
+            NSMutableDictionary * mdict4 = [NSMutableDictionary dictionary];
+            //     [mdict4 setObject:@"\U9752\U5c9b\U5e02\U5e02\U5317\U533a\U9ed1\U9f99\U6c5f\U5357\U8def189\U53f7" forKey:@"address"];
+            [mdict4 setObject:@"387" forKey:@"id"];
+//            [mdict4 setObject:@"http://admin.hisenseplus.com/ecmall/data/files/store_387/other/store_logo.jpg" forKey:@"logo"];
+//            [mdict4 setObject:@"" forKey:@"prop"];
+//            [mdict4 setObject:@"1" forKey:@"sgrade"];
+//            //          [mdict4 setObject:@""\U6d77\U4fe1\U5bb6\U7535"" forKey:@"sname"];
+//            [mdict4 setObject:@"65533" forKey:@"sorder"];
+//            [mdict4 setObject:@"5" forKey:@"star"];
+//            [mdict4 setObject:@"0" forKey:@"visits"];
+
+            XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
+            list.dic = mdict4;
             
-            if (self.adrightArr&&self.adrightArr.count>0) {
-                
-                url= [[self.adrightArr objectAtIndex:0] valueForKey:@"url"];
-                XWJWebViewController * web = [[XWJWebViewController alloc] init];
-                web.url = url;
-                [self.navigationController showViewController:web sender:nil];
-                //                [self.navigationController sh:web animated:NO];
-            }
-            
+            [self.navigationController showViewController:list sender:self];
+//            }
         }
             break;
+            
+            
         default:
             break;
     }
@@ -703,5 +738,46 @@
     [self.navigationController showViewController:list sender:self];
     
 }
+
+
+
+-(void)getMerList:(NSInteger)index{
+    NSString *url = GETSHLIST_URL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict setValue:[[self.thumbArr objectAtIndex:index] objectForKey:@"id"] forKey:@"cateId"];
+    [dict setValue:@"0" forKey:@"pageindex"];
+    [dict setValue:@"20" forKey:@"countperpage"];
+    
+    /*
+     pageindex	第几页	String,从0开始
+     countperpage	每页条数	String
+     cateId	商户分类	String
+     */
+    
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CLog(@"%s success ",__FUNCTION__);
+        
+        if(responseObject){
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            CLog(@"dic %@",dic);
+            self.tabledata = [dic objectForKey:@"data"]==[NSNull null]?nil:[dic objectForKey:@"data"];
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLog(@"%s fail %@",__FUNCTION__,error);
+        
+    }];
+}
+
+
+
+
+
+
 
 @end

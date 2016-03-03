@@ -9,9 +9,7 @@
 #import "RatingBar.h"
 #define ZOOM 0.8f
 @interface RatingBar()
-@property (nonatomic,strong) UIView *bottomView;
-@property (nonatomic,strong) UIView *topView;
-@property (nonatomic,assign) CGFloat starWidth;
+
 @end
 
 @implementation RatingBar
@@ -85,6 +83,7 @@
             _starNumber = count-1;
         }
     }
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"starNumber" object:nil userInfo:@{@"star":[NSString stringWithFormat:@"%ld",_starNumber]}];
     if([delegate respondsToSelector:@selector(setRating:isHuman:)]){
         [delegate setRating:_starNumber isHuman:YES];
     }

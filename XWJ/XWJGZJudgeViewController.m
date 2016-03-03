@@ -16,25 +16,32 @@
 @end
 
 @implementation XWJGZJudgeViewController
-
+{
+    UILabel *label;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title  = @"评价";
-    
-    _bar = [[RatingBar alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-200, 0, 180, 30)];
-    
-    
-    UILabel *label  = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_SIZE.width-70, 30, 40, 20)];
-    label.text = [NSString stringWithFormat:@"%ld分",self.bar.starNumber];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getStarNumber:) name:@"starNumber" object:nil];
+    _bar = [[RatingBar alloc] initWithFrame:CGRectMake(SCREEN_SIZE.width-230, 0, 180, 30)];
+
     _bar.backgroundColor = XWJColor(235.0, 237.0, 239.0);
+    
 
     self.content.text = self.miaoshu;
-    [self.rateView addSubview:label];
+    
     [self.rateView addSubview:_bar];
-
+    
+      label= [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_SIZE.width-60, 3, 700, 30)];
+    label.text = @"    分";
+    
+    [self.rateView addSubview:label];
 }
-
+- (void)getStarNumber:(NSNotification *)notif
+{
+     label.text = [NSString stringWithFormat:@"%@  分",notif.userInfo[@"star"]];
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //    self.jinchangScroll.frame = CGRectMake(self.jinchangScroll.frame.origin.x, self.jinchangScroll.frame.origin.y, SCREEN_SIZE.width, self.jinchangScroll.frame.size.height+30);

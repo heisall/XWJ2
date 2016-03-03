@@ -329,7 +329,7 @@ const float cellheight =  30.0;
 //    [orderIds deleteCharactersInRange:NSMakeRange(0, 1)];
 //    [orderIds appendString:@","];
     
-    if (self.listUnpayBtn.selected) {
+    if (self.listUnpayBtn.selected&&selection.count>0) {
         
         XWJPay3ViewController * pay3 = [self.storyboard instantiateViewControllerWithIdentifier:@"pay3"];
         

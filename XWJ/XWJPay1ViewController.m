@@ -13,9 +13,14 @@
 #import "CommonUtil.h"
 #import "ReturnIP.h"
 #import "ProgressHUD/ProgressHUD.h"
+#import "XWJPay3ViewController.h"
 @interface XWJPay1ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property NSArray *array;
-@property NSMutableArray *payListArr;
+@property NSArray *payListArr;
+
+@property NSMutableArray *selectListArr;
+
+
 @property NSMutableDictionary *roomDic;
 @property NSMutableArray *selection;
 
@@ -32,6 +37,8 @@
 
 @implementation XWJPay1ViewController
 const int payNum = 2;
+const float cellheight =  30.0;
+
 @synthesize selection;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +49,7 @@ const int payNum = 2;
     self.ipStr = [ReturnIP deviceIPAdress];
 
 //    [self getGuanjiaAD ];
-    self.payListArr = [[NSMutableArray alloc]init];
+    self.payListArr = [[NSArray alloc]init];
     self.navigationItem.title = @"物业账单";
     self.tabBarController.tabBar.hidden = YES;
     self.tableView.delegate = self;
@@ -154,6 +161,8 @@ const int payNum = 2;
 //获取详细的账单
 -(void)getZhangDanType:(NSString *) type{
     
+    
+    [ProgressHUD show:@""];
     selection = [NSMutableArray array];
     /*
      a_id	小区a_id
@@ -187,12 +196,13 @@ const int payNum = 2;
             if(responseObject){
             NSDictionary *dic = (NSDictionary *)responseObject;
             CLog(@"+++==dic%@",dic);
-            self.payListArr = [dic objectForKey:@"data"];
+            NSArray *arr = [dic objectForKey:@"data"];
                 
+            self.payListArr = [self fenlei:arr];
                 
             [self.tableView reloadData];
             self.totalLabel.text = @"";
-                if (self.payListArr.count>0) {
+            if (self.payListArr.count>0) {
 
 //                int count = self.payListArr.count/payNum;
 //                for (int i=0; i<count; i++) {
@@ -203,11 +213,38 @@ const int payNum = 2;
             }
                 CLog(@"dic ++++%@",self.payListArr);
             }
+            [ProgressHUD dismiss];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             CLog(@"%s fail %@",__FUNCTION__,error);
-            
+            [ProgressHUD dismiss];
         }];
+}
+
+-(NSArray *)fenlei:(NSArray *)array{
+    
+    if (!array||array.count==0) {
+        return nil;
+    }
+    NSMutableArray *retArr = [NSMutableArray array];
+    
+    NSString *date = [[array objectAtIndex:0] objectForKey:@"t_date"];
+    NSMutableArray *monthArr =  [NSMutableArray array];
+    for (NSDictionary *dic in array) {
+        
+        if ([date isEqualToString:[dic objectForKey:@"t_date"]]) {
+
+        }else{
+            [retArr addObject:monthArr];
+            monthArr = [NSMutableArray array];
+            date = [dic objectForKey:@"t_date"];
+        }
+        [monthArr addObject:dic];
+
+    }
+    [retArr addObject:monthArr];
+
+    return retArr;
 }
 
 #pragma mark - Table view data source
@@ -217,17 +254,21 @@ const int payNum = 2;
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80.0;
+    
+    NSArray *arr  = [self.payListArr objectAtIndex:indexPath.row];
+    CGFloat height  = arr.count*cellheight+20;
+    return height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     NSInteger count;
-    if (self.payListArr.count&&self.payListArr.count<payNum) {
-        count = 1;
-    }else{
-        count = (int)ceilf((float)self.payListArr.count/(float)payNum);
-    }
+//    if (self.payListArr.count&&self.payListArr.count<payNum) {
+//        count = 1;
+//    }else{
+//        count = (int)ceilf((float)self.payListArr.count/(float)payNum);
+//    }
+    count = self.payListArr.count;
     return count;
 }
 
@@ -240,8 +281,12 @@ const int payNum = 2;
         cell = [[XWJPay1TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pay1cell"];
     }
     
-    cell.selectionStyle = self.listUnpayBtn.selected?UITableViewCellSelectionStyleDefault: UITableViewCellSelectionStyleNone;
+//    cell.selectionStyle = self.listUnpayBtn.selected?UITableViewCellSelectionStyleDefault: UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     cell.selectImgView.hidden = !self.listUnpayBtn.selected;
+    
+    
     /*
      "a_id" = 1;
      "b_id" = 4;
@@ -254,28 +299,15 @@ const int payNum = 2;
      "t_sign" = 1;
      "t_thisdate" = "2015-07-31";
      */
-    cell.label1.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*payNum] valueForKey:@"t_date"]];
-    cell.label2.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*payNum] valueForKey:@"t_item"]];
-    cell.label3.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:indexPath.row*payNum] valueForKey:@"t_money"]];
     
-
-    NSUInteger payType1Count = indexPath.row*payNum+1;
-//    NSUInteger payType2Count = indexPath.row*payNum+2;
-
-    if (payType1Count>=self.payListArr.count) {
-        cell.label4.text = @"";
-        cell.label5.text = @"";
-        return cell;
-    }
-    cell.label4.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:payType1Count] valueForKey:@"t_item"]];
-    cell.label5.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:payType1Count] valueForKey:@"t_money"]];
+    NSArray *arr =  [self.payListArr objectAtIndex:indexPath.row];
+    BOOL hidden  = YES;
+    if(self.listAllBtn.selected&&([[[arr objectAtIndex:0]valueForKey:@"t_sign"] intValue]==0))
+        hidden = NO;
+        cell.unpayImaView.hidden = hidden;
     
-//    if (payType2Count>=self.payListArr.count) {
-//        return cell;
-//    }
-//    cell.label6.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:payType2Count] valueForKey:@"t_item"]];
-//    cell.label7.text = [NSString stringWithFormat:@"%@",[[self.payListArr objectAtIndex:payType2Count] valueForKey:@"t_money"]];
-
+    cell.label1.text = [NSString stringWithFormat:@"%@",[[arr objectAtIndex:0]valueForKey:@"t_date"]];
+    [cell setPaylist:[self.payListArr objectAtIndex:indexPath.row]];
     return cell;
 }
 
@@ -298,16 +330,29 @@ const int payNum = 2;
 //    [orderIds appendString:@","];
     
     if (self.listUnpayBtn.selected) {
-        NSString *totalPrice = [NSString stringWithFormat:@"%.2f",_totalPrice];
         
+        XWJPay3ViewController * pay3 = [self.storyboard instantiateViewControllerWithIdentifier:@"pay3"];
+        
+        pay3.headImage = self.userImageView.image;
+        pay3.zone = self.zoneLabel.text;
+        pay3.door = self.doorLabel.text;
+        pay3.totalPrice = [NSString stringWithFormat:@"%.2f",_totalPrice];
+        pay3.orderids = _orderIds;
+        pay3.selectListArr = self.selectListArr;
+        [self.navigationController pushViewController:pay3 animated:NO];
 
-        [self createPayRequest:_orderIds money:totalPrice];
+//        NSString *totalPrice = [NSString stringWithFormat:@"%.2f",_totalPrice];
+//        [self createPayRequest:_orderIds money:totalPrice];
     }
 
 }
 
 - (IBAction)qubuZD:(id)sender {
+    
     UIButton *btn = (UIButton *)sender;
+    if (btn.selected) {
+        return;
+    }
     btn.selected = !btn.selected;
     self.listUnpayBtn.selected = !btn.selected;
     
@@ -315,6 +360,10 @@ const int payNum = 2;
     [self getZhangDanType:nil];
 }
 - (IBAction)weijiao:(UIButton *)sender {
+    
+    if (sender.selected) {
+        return;
+    }
     sender.selected = !sender.selected;
     self.listAllBtn.selected = !sender.selected;
     [self getZhangDanType:@"0"];
@@ -329,10 +378,7 @@ const int payNum = 2;
         sender.selected = !sender.selected;
 
         NSInteger count;
-        if (self.payListArr.count&&self.payListArr.count<payNum) {
-            count = 1;
-        }else
-            count = self.payListArr.count/payNum;
+        count = self.payListArr.count;
         for (int i=0; i<count; i++) {
             
             if (sender.selected) {
@@ -485,6 +531,32 @@ const int payNum = 2;
     return signMD5;
 }
 
+-(void)countPrice2{
+    float total= 0;
+    
+    _orderIds = [NSMutableString new];
+    _selectListArr = [NSMutableArray new];
+    for (NSIndexPath *path in selection) {
+        
+        NSArray *arr  = [self.payListArr objectAtIndex:path.row];
+        [_selectListArr addObject:arr];
+        
+        for (NSDictionary *dic in arr) {
+            total =  total + [[dic objectForKey:@"t_money"] floatValue] ;
+            [_orderIds appendFormat:@",%@",[dic  objectForKey:@"id"]];
+            
+        }
+        
+
+    }
+    
+    if ([_orderIds hasPrefix:@","]) {
+        [_orderIds deleteCharactersInRange:NSMakeRange(0, 1)];
+    }
+    
+    _totalPrice = total;
+    self.totalLabel.text = [NSString stringWithFormat:@"￥%.2f",total];
+}
 -(void)countPrice{
     
     float total= 0;
@@ -535,13 +607,12 @@ const int payNum = 2;
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [selection addObject:indexPath];
-    //    UITableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
-    //    if (oneCell.accessoryType == UITableViewCellAccessoryNone) {
-    //        oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
-    //    } else
-    //        oneCell.accessoryType = UITableViewCellAccessoryNone;
     if (self.listUnpayBtn.selected ) {
-        [self countPrice];
+        XWJPay1TableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
+
+        oneCell.selectImgView.highlighted = YES;
+//        = UITableViewCellAccessoryNone;
+        [self countPrice2];
     }
     CLog(@"didSelectRowAtIndexPath %@",selection);
 }
@@ -557,7 +628,9 @@ const int payNum = 2;
     CLog(@"didDeselectRowAtIndexPath %@",selection);
     
     if (self.listUnpayBtn.selected ) {
-        [self countPrice];
+        XWJPay1TableViewCell *oneCell = [table cellForRowAtIndexPath: indexPath];
+        oneCell.selectImgView.highlighted = NO;
+        [self countPrice2];
     }
 }
 

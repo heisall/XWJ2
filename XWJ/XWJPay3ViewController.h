@@ -17,4 +17,11 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *payBtn;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+
+@property UIImage *headImage;
+@property NSString *zone;
+@property NSString *door;
+@property NSString *totalPrice;
+@property NSString *orderids;
+@property NSMutableArray *selectListArr;
 @end

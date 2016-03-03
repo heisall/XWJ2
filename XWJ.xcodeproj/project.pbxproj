@@ -132,6 +132,7 @@
 		A41A1FE71C267EBB002129DF /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A41A1FE51C267EBB002129DF /* ProgressHUD.m */; };
 		A41A1FEA1C26E236002129DF /* XWJWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41A1FE91C26E236002129DF /* XWJWebViewController.m */; };
 		A41A1FED1C26F3F2002129DF /* XWJSHuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41A1FEC1C26F3F2002129DF /* XWJSHuoViewController.m */; };
+		A428E0091C886B5900915A10 /* XWJInPay1TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A428E0081C886B5900915A10 /* XWJInPay1TableViewCell.m */; };
 		A42DA7C11C36856D00EF74C1 /* devAdv_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A42DA7C01C36856D00EF74C1 /* devAdv_default@2x.png */; };
 		A42DA7C31C37839F00EF74C1 /* XWJTuangouCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42DA7C21C37839F00EF74C1 /* XWJTuangouCell.xib */; };
 		A42DA7C91C37DD9000EF74C1 /* XWJGroupBuyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A42DA7C81C37DD9000EF74C1 /* XWJGroupBuyTableViewCell.m */; };
@@ -647,6 +648,8 @@
 		A41A1FE91C26E236002129DF /* XWJWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJWebViewController.m; sourceTree = "<group>"; };
 		A41A1FEB1C26F3F2002129DF /* XWJSHuoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJSHuoViewController.h; sourceTree = "<group>"; };
 		A41A1FEC1C26F3F2002129DF /* XWJSHuoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJSHuoViewController.m; sourceTree = "<group>"; };
+		A428E0071C886B5900915A10 /* XWJInPay1TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJInPay1TableViewCell.h; sourceTree = "<group>"; };
+		A428E0081C886B5900915A10 /* XWJInPay1TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWJInPay1TableViewCell.m; sourceTree = "<group>"; };
 		A42DA7C01C36856D00EF74C1 /* devAdv_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "devAdv_default@2x.png"; path = "../devAdv_default@2x.png"; sourceTree = "<group>"; };
 		A42DA7C21C37839F00EF74C1 /* XWJTuangouCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XWJTuangouCell.xib; sourceTree = "<group>"; };
 		A42DA7C71C37DD9000EF74C1 /* XWJGroupBuyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWJGroupBuyTableViewCell.h; sourceTree = "<group>"; };
@@ -1864,7 +1867,7 @@
 			path = SMS_SDK;
 			sourceTree = "<group>";
 		};
-		A488017B1C09F05300714F5B /* TabFactory */ = {
+		A488017B1C09F05300714F5B /* TabPresenter */ = {
 			isa = PBXGroup;
 			children = (
 				A48801841C09F41000714F5B /* ITabFactory.h */,
@@ -1881,7 +1884,7 @@
 				A48801A41C0A16FF00714F5B /* XWJTabBarItem.h */,
 				A48801A51C0A16FF00714F5B /* XWJTabBarItem.m */,
 			);
-			name = TabFactory;
+			name = TabPresenter;
 			sourceTree = "<group>";
 		};
 		A48801B01C0AE0E600714F5B /* Mine */ = {
@@ -1976,6 +1979,8 @@
 				A4F6DA101C50F3CE00C7AD83 /* XWJJifenController.m */,
 				A4F6DA121C50FD5200C7AD83 /* XWJJifenCell.h */,
 				A4F6DA131C50FD5200C7AD83 /* XWJJifenCell.m */,
+				A428E0071C886B5900915A10 /* XWJInPay1TableViewCell.h */,
+				A428E0081C886B5900915A10 /* XWJInPay1TableViewCell.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -2285,7 +2290,7 @@
 				A48801D01C0B5EB200714F5B /* Find */,
 				A48801C71C0B5C4C00714F5B /* Home */,
 				A48801B01C0AE0E600714F5B /* Mine */,
-				A488017B1C09F05300714F5B /* TabFactory */,
+				A488017B1C09F05300714F5B /* TabPresenter */,
 				A4F40BD41C098862006E2F19 /* BindHouse */,
 				DAC4AF191BF0619700D66E76 /* Supporting Files */,
 				8EDD31891C76B866008FCFB8 /* Other */,
@@ -2857,6 +2862,7 @@
 				A45DCC031C446BC7001543CE /* XWJAddressController.m in Sources */,
 				2126974D1C4777CC00F5DF7D /* IQTextView.m in Sources */,
 				ECDFB67C1C4E6F3E00163B8F /* ShouYe0TableViewCell.m in Sources */,
+				A428E0091C886B5900915A10 /* XWJInPay1TableViewCell.m in Sources */,
 				A41255791C0F39D20042D8CC /* SDWebImageManager.m in Sources */,
 				A43C97AA1C1297E1006A61EE /* LGPhotoPickerCollectionViewCell.m in Sources */,
 				A41255801C0F39D20042D8CC /* UIView+WebCacheOperation.m in Sources */,

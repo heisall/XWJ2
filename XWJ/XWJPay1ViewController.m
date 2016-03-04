@@ -31,7 +31,7 @@
 @property(nonatomic,copy)NSString* appid;
 @property(nonatomic,copy)NSString* parterid;
 
-@property float totalPrice;
+@property double totalPrice;
 @property NSMutableString* orderIds;
 @end
 
@@ -381,6 +381,7 @@ const float cellheight =  30.0;
 
         NSInteger count;
         count = self.payListArr.count;
+        NSLog(@"quanxuan arr count%d",count);
         for (int i=0; i<count; i++) {
             
             if (sender.selected) {
@@ -534,7 +535,7 @@ const float cellheight =  30.0;
 }
 
 -(void)countPrice2{
-    float total= 0;
+    double total= 0.00;
     
     _orderIds = [NSMutableString new];
     _selectListArr = [NSMutableArray new];
@@ -544,7 +545,7 @@ const float cellheight =  30.0;
         [_selectListArr addObject:arr];
         
         for (NSDictionary *dic in arr) {
-            total =  total + [[dic objectForKey:@"t_money"] floatValue] ;
+            total =  total + [[dic objectForKey:@"t_money"] doubleValue] ;
             [_orderIds appendFormat:@",%@",[dic  objectForKey:@"id"]];
             
         }
@@ -557,53 +558,10 @@ const float cellheight =  30.0;
     }
     
     _totalPrice = total;
-    self.totalLabel.text = [NSString stringWithFormat:@"￥%.2f",total];
+    NSLog(@"total price %f",_totalPrice);
+    self.totalLabel.text = [NSString stringWithFormat:@"￥%.2f",_totalPrice];
 }
--(void)countPrice{
-    
-    float total= 0;
-    
-    _orderIds = [NSMutableString new];
-    for (NSIndexPath *path in selection) {
-        
 
-        NSDictionary *dic1  = [self.payListArr objectAtIndex:path.row*payNum] ;
-        
-        NSUInteger payType1Count = path.row*payNum+1;
-//        NSUInteger payType2Count = path.row*payNum+2;
-        
-        NSDictionary *dic2 = nil;
-        if (payType1Count>=self.payListArr.count) {
-            
-        }else
-             dic2 = [self.payListArr objectAtIndex:path.row*payNum+1] ;
-        
-        
-        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue];
-        
-        if (dic2) {
-            [_orderIds appendFormat:@",%@,%@",[dic1  objectForKey:@"id"],[dic2  objectForKey:@"id"]];
-        }else
-            [_orderIds appendFormat:@",%@",[dic1  objectForKey:@"id"]];
-        
-//        NSDictionary *dic3;
-//        if (payType2Count >= self.payListArr.count) {
-//            
-//        }else
-//            dic3= [self.payListArr objectAtIndex:path.row*payNum+2] ;
-        
-//        total =  total + [[dic1  objectForKey:@"t_money"] floatValue] +[[dic2  objectForKey:@"t_money"] floatValue] +[[dic3  objectForKey:@"t_money"] floatValue];
-//        
-//        [_orderIds appendFormat:@",%@,%@,%@",[dic1  objectForKey:@"id"],[dic2  objectForKey:@"id"],[dic3  objectForKey:@"id"]];
-    }
-
-    if ([_orderIds hasPrefix:@","]) {
-        [_orderIds deleteCharactersInRange:NSMakeRange(0, 1)];
-    }
-
-    _totalPrice = total;
-    self.totalLabel.text = [NSString stringWithFormat:@"￥%.2f",total];
-}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

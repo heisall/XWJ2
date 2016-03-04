@@ -286,7 +286,9 @@ const float cellheight =  30.0;
     
     cell.selectImgView.hidden = !self.listUnpayBtn.selected;
     
-    
+    if ([selection containsObject:indexPath]) {
+        cell.selectImgView.highlighted = YES;
+    }
     /*
      "a_id" = 1;
      "b_id" = 4;

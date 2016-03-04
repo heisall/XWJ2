@@ -161,10 +161,10 @@
 }
 
 -(void)updateView{
-    self.guzhangDanhao.text = [NSString stringWithFormat:@"%@ %@",[self.detaildic objectForKey:@"createtime"],[self.detaildic objectForKey:@"code"]];
+    self.guzhangDanhao.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"code"]];
     self.connent.text  = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"miaoshu"]];
-    self.chuliRen.text = [NSString stringWithFormat:@"处理人：%@",[self.detaildic objectForKey:@"lwclr"]==[NSNull null]?@"":[self.detaildic objectForKey:@"lwclr"]];
-    self.shoujihao.text = [NSString stringWithFormat:@"手机号：%@",[self.detaildic objectForKey:@"lwpgsj"]==[NSNull null]?@"":[self.detaildic objectForKey:@"lwpgsj"]];
+//    self.chuliRen.text = [NSString stringWithFormat:@"处理人：%@",[self.detaildic objectForKey:@"lwclr"]==[NSNull null]?@"":[self.detaildic objectForKey:@"lwclr"]];
+//    self.shoujihao.text = [NSString stringWithFormat:@"手机号：%@",[self.detaildic objectForKey:@"lwpgsj"]==[NSNull null]?@"":[self.detaildic objectForKey:@"lwpgsj"]];
     self.timeLabel1.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime"]==[NSNull null]?@"":[self.detaildic objectForKey:@"yytime"]];
     self.timeLabel2.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"yytime1"]==[NSNull null]?@"":[self.detaildic objectForKey:@"yytime1"]];
     self.timeLabel3.text = [NSString stringWithFormat:@"%@",[self.detaildic objectForKey:@"gbtime"]==[NSNull null]?@"":[self.detaildic objectForKey:@"gbtime"]];

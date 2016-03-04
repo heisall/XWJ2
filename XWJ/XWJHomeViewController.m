@@ -1,4 +1,4 @@
-//
+ //
 //  XWJHomeViewController.m
 //  信我家
 //
@@ -425,8 +425,8 @@ NSArray *footer;
         
         XWJADViewController *acti= [[XWJADViewController alloc] init];
         acti.dic  = [self.shows objectAtIndex:index];
-        //        acti.type = [acti.dic valueForKey:@"Types"];
-        
+  //      acti.type = [acti.dic valueForKey:@"Types"];
+
         [self.navigationController showViewController:acti sender:nil];
     }
 }

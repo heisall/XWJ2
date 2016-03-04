@@ -34,6 +34,8 @@
 @property(nonatomic,retain)NSMutableArray* picturesArr;
 @property(nonatomic,retain)NSMutableArray* urlArr;
 @property(nonatomic,copy)NSString* btnTitleStr;
+@property NSMutableDictionary *dicuser;
+
 
 @end
 @interface SignViewController ()
@@ -41,6 +43,7 @@
 @end
 
 @implementation SignViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,11 +73,42 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self requestData];
     self.tabBarController.tabBar.hidden = YES;
 }
 - (void)viewWillDisappear:(BOOL)animated{
     self.tabBarController.tabBar.hidden = NO;
 }
+
+
+
+-(void)requestData{
+        NSString *url = LOGIN_URL;
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict setValue:[XWJAccount instance].account forKey:@"account"];
+        [dict setValue:[XWJAccount instance].password forKey:@"password"];
+        
+        
+        manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+        [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            CLog(@"%@",dic);
+            
+            if ([dic objectForKey:@"data"]!=[NSNull null]) {
+                
+                self.dicuser = [[dic objectForKey:@"data"] objectForKey:@"user"];
+                [XWJAccount instance].jifen = [self.dicuser valueForKey:@"jifen"];
+                [_tableView reloadData];
+            }
+
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            CLog(@"请求失败");
+        }];
+}
+
 #pragma mark - ShouYe0TableViewCellDelegate广告代理
 - (void)didselectADPic:(NSInteger)index{
     CLog(@"---点击了第%ld张---",(long)index);
@@ -231,6 +265,7 @@
               if ([[responseObject objectForKey:@"result"] intValue]) {
                   CLog(@"签到成功");
                   self.btnTitleStr = @"已签到";
+                  [self requestData];
                   [_tableView reloadData];
               }else{
                   CLog(@"------%@",responseObject[@"errorCode"]);

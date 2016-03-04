@@ -18,6 +18,7 @@
 #import "XWJAccount.h"
 #import "XWJWebViewController.h"
 #import "XWJUtil.h"
+#import "XWJMerDetailListController.h"
 
 @implementation XWJButlerViewController
 
@@ -63,6 +64,7 @@
             CLog(@"dic %@",dic);
             
             self.notices = [dic objectForKey:@"ads"];
+ //           NSLog(@"%@",self.notices);
             
             self.roomDic = [dic objectForKey:@"room"];
             
@@ -233,11 +235,31 @@
             NSString *url  = [[self.notices objectAtIndex:index] objectForKey:@"url"];
             web.url = url;
             [self.navigationController  showViewController:web sender:self];
+        }else if ([[[self.notices objectAtIndex:index] objectForKey:@"Types"] isEqualToString:@"内链"]){
+            XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
+            NSMutableDictionary * outLinkDic = [NSMutableDictionary dictionary];
+            [outLinkDic setObject:[NSString stringWithFormat:@"%@",[[self.notices objectAtIndex:index] objectForKey:@"Content"]] forKey:@"id"];
+            list.dic = outLinkDic;
+            NSLog(@"%@",self.notices);
+            [self.navigationController showViewController:list sender:self];
         }
     }
 }
 
+/**
+ if ([dic objectForKey:@"sgrade"]&&[[NSString stringWithFormat:@"%@",[dic objectForKey:@"sgrade"]] isEqualToString:@"4"]) {
+ XWJWebViewController *web= [[XWJWebViewController alloc] init];
+ web.url= [dic objectForKey:@"address"];
+ [self.navigationController showViewController:web sender:self];
+ 
+ }else{
+ XWJMerDetailListController *list= [[XWJMerDetailListController alloc] init];
+ list.dic = [self.tabledata objectAtIndex:indexPath.row];
+ 
+ [self.navigationController showViewController:list sender:self];
+ }
 
+ */
 
 
 @end

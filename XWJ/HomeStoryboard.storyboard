@@ -954,6 +954,7 @@
                         <outlet property="tableView" destination="he5-m8-ezf" id="hOA-zY-YEz"/>
                         <outlet property="totalLabel" destination="XEV-E5-e57" id="VDq-d4-ZBG"/>
                         <outlet property="userImageView" destination="xqE-i2-rz0" id="Fg3-Fl-9UG"/>
+                        <outlet property="xuanzeBtn" destination="uWI-45-C6l" id="lVs-tB-nwU"/>
                         <outlet property="zoneLabel" destination="D3t-fj-yau" id="PUW-uZ-Ux3"/>
                     </connections>
                 </viewController>
@@ -1323,7 +1324,7 @@
                                 </constraints>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATW-67-ZOe">
-                                <rect key="frame" x="59" y="631" width="257" height="36"/>
+                                <rect key="frame" x="59" y="626" width="257" height="36"/>
                                 <state key="normal" title="确认支付" backgroundImage="loginnext">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1355,7 +1356,7 @@
                             <constraint firstItem="hqQ-kb-CKY" firstAttribute="leading" secondItem="gG1-JD-lAC" secondAttribute="leadingMargin" constant="20" id="uG5-HK-qfX"/>
                             <constraint firstItem="Oaj-Mr-hCS" firstAttribute="centerX" secondItem="gG1-JD-lAC" secondAttribute="centerX" id="w1E-HG-9ai"/>
                             <constraint firstItem="NhW-EO-3Dd" firstAttribute="leading" secondItem="x9U-dR-9TS" secondAttribute="leading" id="y8w-IN-mRQ"/>
-                            <constraint firstItem="m0F-ZB-vXu" firstAttribute="top" secondItem="ATW-67-ZOe" secondAttribute="bottom" id="znk-hr-076"/>
+                            <constraint firstItem="m0F-ZB-vXu" firstAttribute="top" secondItem="ATW-67-ZOe" secondAttribute="bottom" constant="5" id="znk-hr-076"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

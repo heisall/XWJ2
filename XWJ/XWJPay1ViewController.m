@@ -353,8 +353,10 @@ const float cellheight =  30.0;
     
     UIButton *btn = (UIButton *)sender;
     if (btn.selected) {
+        
         return;
     }
+    self.xuanzeBtn.hidden = YES;
     btn.selected = !btn.selected;
     self.listUnpayBtn.selected = !btn.selected;
     
@@ -366,6 +368,8 @@ const float cellheight =  30.0;
     if (sender.selected) {
         return;
     }
+    self.xuanzeBtn.hidden = NO;
+    self.xuanzeBtn.selected = NO;
     sender.selected = !sender.selected;
     self.listAllBtn.selected = !sender.selected;
     [self getZhangDanType:@"0"];

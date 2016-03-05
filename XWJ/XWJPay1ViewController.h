@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *payBtn;
 @property (weak, nonatomic) IBOutlet UIButton *xuanzeBtn;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *zongjiLabel;
 @property (weak, nonatomic) IBOutlet UIButton *listUnpayBtn;
 @end

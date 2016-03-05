@@ -50,7 +50,11 @@
     self.cycleScrollView.pageDotColor = [UIColor whiteColor];
     self.cycleScrollView.placeholderImage = [UIImage imageNamed:@"devAdv_default"];
     self.cycleScrollView.autoScrollTimeInterval = 4.0;
+    self.cycleScrollView.contentMode  = UIViewContentModeCenter;
     NSArray *array = model.picArr;
+    if (array&&array.count==1) {
+        self.cycleScrollView.autoScroll = NO;
+    }
     self.cycleScrollView.imageURLStringsGroup = array;
 }
 #pragma mark - 轮滚点击代理

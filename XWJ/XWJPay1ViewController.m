@@ -85,6 +85,7 @@ const float cellheight =  30.0;
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:@"changeSuccess"];
 }
+
 -(void)changeSuccess{
     [self getGuanjiaAD];
 }
@@ -92,7 +93,11 @@ const float cellheight =  30.0;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    [self getGuanjiaAD ];
+    self.listUnpayBtn.selected = YES;
+    self.listAllBtn.selected = NO;
+    self.zongjiLabel.hidden = NO;
+    self.xuanzeBtn.hidden = NO;
+    [self getGuanjiaAD];
 
 }
 - (void)viewWillDisappear:(BOOL)animated{
@@ -146,7 +151,7 @@ const float cellheight =  30.0;
             }else{
                 self.zoneLabel.text = [self.roomDic objectForKey:@"A_name"];
                 self.doorLabel.text = [NSString stringWithFormat:@"%@号楼%@单元%@",[self.roomDic objectForKey:@"b_id"],[self.roomDic objectForKey:@"r_dy"],[self.roomDic objectForKey:@"r_id"]];
-                [self getZhangDanType:@"0"];
+                [self getZhangDanType:@"0" :NO];
             }
         }
         
@@ -159,7 +164,7 @@ const float cellheight =  30.0;
 
 }
 //获取详细的账单
--(void)getZhangDanType:(NSString *) type{
+-(void)getZhangDanType:(NSString *) type :(BOOL)fromAll{
     
     
     [ProgressHUD show:@""];
@@ -200,7 +205,19 @@ const float cellheight =  30.0;
                 
             self.payListArr = [self fenlei:arr];
                 
-            [self.tableView reloadData];
+                if (fromAll) {
+                    [self countTotal];
+                    XWJPay3ViewController * pay3 = [self.storyboard instantiateViewControllerWithIdentifier:@"pay3"];
+                    
+                    pay3.headImage = self.userImageView.image;
+                    pay3.zone = self.zoneLabel.text;
+                    pay3.door = self.doorLabel.text;
+                    pay3.totalPrice = [NSString stringWithFormat:@"%.2f",_totalPrice];
+                    pay3.orderids = _orderIds;
+                    pay3.selectListArr = self.selectListArr;
+                    [self.navigationController pushViewController:pay3 animated:NO];
+                }else
+                    [self.tableView reloadData];
             self.totalLabel.text = @"";
             if (self.payListArr.count>0) {
 
@@ -345,6 +362,8 @@ const float cellheight =  30.0;
 
 //        NSString *totalPrice = [NSString stringWithFormat:@"%.2f",_totalPrice];
 //        [self createPayRequest:_orderIds money:totalPrice];
+    }else if (self.listAllBtn.selected){
+        [self getZhangDanType:@"0" :YES];
     }
 
 }
@@ -353,16 +372,16 @@ const float cellheight =  30.0;
     
     UIButton *btn = (UIButton *)sender;
     if (btn.selected) {
-        
         return;
     }
     self.xuanzeBtn.hidden = YES;
     btn.selected = !btn.selected;
     self.listUnpayBtn.selected = !btn.selected;
     
-    
-    [self getZhangDanType:nil];
+    self.zongjiLabel.hidden = YES;
+    [self getZhangDanType:nil :NO];
 }
+
 - (IBAction)weijiao:(UIButton *)sender {
     
     if (sender.selected) {
@@ -372,7 +391,8 @@ const float cellheight =  30.0;
     self.xuanzeBtn.selected = NO;
     sender.selected = !sender.selected;
     self.listAllBtn.selected = !sender.selected;
-    [self getZhangDanType:@"0"];
+    self.zongjiLabel.hidden = NO;
+    [self getZhangDanType:@"0" :NO];
 
 }
 //全部选择按钮
@@ -536,6 +556,37 @@ const float cellheight =  30.0;
     // 打印检查
     CLog(@"*********2***********signMD5 = %@", signMD5);
     return signMD5;
+}
+
+
+-(void)countTotal{
+    double total= 0.00;
+    
+    _orderIds = [NSMutableString new];
+    _selectListArr = [NSMutableArray new];
+
+    for (int i = 0 ; i<self.payListArr.count; i++)
+    {
+        
+        NSArray *arr  = [self.payListArr objectAtIndex:i];
+        [_selectListArr addObject:arr];
+
+        
+        for (NSDictionary *dic in arr) {
+            total =  total + [[dic objectForKey:@"t_money"] doubleValue];
+            [_orderIds appendFormat:@",%@",[dic  objectForKey:@"id"]];
+            
+        }
+        
+    }
+    
+    if ([_orderIds hasPrefix:@","]) {
+        [_orderIds deleteCharactersInRange:NSMakeRange(0, 1)];
+    }
+    
+    _totalPrice = total;
+    NSLog(@"total price %f",_totalPrice);
+//    self.totalLabel.text = [NSString stringWithFormat:@"￥%.2f",_totalPrice];
 }
 
 -(void)countPrice2{

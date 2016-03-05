@@ -8,7 +8,9 @@
 
 #import "XWJBaseViewController.h"
 
-@interface XWJSPDetailViewController : XWJBaseViewController
+@interface XWJSPDetailViewController : XWJBaseViewController{
+    
+}
 @property NSString *goods_id;
 @property BOOL isFromJifen;
 @end

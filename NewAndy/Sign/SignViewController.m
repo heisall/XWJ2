@@ -125,6 +125,7 @@
     UIImageView *tableBg = [[UIImageView alloc] initWithImage:nil];
     tableBg.backgroundColor = [UIColor whiteColor];
     [_tableView setBackgroundView:tableBg];
+    
     //分割线类型
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
@@ -160,6 +161,7 @@
         model = [self.picturesArr objectAtIndex:indexPath.row];
         cell0.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell0 configCellWithModel:model];
+        cell0.contentMode = UIViewContentModeCenter;
         
         return cell0;
     }

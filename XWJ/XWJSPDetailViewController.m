@@ -20,7 +20,14 @@
 #import "XWJSPCommentController.h"
 #import "XWJWebViewController.h"
 #import "XWJImagesController.h"
-@interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
+@interface XWJSPDetailViewController ()<LCBannerViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>{
+    UIView *view1;
+    UIView *view2;
+    UIView *view3;
+    UIView *view4;
+
+    CGFloat height1;
+}
 @property UIScrollView *scrollView;
 
 @property UILabel *titleLabel;
@@ -64,6 +71,7 @@
     
     [self.view addSubview:scrollView];
     scrollView.contentSize = CGSizeMake(0, HEIGHT_VIEW1+HEIGHT_VIEW2+HEIGHT_VIEW3+20);
+    height1 = HEIGHT_VIEW1;
     [self addView];
     [self addView2];
     [self addView3];
@@ -94,19 +102,19 @@
 
 }
 -(void)addView4{
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+HEIGHT_VIEW2+HEIGHT_VIEW2+12, SCREEN_SIZE.width, HEIGHT_VIEW3)];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, height1+HEIGHT_VIEW2+HEIGHT_VIEW2+12, SCREEN_SIZE.width, HEIGHT_VIEW3)];
     
     tableView.backgroundColor = [UIColor whiteColor];
     [scrollView addSubview:tableView];
 }
 -(void)addView2{
  //   UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+10, SCREEN_SIZE.width, HEIGHT_VIEW2)];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+10, SCREEN_SIZE.width, HEIGHT_VIEW2)];
+    view2 = [[UIView alloc] initWithFrame:CGRectMake(0, height1+10, SCREEN_SIZE.width, HEIGHT_VIEW2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, (HEIGHT_VIEW2-20)/2, 100, 20)];
     shangpinImg = [[UIImageView alloc] initWithFrame:CGRectMake(80, 5, SCREEN_SIZE.width-4-160, HEIGHT_VIEW2)];
     label.text = @"商品信息";
     //    label.textColor = XWJGREENCOLOR;
-    view.backgroundColor = [UIColor whiteColor];
+    view2.backgroundColor = [UIColor whiteColor];
     
     UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(SCREEN_SIZE.width-110, (HEIGHT_VIEW2-30)/2, 100, 30);
@@ -114,16 +122,16 @@
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [btn addTarget:self action:@selector(shangpinClick:) forControlEvents:UIControlEventTouchUpInside];
     btn.tag= 0;
-    [view addSubview:btn];
-    [view addSubview:label];
+    [view2 addSubview:btn];
+    [view2 addSubview:label];
     //    [view addSubview:shangpinImg];
-    [scrollView addSubview:view];
+    [scrollView addSubview:view2];
 }
 -(void)addView3{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_VIEW1+HEIGHT_VIEW2+11, SCREEN_SIZE.width, HEIGHT_VIEW2)];
+    view3 = [[UIView alloc] initWithFrame:CGRectMake(0, height1+HEIGHT_VIEW2+11, SCREEN_SIZE.width, HEIGHT_VIEW2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, (HEIGHT_VIEW2-20)/2, 100, 20)];
     label.text = @"商品规格";
-    view.backgroundColor = [UIColor whiteColor];
+    view3.backgroundColor = [UIColor whiteColor];
     
     UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(SCREEN_SIZE.width-110, (HEIGHT_VIEW2-30)/2, 100, 30);
@@ -131,9 +139,9 @@
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [btn addTarget:self action:@selector(shangpinClick:) forControlEvents:UIControlEventTouchUpInside];
     btn.tag= 1;
-    [view addSubview:btn];
-    [view addSubview:label];
-    [scrollView addSubview:view];
+    [view3 addSubview:btn];
+    [view3 addSubview:label];
+    [scrollView addSubview:view3];
 }
 
 -(void)shangpinClick:(UIButton *)btn{
@@ -173,7 +181,7 @@
 }
 
 -(void)addView{
-    UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
+    view1  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, HEIGHT_VIEW1)];
 //    根据文字的大小和数量自定义label的高度的代码
     CGSize size = CGSizeMake(self.view.frame.size.width - 10,CGFLOAT_MAX);
     UIFont* theFont = [UIFont systemFontOfSize:14];
@@ -206,16 +214,16 @@
     youhuLabel.textColor = XWJColor(140, 0, 0);
     shichangjiaLabel.textColor = XWJGRAYCOLOR;
     xiaoliangLabel.textColor = XWJGRAYCOLOR;
-    view.backgroundColor = [UIColor whiteColor];
+    view1.backgroundColor = [UIColor whiteColor];
     
-    [view addSubview:label];
-    [view addSubview:youhuLabel];
-    [view addSubview:shichangjiaLabel];
-    [view addSubview:xiaoliangLabel];
-    [view addSubview:contentLabel];
-    [view addSubview:adView];
+    [view1 addSubview:label];
+    [view1 addSubview:youhuLabel];
+    [view1 addSubview:shichangjiaLabel];
+    [view1 addSubview:xiaoliangLabel];
+    [view1 addSubview:contentLabel];
+    [view1 addSubview:adView];
     //    [view addSubview:dianpuBtn];
-    [view addSubview:titleLabel];
+    [view1 addSubview:titleLabel];
     youhuLabel.text = @"￥ 80";
     shichangjiaLabel.text = @"市场价 :";
     xiaoliangLabel.text = @"销量： 100";
@@ -224,7 +232,7 @@
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(50, shichangjiaLabel.bounds.size.height/2, shichangjiaLabel.bounds.size.width-65, 1)];
     line.backgroundColor =[UIColor lightGrayColor];
     [shichangjiaLabel addSubview:line];
-    [scrollView addSubview:view];
+    [scrollView addSubview:view1];
 }
 
 #pragma mark - Table view data source
@@ -469,6 +477,19 @@
     contentLabel.frame = CGRectMake(contentLabel.frame.origin.x
                                     , contentLabel.frame.origin.y, contentLabel.frame.size.width, labelSize.height);
     contentLabel.text = desc;
+    
+    view1.frame = CGRectMake(view1.frame.origin.x
+                             , view1.frame.origin.y, view1.frame.size.width, contentLabel.frame.origin.y+contentLabel.frame.size.height);
+    
+    height1 = view1.frame.size.height;
+    
+    view2.frame = CGRectMake(0, height1+10, SCREEN_SIZE.width, HEIGHT_VIEW2);
+    view3.frame = CGRectMake(0, height1+HEIGHT_VIEW2+11, SCREEN_SIZE.width, HEIGHT_VIEW2);
+    tableView.frame = CGRectMake(0, height1+HEIGHT_VIEW2+HEIGHT_VIEW2+12, SCREEN_SIZE.width, HEIGHT_VIEW3);
+    scrollView.contentSize = CGSizeMake(0, height1+HEIGHT_VIEW2+HEIGHT_VIEW3+20);
+//    [view2 setNeedsDisplay];
+//    [view3 setNeedsDisplay];
+
     [self addBottomBtn];
     NSString * prop = [self.goodsDic objectForKey:@"description"]==[NSNull null]?nil:[self.goodsDic objectForKey:@"description"] ;
     
@@ -501,7 +522,7 @@
             }
             
             [tableView reloadData];
-            scrollView.contentSize  = CGSizeMake(0, HEIGHT_VIEW1+100+tableView.frame.size.height);
+            scrollView.contentSize  = CGSizeMake(0, height1+100+tableView.frame.size.height);
         }
     }
     

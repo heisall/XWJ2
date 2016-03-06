@@ -36,7 +36,7 @@
 }
 - (void)makeUI{
     //网络加载 --- 创建带标题的图片轮播器
-    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width/2) imageURLStringsGroup:nil]; // 模拟网络延时情景
+    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width*5/4) imageURLStringsGroup:nil]; // 模拟网络延时情景
     [self.contentView addSubview:self.cycleScrollView];
     // 必须加上这句
     self.hyb_lastViewInCell = self.cycleScrollView;
@@ -48,9 +48,8 @@
     self.cycleScrollView.delegate = self;
     self.cycleScrollView.currentPageDotColor = [UIColor blackColor]; // 自定义分页控件小圆标颜色
     self.cycleScrollView.pageDotColor = [UIColor whiteColor];
-    self.cycleScrollView.placeholderImage = [UIImage imageNamed:@"devAdv_default"];
+//    self.cycleScrollView.placeholderImage = [UIImage imageNamed:@"devAdv_default"];
     self.cycleScrollView.autoScrollTimeInterval = 4.0;
-    self.cycleScrollView.contentMode  = UIViewContentModeCenter;
     NSArray *array = model.picArr;
     if (array&&array.count==1) {
         self.cycleScrollView.autoScroll = NO;

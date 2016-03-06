@@ -119,7 +119,7 @@
 #pragma mark - 初始化tableView
 - (void)createTableView{
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 69, self.view.frame.size.width, self.view.frame.size.height-69) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-69) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     UIImageView *tableBg = [[UIImageView alloc] initWithImage:nil];
@@ -184,7 +184,7 @@
     nameLable.text = self.nickName;
  //   [cell addSubview:nameLable];
     
-    UILabel * jifenLable  = [[UILabel alloc] initWithFrame:CGRectMake(10, [UIScreen mainScreen].bounds.size.height - 100 , WIDTH - 20, 12)];
+    UILabel * jifenLable  = [[UILabel alloc] initWithFrame:CGRectMake(10, [UIScreen mainScreen].bounds.size.height - 95 , WIDTH - 20, 12)];
     jifenLable.textAlignment = NSTextAlignmentCenter;
     jifenLable.font = [UIFont systemFontOfSize:14];
     jifenLable.text = [NSString stringWithFormat:@"积分：%@",[XWJAccount instance].jifen];

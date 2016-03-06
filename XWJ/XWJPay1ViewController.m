@@ -54,7 +54,7 @@ const float cellheight =  30.0;
     self.tabBarController.tabBar.hidden = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-
+    
     self.listUnpayBtn.selected = YES;
     selection = [NSMutableArray array];
     self.array = [NSArray arrayWithObjects:@"青岛市",@"海信花园",@"1号楼1单元101户",@"", nil];
@@ -97,6 +97,8 @@ const float cellheight =  30.0;
     self.listAllBtn.selected = NO;
     self.zongjiLabel.hidden = NO;
     self.xuanzeBtn.hidden = NO;
+    self.xuanzeBtn.selected = NO;
+
     [self getGuanjiaAD];
 
 }
@@ -364,6 +366,8 @@ const float cellheight =  30.0;
 //        [self createPayRequest:_orderIds money:totalPrice];
     }else if (self.listAllBtn.selected){
         [self getZhangDanType:@"0" :YES];
+    }else{
+        [ProgressHUD showError:@"请选择一个或多个未缴账单！"];
     }
 
 }

@@ -175,7 +175,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     if(indexPath.section == 0){
         
     }
@@ -227,7 +226,7 @@
     NSString *prePayid;
     prePayid = self.prePayIdStr;
     //---------------------------获取prePayId结束------------------------------
-    
+
     if(prePayid){
         NSString *timeStamp = [self genTimeStamp];
         // 调起微信支付

@@ -465,7 +465,8 @@
         youhuLabel.text = [NSString stringWithFormat:@"￥ %.2f",[[self.goodsDic valueForKey:@"price"]floatValue ]];
     
     shichangjiaLabel.text = [NSString stringWithFormat:@"市场价: ￥%.2f",[[self.goodsDic valueForKey:@"old_price"] floatValue] ];
-    xiaoliangLabel.text = [NSString stringWithFormat:@"销量：%@",[self.goodsDic objectForKey:@"sales"]];
+//    xiaoliangLabel.text = [NSString stringWithFormat:@"销量：%@",[self.goodsDic objectForKey:@"sales"]];
+    xiaoliangLabel.text = @"";
     titleLabel.text = [self.goodsDic objectForKey:@"goods_name"];
     //    simple_desc
     

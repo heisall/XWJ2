@@ -117,7 +117,7 @@
     view2.backgroundColor = [UIColor whiteColor];
     
     UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(SCREEN_SIZE.width-110, (HEIGHT_VIEW2-30)/2, 100, 30);
+    btn.frame = CGRectMake(0, (HEIGHT_VIEW2-30)/2, SCREEN_SIZE.width - 10, 30);
     [btn setImage:[UIImage imageNamed:@"next2"] forState:UIControlStateNormal];
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [btn addTarget:self action:@selector(shangpinClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -134,7 +134,7 @@
     view3.backgroundColor = [UIColor whiteColor];
     
     UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(SCREEN_SIZE.width-110, (HEIGHT_VIEW2-30)/2, 100, 30);
+    btn.frame = CGRectMake(0, (HEIGHT_VIEW2-30)/2, SCREEN_SIZE.width - 10, 30);
     [btn setImage:[UIImage imageNamed:@"next2"] forState:UIControlStateNormal];
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [btn addTarget:self action:@selector(shangpinClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -255,7 +255,7 @@
     headerLabel.font = [UIFont systemFontOfSize:14];
     
     UIButton *btn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(SCREEN_SIZE.width-110, (HEIGHT_VIEW2-30)/2, 100, 30);
+    btn.frame = CGRectMake(0, (HEIGHT_VIEW2-30)/2, SCREEN_SIZE.width - 10, 30);
     [btn setImage:[UIImage imageNamed:@"next2"] forState:UIControlStateNormal];
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [btn addTarget:self action:@selector(shangpinClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -548,7 +548,7 @@
     if(URLs&&URLs.count>0)
         [self.adView addSubview:({
             
-            LCBannerView *bannerView = [[LCBannerView alloc]initWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width-80,
+            LCBannerView *bannerView = [[LCBannerView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
                                                                                      self.adView.bounds.size.height)
                                         
                                                                  delegate:self

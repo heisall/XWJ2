@@ -154,7 +154,7 @@
     NSInteger count = 4;
     CGFloat width = self.view.bounds.size.width/4;
     CGFloat height = 50;
-    CGFloat btny = self.adView.frame.origin.y+self.adView.bounds.size.height+10;
+    CGFloat btny = self.adView.frame.origin.y+self.adView.bounds.size.height +1;
     NSArray * title = [NSArray arrayWithObjects:@"上门",@"商户",@"食品",@"家装", nil];
     for (int i=0; i<count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

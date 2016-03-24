@@ -601,6 +601,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
         CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
@@ -682,6 +683,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){
@@ -764,6 +766,7 @@ typedef NS_ENUM(NSUInteger, selecttype) {
     
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     [manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
         CLog(@"%s success ",__FUNCTION__);
         
         if(responseObject){

@@ -25,7 +25,7 @@ static NSString *kheaderIdentifier = @"headerIdentifier";
     [self.adScrollView addSubview:({
         
         LCBannerView *bannerView = [LCBannerView bannerViewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-                                                                                self.adScrollView.bounds.size.height)
+                                                                                self.adScrollView.bounds.size.height )
                                     
                                                             delegate:self
                                                            imageURLs:URLs

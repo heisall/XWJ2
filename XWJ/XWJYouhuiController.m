@@ -63,7 +63,7 @@
         NSDictionary *dic = [ads objectAtIndex:i];
         NSString *url =   [dic objectForKey:@"Photo"];
         
-        UIImageView * iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, i*(height+5), self.scrollView.bounds.size.width, height)];
+        UIImageView * iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, i*(height+15), self.scrollView.bounds.size.width, height)];
         iv.userInteractionEnabled = YES;
         UITapGestureRecognizer* singleRecognizer;
         singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];

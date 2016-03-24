@@ -78,6 +78,7 @@
      } ];
     CLog(@"%@", address);
     return address ? address : @"0.0.0.0";
+
 }
 
 + (NSDictionary *)getIPAddresses

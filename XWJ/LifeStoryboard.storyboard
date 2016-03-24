@@ -17,14 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oyT-FX-nhW">
-                                <rect key="frame" x="0.0" y="20" width="600" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Nra-w7-BuT"/>
-                                </constraints>
-                            </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1F5-Tg-d1X">
-                                <rect key="frame" x="0.0" y="220" width="600" height="380"/>
+                                <rect key="frame" x="0.0" y="228" width="600" height="372"/>
                                 <color key="backgroundColor" red="0.90980392160000001" green="0.91764705879999997" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uVy-28-5by">
                                     <size key="itemSize" width="50" height="50"/>
@@ -44,6 +38,12 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oyT-FX-nhW">
+                                <rect key="frame" x="0.0" y="20" width="600" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="Nra-w7-BuT"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -51,7 +51,7 @@
                             <constraint firstItem="oyT-FX-nhW" firstAttribute="width" secondItem="I3p-q0-h6F" secondAttribute="width" id="DBs-or-tRZ"/>
                             <constraint firstItem="Jjb-4h-UZe" firstAttribute="top" secondItem="1F5-Tg-d1X" secondAttribute="bottom" id="PiE-Ny-Az5"/>
                             <constraint firstItem="1F5-Tg-d1X" firstAttribute="width" secondItem="I3p-q0-h6F" secondAttribute="width" id="aof-9i-fQG"/>
-                            <constraint firstItem="1F5-Tg-d1X" firstAttribute="top" secondItem="oyT-FX-nhW" secondAttribute="bottom" id="dfH-Xx-z3K"/>
+                            <constraint firstItem="1F5-Tg-d1X" firstAttribute="top" secondItem="oyT-FX-nhW" secondAttribute="bottom" constant="-8" id="dfH-Xx-z3K"/>
                             <constraint firstItem="1F5-Tg-d1X" firstAttribute="centerX" secondItem="I3p-q0-h6F" secondAttribute="centerX" id="eKi-Fn-4G9"/>
                             <constraint firstItem="oyT-FX-nhW" firstAttribute="centerX" secondItem="I3p-q0-h6F" secondAttribute="centerX" id="tRM-ys-6uA"/>
                         </constraints>

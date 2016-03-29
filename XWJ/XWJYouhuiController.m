@@ -67,6 +67,7 @@
         iv.userInteractionEnabled = YES;
         UITapGestureRecognizer* singleRecognizer;
         singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+        iv.tag = i ;
         //点击的次数
         singleRecognizer.numberOfTapsRequired = 1;
         [iv addGestureRecognizer:singleRecognizer];
@@ -79,9 +80,11 @@
 -(void)singleTap:(UITapGestureRecognizer *)btn{
     NSInteger index = btn.view.tag;
     
+    NSLog(@"计数%ld",index);
+    
     XWJWebViewController *web = [[XWJWebViewController alloc] init];
     web.url  = [[ads objectAtIndex:index] objectForKey:@"url"];
-    [self.navigationController pushViewController:web animated:NO];
+    [self.navigationController pushViewController:web animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

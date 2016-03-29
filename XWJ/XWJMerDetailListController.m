@@ -50,12 +50,14 @@
 //    [self getShuoMore];
     
 //        _adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
-    scroll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
+    scroll  =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height )];
+    
     self.navigationItem.title = @"商品列表";
 
     self.adView =[[UIView alloc] initWithFrame:CGRectMake(0, PADDINGTOP, SCREEN_SIZE.width, SCREEN_SIZE.height/4)];
 
 //    self.adView.backgroundColor =[UIColor blackColor];
+    
     [scroll addSubview:self.adView];
     
 //添加返回按钮
@@ -176,13 +178,13 @@
         [dict setValue:[self.dic objectForKey:@"id"] forKey:@"store_id"];
     switch (type) {
         case 0:
-            [dict setValue:@"0" forKey:@"zx"];
+            [dict setValue:@"1" forKey:@"zx"];
             break;
         case 1:
-            [dict setValue:@"0" forKey:@"xl"];
+            [dict setValue:@"1" forKey:@"xl"];
             break;
         case 2:
-            [dict setValue:@"0" forKey:@"jg"];
+            [dict setValue:@"1" forKey:@"jg"];
             break;
         default:
             break;
@@ -330,13 +332,13 @@
         [dict setValue:[self.dic objectForKey:@"id"] forKey:@"store_id"];
     switch (type) {
         case 0:
-            [dict setValue:@"0" forKey:@"zx"];
+            [dict setValue:@"1" forKey:@"zx"];
             break;
         case 1:
-            [dict setValue:@"0" forKey:@"xl"];
+            [dict setValue:@"1" forKey:@"xl"];
             break;
         case 2:
-            [dict setValue:@"0" forKey:@"jg"];
+            [dict setValue:@"1" forKey:@"jg"];
             break;
         default:
             break;

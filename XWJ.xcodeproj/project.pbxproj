@@ -292,7 +292,7 @@
 		A4DC3C811C1BDC63003D4D18 /* XWJCZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DC3C801C1BDC63003D4D18 /* XWJCZViewController.m */; };
 		A4DC3C841C1C0D82003D4D18 /* XWJNewHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DC3C831C1C0D82003D4D18 /* XWJNewHouseDetailViewController.m */; };
 		A4DC3C871C1C1133003D4D18 /* XWJNewHouseInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DC3C861C1C1133003D4D18 /* XWJNewHouseInfoViewController.m */; };
-		A4DC3C8A1C1C4FB8003D4D18 /* GuzhanStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DC3C891C1C4FB8003D4D18 /* GuzhanStoryboard.storyboard */; };
+		A4DC3C8A1C1C4FB8003D4D18 /* GuzhanStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DC3C891C1C4FB8003D4D18 /* GuzhanStoryboard.storyboard */; settings = {ASSET_TAGS = (1222, ); }; };
 		A4DC3C8D1C1C505B003D4D18 /* XWJGuzhangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DC3C8C1C1C505B003D4D18 /* XWJGuzhangViewController.m */; };
 		A4DC3C901C1C5084003D4D18 /* XWJGZmiaoshuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DC3C8F1C1C5084003D4D18 /* XWJGZmiaoshuViewController.m */; };
 		A4DC3C931C1C5096003D4D18 /* XWJGZaddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DC3C921C1C5096003D4D18 /* XWJGZaddViewController.m */; };
@@ -2589,6 +2589,8 @@
 			isa = PBXProject;
 			attributes = {
 				KnownAssetTags = (
+					1221,
+					1222,
 					1995,
 				);
 				LastUpgradeCheck = 0710;

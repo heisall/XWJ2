@@ -255,7 +255,7 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[self.dic valueForKey:@"id"]  forKey:@"id"];
     [dict setValue:@"0" forKey:@"pageindex"];
-    [dict setValue:@"5" forKey:@"countperpage"];
+    [dict setValue:@"10" forKey:@"countperpage"];
     
     CLog(@"______%@",self.dic);
     //    [dict setValue:[XWJAccount instance].uid forKey:@"userid"];
@@ -321,9 +321,9 @@
                     CLog(@"%@",self.dic);
                     [self initView];
                 }
-                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
+                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 130.0*self.array.count);
                 [self.tableView reloadData];
-                self.scrollView.contentSize = CGSizeMake(0,self.phraseBtn.frame.origin.y +60+100*self.array.count);
+                self.scrollView.contentSize = CGSizeMake(0,self.phraseBtn.frame.origin.y +60+130*self.array.count);
                 
             }
             
@@ -409,9 +409,9 @@
                     CLog(@"%@",self.dic);
                     [self initView];
                 }
-                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 100.0*self.array.count+120);
+                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, 130.0*self.array.count);
                 [self.tableView reloadData];
-                self.scrollView.contentSize = CGSizeMake(0,self.phraseBtn.frame.origin.y +60+100*self.array.count);
+                self.scrollView.contentSize = CGSizeMake(0,self.phraseBtn.frame.origin.y +60+130*self.array.count);
                 
             }
             
@@ -492,9 +492,7 @@
                 time = MAXFLOAT;
             }
             
-            LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,
-                                                                                      self.imageView.bounds.size.height)
-                                        
+            LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, 0, self.imageView.bounds.size.width,self.imageView.bounds.size.height)
                                                                   delegate:self
                                                                  imageURLs:url
                                                           placeholderImage:nil
@@ -518,7 +516,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100.0;
+    return 130.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

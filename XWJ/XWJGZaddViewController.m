@@ -39,8 +39,12 @@
     
     if (self.type == 1) {
         self.navigationItem.title = @"报修";
+        UILabel *labe = [self.view viewWithTag:12222];
+        labe.text = @"五点半后报修请拨打电话";
     }else{
         self.navigationItem.title = @"投诉";
+        UILabel *labe = [self.view viewWithTag:12222];
+        labe.text = @"五点半以后的投诉于第二天回复";
     }
     for (int i = 0; i<IMAGECOUNT; i++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*(IMAGE_WIDTH+spacing), 0,IMAGE_WIDTH, IMAGE_WIDTH)];
@@ -54,6 +58,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self createLabel];
 }
+
+
 
 -(void)createLabel{
     
@@ -334,6 +340,11 @@
         [alert show];
         
     }else{
+        UIButton *button  = [self.view viewWithTag:12221];
+        button.backgroundColor = [UIColor redColor];
+        NSLog(@"%ld",button.tag);
+        button.enabled = NO;
+        button.backgroundColor = [UIColor redColor];
         [ProgressHUD show:@"正在发布" Interaction:YES];
         
         [self.guzhangTV resignFirstResponder];
